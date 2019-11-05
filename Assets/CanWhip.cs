@@ -7,6 +7,8 @@ public class CanWhip : MonoBehaviour
     public PlayerController player;
     public Transform whipPosition;
     public Animator whipAnimation;
+    public int whipSide;
+    private bool isOnMyWhip = false;
 
     // Start is called before the first frame update
     void Start()
@@ -17,19 +19,34 @@ public class CanWhip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.onWhip == true)
+        if (player.onWhip == true && isOnMyWhip)
         {
             player.transform.position = whipPosition.position;
         }
         else
         {
-            whipAnimation.SetBool("Whip", false);
+            if (whipSide == 1)
+            {
+                whipAnimation.SetBool("Whip", false);
+            }
+            else
+            {
+                whipAnimation.SetBool("WhipR", false);
+            }
         }
 
         if (Input.GetButtonDown("Jump"))
         {
+            isOnMyWhip = false;
             player.onWhip = false;
-            whipAnimation.SetBool("Whip", false);
+            if (whipSide == 1)
+            {
+                whipAnimation.SetBool("Whip", false);
+            }
+            else
+            {
+                whipAnimation.SetBool("WhipR", false);
+            }            
             player.Jump();
         }
     }
@@ -38,13 +55,29 @@ public class CanWhip : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            player.onWhip = true;
+            if (player.onWhip == true)
+            {
 
-            whipAnimation.SetBool("Whip" ,true);
+            }
+            else
+            {
+                isOnMyWhip = true;
+                player.onWhip = true;
+
+                if (whipSide == 1)
+                {
+                    whipAnimation.SetBool("Whip", true);
+                }
+                else
+                {
+                    whipAnimation.SetBool("WhipR", true);
+                }
+            }
+           
         }
     }
 
-    private void OnTriggerExit(Collider other)
+   /* private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -52,5 +85,5 @@ public class CanWhip : MonoBehaviour
 
             whipAnimation.SetBool("Whip", false);
         }
-    }
+    }*/
 }
