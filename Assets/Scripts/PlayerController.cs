@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Climbing climbinDirection = Climbing.NONE;
     [SerializeField] float speedClimbing;
 
+    public bool onWhip;
+
     enum Climbing
     {
         NONE,
@@ -105,8 +107,7 @@ public class PlayerController : MonoBehaviour
         #region Jump
         if (grounded && Input.GetButtonDown("Jump") && onLadder == false)
         {
-            grounded = false;
-            myRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            Jump();
         }
         #endregion
         ///Whip
@@ -206,7 +207,12 @@ public class PlayerController : MonoBehaviour
 
         myRB.MovePosition(transform.position + (climbDirection * speedClimbing * Time.deltaTime));
     }
-
+    /// /////////////////----JUMP
+    public void Jump()
+    {
+        grounded = false;
+        myRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    }
     /// /////////////////---- CAMERA DIRECTION 
     void CamDirection()
     {
