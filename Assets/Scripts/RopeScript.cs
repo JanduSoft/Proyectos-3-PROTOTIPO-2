@@ -86,9 +86,10 @@ public class RopeScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("WrapPoint"))
+        if (other.CompareTag("WhipPoint"))
         {
-            myObjective = other.transform;
+            destiny = other.transform.position;
+
         }
     }
 }

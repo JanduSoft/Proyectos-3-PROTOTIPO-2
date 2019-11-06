@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour
     /// /////////////////----FIXED UPDATE
     private void FixedUpdate()
     {
-        if (!onLadder)
+        if (!onLadder && !onWhip)
         {
             MoveCharacter(playerDirection);
         }
