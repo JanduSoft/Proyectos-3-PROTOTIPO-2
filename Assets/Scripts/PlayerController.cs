@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Climbing climbinDirection = Climbing.NONE;
     [SerializeField] float speedClimbing;
 
-    public bool onWhip;
+    public bool onWhip = false;
 
     enum Climbing
     {
@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
         #endregion
         ///Jump
         #region Jump
-        if (grounded && Input.GetButtonDown("Jump") && onLadder == false)
+        if (grounded && Input.GetButtonDown("Jump") && onLadder == false )
         {
             Jump();
         }
@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
         #region Whip
         if (Input.GetMouseButtonDown(0))
         {            
-            Destroy(Instantiate(whip, whipHandler.position, transform.rotation), 0.2f);            
+            //Destroy(Instantiate(whip, whipHandler.position, transform.rotation), 0.2f);            
         }
         #endregion
         //Ladder
@@ -173,7 +173,11 @@ public class PlayerController : MonoBehaviour
     /// /////////////////----MOVE CHARACTER
     void MoveCharacter(Vector3 _direction)
     {
-        myRB.MovePosition(transform.position + (_direction * 10 * Time.deltaTime));
+        if (onWhip == false)
+        {
+            myRB.MovePosition(transform.position + (_direction * 10 * Time.deltaTime));
+        }
+        
     }
     /// /////////////////----MOVE CHARACTER
     void ClimbLadder()

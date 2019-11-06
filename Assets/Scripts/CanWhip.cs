@@ -47,7 +47,7 @@ public class CanWhip : MonoBehaviour
             {
                 whipAnimation.SetBool("WhipR", false);
             }            
-            player.Jump();
+           //player.Jump();
         }
     }
 
