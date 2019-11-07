@@ -27,6 +27,15 @@ public class SwitchController : MonoBehaviour
     [SerializeField] GameObject light_2;
     [SerializeField] GameObject light_3;
 
+    [SerializeField] GameObject wallLight_1;
+
+    [SerializeField] GameObject wallLight_2;
+    [SerializeField] GameObject wallLight_3;
+
+    [SerializeField] GameObject wallLight_4;
+    [SerializeField] GameObject wallLight_5;
+    [SerializeField] GameObject wallLight_6;
+
     [Header("BUTTONS")]
     [SerializeField] SwitchLevel1 button_1;
     [SerializeField] SwitchLevel1 button_2;
@@ -60,6 +69,15 @@ public class SwitchController : MonoBehaviour
                 light_1.SetActive(false);
                 light_2.SetActive(false);
                 light_3.SetActive(false);
+
+                wallLight_1.SetActive(false);
+
+                wallLight_2.SetActive(false);
+                wallLight_3.SetActive(false);
+
+                wallLight_4.SetActive(false);
+                wallLight_5.SetActive(false);
+                wallLight_6.SetActive(false);
 
                 if (lights[0] == Light.GREEN && lights[1] == Light.BLUE && lights[2] == Light.RED)
                 {

@@ -74,7 +74,7 @@ public class SwitchLevel1 : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    /*private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -106,6 +106,6 @@ public class SwitchLevel1 : MonoBehaviour
                     break;
             }
         }
-    }
+    }*/
     #endregion
 }
