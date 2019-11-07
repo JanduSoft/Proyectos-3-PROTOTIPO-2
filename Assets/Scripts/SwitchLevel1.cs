@@ -5,7 +5,27 @@ using UnityEngine;
 public class SwitchLevel1 : MonoBehaviour
 {
     #region VARIABLES
-    [SerializeField] GameObject light;
+    enum Light
+    {
+        NONE,
+        RED,
+        GREEN,
+        BLUE,
+        YELLOW,
+        WHITE,
+        PURPLE,
+        ORANGE
+    }
+
+    [SerializeField] GameObject switchLight;
+    [SerializeField] GameObject wallLight1;
+    [SerializeField] GameObject wallLight2;
+    [SerializeField] GameObject wallLight3;
+    [SerializeField] Light MyLight;
+    [SerializeField] SwitchController controller;
+
+    public bool isPressed = false;
+
     #endregion
 
     #region ON TRIGGER ENTER/EXIT
@@ -13,7 +33,44 @@ public class SwitchLevel1 : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            light.SetActive(true);
+            
+            switchLight.SetActive(true);
+
+            if (isPressed == false)
+            {
+                switch (MyLight)
+                {
+                    case Light.RED:
+                        {
+                            controller.AddSwitchPressed(3);
+                            wallLight1.SetActive(true);
+                            wallLight2.SetActive(true);
+                            wallLight3.SetActive(true);
+
+                            break;
+                        }
+                    case Light.GREEN:
+                        {
+                            controller.AddSwitchPressed(1);
+                            wallLight1.SetActive(true);
+
+                            break;
+                        }
+                    case Light.BLUE:
+                        {
+                            controller.AddSwitchPressed(2);
+                            wallLight1.SetActive(true);
+                            wallLight2.SetActive(true);
+                            break;
+                        }
+                    default:
+                        break;
+                }
+            }
+            
+
+            isPressed = true;
+
         }
     }
 
@@ -21,7 +78,33 @@ public class SwitchLevel1 : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            light.SetActive(false);
+            //switchLight.SetActive(false);
+
+            switch (MyLight)
+            {
+                case Light.RED:
+                    {
+                        wallLight1.SetActive(false);
+                        wallLight2.SetActive(false);
+                        wallLight3.SetActive(false);
+
+                        break;
+                    }
+                case Light.GREEN:
+                    {
+                        wallLight1.SetActive(false);
+
+                        break;
+                    }
+                case Light.BLUE:
+                    {
+                        wallLight1.SetActive(false);
+                        wallLight2.SetActive(false);
+                        break;
+                    }
+                default:
+                    break;
+            }
         }
     }
     #endregion
