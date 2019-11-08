@@ -28,12 +28,12 @@ public class ThrowHook : MonoBehaviour
             {
                 currentHook = (GameObject)Instantiate(hook, hookSpawner.position, hookSpawner.rotation);
                 currentHook.GetComponent<RopeScript>().destiny = destiny;
-                player.onWhip = true;
+                //player.onWhip = true;
             }
             else
             {
                 Destroy(currentHook.gameObject);
-                player.onWhip = false;
+                //player.onWhip = false;
             }
 
         }
@@ -79,5 +79,6 @@ public class ThrowHook : MonoBehaviour
             canWrap = false;
             destiny = new Vector3(0, 0, 0);
         }
+        //Destroy(currentHook.gameObject);
     }
 }
