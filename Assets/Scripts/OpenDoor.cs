@@ -83,7 +83,7 @@ public class OpenDoor : MonoBehaviour
                 case ButtonType.TEMPLE:
                     {
                         templeAnimaior.SetBool("Temple", true);
-                        platformsAnimator.SetBool("IsActivated", true);
+                        platformsAnimator.SetBool("Active", true);
                         Destroy(Instantiate(dustParticles, spawn1.position, spawn1.rotation), 4.75f);
                         Destroy(Instantiate(dustParticles, spawn2.position, spawn2.rotation), 4.75f);
                         Destroy(Instantiate(dustParticles, spawn3.position, spawn3.rotation), 4.75f);
