@@ -51,6 +51,10 @@ public class SwitchController : MonoBehaviour
 
     [Header("WALLS")]
     [SerializeField] GameObject wallExterior;
+    [SerializeField] GameObject wallInteriror1;
+    [SerializeField] GameObject wallInteriror2;
+    [SerializeField] GameObject wallInteriror3;
+    [SerializeField] GameObject wallInteriror4;
 
 
     #endregion
@@ -109,9 +113,16 @@ public class SwitchController : MonoBehaviour
         {
             counterTime++;
 
-            if (counterTime >= 120)
+            if (counterTime >= 200)
             {
                 wallExterior.SetActive(true);
+            }
+            else if (counterTime >= 300)
+            {
+                wallInteriror1.SetActive(false);
+                wallInteriror2.SetActive(false);
+                wallInteriror3.SetActive(false);
+                wallInteriror4.SetActive(false);
             }
         }
     }

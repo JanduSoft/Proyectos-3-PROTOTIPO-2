@@ -65,7 +65,6 @@ public class PlayerMovement : MonoBehaviour
 
         // MOVING CHARACTER
         player.Move(movePlayer * Time.deltaTime);
-        Debug.Log(player.velocity.magnitude);
     }
     #endregion
 

@@ -7,7 +7,9 @@ public class ThrowHook : MonoBehaviour
     [SerializeField] bool canWhip = false;
     [SerializeField] bool canWrap = false;
     [SerializeField] Transform hookSpawner;
-    [SerializeField] PlayerController player;
+    [SerializeField] float hookLife;
+
+   // [SerializeField] PlayerController player;
     private GameObject objectToWrap;
     public GameObject hook;
     GameObject currentHook;
@@ -28,6 +30,7 @@ public class ThrowHook : MonoBehaviour
             {
                 currentHook = (GameObject)Instantiate(hook, hookSpawner.position, hookSpawner.rotation);
                 currentHook.GetComponent<RopeScript>().destiny = destiny;
+                Invoke("DestroyCurrentHook", hookLife);
                 //player.onWhip = true;
             }
             else
@@ -43,6 +46,8 @@ public class ThrowHook : MonoBehaviour
             {
                 currentHook = (GameObject)Instantiate(hook, hookSpawner.position, hookSpawner.rotation);
                 currentHook.GetComponent<RopeScript>().destiny = destiny;
+
+                Invoke("DestroyCurrentHook" ,  hookLife);
             }
             else
             {
@@ -80,5 +85,10 @@ public class ThrowHook : MonoBehaviour
             destiny = new Vector3(0, 0, 0);
         }
         //Destroy(currentHook.gameObject);
+    }
+
+    void DestroyCurrentHook()
+    {
+        Destroy(currentHook.gameObject);
     }
 }
