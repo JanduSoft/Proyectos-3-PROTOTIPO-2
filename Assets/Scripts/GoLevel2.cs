@@ -21,7 +21,7 @@ public class GoLevel2 : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Test");
+            SceneManager.LoadScene("Level_2");
         }
     }
 }
