@@ -22,6 +22,8 @@ public class SwitchController : MonoBehaviour
     private int counterTime;
     private bool wallsDown;
 
+    [SerializeField] AudioSource audio;
+
     [Header("LIGHTS")]
     [SerializeField] GameObject light_1;
     [SerializeField] GameObject light_2;
@@ -96,6 +98,7 @@ public class SwitchController : MonoBehaviour
                     wallsDown = true;
                     counterTime = 0;
                     counter = 0;
+                    audio.Play();
 
                 }
                 else

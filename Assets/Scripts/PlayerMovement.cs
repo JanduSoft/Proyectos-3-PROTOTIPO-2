@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("JUMP")]
     [SerializeField] float jumpForce;
+    [SerializeField] AudioSource jumpSound;
 
     [Header("GRAVITY")]
     [SerializeField] float gravity = 9.8f;
@@ -25,6 +26,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Camera mainCamera;
     private Vector3 camForward;
     private Vector3 camRight;
+
+    [Header("PORTALS")]
+    [SerializeField] Transform portal1;
 
     #endregion
 
@@ -89,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
         {
             fallVelocity = jumpForce;
             movePlayer.y = fallVelocity;
+            jumpSound.Play();
         }
     }
     #endregion
@@ -108,4 +113,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     #endregion
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //if (other.CompareTag("Portal1"))
+        //{
+        //    movePlayer = new Vector3(0,0,0);
+        //    this.transform.position = portal1.position;
+        //}
+    }
 }
