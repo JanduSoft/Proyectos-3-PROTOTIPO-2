@@ -29,6 +29,17 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("PORTALS")]
     [SerializeField] Transform portal1;
+    private bool moveToPortal1 = false;
+    [SerializeField] Transform portal2;
+    private bool moveToPortal2 = false;
+    [SerializeField] Transform portal3;
+    private bool moveToPortal3 = false;
+    [SerializeField] Transform portal4;
+    private bool moveToPortal4 = false;
+    [SerializeField] Transform portal5;
+    private bool moveToPortal5 = false;
+    [SerializeField] Transform portal6;
+    private bool moveToPortal6 = false;
 
     #endregion
 
@@ -37,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         player = GetComponent<CharacterController>();
+        fallVelocity = -10;
     }
     #endregion
 
@@ -44,31 +56,66 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //GET AXIS
-        horizontalMove = Input.GetAxis("Horizontal");
-        verticalMove = Input.GetAxis("Vertical");
+        if (moveToPortal1)
+        {
+            transform.position = portal1.position;
+            moveToPortal1 = false;
+        }
+        else if (moveToPortal2)
+        {
+            transform.position = portal2.position;
+            moveToPortal2 = false;
+        }
+        else if (moveToPortal3)
+        {
+            transform.position = portal3.position;
+            moveToPortal3 = false;
+        }
+        else if (moveToPortal4)
+        {
+            transform.position = portal4.position;
+            moveToPortal4 = false;
+        }
+        else if (moveToPortal5)
+        {
+            transform.position = portal5.position;
+            moveToPortal5 = false;
+        }
+        else if (moveToPortal6)
+        {
+            transform.position = portal6.position;
+            moveToPortal6 = false;
+        }
+        else
+        {
+            //GET AXIS
+            horizontalMove = Input.GetAxis("Horizontal");
+            verticalMove = Input.GetAxis("Vertical");
 
-        playerInput = new Vector3(horizontalMove, 0, verticalMove);
-        playerInput = Vector3.ClampMagnitude( playerInput, 1);
+            playerInput = new Vector3(horizontalMove, 0, verticalMove);
+            playerInput = Vector3.ClampMagnitude(playerInput, 1);
 
-        //GETTING CAMERA DIRECTION
-        CamDirection();
+            //GETTING CAMERA DIRECTION
+            CamDirection();
 
-        // CALCULATING CHARACTER MOVEMENT
-        movePlayer = playerInput.x * camRight + playerInput.z * camForward;
-        movePlayer *= playerSpeed; 
+            // CALCULATING CHARACTER MOVEMENT
+            movePlayer = playerInput.x * camRight + playerInput.z * camForward;
+            movePlayer *= playerSpeed;
 
-        // CHARACTER ROTATION (LOOK AT)
-        player.transform.LookAt(player.transform.position + movePlayer);
+            // CHARACTER ROTATION (LOOK AT)
+            player.transform.LookAt(player.transform.position + movePlayer);
 
-        // GRAVITY
-        SetGravity();
+            // GRAVITY
+            SetGravity();
 
-        // JUMP
-        PlayerSkills();
+            // JUMP
+            PlayerSkills();
 
-        // MOVING CHARACTER
-        player.Move(movePlayer * Time.deltaTime);
+            // MOVING CHARACTER
+            player.Move(movePlayer * Time.deltaTime);
+        }
+        
+        
     }
     #endregion
 
@@ -116,10 +163,37 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.CompareTag("Portal1"))
-        //{
-        //    movePlayer = new Vector3(0,0,0);
-        //    this.transform.position = portal1.position;
-        //}
+       if (other.CompareTag("Portal1"))
+       {
+            Debug.Log("Entrando al portal 1");
+            moveToPortal1 = true;
+       }
+       else if (other.CompareTag("Portal2"))
+       {
+            Debug.Log("Entrando al portal 2");
+            moveToPortal2 = true;
+       }
+       else if (other.CompareTag("Portal3"))
+       {
+            Debug.Log("Entrando al portal 3");
+            moveToPortal3 = true;
+       }
+       else if (other.CompareTag("Portal4"))
+       {
+            Debug.Log("Entrando al portal 4");
+            moveToPortal4 = true;
+       }
+       else if (other.CompareTag("Portal5"))
+       {
+           Debug.Log("Entrando al portal 5");
+           moveToPortal5 = true;
+       }
+       else if (other.CompareTag("Portal6"))
+       {
+           Debug.Log("Entrando al portal 6");
+           moveToPortal6 = true;
+       }
+
+
     }
 }

@@ -96,7 +96,7 @@ public class SwitchController : MonoBehaviour
                     animatorWall3.SetBool("Active", true);
                     animatorWall4.SetBool("Active", true);
                     wallsDown = true;
-                    counterTime = 0;
+                    //counterTime = 0;
                     counter = 0;
                     audio.Play();
 
@@ -126,6 +126,7 @@ public class SwitchController : MonoBehaviour
                 wallInteriror2.SetActive(false);
                 wallInteriror3.SetActive(false);
                 wallInteriror4.SetActive(false);
+                counterTime = 0;
             }
         }
     }
