@@ -16,7 +16,7 @@ public class OpenDoor : MonoBehaviour
 
     [SerializeField] ButtonType button;
 
-    [Header("Door")]
+    [Header("DOOR")]
     [SerializeField] GameObject doorOne;
     [SerializeField] GameObject doorTwo;
     [SerializeField] GameObject doorThree;
@@ -28,8 +28,9 @@ public class OpenDoor : MonoBehaviour
     private float counterDoorTwo;
     private float counterDoorThree;
     private float counterDoorFour;
+    [SerializeField] AudioSource doorAudioSource;
 
-    [Header("Temple")]
+    [Header("TEMPLE")]
     [SerializeField] GameObject temple;
     [SerializeField] GameObject platforms;
     [SerializeField] GameObject dustParticles;
@@ -39,6 +40,8 @@ public class OpenDoor : MonoBehaviour
     [SerializeField] Transform spawn4;
     private Animator templeAnimaior;
     private Animator platformsAnimator;
+
+    [SerializeField] AudioSource templeAudioSource;
 
     [SerializeField] GameObject pilar1;
     [SerializeField] GameObject pilar2;
@@ -74,7 +77,7 @@ public class OpenDoor : MonoBehaviour
                 case ButtonType.DOOR:
                     {
                         doorIsOpening = true;
-
+                        doorAudioSource.Play();
                         isInside = false;
                         buttonText.SetActive(false);
 
@@ -82,6 +85,7 @@ public class OpenDoor : MonoBehaviour
                     }
                 case ButtonType.TEMPLE:
                     {
+                        templeAudioSource.Play();
                         templeAnimaior.SetBool("Temple", true);
                         platformsAnimator.SetBool("Active", true);
                         Destroy(Instantiate(dustParticles, spawn1.position, spawn1.rotation), 4.75f);
