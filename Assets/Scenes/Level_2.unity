@@ -7686,7 +7686,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 0
+  m_BounceIntensity: 2.25
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -14106,6 +14106,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3747207430897046990, guid: 214d10ef7d12066439eda7565a76f6b3,
+        type: 3}
+      propertyPath: m_Text
+      value: PRESS 'F'
+      objectReference: {fileID: 0}
     - target: {fileID: 3747207431441667936, guid: 214d10ef7d12066439eda7565a76f6b3,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -14130,11 +14135,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -252
-      objectReference: {fileID: 0}
-    - target: {fileID: 3747207430897046990, guid: 214d10ef7d12066439eda7565a76f6b3,
-        type: 3}
-      propertyPath: m_Text
-      value: PRESS 'F'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214d10ef7d12066439eda7565a76f6b3, type: 3}
@@ -17100,7 +17100,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430635069}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.198786, y: -3.1998405, z: -18.918495}
+  m_LocalPosition: {x: 15.92, y: -3.1998405, z: -18.918495}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1189237758}
@@ -17117,7 +17117,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0, g: 0.06332241, b: 0.8862745, a: 1}
-  m_Intensity: 7.96
+  m_Intensity: 8.44
   m_Range: 7.42
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -17139,7 +17139,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 0
+  m_BounceIntensity: 6.05
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -25103,6 +25103,36 @@ PrefabInstance:
       propertyPath: onLevel1
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1655264899136477321, guid: 6db86855d49dc464b946a69cbab5ac65,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1805734196}
+    - target: {fileID: 1655264899136477321, guid: 6db86855d49dc464b946a69cbab5ac65,
+        type: 3}
+      propertyPath: padZoom
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655264899136477323, guid: 6db86855d49dc464b946a69cbab5ac65,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655264899136477323, guid: 6db86855d49dc464b946a69cbab5ac65,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655264899136477323, guid: 6db86855d49dc464b946a69cbab5ac65,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655264899136477323, guid: 6db86855d49dc464b946a69cbab5ac65,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1655264899136477322, guid: 6db86855d49dc464b946a69cbab5ac65,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -25118,16 +25148,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 25
       objectReference: {fileID: 0}
-    - target: {fileID: 1655264899136477321, guid: 6db86855d49dc464b946a69cbab5ac65,
-        type: 3}
-      propertyPath: player
+    - target: {fileID: 1758738821, guid: 6db86855d49dc464b946a69cbab5ac65, type: 3}
+      propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 1805734196}
-    - target: {fileID: 1655264899136477321, guid: 6db86855d49dc464b946a69cbab5ac65,
-        type: 3}
-      propertyPath: padZoom
-      value: 0.3
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: f3ea0a96b9cebdf44b2076445bf778ac, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db86855d49dc464b946a69cbab5ac65, type: 3}
 --- !u!1 &2033765755 stripped
