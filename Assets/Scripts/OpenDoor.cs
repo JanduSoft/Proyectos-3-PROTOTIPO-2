@@ -70,7 +70,7 @@ public class OpenDoor : MonoBehaviour
     /// /////////////////---- UPDATE
     private void Update()
     {
-        if (isInside && Input.GetKeyDown(KeyCode.E))
+        if (isInside && (Input.GetKeyDown(KeyCode.F) || Input.GetButtonDown("Fire3")))
         {
             switch (button)
             {

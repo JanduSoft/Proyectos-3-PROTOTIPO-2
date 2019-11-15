@@ -13,7 +13,7 @@ public class BrigeAnimation : MonoBehaviour
     {
         if (isInside)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.F) || Input.GetButtonDown("Fire3"))
             {
                 bridgeAnimtor.SetBool("Active", true);
             }

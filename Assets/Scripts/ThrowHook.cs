@@ -24,7 +24,7 @@ public class ThrowHook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && canWhip)
+        if ((Input.GetMouseButtonDown(0) || Input.GetButtonDown("Cancel")) && canWhip)
         {
             if(currentHook == null)
             {

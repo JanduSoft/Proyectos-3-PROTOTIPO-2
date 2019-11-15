@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CameraController : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] float zoomLerpSpeed;
     public Transform obstructionPlayer;
     public Transform obstructionTarget;
+
+    [SerializeField] GameObject wall1;
 
     ////////////////////////////
     /// /////////////////////////////------------------------------METHODS
@@ -49,7 +52,8 @@ public class CameraController : MonoBehaviour
 
         targetZoom -= scrollData * zoomFactor;
         targetZoom = Mathf.Clamp(targetZoom, 5f, 30f);
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * zoomLerpSpeed);
+        //cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * zoomLerpSpeed);
+        cam.DOOrthoSize(targetZoom, 2f);
     }
 
     /// /////////////////---- LATE UPDATE
@@ -63,13 +67,13 @@ public class CameraController : MonoBehaviour
     /// /////////////////---- CAMERA CONTROL
     void CameraControl()
     {
-        mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
-        mouseY -= Input.GetAxis("Mouse Y") * rotationSpeed;
-
-        mouseY = Mathf.Clamp(mouseY, -35, 60);
-
-        transform.LookAt(Target);
-        Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
+        //mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
+        //mouseY -= Input.GetAxis("Mouse Y") * rotationSpeed;
+        //
+        //mouseY = Mathf.Clamp(mouseY, -35, 60);
+        //
+        //transform.LookAt(Target);
+        //Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
     }
 
     /// /////////////////---- OBSTRUCTION PLAYER
