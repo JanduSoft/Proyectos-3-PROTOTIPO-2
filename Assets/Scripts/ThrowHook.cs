@@ -24,7 +24,7 @@ public class ThrowHook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetMouseButtonDown(0) || Input.GetButtonDown("Cancel")) && canWhip)
+        if ((Input.GetMouseButtonDown(0) || Input.GetButtonDown("Fire4")) && canWhip)
         {
             if(currentHook == null)
             {
@@ -40,7 +40,7 @@ public class ThrowHook : MonoBehaviour
             }
 
         }
-        else if (Input.GetMouseButtonDown(0) && canWrap)
+        else if ((Input.GetMouseButtonDown(0) || Input.GetButtonDown("Fire4")) && canWrap)
         {
             if (currentHook == null)
             {

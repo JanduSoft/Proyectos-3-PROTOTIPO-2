@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] float rotationSpeed;
     [SerializeField] Transform Target, player;
-
+    [SerializeField] float padZoom;
 
     [SerializeField] float zoomSpeed = 2f;
     float mouseX,
@@ -49,6 +49,14 @@ public class CameraController : MonoBehaviour
         //////////---------ZOOM
         float scrollData;
         scrollData = Input.GetAxis("Mouse ScrollWheel");
+        if (Input.GetButtonDown("RightTrigger"))
+        {
+            scrollData = padZoom;
+        }
+        else if (Input.GetButtonDown("LeftTrigger"))
+        {
+            scrollData = -padZoom;
+        }
 
         targetZoom -= scrollData * zoomFactor;
         targetZoom = Mathf.Clamp(targetZoom, 5f, 30f);
