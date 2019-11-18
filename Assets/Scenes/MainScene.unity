@@ -12587,6 +12587,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4713349293482323787, guid: a2d73841add471e418ef6e0d33776861,
+        type: 3}
+      propertyPath: level
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2d73841add471e418ef6e0d33776861, type: 3}
 --- !u!1001 &1093797939
@@ -17202,6 +17207,7 @@ GameObject:
   - component: {fileID: 1399044940}
   - component: {fileID: 1399044939}
   - component: {fileID: 1399044938}
+  - component: {fileID: 1399044941}
   m_Layer: 0
   m_Name: Button (1)
   m_TagString: Untagged
@@ -17254,6 +17260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: 2
+  buttonAudioSource: {fileID: 1399044941}
   doorOne: {fileID: 2084874012}
   doorTwo: {fileID: 277629899}
   doorThree: {fileID: 186333540}
@@ -17261,7 +17268,7 @@ MonoBehaviour:
   door: {fileID: 598934924}
   doorIsOpening: 0
   speedDoor: 0.02
-  doorAudioSource: {fileID: 0}
+  doorAudioSource: {fileID: 598934927}
   temple: {fileID: 1928551272}
   platforms: {fileID: 1974822568}
   dustParticles: {fileID: 1376905856516238, guid: 5f201368b733e8740918056b6d98c592,
@@ -17289,6 +17296,102 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.1692295, y: 2.512982, z: 2.8688736}
   m_Center: {x: -0.58461475, y: -0.15698838, z: 0.07395172}
+--- !u!82 &1399044941
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399044936}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: afe57debe6ee1f34da498ce3ed8ed8f4, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1402901552 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4510897244753030, guid: 4b08fa4bb32c6f647943d417ff5c79fd,
@@ -26046,6 +26149,11 @@ PrefabInstance:
       objectReference: {fileID: 598934924}
     - target: {fileID: 5856966094723081524, guid: f66944ac3cf3e404fb84daf511357117,
         type: 3}
+      propertyPath: doorAudioSource
+      value: 
+      objectReference: {fileID: 598934927}
+    - target: {fileID: 5856966094723081524, guid: f66944ac3cf3e404fb84daf511357117,
+        type: 3}
       propertyPath: temple
       value: 
       objectReference: {fileID: 1928551272}
@@ -26076,6 +26184,11 @@ PrefabInstance:
       objectReference: {fileID: 2084604307}
     - target: {fileID: 5856966094723081524, guid: f66944ac3cf3e404fb84daf511357117,
         type: 3}
+      propertyPath: templeAudioSource
+      value: 
+      objectReference: {fileID: 1928551276}
+    - target: {fileID: 5856966094723081524, guid: f66944ac3cf3e404fb84daf511357117,
+        type: 3}
       propertyPath: pilar1
       value: 
       objectReference: {fileID: 1987659912}
@@ -26099,16 +26212,6 @@ PrefabInstance:
       propertyPath: buttonText
       value: 
       objectReference: {fileID: 1131604224}
-    - target: {fileID: 5856966094723081524, guid: f66944ac3cf3e404fb84daf511357117,
-        type: 3}
-      propertyPath: doorAudioSource
-      value: 
-      objectReference: {fileID: 598934927}
-    - target: {fileID: 5856966094723081524, guid: f66944ac3cf3e404fb84daf511357117,
-        type: 3}
-      propertyPath: templeAudioSource
-      value: 
-      objectReference: {fileID: 1928551276}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f66944ac3cf3e404fb84daf511357117, type: 3}
 --- !u!1001 &8112469901009801276

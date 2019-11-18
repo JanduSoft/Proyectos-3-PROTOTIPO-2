@@ -15,6 +15,7 @@ public class OpenDoor : MonoBehaviour
     };
 
     [SerializeField] ButtonType button;
+    [SerializeField] AudioSource buttonAudioSource;
 
     [Header("DOOR")]
     [SerializeField] GameObject doorOne;
@@ -76,6 +77,7 @@ public class OpenDoor : MonoBehaviour
             {
                 case ButtonType.DOOR:
                     {
+                        buttonAudioSource.Play();
                         doorIsOpening = true;
                         doorAudioSource.Play();
                         isInside = false;
@@ -85,6 +87,7 @@ public class OpenDoor : MonoBehaviour
                     }
                 case ButtonType.TEMPLE:
                     {
+                        buttonAudioSource.Play();
                         templeAudioSource.Play();
                         templeAnimaior.SetBool("Temple", true);
                         platformsAnimator.SetBool("Active", true);
