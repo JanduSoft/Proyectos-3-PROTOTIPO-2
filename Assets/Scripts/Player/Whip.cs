@@ -13,6 +13,7 @@ public class Whip : MonoBehaviour
     float distToWhipable;
     [SerializeField] float distToDestination;
     float counter = 0;
+    float distanceCount = 0;
     float time = 0;
     bool inputDown = false;
     bool ableToWhipJump = false;
@@ -47,19 +48,20 @@ public class Whip : MonoBehaviour
         #endregion
 
         #region PLAYER WHIPJUMP
-        if (time >= lineDrawSpeed / 4)
+        if (time >= lineDrawSpeed / 4 && distanceCount < distToDestination)
         {
+            distanceCount += .1f / lineDrawSpeed * 2 ;
             whip.SetPosition(1, whipableJumpObjectTransform.position);
             float x = Mathf.Lerp(0, distToDestination, Time.deltaTime);
             Vector3 pA = playerTransform.position;
             Vector3 pB = destinationTrasnform.position;
             newPlayerPos = x * Vector3.Normalize(pB - pA) + pA;
             whippin = true;
-            if (x == distToDestination)
-            {
-                whippin = false;
-                time = 0;
-            }
+        }
+        else if(distanceCount >= distToDestination)
+        {
+            Debug.Log("a");
+            whippin = false;
         }
         #endregion
 
@@ -67,10 +69,12 @@ public class Whip : MonoBehaviour
         if ( Input.GetKeyDown(KeyCode.C) && ableToWhipJump) inputDown = true;
         if (Input.GetKeyUp(KeyCode.C) && ableToWhipJump)
         {
+            whippin = false;
             inputDown = false;
             whip.SetPosition(1, playerTransform.position);
             counter = 0;
             time = 0;
+            distanceCount = 0;
             distToWhipable = Vector3.Distance(playerTransform.position, destinationTrasnform.position);
         }
         #endregion
