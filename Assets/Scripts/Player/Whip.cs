@@ -50,7 +50,7 @@ public class Whip : MonoBehaviour
         #region PLAYER WHIPJUMP
         if (time >= lineDrawSpeed / 4 && distanceCount < distToDestination)
         {
-            distanceCount += .1f / lineDrawSpeed * 2 ;
+            distanceCount += .1f / lineDrawSpeed * 1.5f ;
             whip.SetPosition(1, whipableJumpObjectTransform.position);
             float x = Mathf.Lerp(0, distToDestination, Time.deltaTime);
             Vector3 pA = playerTransform.position;
