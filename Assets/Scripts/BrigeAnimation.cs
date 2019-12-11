@@ -7,6 +7,8 @@ public class BrigeAnimation : MonoBehaviour
     [SerializeField] Animator bridgeAnimtor;
     private bool isInside= false;
     [SerializeField] GameObject textButton;
+    [SerializeField] AudioSource platformAudioSource;
+    [SerializeField] AudioSource switchAudioSource;
 
     #region UPDATE
     private void Update()
@@ -16,6 +18,8 @@ public class BrigeAnimation : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F) || Input.GetButtonDown("Fire3"))
             {
                 bridgeAnimtor.SetBool("Active", true);
+                platformAudioSource.Play();
+                switchAudioSource.Play();
             }
         }
     }
@@ -33,6 +37,8 @@ public class BrigeAnimation : MonoBehaviour
         if (other.CompareTag("Hook"))
         {
             bridgeAnimtor.SetBool("Active" , true);
+            platformAudioSource.Play();
+            switchAudioSource.Play();
         }
     }
     private void OnTriggerExit(Collider other)

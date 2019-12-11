@@ -45,7 +45,7 @@ public class FollowingCharacter : MonoBehaviour
     /// /////////////////---- UPDATE
     void Update()
     {
-        Vector3 newPosition = new Vector3(transform.position.x, player.position.y + diferenceHeight, transform.position.z);
+        Vector3 newPosition = new Vector3(player.position.x, player.position.y + diferenceHeight, player.position.z);
         //targetRB.MovePosition(newPosition);
         transform.DOMove(newPosition, 1f);
 
