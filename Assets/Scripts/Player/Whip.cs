@@ -13,6 +13,7 @@ public class Whip : MonoBehaviour
     float distToWhipable;
     float distToDestination;
     float counter = 0;
+    float curveCounter = 0;
     float time = 0;
     bool inputDown = false;
     bool ableToWhipJump = false;
@@ -54,6 +55,12 @@ public class Whip : MonoBehaviour
             Vector3 pA = playerTransform.position;
             Vector3 pB = destinationTrasnform.position;
             newPlayerPos = x * Vector3.Normalize(pB - pA) + pA;
+
+            /*whip.SetPosition(1, whipableJumpObjectTransform.position);
+            Vector3 startingPoint = playerTransform.position;
+            Vector3 middlePoint = whipableJumpObjectTransform.position;
+            Vector3 endPoint = destinationTrasnform.position;
+            newPlayerPos = calculateBezierCurve(Time.deltaTime, startingPoint, endPoint , middlePoint);*/
             whippin = true;
         }
         if(ableToWhipJump)
@@ -64,7 +71,11 @@ public class Whip : MonoBehaviour
         #endregion
 
         #region INPUT CONTROL
-        if ( Input.GetKeyDown(KeyCode.C) && ableToWhipJump) inputDown = true;
+        if (Input.GetKeyDown(KeyCode.C) && ableToWhipJump)
+        {
+            whipableJumpObjectTransform.SendMessage("ChangeState");
+            inputDown = true;
+        }
         if (Input.GetKeyUp(KeyCode.C) )
         {
             whippin = false;
@@ -114,5 +125,18 @@ public class Whip : MonoBehaviour
     public void setWhipableJumpObjectTransform(Transform transform)
     {
         whipableJumpObjectTransform = transform;
+    }
+
+    Vector3 calculateBezierCurve(float t, Vector3 p0, Vector3 p1, Vector3 p2)
+    {
+        float u = 1 - t;
+        float tt = t * t;
+        float uu = u * u;
+        Vector3 newP = uu * p0;
+        newP += 2 * u * t * p1;
+        newP += tt * p2;
+        return newP;
+
+        //return p1 + Mathf.Sqrt(1 - t) * (p0 - p1) + Mathf.Sqrt(t) * (p2 - p1);
     }
 }
