@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class WhipJump : MonoBehaviour
 {
-    [SerializeField] Transform destinationForJump;
+    [SerializeField] Transform destinationGoingForwardForJump;
+    [SerializeField] Transform destinationGoingBackwardsForJump;
     [SerializeField] GameObject player;
+    int goingForward = 1;
     Transform playerTransform;
     // Start is called before the first frame update
     void Start()
@@ -22,7 +24,13 @@ public class WhipJump : MonoBehaviour
     public void SetPlayerTransform(Transform transform)
     {
         playerTransform = transform;
-        player.SendMessage("setDestinationTransform", destinationForJump);
+        if(goingForward == 1) player.SendMessage("setDestinationTransform", destinationGoingForwardForJump);
+        else player.SendMessage("setDestinationTransform", destinationGoingBackwardsForJump);
         player.SendMessage("setWhipableJumpObjectTransform", this.transform);
+    }
+
+    public void ChangeState()
+    {
+        goingForward = -goingForward;
     }
 }
