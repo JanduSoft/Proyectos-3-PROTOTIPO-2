@@ -6,6 +6,7 @@ public class Whip : MonoBehaviour
 {
     [SerializeField] LineRenderer whip;
     [SerializeField] Transform playerTransform;
+    [SerializeField] GameObject spriteIndicateObject;
     Vector3 newPlayerPos;
     Transform whipableObjectTransform;
     Transform destinationTrasnform;
@@ -110,13 +111,18 @@ public class Whip : MonoBehaviour
             ableToWhipJump = true;
             distToWhipable = Vector3.Distance(playerTransform.position, whipableObjectTransform.position);
             distToDestination = Vector3.Distance(playerTransform.position, destinationTrasnform.position);
+            spriteIndicateObject.SetActive(true);
+            spriteIndicateObject.transform.position = whipableObjectTransform.position;
         }
         else if (other.tag == "WhipObject")
         {
             other.SendMessage("SetPlayerTransform", playerTransform);
             ableToWhipObject = true;
             distToWhipable = Vector3.Distance(playerTransform.position, whipableObjectTransform.position);
+            spriteIndicateObject.SetActive(true);
+            spriteIndicateObject.transform.position = whipableObjectTransform.position;
         }
+        
     }
     private void OnTriggerExit(Collider other)
     {
@@ -125,7 +131,14 @@ public class Whip : MonoBehaviour
             ableToWhipJump = false;
             inputDown = false;
             whippin = false;
+            spriteIndicateObject.SetActive(false);
             whipableObjectTransform = null;
+        }
+        else if (other.tag == "WhipObject")
+        {
+            ableToWhipObject = false;
+            whipableObjectTransform = null;
+            spriteIndicateObject.SetActive(false);
         }
     }
 
