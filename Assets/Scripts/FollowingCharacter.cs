@@ -49,7 +49,8 @@ public class FollowingCharacter : MonoBehaviour
         //targetRB.MovePosition(newPosition);
         transform.DOMove(newPosition, 1f);
 
-        if ((Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Trigger1")) && !isRotating)
+        //Commented this because E is now used to interact with levers
+        if (/*(Input.GetKeyDown(KeyCode.E) ||*/ Input.GetButtonDown("Trigger1") && !isRotating)
         {
             rotationAS.Play();
             isRotating = true;
