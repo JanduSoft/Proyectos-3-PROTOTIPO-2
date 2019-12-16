@@ -2,24 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootingArrowsTrap : MonoBehaviour
+public class RollingBallTrap : MonoBehaviour
 {
-    [SerializeField] GameObject arrowPrefab;
-    [SerializeField] Transform shootingTransform;
-    [SerializeField] float widthOffset = 0;
-    [SerializeField] float heightOffset = 0;
-    [SerializeField] int numArrows = 0;
+    [SerializeField] GameObject rollingBall;
+    [SerializeField] GameObject player;
     [SerializeField] Transform preassurePlateEndTransform;
-    Vector3 startingPos;
-    bool preassuringPlate = false;
-    int i = 0;
     [SerializeField] bool trapActivated = false;
+    [SerializeField] float speed = 0;
+    [SerializeField] float distance = 0;
+    Vector3 startingPos;
+    Vector3 movementVector;
+    bool preassuringPlate = false;
     float time = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        startingPos = this.transform.position;
+        startingPos = rollingBall.transform.position;
     }
 
     // Update is called once per frame
@@ -28,21 +27,13 @@ public class ShootingArrowsTrap : MonoBehaviour
         #region SHOOTING ARROWS
         if (trapActivated)
         {
-            for(; i< numArrows; i++)
-            {
-                //We randomise the position of the arrows 
-                float x = shootingTransform.position.x + Random.Range(-widthOffset, widthOffset);
-                float y = shootingTransform.position.y + Random.Range(0, heightOffset);
-                float z = shootingTransform.position.z;
-                //We isntantiate the arrows
-                Instantiate(arrowPrefab, new Vector3(x,y,z), new Quaternion(0,180,0,1), this.transform);
-            }
-            trapActivated = false;
+            movementVector = Vector3.right * speed;
         }
+        if (Vector3.Distance(startingPos, rollingBall.transform.position) > distance) trapActivated = false;
         #endregion
 
         #region PLATE EFFECT ANIMATION
-        float temp ;
+        float temp;
         if (preassuringPlate)
         {
             time += Time.deltaTime;
@@ -52,7 +43,7 @@ public class ShootingArrowsTrap : MonoBehaviour
         }
         else
         {
-            if(transform.position != startingPos)
+            if (transform.position != startingPos)
             {
                 //We calculate the new Y position to make the PreassurePlate go UP
                 temp = Mathf.Lerp(transform.position.y, startingPos.y, time);
@@ -60,7 +51,7 @@ public class ShootingArrowsTrap : MonoBehaviour
             }
             time = 0;
         }
-        if(time >= 1)
+        if (time >= 1)
         {
             trapActivated = true;
         }
@@ -68,6 +59,13 @@ public class ShootingArrowsTrap : MonoBehaviour
         #endregion
     }
 
+    private void FixedUpdate()
+    {
+        if (trapActivated)
+        {
+            rollingBall.transform.position += movementVector;
+        }
+    }
     private void OnTriggerStay(Collider other)
     {
         if (other.transform.tag == "Player")
@@ -76,14 +74,5 @@ public class ShootingArrowsTrap : MonoBehaviour
             trapActivated = true;
         }
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.transform.tag == "Player")
-        {
-            //  preassuringPlate = false;
-            trapActivated = false;
-            i = 0;
-        }
-       
-    }
+    
 }
