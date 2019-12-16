@@ -12,6 +12,7 @@ public class RollingBallTrap : MonoBehaviour
     [SerializeField] float distance = 0;
     Vector3 startingPos;
     Vector3 movementVector;
+    Vector3 directorVector;
     bool preassuringPlate = false;
     float time = 0f;
 
@@ -24,10 +25,10 @@ public class RollingBallTrap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        #region SHOOTING ARROWS
+        #region CALCULATE MOVEMENT VECTOR
         if (trapActivated)
         {
-            movementVector = Vector3.right * speed;
+            movementVector = directorVector * speed;
         }
         if (Vector3.Distance(startingPos, rollingBall.transform.position) > distance) trapActivated = false;
         #endregion
@@ -64,6 +65,7 @@ public class RollingBallTrap : MonoBehaviour
         if (trapActivated)
         {
             rollingBall.transform.position += movementVector;
+            rollingBall.transform.rotation = new Quaternion(rollingBall.transform.rotation.x, rollingBall.transform.rotation.y, rollingBall.transform.rotation.z - 0.01f, rollingBall.transform.rotation.w);
         }
     }
     private void OnTriggerStay(Collider other)
@@ -71,6 +73,8 @@ public class RollingBallTrap : MonoBehaviour
         if (other.transform.tag == "Player")
         {
             // preassuringPlate = true;
+            directorVector = (player.transform.position - rollingBall.transform.position).normalized;
+
             trapActivated = true;
         }
     }
