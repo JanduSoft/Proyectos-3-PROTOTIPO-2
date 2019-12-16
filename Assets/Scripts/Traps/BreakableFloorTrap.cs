@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BreakableFloorTrap : MonoBehaviour
 {
+    [SerializeField] GameObject destroyableObj;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +15,17 @@ public class BreakableFloorTrap : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "Player")
+        {
+            if(destroyableObj.activeInHierarchy == false)
+            {
+                destroyableObj.SetActive(true);
+                transform.parent.gameObject.SetActive(false);
+            }
+        }
     }
 }
