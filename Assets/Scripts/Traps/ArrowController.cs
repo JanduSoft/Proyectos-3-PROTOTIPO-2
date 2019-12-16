@@ -17,6 +17,6 @@ public class ArrowController : MonoBehaviour
     void Update()
     {
         transform.position += Vector3.forward * -speed;
-        if (Vector3.Distance(transform.position, initialPos) > maxDistance) Destroy(this.transform.parent.gameObject);
+        //if (Vector3.Distance(transform.position, initialPos) > maxDistance) Destroy(this.transform.parent.gameObject);
     }
 }

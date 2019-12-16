@@ -35,7 +35,8 @@ public class ShootingArrowsTrap : MonoBehaviour
                 float y = shootingTransform.position.y + Random.Range(0, heightOffset);
                 float z = shootingTransform.position.z;
                 //We isntantiate the arrows
-                Instantiate(arrowPrefab, new Vector3(x,y,z), arrowPrefab.transform.rotation, this.transform);
+                Instantiate(arrowPrefab, new Vector3(x,y,z), new Quaternion(0,180,0,1), this.transform);
+                Debug.DebugBreak();
             }
             trapActivated = false;
         }
