@@ -10,13 +10,13 @@ public class ArrowController : MonoBehaviour
     Vector3 initialPos;
     void Start()
     {
-        initialPos = this.transform.parent.parent.position;
+        initialPos = this.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.position += Vector3.forward * -speed;
-        //if (Vector3.Distance(transform.position, initialPos) > maxDistance) Destroy(this.transform.parent.gameObject);
+        if (Vector3.Distance(transform.position, initialPos) > maxDistance) Destroy(this.transform.gameObject);
     }
 }
