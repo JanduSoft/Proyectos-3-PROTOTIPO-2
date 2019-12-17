@@ -190,7 +190,8 @@ Transform:
   m_LocalRotation: {x: 0.3563559, y: -0, z: -0, w: 0.9343503}
   m_LocalPosition: {x: 65.02, y: 46.39, z: -25.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1036818081}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 41.753002, y: 0, z: 0}
@@ -885,6 +886,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1635995318487067773, guid: de82dbd943efe9d41ac5e78e36932152,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 10750733}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de82dbd943efe9d41ac5e78e36932152, type: 3}
 --- !u!1 &663152130
@@ -1332,8 +1338,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 407214305}
-  m_Father: {fileID: 415923829}
-  m_RootOrder: 2
+  m_Father: {fileID: 10750734}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1421,6 +1427,7 @@ MonoBehaviour:
   whip: {fileID: 415923831}
   playerTransform: {fileID: 415923829}
   spriteIndicateObject: {fileID: 407214304}
+  playerGO: {fileID: 415923825}
   lineDrawSpeed: 1
   ableToWhipJump: 0
 --- !u!4 &1084864376 stripped
