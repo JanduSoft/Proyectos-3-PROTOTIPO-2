@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Whip : MonoBehaviour
 {
     [SerializeField] LineRenderer whip;
     [SerializeField] Transform playerTransform;
     [SerializeField] GameObject spriteIndicateObject;
+    [SerializeField] GameObject playerGO;
     Vector3 newPlayerPos;
     Transform whipableObjectTransform;
     Transform destinationTrasnform;
@@ -17,7 +19,7 @@ public class Whip : MonoBehaviour
     float curveCounter = 0;
     float time = 0;
     bool inputDown = false;
-    bool ableToWhipJump = false;
+    [SerializeField] bool ableToWhipJump = false;
     bool ableToWhipObject = false;
      bool whippin = false;
     // Start is called before the first frame update
@@ -51,20 +53,16 @@ public class Whip : MonoBehaviour
         #endregion
 
         #region PLAYER WHIPJUMP & WHIPOBJECT
-        if (time >= lineDrawSpeed / 4 && ableToWhipJump)
+        if (time >= lineDrawSpeed / 4 && ableToWhipJump )
         {
             whip.SetPosition(1, whipableObjectTransform.position);
+            playerTransform.DOMove(destinationTrasnform.position, 1f);
+            
+            /*whip.SetPosition(1, whipableObjectTransform.position);
             float x = Mathf.Lerp(0, distToDestination, Time.deltaTime);
             Vector3 pA = playerTransform.position;
             Vector3 pB = destinationTrasnform.position;
-            newPlayerPos = x * Vector3.Normalize(pB - pA) + pA;
-
-            /*Bezier Curve
-            whip.SetPosition(1, whipableJumpObjectTransform.position);
-            Vector3 startingPoint = playerTransform.position;
-            Vector3 middlePoint = whipableJumpObjectTransform.position;
-            Vector3 endPoint = destinationTrasnform.position;
-            newPlayerPos = calculateBezierCurve(Time.deltaTime, startingPoint, endPoint , middlePoint);*/
+            newPlayerPos = x * Vector3.Normalize(pB - pA) + pA;*/
             whippin = true;
         }
         else if(time >= lineDrawSpeed / 4 && ableToWhipObject)
@@ -77,6 +75,7 @@ public class Whip : MonoBehaviour
             {
                 whippin = false;
             }
+        
         #endregion
 
         #region INPUT CONTROL
