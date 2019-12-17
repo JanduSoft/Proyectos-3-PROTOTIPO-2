@@ -25,7 +25,6 @@ public class ShootingArrowsTrap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(shootingTransform.position, shootingTransform.forward * 50, Color.magenta);
         #region SHOOTING ARROWS
         if (trapActivated)
         {
