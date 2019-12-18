@@ -14,7 +14,6 @@ public class OnTriggerPlayAnim : MonoBehaviour
         {
             rockAnim = transform.parent.GetChild(0).GetComponent<Animation>();
             rockAnim.Play(animationClipName);
-
         }
     }
 }
