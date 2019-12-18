@@ -79,7 +79,7 @@ public class Whip : MonoBehaviour
         #endregion
 
         #region INPUT CONTROL
-        if (Input.GetKeyDown(KeyCode.C) && ableToWhipJump)
+        if (Input.GetKeyDown(KeyCode.C) && (ableToWhipJump ||ableToWhipObject))
         {
             whipableObjectTransform.SendMessage("ChangeState");
             inputDown = true;
@@ -117,11 +117,11 @@ public class Whip : MonoBehaviour
         }
         else if (other.tag == "WhipObject")
         {
-            other.SendMessage("SetPlayerTransform", playerTransform);
+            setWhipableJumpObjectTransform(other.gameObject.transform);
             ableToWhipObject = true;
             distToWhipable = Vector3.Distance(playerTransform.position, whipableObjectTransform.position);
-            spriteIndicateObject.SetActive(true);
-            spriteIndicateObject.transform.position = whipableObjectTransform.position;
+            //spriteIndicateObject.SetActive(true);
+            //spriteIndicateObject.transform.position = whipableObjectTransform.position;
         }
         
     }
@@ -138,13 +138,19 @@ public class Whip : MonoBehaviour
         else if (other.tag == "WhipObject")
         {
             ableToWhipObject = false;
+                        inputDown = false;
+            whippin = false;
             whipableObjectTransform = null;
-            spriteIndicateObject.SetActive(false);
+            //spriteIndicateObject.SetActive(false);
         }
     }
 
     public void setDestinationTransform(Transform transform)
     {
+
+
+
+
         destinationTrasnform = transform;
     }
 

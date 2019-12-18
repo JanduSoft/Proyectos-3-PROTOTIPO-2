@@ -18,10 +18,12 @@ public class LeverScript : MonoBehaviour
 
 
     // Variables
-    bool showCanvas = false;
+    enum LeverState { ON, OFF };
+    LeverState leverState = LeverState.OFF;
+    public bool canTurnOnAndOff = true;
+
     public float distanceToLever = 3f;
     GameObject player = null;
-    bool leverPulled = false;
 
     void Start()
     {
@@ -33,15 +35,28 @@ public class LeverScript : MonoBehaviour
         if (player!=null)
         {
             var currentDistanceToLever = Vector3.Distance(transform.position, player.transform.position);
-            if (showCanvas && (currentDistanceToLever<distanceToLever) && !leverPulled && Input.GetButtonDown("Interact"))
+
+            if ((currentDistanceToLever<distanceToLever) && Input.GetButtonDown("Interact"))
             {
-                showCanvas = false;
-                leverPulled = true;
-                Debug.Log("lever pulled");
-                //We could have another object attached here, such as a GameObject MortalTrap, and that
-                //object has a function activate. That way we could easily do MortalTrap.activate(); from here.
+                if (canTurnOnAndOff)
+                    leverState = leverState == LeverState.OFF ? LeverState.ON : LeverState.OFF;
+                else
+                    leverState = LeverState.ON;
+
+                Debug.Log(leverState);
+
             }
         }
+    }
+
+    public void ChangeState()
+    {
+        if (canTurnOnAndOff)
+            leverState = leverState == LeverState.OFF ? LeverState.ON : LeverState.OFF;
+        else
+            leverState = LeverState.ON;
+
+        Debug.Log(leverState);
     }
 
     private void OnTriggerStay(Collider other)
@@ -49,7 +64,6 @@ public class LeverScript : MonoBehaviour
         //If the player enters the lever trigger, we'll show the canvas to press button E
         if (other.CompareTag("Player"))
         {
-            showCanvas = true;
             player = other.gameObject;
         }
     }
@@ -59,7 +73,6 @@ public class LeverScript : MonoBehaviour
         //If the player exits the trigger, we'll hide the canvas
         if (other.CompareTag("Player"))
         {
-            showCanvas = false;
             player = null;
         }
     }
