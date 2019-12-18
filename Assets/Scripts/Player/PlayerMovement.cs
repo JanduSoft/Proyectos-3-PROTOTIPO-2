@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float verticalMove;
     private Vector3 playerInput;
     private Vector3 movePlayer;
+    private bool stopped = false;
 
     [SerializeField] CharacterController player;
     [SerializeField] float playerSpeed;
@@ -102,17 +103,21 @@ public class PlayerMovement : MonoBehaviour
             movePlayer = playerInput.x * camRight + playerInput.z * camForward;
             movePlayer *= playerSpeed;
 
-            // CHARACTER ROTATION (LOOK AT)
-            player.transform.LookAt(player.transform.position + movePlayer);
+            if (!stopped)
+            {
+                // CHARACTER ROTATION (LOOK AT)
+                player.transform.LookAt(player.transform.position + movePlayer);
 
-            // GRAVITY
-            SetGravity();
+                // GRAVITY
+                SetGravity();
 
-            // JUMP
-            PlayerSkills();
+                // JUMP
+                PlayerSkills();
 
-            // MOVING CHARACTER
-            player.Move(movePlayer * Time.deltaTime);
+                // MOVING CHARACTER
+
+                player.Move(movePlayer * Time.deltaTime);
+            }
         }
         
         
@@ -195,5 +200,10 @@ public class PlayerMovement : MonoBehaviour
        }
 
 
+    }
+
+    public void StopMovement(bool _tof)
+    {
+        stopped = _tof;
     }
 }
