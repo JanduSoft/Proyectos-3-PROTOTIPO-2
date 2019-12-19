@@ -53,16 +53,14 @@ public class Whip : MonoBehaviour
         #endregion
 
         #region PLAYER WHIPJUMP & WHIPOBJECT
+            Debug.Log(playerTransform.position);
         if (time >= lineDrawSpeed / 4 && ableToWhipJump )
         {
             whip.SetPosition(1, whipableObjectTransform.position);
-            playerTransform.DOMove(destinationTrasnform.position, 1f);
-            
-            /*whip.SetPosition(1, whipableObjectTransform.position);
-            float x = Mathf.Lerp(0, distToDestination, Time.deltaTime);
+            float x = Mathf.Lerp(0, distToDestination, 0.035f);
             Vector3 pA = playerTransform.position;
             Vector3 pB = destinationTrasnform.position;
-            newPlayerPos = x * Vector3.Normalize(pB - pA) + pA;*/
+            newPlayerPos = x * Vector3.Normalize(pB - pA) + pA;
             whippin = true;
         }
         else if(time >= lineDrawSpeed / 4 && ableToWhipObject)
@@ -153,6 +151,10 @@ public class Whip : MonoBehaviour
         whipableObjectTransform = transform;
     }
 
+    public bool getWhip()
+    {
+        return whippin;
+    }
     Vector3 calculateBezierCurve(float t, Vector3 p0, Vector3 p1, Vector3 p2)
     {
         float u = 1 - t;

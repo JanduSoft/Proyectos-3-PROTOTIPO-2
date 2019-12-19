@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] CharacterController player;
     [SerializeField] float playerSpeed;
-
+    [SerializeField] Whip whip;
     [Header("JUMP")]
     [SerializeField] float jumpForce;
     [SerializeField] AudioSource jumpSound;
@@ -153,15 +153,18 @@ public class PlayerMovement : MonoBehaviour
     #region SET GRAVITY
     void SetGravity()
     {
-        if (player.isGrounded)
+        if (!whip.getWhip())
         {
-            fallVelocity = -gravity * Time.deltaTime;
-            movePlayer.y = fallVelocity;
-        }
-        else
-        {
-            fallVelocity -= gravity * Time.deltaTime;
-            movePlayer.y = fallVelocity;
+            if (player.isGrounded)
+            {
+                fallVelocity = -gravity * Time.deltaTime;
+                movePlayer.y = fallVelocity;
+            }
+            else
+            {
+                fallVelocity -= gravity * Time.deltaTime;
+                movePlayer.y = fallVelocity;
+            }
         }
     }
     #endregion
