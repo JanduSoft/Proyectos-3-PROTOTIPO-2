@@ -25,6 +25,8 @@ public class Whip : MonoBehaviour
     {
         whip.SetPosition(0, playerTransform.position);
         whip.SetPosition(1, playerTransform.position);
+        whip.startColor = Color.black;
+        whip.endColor = Color.black;
         whip.startWidth = (0.2f);
         whip.endWidth = (0.2f);
     }

@@ -16,7 +16,7 @@ public class ArrowController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += Vector3.forward * -speed;
+        transform.position += transform.forward * speed;
         if (Vector3.Distance(transform.position, initialPos) > maxDistance) Destroy(this.transform.gameObject);
     }
 }

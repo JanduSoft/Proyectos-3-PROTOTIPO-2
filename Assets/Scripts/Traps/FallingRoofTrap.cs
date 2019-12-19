@@ -24,8 +24,7 @@ public class FallingRoofTrap : MonoBehaviour
         #region CALCULATE MOVEMENT VECTOR
         if (trapActivated)
         {
-            roofRB.useGravity = (true);
-            roofRB.AddForce(fallSpeed);
+            roofRB.useGravity = (true);            
         }
         #endregion
 
@@ -58,7 +57,10 @@ public class FallingRoofTrap : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        if (trapActivated)
+        {
+            roofRB.AddForce(fallSpeed);
+        }
     }
     private void OnTriggerStay(Collider other)
     {

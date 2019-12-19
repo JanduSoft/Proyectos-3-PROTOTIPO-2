@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 655681025641099152}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 38.609657, y: 22.730152, z: 25.153564}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4604991260428131476}
   m_Father: {fileID: 0}
@@ -53,6 +53,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2574583817640004444}
     m_Modifications:
+    - target: {fileID: 100000, guid: 1fac0970bac25574ebb8fa1e625d4a4b, type: 3}
+      propertyPath: m_Name
+      value: SM_Arrow_01
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1fac0970bac25574ebb8fa1e625d4a4b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -108,10 +112,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 1fac0970bac25574ebb8fa1e625d4a4b, type: 3}
       propertyPath: m_LocalScale.z
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 1fac0970bac25574ebb8fa1e625d4a4b, type: 3}
-      propertyPath: m_Name
-      value: SM_Arrow_01
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 1fac0970bac25574ebb8fa1e625d4a4b, type: 3}
       propertyPath: m_Materials.Array.data[0]
