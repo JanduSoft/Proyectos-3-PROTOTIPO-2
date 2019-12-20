@@ -77,7 +77,7 @@ public class FollowingCharacter : MonoBehaviour
             }
         }
 
-        if (onLevel1)
+        /*if (onLevel1)
         {
             switch (corner)
             {
@@ -129,7 +129,7 @@ public class FollowingCharacter : MonoBehaviour
                     }
             }
 
-        }
+        }*/
 
         //diferenceHeight = transform.position.y - player.position.y;
         //Debug.Log(diferenceHeight);
