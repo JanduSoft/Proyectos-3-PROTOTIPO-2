@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] CapsuleCollider myCollider;
     private Vector3 playerInput;
+    
     private Vector3 playerDirection;
     private bool previousIsGrounded;
     private bool grounded;
