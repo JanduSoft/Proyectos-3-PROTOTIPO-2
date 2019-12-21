@@ -62,7 +62,7 @@ public class Whip : MonoBehaviour
         {
             whip.SetPosition(1, whipableObjectTransform.position);
 
-            float x = Mathf.Lerp(0, distToDestination, 0.025f);
+            float x = Mathf.Lerp(0, distToDestination, 0.01f);
 
             Vector3 pA = playerTransform.position;
 
