@@ -81,9 +81,9 @@ public class Whip : MonoBehaviour
 
         }
 
+        if(spriteIndicateObject.activeInHierarchy) spriteIndicateObject.transform.position = whipableObjectTransform.position;
 
-
-        if(ableToWhipJump)
+        if (ableToWhipJump)
 
             if(Vector3.Distance(playerTransform.position, destinationTrasnform.position) < 1)
 
