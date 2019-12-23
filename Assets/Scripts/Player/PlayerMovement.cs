@@ -29,17 +29,17 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 camRight;
 
     [Header("PORTALS")]
-    [SerializeField] Transform portal1;
+    private Transform portal1;
     private bool moveToPortal1 = false;
-    [SerializeField] Transform portal2;
+    private Transform portal2;
     private bool moveToPortal2 = false;
-    [SerializeField] Transform portal3;
+    private Transform portal3;
     private bool moveToPortal3 = false;
-    [SerializeField] Transform portal4;
+    private Transform portal4;
     private bool moveToPortal4 = false;
-    [SerializeField] Transform portal5;
+    private Transform portal5;
     private bool moveToPortal5 = false;
-    [SerializeField] Transform portal6;
+    private Transform portal6;
     private bool moveToPortal6 = false;
 
     #endregion
