@@ -8,16 +8,17 @@ public class Whip : MonoBehaviour
     [SerializeField] LineRenderer whip;
     [SerializeField] Transform playerTransform;
     [SerializeField] GameObject spriteIndicateObject;
-    [SerializeField] GameObject playerGO;
     Vector3 newPlayerPos;
     Transform whipableObjectTransform;
     Transform destinationTrasnform;
+    Vector3 oldPlayerPos;
     [SerializeField] float lineDrawSpeed;
     float distToWhipable;
     float distToDestination;
     float counter = 0;
     float curveCounter = 0;
     float time = 0;
+    float timeWhip = 0;
     bool inputDown = false;
 
     [SerializeField] bool ableToWhipJump = false;
@@ -40,7 +41,9 @@ public class Whip : MonoBehaviour
 
         #region WHIP UPDATE
         whip.SetPosition(0, playerTransform.position);
-        whip.SetPosition(1, playerTransform.position);
+        if(!whippin)
+            whip.SetPosition(1, playerTransform.position);
+
         if (counter < distToWhipable && inputDown && (ableToWhipJump || ableToWhipObject))
         {
             time += Time.deltaTime;
@@ -49,7 +52,6 @@ public class Whip : MonoBehaviour
             Vector3 pA = playerTransform.position;
             Vector3 pB = whipableObjectTransform.position;
             Vector3 pointBetweenAandB = x * Vector3.Normalize(pB - pA) + pA;
-            whip.SetPosition(1, pointBetweenAandB);
         }
         #endregion
 
@@ -61,36 +63,22 @@ public class Whip : MonoBehaviour
         if (time >= lineDrawSpeed / 4 && ableToWhipJump )
         {
             whip.SetPosition(1, whipableObjectTransform.position);
-
-            float x = Mathf.Lerp(0, distToDestination, 0.01f);
-
-            Vector3 pA = playerTransform.position;
-
-            Vector3 pB = destinationTrasnform.position;
-
-            newPlayerPos = x * Vector3.Normalize(pB - pA) + pA;
-
+            newPlayerPos = Vector3.Lerp(playerTransform.position, destinationTrasnform.position, Time.deltaTime);
             whippin = true;
         }
-
         else if(time >= lineDrawSpeed / 4 && ableToWhipObject)
-
         {
-
             whipableObjectTransform.SendMessage("ChangeState");
-
         }
 
         if(spriteIndicateObject.activeInHierarchy) spriteIndicateObject.transform.position = whipableObjectTransform.position;
 
         if (ableToWhipJump)
-
-            if(Vector3.Distance(playerTransform.position, destinationTrasnform.position) < 1)
-
+            if(Vector3.Distance(playerTransform.position, destinationTrasnform.position) < 2)
             {
-
+                whipableObjectTransform.SendMessage("ChangeState");
                 whippin = false;
-
+                timeWhip = 0;
             }
 
         
@@ -100,12 +88,11 @@ public class Whip : MonoBehaviour
 
 
         #region INPUT CONTROL
-        if (Input.GetKeyDown(KeyCode.C) && ableToWhipJump)
+        if ((Input.GetButtonDown("Whip")) && ableToWhipJump)
         {
-            whipableObjectTransform.SendMessage("ChangeState");
             inputDown = true;
         }
-        if (Input.GetKeyUp(KeyCode.C) )
+        if ((Input.GetButtonUp("Whip")) )
         {
             whippin = false;
             inputDown = false;
