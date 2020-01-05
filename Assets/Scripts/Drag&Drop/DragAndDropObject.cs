@@ -27,10 +27,11 @@ public class DragAndDropObject : MonoBehaviour
     void Update()
     {
         //Recalculate grab points in case the rock has moved
-        grabPoints[0] = transform.position + new Vector3(2.5f, -0.5f, 0);
-        grabPoints[1] = transform.position + new Vector3(-2.5f, -0.5f, 0);
-        grabPoints[2] = transform.position + new Vector3(0, -0.5f, 2.5f);
-        grabPoints[3] = transform.position + new Vector3(0, -0.5f, -2.5f);
+        grabPoints[0] = transform.position + new Vector3(3f, -0.5f, 0);
+        grabPoints[1] = transform.position + new Vector3(-3f, -0.5f, 0);
+        grabPoints[2] = transform.position + new Vector3(0, -0.5f, 3f);
+        grabPoints[3] = transform.position + new Vector3(0, -0.5f, -3f);
+
         if (minPoint != -1)
             closestPoint = grabPoints[minPoint];
 
@@ -63,6 +64,7 @@ public class DragAndDropObject : MonoBehaviour
 
                 player.transform.position = closestPoint;
                 Vector3 dir = transform.position - player.transform.position;
+                dir.y = 0;
                 float vert = Input.GetAxis("Vertical");
                 if (vert>0)
                 {
@@ -80,7 +82,7 @@ public class DragAndDropObject : MonoBehaviour
 
             if (GetComponent<Animation>().isPlaying)
             {
-                player.GetComponent<PlayerMovement>().StopMovement(false);
+                //player.GetComponent<PlayerMovement>().StopMovement(false);
                 lerping = false;
                 rockGrabbed = false;
             }

@@ -79,7 +79,6 @@ MonoBehaviour:
   whip: {fileID: 415923831}
   playerTransform: {fileID: 6120095539264640499}
   spriteIndicateObject: {fileID: 0}
-  playerGO: {fileID: 6120095539264640501}
   lineDrawSpeed: 1
   ableToWhipJump: 0
 --- !u!1 &6120095539264640501
@@ -92,6 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6120095539264640499}
   - component: {fileID: 6120095539264640500}
+  - component: {fileID: 7219794959162274814}
   - component: {fileID: 6120095539264640498}
   - component: {fileID: 583964081}
   - component: {fileID: 415923832}
@@ -138,6 +138,18 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7219794959162274814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6120095539264640501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 996ae6a9a10055e459e9b387c969ebbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6120095539264640498
 MonoBehaviour:
   m_ObjectHideFlags: 0
