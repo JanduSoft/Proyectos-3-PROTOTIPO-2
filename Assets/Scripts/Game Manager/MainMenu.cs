@@ -28,7 +28,9 @@ public class MainMenu :  MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playButton.name == EventSystem.current.currentSelectedGameObject.name)
+        GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
+
+        if (playButton.name == EventSystem.current.currentSelectedGameObject.name)
         {
             playHighlighted.gameObject.SetActive(true);
             exitHighlighted.gameObject.SetActive(false);
@@ -39,7 +41,11 @@ public class MainMenu :  MonoBehaviour
             exitHighlighted.gameObject.SetActive(true);
         }
         if (tweening) time += Time.deltaTime;
-        if (time > 2) gameObject.SetActive(false);
+        if (time > 2)
+        {
+            GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(false);
+            gameObject.SetActive(false);
+        }
     }
 
     public void Play()
