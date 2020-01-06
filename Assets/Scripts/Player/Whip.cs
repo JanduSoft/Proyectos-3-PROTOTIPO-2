@@ -18,6 +18,7 @@ public class Whip : MonoBehaviour
     float counter = 0;
     float curveCounter = 0;
     float time = 0;
+    [SerializeField] float timeWhippin = 0;
     float timeWhip = 0;
     bool inputDown = false;
 
@@ -63,7 +64,7 @@ public class Whip : MonoBehaviour
         if (time >= lineDrawSpeed / 4 && ableToWhipJump )
         {
             whip.SetPosition(1, whipableObjectTransform.position);
-            newPlayerPos = Vector3.Lerp(playerTransform.position, destinationTrasnform.position, Time.deltaTime);
+            newPlayerPos = Vector3.Lerp(playerTransform.position, destinationTrasnform.position, timeWhippin);
             whippin = true;
         }
         else if(time >= lineDrawSpeed / 4 && ableToWhipObject)
