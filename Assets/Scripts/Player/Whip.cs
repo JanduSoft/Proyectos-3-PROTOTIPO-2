@@ -18,7 +18,7 @@ public class Whip : MonoBehaviour
     float counter = 0;
     float curveCounter = 0;
     float time = 0;
-    [SerializeField] int timeWhippin = 0;
+    [SerializeField] float timeWhippin = 0;
     float timeWhip = 0;
     bool inputDown = false;
 
