@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -208,5 +209,10 @@ public class PlayerMovement : MonoBehaviour
     public void StopMovement(bool _tof)
     {
         stopped = _tof;
+    }
+
+    public void Whip(Transform destination)
+    {
+        transform.DOJump(destination.position, -0.5f, 1, 1);
     }
 }

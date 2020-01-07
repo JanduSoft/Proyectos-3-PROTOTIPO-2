@@ -8,16 +8,15 @@ public class Whip : MonoBehaviour
     [SerializeField] LineRenderer whip;
     [SerializeField] Transform playerTransform;
     [SerializeField] GameObject spriteIndicateObject;
-    Vector3 newPlayerPos;
     Transform whipableObjectTransform;
     Transform destinationTrasnform;
-    Vector3 oldPlayerPos;
     [SerializeField] float lineDrawSpeed;
     float distToWhipable;
     float distToDestination;
     float counter = 0;
     float curveCounter = 0;
     float time = 0;
+    [SerializeField] float timeWhippin = 0;
     float timeWhip = 0;
     bool inputDown = false;
 
@@ -60,10 +59,10 @@ public class Whip : MonoBehaviour
 
             //Debug.Log(playerTransform.position);
 
-        if (time >= lineDrawSpeed / 4 && ableToWhipJump )
+        if (time >= lineDrawSpeed / 4 && ableToWhipJump && inputDown)
         {
             whip.SetPosition(1, whipableObjectTransform.position);
-            newPlayerPos = Vector3.Lerp(playerTransform.position, destinationTrasnform.position, Time.deltaTime);
+            playerTransform.SendMessage("Whip", destinationTrasnform);
             whippin = true;
         }
         else if(time >= lineDrawSpeed / 4 && ableToWhipObject)
@@ -106,10 +105,7 @@ public class Whip : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (whippin)
-        {
-            playerTransform.position = newPlayerPos;
-        }
+
     }
 
     private void OnTriggerEnter(Collider other)

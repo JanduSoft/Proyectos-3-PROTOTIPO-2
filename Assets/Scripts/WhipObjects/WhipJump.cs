@@ -27,6 +27,7 @@ public class WhipJump : MonoBehaviour
         if(goingForward == 1) player.SendMessage("setDestinationTransform", destinationGoingForwardForJump);
         else player.SendMessage("setDestinationTransform", destinationGoingBackwardsForJump);
         player.SendMessage("setWhipableJumpObjectTransform", this.transform);
+        goingForward = -goingForward;
     }
 
     public void ChangeState()
