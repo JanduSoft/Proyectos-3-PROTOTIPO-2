@@ -46,7 +46,7 @@ public class CameraController : MonoBehaviour
     /// /////////////////---- UPDATE
     void Update()
     {
-        cam.transform.DOLookAt(Target.position, 0.5f);
+        //cam.transform.DOLookAt(Target.position, 0.5f);
 
         //////////---------ZOOM
         /*float scrollData;

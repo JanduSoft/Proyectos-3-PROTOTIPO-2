@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class EnablePartsOfMap : MonoBehaviour
 {
-    enum typeOfGO
+    public enum typeOfGO
     {
         NONE,
         TO_ENABLE,
         TO_DISABLE
     }
-    [SerializeField] typeOfGO typeGO;
     [SerializeField] GameObject go;
+    [SerializeField] typeOfGO typeGO;
+
+    private SectionMapVariables myPart;
+
+    private void Start()
+    {
+        myPart = go.GetComponent<SectionMapVariables>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -23,12 +30,18 @@ public class EnablePartsOfMap : MonoBehaviour
                     break;
                 case typeOfGO.TO_ENABLE:
                     {
-                        go.SetActive(true);
+                        if (myPart.isActive)
+                        {
+                            go.SetActive(true);
+                        }                        
                         break;
                     }
                 case typeOfGO.TO_DISABLE:
                     {
-                        go.SetActive(false);
+                        if (myPart.isActive)
+                        {
+                            go.SetActive(false);
+                        }
                         break;
                     }
                 default:
@@ -36,4 +49,5 @@ public class EnablePartsOfMap : MonoBehaviour
             }
         }
     }
+        
 }
