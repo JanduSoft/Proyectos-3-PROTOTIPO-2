@@ -29,22 +29,24 @@ public class MainMenu :  MonoBehaviour
     void Update()
     {
         GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
-
-        if (playButton.name == EventSystem.current.currentSelectedGameObject.name)
+        if (EventSystem.current != null)
         {
-            playHighlighted.gameObject.SetActive(true);
-            exitHighlighted.gameObject.SetActive(false);
-        }
-        else if(exitButton.name == EventSystem.current.currentSelectedGameObject.name)
-        {
-            playHighlighted.gameObject.SetActive(false);
-            exitHighlighted.gameObject.SetActive(true);
-        }
-        if (tweening) time += Time.deltaTime;
-        if (time > 2)
-        {
-            GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(false);
-            gameObject.SetActive(false);
+            if (playButton.name == EventSystem.current.currentSelectedGameObject.name)
+            {
+                playHighlighted.gameObject.SetActive(true);
+                exitHighlighted.gameObject.SetActive(false);
+            }
+            else if (exitButton.name == EventSystem.current.currentSelectedGameObject.name)
+            {
+                playHighlighted.gameObject.SetActive(false);
+                exitHighlighted.gameObject.SetActive(true);
+            }
+            if (tweening) time += Time.deltaTime;
+            if (time > 2)
+            {
+                GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(false);
+                gameObject.SetActive(false);
+            }
         }
     }
 

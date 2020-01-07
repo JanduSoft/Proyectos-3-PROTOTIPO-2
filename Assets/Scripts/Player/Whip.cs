@@ -18,6 +18,7 @@ public class Whip : MonoBehaviour
     float counter = 0;
     float curveCounter = 0;
     float time = 0;
+    [SerializeField] FollowingCharacter camera;
     [SerializeField] float timeWhippin = 0;
     float timeWhip = 0;
     bool inputDown = false;
@@ -61,10 +62,12 @@ public class Whip : MonoBehaviour
 
             //Debug.Log(playerTransform.position);
 
-        if (time >= lineDrawSpeed / 4 && ableToWhipJump )
+        if (time >= lineDrawSpeed / 4 && ableToWhipJump && inputDown)
         {
+            camera.enabled = false;
+            camera.enabled = true;
             whip.SetPosition(1, whipableObjectTransform.position);
-            newPlayerPos = Vector3.Lerp(playerTransform.position, destinationTrasnform.position, timeWhippin);
+            playerTransform.SendMessage("Whip", destinationTrasnform);
             whippin = true;
         }
         else if(time >= lineDrawSpeed / 4 && ableToWhipObject)

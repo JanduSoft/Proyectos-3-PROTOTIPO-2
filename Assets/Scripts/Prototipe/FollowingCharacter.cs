@@ -48,9 +48,9 @@ public class FollowingCharacter : MonoBehaviour
         Vector3 newPosition = new Vector3(player.position.x, player.position.y , player.position.z);
         //targetRB.MovePosition(newPosition);
         transform.DOMove(newPosition, 1f);
-
+        //transform.position = Vector3.Lerp(transform.position, player.position, 0.25f);
         //Commented this because E is now used to interact with levers
-        if (/*(Input.GetKeyDown(KeyCode.E) ||*/ Input.GetButtonDown("Trigger1") && !isRotating)
+        /*if ((Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Trigger1") && !isRotating)
         {
             rotationAS.Play();
             isRotating = true;
