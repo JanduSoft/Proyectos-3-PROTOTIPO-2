@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class LeverScript : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class LeverScript : MonoBehaviour
             {
                 showCanvas = false;
                 leverPulled = true;
-                lever.transform.localRotation = new Quaternion (lever.transform.rotation.x, lever.transform.rotation.y, -45, lever.transform.rotation.w) ;
+                lever.transform.localEulerAngles = new Vector3 (lever.transform.localRotation.x, lever.transform.localRotation.y, lever.transform.localEulerAngles.z - 45) ;
                 activateObject.SendMessage("ActivateObject", false, SendMessageOptions.DontRequireReceiver);
                 //We could have another object attached here, such as a GameObject MortalTrap, and that
                 //object has a function activate. That way we could easily do MortalTrap.activate(); from here.
