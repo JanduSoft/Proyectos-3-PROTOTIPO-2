@@ -14,8 +14,8 @@ public class BridgeMovement : MonoBehaviour
         
     }
 
-    public void ActivateBridge()
+    public void ActivateObject()
     {
-        this.transform.DOMove(newPosition, speed);
+        transform.DOMove(newPosition, speed);
     }
 }

@@ -18,6 +18,9 @@ public class LeverScript : MonoBehaviour
 
 
     // Variables
+    [SerializeField] GameObject activateObject;
+    [SerializeField] GameObject lever;
+
     bool showCanvas = false;
     public float distanceToLever = 3f;
     GameObject player = null;
@@ -37,7 +40,8 @@ public class LeverScript : MonoBehaviour
             {
                 showCanvas = false;
                 leverPulled = true;
-                Debug.Log("lever pulled");
+                lever.transform.localRotation = new Quaternion (lever.transform.rotation.x, lever.transform.rotation.y, -45, lever.transform.rotation.w) ;
+                activateObject.SendMessage("ActivateObject", false, SendMessageOptions.DontRequireReceiver);
                 //We could have another object attached here, such as a GameObject MortalTrap, and that
                 //object has a function activate. That way we could easily do MortalTrap.activate(); from here.
             }
