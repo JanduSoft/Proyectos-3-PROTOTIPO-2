@@ -33,7 +33,7 @@ public class ShootingArrowsTrap : MonoBehaviour
                 //We randomise the position of the arrows 
                 float x = shootingTransform.position.x + Random.Range(-widthOffset, widthOffset);
                 float y = shootingTransform.position.y + Random.Range(0, heightOffset);
-                float z = shootingTransform.position.z;
+                float z = shootingTransform.position.z + Random.Range(-widthOffset, widthOffset) ;
                 //We isntantiate the arrows
                 Instantiate(arrowPrefab, new Vector3(x,y,z), Quaternion.LookRotation(shootingTransform.forward), shootingTransform);
             }

@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class AddSkull : MonoBehaviour
 {
-    Transform placePosition;
+    public GameObject placePosition;
     Transform skullTransform = null;
     private bool canPlace = false;
-    // Update is called once per frame
 
     private void Start()
     {
-        placePosition = transform.GetChild(0).transform;
     }
+
 
     void Update()
     {
         if (canPlace && Input.GetButtonDown("Interact"))
         {
-            skullTransform.position = placePosition.position;
+            skullTransform.position = placePosition.transform.position;
             skullTransform.rotation = this.transform.rotation;
         }
     }
@@ -29,18 +28,18 @@ public class AddSkull : MonoBehaviour
         {
             canPlace = true;
         }
-        if (other.name == "Skull")
+        if (other.CompareTag("Skull"))
         {
-            skullTransform = other.transform;
+            skullTransform = other.gameObject.transform;
             Debug.Log(other.name);
         }
 
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.name == "Skull")
+        if (other.CompareTag("Skull"))
         {
-            skullTransform = other.transform;
+            skullTransform = other.gameObject.transform;
             Debug.Log(other.name);
         }
 
@@ -52,7 +51,7 @@ public class AddSkull : MonoBehaviour
         {
             canPlace = false;
         }
-        else if (other.name == "Skull")
+        else if (other.CompareTag("Skull"))
         {
             skullTransform = null;
         }
