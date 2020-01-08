@@ -15,6 +15,7 @@ public class DragAndDrop : MonoBehaviour
 
 
     GameObject player = null;
+    GameObject grabPlace = null;
     public float minDistanceToGrabObject = 1.5f;
     bool objectIsGrabbed = false;
     bool isFacingBox = false;
@@ -43,10 +44,12 @@ public class DragAndDrop : MonoBehaviour
                 if (!objectIsGrabbed)
                 {
                     transform.SetParent(player.transform);
+                    transform.position = grabPlace.transform.position;
                     objectIsGrabbed = true;
                 }
                 else
                 {
+                    Debug.Log(this.transform.name + " AAAA");
                     transform.SetParent(null);
                     objectIsGrabbed = false;
                 }
@@ -59,17 +62,30 @@ public class DragAndDrop : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
+            grabPlace = player.transform.GetChild(1).gameObject;
         }
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            player = other.gameObject;
+            grabPlace = player.transform.GetChild(2).gameObject;
+        }
+    }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             player = null;
+            grabPlace = null;
         }
     }
-
+    public void DropObject()
+    {
+        transform.SetParent(null);
+        objectIsGrabbed = false;
+    }
 
     private void OnDrawGizmosSelected()
     {

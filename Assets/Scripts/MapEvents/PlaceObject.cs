@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlaceObject : MonoBehaviour
 {
     [SerializeField] Transform placePosition;
+    [SerializeField] string name;
     Transform skullTransform = null;
     private bool canPlace  =false;
     // Update is called once per frame
@@ -23,16 +24,17 @@ public class PlaceObject : MonoBehaviour
         {
             canPlace = true;
         }
-        if (other.name == "Skull")
+        if (other.name == name)
         {
             skullTransform = other.transform;
+            //other.SendMessage("DropObject");
             Debug.Log(other.name);
         }
 
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.name == "Skull")
+        if (other.name == name)
         {
             skullTransform = other.transform;
             Debug.Log(other.name);

@@ -25,6 +25,9 @@ public class PauseScript : MonoBehaviour
 
     void PauseGame()
     {
+
+        pauseCanvas.gameObject.SetActive(true);
+
         isPaused = true;
 
         Cursor.visible = true;
@@ -38,6 +41,8 @@ public class PauseScript : MonoBehaviour
 
     void ResumeGame()
     {
+        pauseCanvas.gameObject.SetActive(false);
+
         isPaused = false;
 
         Cursor.visible = false;
