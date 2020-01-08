@@ -213,6 +213,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void Whip(Transform destination)
     {
-        transform.DOJump(destination.position, -0.5f, 1, 1);
+        transform.DOJump(destination.position, -0.5f, 1, 0.5f);
     }
 }
