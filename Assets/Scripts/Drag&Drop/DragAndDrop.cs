@@ -49,6 +49,7 @@ public class DragAndDrop : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log(this.transform.name + " AAAA");
                     transform.SetParent(null);
                     objectIsGrabbed = false;
                 }
@@ -64,7 +65,14 @@ public class DragAndDrop : MonoBehaviour
             grabPlace = player.transform.GetChild(2).gameObject;
         }
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            player = other.gameObject;
+            grabPlace = player.transform.GetChild(2).gameObject;
+        }
+    }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -73,7 +81,11 @@ public class DragAndDrop : MonoBehaviour
             grabPlace = null;
         }
     }
-
+    public void DropObject()
+    {
+        transform.SetParent(null);
+        objectIsGrabbed = false;
+    }
 
     private void OnDrawGizmosSelected()
     {
