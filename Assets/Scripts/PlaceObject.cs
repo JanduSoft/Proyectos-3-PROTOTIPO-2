@@ -10,7 +10,7 @@ public class PlaceObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canPlace && Input.GetKeyDown(KeyCode.E))
+        if (canPlace && Input.GetButtonDown("Interact"))
         {
             skullTransform.position = placePosition.position;
             skullTransform.rotation = this.transform.rotation;
