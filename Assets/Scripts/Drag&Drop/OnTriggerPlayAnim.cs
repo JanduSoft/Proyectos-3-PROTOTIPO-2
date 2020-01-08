@@ -14,7 +14,6 @@ public class OnTriggerPlayAnim : MonoBehaviour
         {
             rockAnim = transform.parent.GetChild(0).GetComponent<Animation>();
             rockAnim.Play(animationClipName);
-            Debug.Log("yoyo");
             GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
             StartCoroutine(startMovingAgain(rockAnim.GetClip(animationClipName).length));
         }
@@ -23,7 +22,6 @@ public class OnTriggerPlayAnim : MonoBehaviour
     IEnumerator startMovingAgain(float _s)
     {
         yield return new WaitForSeconds(_s);
-        Debug.Log("yasta");
         GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(false);
     }
 }
