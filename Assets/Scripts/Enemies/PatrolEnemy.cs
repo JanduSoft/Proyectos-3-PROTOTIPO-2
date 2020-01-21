@@ -10,7 +10,7 @@ public class PatrolEnemy : MonoBehaviour
     [SerializeField] float viewingAngle;
     [SerializeField] float viewingDistance;
     [SerializeField] List<GameObject> pathPoints;
-    [SerializeField] float angleBetweenEnemyandPlayer = 0;
+    float angleBetweenEnemyandPlayer = 0;
     [SerializeField] int pathNumer = 1;
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,7 @@ public class PatrolEnemy : MonoBehaviour
     void Update()
     {
         angleBetweenEnemyandPlayer = Vector3.Angle(transform.forward, new Vector3(Player.transform.position.x, transform.position.y, Player.transform.position.z) - transform.position);
-        if (angleBetweenEnemyandPlayer < viewingAngle)
+        if (angleBetweenEnemyandPlayer < viewingAngle && Vector3.Distance(transform.position , Player.transform.position) < viewingDistance)
         {
             Agent.SetDestination(Player.transform.position);
         }

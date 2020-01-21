@@ -21,9 +21,7 @@ public class UpandDownSecondPuzzle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (index == targePosition) place.SendMessage("Solved", indexLever);
-        else if (index != targePosition) place.SendMessage("Broken", indexLever);
-        if(canInteract)
+        if (canInteract)
         {
             if(Input.GetButtonDown("Interact"))
             {
