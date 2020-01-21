@@ -9,6 +9,7 @@ public class NewWhipJump : MonoBehaviour
     [Header("MOVEMENT")]
     [SerializeField] Transform destination;
     [SerializeField] float speed;
+    [SerializeField] float jump;
     bool canWhip = false;
     [Header("EXTERN VARIABLES")]
     [SerializeField] Transform player;
@@ -34,7 +35,7 @@ public class NewWhipJump : MonoBehaviour
         {
             spriteIndicateObject.transform.position = whipableObject.position;
         }
-        player.DOMove(destination.position, speed);
+        player.DOJump(destination.position,jump, 1, speed);
     }
     #endregion
 
