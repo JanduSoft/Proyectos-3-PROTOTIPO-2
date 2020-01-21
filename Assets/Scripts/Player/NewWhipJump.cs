@@ -34,7 +34,7 @@ public class NewWhipJump : MonoBehaviour
         {
             spriteIndicateObject.transform.position = whipableObject.position;
         }
-        player.DOMove(destination.position, speed,true);
+        player.DOMove(destination.position, speed);
     }
     #endregion
 
