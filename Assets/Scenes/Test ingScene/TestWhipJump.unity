@@ -159,6 +159,8 @@ MonoBehaviour:
   destination: {fileID: 76583515}
   speed: 0.7
   jump: 0
+  impulse: 0
+  timeImpulse: 0
   player: {fileID: 1091828910}
   whipableObject: {fileID: 1550126568}
   spriteIndicateObject: {fileID: 839770539}
@@ -222,6 +224,8 @@ MonoBehaviour:
   destination: {fileID: 18061522}
   speed: 0.7
   jump: 0
+  impulse: 0
+  timeImpulse: 0
   player: {fileID: 1091828910}
   whipableObject: {fileID: 1550126568}
   spriteIndicateObject: {fileID: 839770539}
@@ -285,6 +289,8 @@ MonoBehaviour:
   destination: {fileID: 1063031812}
   speed: 0.7
   jump: 0
+  impulse: 0
+  timeImpulse: 0
   player: {fileID: 1091828910}
   whipableObject: {fileID: 1947537050}
   spriteIndicateObject: {fileID: 524102103}
@@ -360,6 +366,8 @@ MonoBehaviour:
   destination: {fileID: 790330291}
   speed: 0.7
   jump: 0
+  impulse: 0
+  timeImpulse: 0
   player: {fileID: 1091828910}
   whipableObject: {fileID: 559786494}
   spriteIndicateObject: {fileID: 1341855312}
@@ -904,6 +912,8 @@ MonoBehaviour:
   destination: {fileID: 279292955}
   speed: 0.7
   jump: 0
+  impulse: 0
+  timeImpulse: 0
   player: {fileID: 1091828910}
   whipableObject: {fileID: 559786494}
   spriteIndicateObject: {fileID: 1341855312}
@@ -985,7 +995,7 @@ PrefabInstance:
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.87
+      value: 2.48
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
@@ -1050,6 +1060,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 583964081, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
 --- !u!1 &1063031811
@@ -1099,6 +1113,8 @@ MonoBehaviour:
   destination: {fileID: 233376859}
   speed: 0.7
   jump: 0
+  impulse: 0
+  timeImpulse: 0
   player: {fileID: 1091828910}
   whipableObject: {fileID: 1947537050}
   spriteIndicateObject: {fileID: 524102103}
@@ -2256,21 +2272,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1091828910}
-    - target: {fileID: 1732243685648198930, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: jump
-      value: -4.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1732243685982638575, guid: 4e873c65061ceda4f82894c893b31f7c,
         type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1091828910}
-    - target: {fileID: 1732243685982638575, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: jump
-      value: -4.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
         type: 3}
       propertyPath: camera
