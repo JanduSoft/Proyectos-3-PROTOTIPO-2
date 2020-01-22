@@ -29,6 +29,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 camForward;
     private Vector3 camRight;
 
+    AudioSource playerSteps;
+    Vector3 prevPos;
+
     [Header("PORTALS")]
     private Transform portal1;
     private bool moveToPortal1 = false;
@@ -51,6 +54,9 @@ public class PlayerMovement : MonoBehaviour
     {
         player = GetComponent<CharacterController>();
         fallVelocity = -10;
+
+        playerSteps = GameObject.Find("Player walking").GetComponent<AudioSource>();
+        prevPos = transform.position;
     }
     #endregion
 
@@ -117,7 +123,13 @@ public class PlayerMovement : MonoBehaviour
 
                 // MOVING CHARACTER
 
+                if (player.isGrounded && !playerSteps.isPlaying && (prevPos.x!=transform.position.x && prevPos.z!=transform.position.z) && (playerInput.x+playerInput.z>0.5f || playerInput.x+playerInput.z<-0.5f))
+                {
+                    prevPos = transform.position;
+                    playerSteps.Play();
+                }
                 player.Move(movePlayer * Time.deltaTime);
+
             }
         }
         

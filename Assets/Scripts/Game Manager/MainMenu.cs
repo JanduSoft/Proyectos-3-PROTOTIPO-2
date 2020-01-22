@@ -31,6 +31,7 @@ public class MainMenu : MonoBehaviour
         else
         {
             PlayerPrefs.SetInt("hasDoneMain", 1);   //1 = true
+            mainCamera.SetActive(false);
             GameObject.Find("Game Manager").GetComponent<PauseScript>().canPause = false;
             EventSystem.current.SetSelectedGameObject(playButton);
         }
@@ -58,6 +59,7 @@ public class MainMenu : MonoBehaviour
             if (time > 2)
             {
                 GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(false);
+                mainCamera.SetActive(true);
                 gameObject.SetActive(false);
             }
         }
