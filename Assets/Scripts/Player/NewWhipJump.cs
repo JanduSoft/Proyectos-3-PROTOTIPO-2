@@ -35,8 +35,8 @@ public class NewWhipJump : MonoBehaviour
 
     #region WHIP JUMP
     void WhipJump()
-    {        
-        //spriteIndicateObject.transform.position = whipableObject.position;        
+    {
+        //spriteIndicateObject.transform.position = whipableObject.position;    
         player.DOJump(destination.position, jump, 1, speed);
     }
     #endregion

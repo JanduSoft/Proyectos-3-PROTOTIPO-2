@@ -24,8 +24,17 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject.Find("Game Manager").GetComponent<PauseScript>().canPause = false;
-        EventSystem.current.SetSelectedGameObject(playButton);
+        if (PlayerPrefs.HasKey("hasDoneMain"))
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("hasDoneMain", 1);   //1 = true
+            GameObject.Find("Game Manager").GetComponent<PauseScript>().canPause = false;
+            EventSystem.current.SetSelectedGameObject(playButton);
+        }
+        
     }
 
     // Update is called once per frame
@@ -74,6 +83,7 @@ public class MainMenu : MonoBehaviour
     public void Exit()
     {
         Debug.Log("Quitting application...");
+        PlayerPrefs.DeleteKey("hasDoneMain");
         Application.Quit();
     }
 }
