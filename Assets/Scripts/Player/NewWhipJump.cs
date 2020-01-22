@@ -10,7 +10,11 @@ public class NewWhipJump : MonoBehaviour
     [SerializeField] Transform destination;
     [SerializeField] float speed;
     [SerializeField] float jump;
+
+    [SerializeField] float impulse;
+    [SerializeField] float timeImpulse;
     bool canWhip = false;
+
     [Header("EXTERN VARIABLES")]
     [SerializeField] Transform player;
     [SerializeField] Transform whipableObject;
@@ -23,19 +27,17 @@ public class NewWhipJump : MonoBehaviour
     {
         if ((Input.GetButtonDown("Whip")) && canWhip)
         {
-            WhipJump();
+            player.DOMoveY( player.position.y+impulse ,timeImpulse);
+            Invoke("WhipJump", timeImpulse);
         }
     }
     #endregion
 
     #region WHIP JUMP
     void WhipJump()
-    {
-        if (canWhip)
-        {
-            spriteIndicateObject.transform.position = whipableObject.position;
-        }
-        player.DOJump(destination.position,jump, 1, speed);
+    {        
+        //spriteIndicateObject.transform.position = whipableObject.position;        
+        player.DOJump(destination.position, jump, 1, speed);
     }
     #endregion
 
