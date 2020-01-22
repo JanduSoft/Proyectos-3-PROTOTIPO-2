@@ -154,19 +154,18 @@ public class PlayerMovement : MonoBehaviour
     #region SET GRAVITY
     void SetGravity()
     {
-        if (!whip.getWhip())
+        
+        if (player.isGrounded)
         {
-            if (player.isGrounded)
-            {
-                fallVelocity = -gravity * Time.deltaTime;
-                movePlayer.y = fallVelocity;
-            }
-            else
-            {
-                fallVelocity -= gravity * Time.deltaTime;
-                movePlayer.y = fallVelocity;
-            }
+            fallVelocity = -gravity * Time.deltaTime;
+            movePlayer.y = fallVelocity;
         }
+        else
+        {
+            fallVelocity -= gravity * Time.deltaTime;
+            movePlayer.y = fallVelocity;
+        }
+        
     }
     #endregion
 

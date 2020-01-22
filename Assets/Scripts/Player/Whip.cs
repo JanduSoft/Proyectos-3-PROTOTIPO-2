@@ -8,21 +8,22 @@ public class Whip : MonoBehaviour
     [SerializeField] LineRenderer whip;
     [SerializeField] Transform playerTransform;
     [SerializeField] GameObject spriteIndicateObject;
-    Transform whipableObjectTransform;
-    Transform destinationTrasnform;
+    [SerializeField] Camera mainCamera;
     [SerializeField] float lineDrawSpeed;
+    float timePlus = 0.15f;
+    float timeMinus = 0.15f;
+    Transform whipableObjectTransform;
+    [SerializeField] List<Transform> enemyList = new List<Transform>();
     float distToWhipable;
-    float distToDestination;
     float counter = 0;
-    float curveCounter = 0;
     float time = 0;
-    [SerializeField] float timeWhippin = 0;
-    float timeWhip = 0;
-    bool inputDown = false;
-
-    [SerializeField] bool ableToWhipJump = false;
+    float oldFOV = 0;
+    [SerializeField] bool inputDown = false;
+    [SerializeField] bool ableToAttack = false;
+    [SerializeField] bool attackMode = false;
     bool ableToWhipObject = false;
-     bool whippin = false;
+    bool whippin = false;
+    [SerializeField] int index = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,59 +40,67 @@ public class Whip : MonoBehaviour
     {
 
         #region WHIP UPDATE
+        if (index > enemyList.Count - 1) index = enemyList.Count - 1;
         whip.SetPosition(0, playerTransform.position);
-        if(!whippin)
+        if (!whippin)
             whip.SetPosition(1, playerTransform.position);
+        if (enemyList.Count == 0)
+        {
+            index = 0;
+            ableToAttack = false;
+            attackMode = false;
+            oldFOV = mainCamera.fieldOfView;
+        }
+        else
+        {
+            ableToAttack = true;
+        }
 
-        if (counter < distToWhipable && inputDown && (ableToWhipJump || ableToWhipObject))
+        if (attackMode)
+        {
+            whipableObjectTransform = enemyList[index];
+            mainCamera.DOFieldOfView(60, 1);
+            spriteIndicateObject.SetActive(true);
+            spriteIndicateObject.transform.position = whipableObjectTransform.position + new Vector3(0, 2.5f, 0);
+            distToWhipable = Vector3.Distance(playerTransform.position, enemyList[index].position + new Vector3(0,5,0) );
+        }
+        
+        if (counter < distToWhipable && inputDown && (attackMode || ableToWhipObject))
         {
             time += Time.deltaTime;
             counter += .1f / lineDrawSpeed;
             float x = Mathf.Lerp(0, distToWhipable, counter);
             Vector3 pA = playerTransform.position;
-            Vector3 pB = whipableObjectTransform.position;
+            Vector3 pB = whipableObjectTransform.position + new Vector3(0, 2.5f, 0);
             Vector3 pointBetweenAandB = x * Vector3.Normalize(pB - pA) + pA;
+            whip.SetPosition(1, pointBetweenAandB);
+
         }
         #endregion
 
+        #region PLAYER WHIPATTACK & WHIPOBJECT
 
-        #region PLAYER WHIPJUMP & WHIPOBJECT
-
-            //Debug.Log(playerTransform.position);
-
-        if (time >= lineDrawSpeed / 4 && ableToWhipJump && inputDown)
+        if (time >= lineDrawSpeed/4  && attackMode)
         {
-            whip.SetPosition(1, whipableObjectTransform.position);
-            playerTransform.SendMessage("Whip", destinationTrasnform);
-            whippin = true;
+            Debug.Log("enemyDead");
+            enemyList[index].SendMessage("Die");
+            whip.SetPosition(1, whipableObjectTransform.position + new Vector3(0, 2.5f, 0));
         }
-        else if(time >= lineDrawSpeed / 4 && ableToWhipObject)
+        else if (time >= lineDrawSpeed  && ableToWhipObject)
         {
             whipableObjectTransform.SendMessage("ChangeState");
         }
 
-        if(spriteIndicateObject.activeInHierarchy) spriteIndicateObject.transform.position = whipableObjectTransform.position;
-
-        if (ableToWhipJump)
-            if(Vector3.Distance(playerTransform.position, destinationTrasnform.position) < 2)
-            {
-                whipableObjectTransform.SendMessage("ChangeState");
-                whippin = false;
-                timeWhip = 0;
-            }
-
-        
 
         #endregion
 
-
-
         #region INPUT CONTROL
-        if ((Input.GetButtonDown("Whip")) && ableToWhipJump)
+        if (Input.GetButtonDown("Whip") && (ableToAttack || ableToWhipObject))
         {
+            whippin = true;
             inputDown = true;
         }
-        if ((Input.GetButtonUp("Whip")) )
+        else if (Input.GetButtonUp("Whip") )
         {
             whippin = false;
             inputDown = false;
@@ -99,6 +108,38 @@ public class Whip : MonoBehaviour
             counter = 0;
             time = 0;
         }
+        if (Input.GetAxis("RightJoystickHorizontal") == 1f && attackMode)
+        {
+            if (timePlus == 0.15f)
+            {
+                if (index < enemyList.Count - 1) index++;
+                else index = 0;
+            }
+            timePlus -= Time.deltaTime;
+            if (timePlus < 0) timePlus = 0.15f;
+        }
+        else if (Input.GetAxis("RightJoystickHorizontal") == -1f && attackMode)
+        {
+            if (timeMinus == 0.15f)
+            {
+                if (index > 0) index--;
+                else index = enemyList.Count - 1;
+            }
+            timeMinus -= Time.deltaTime;
+            if (timeMinus < 0) timeMinus = 0.15f;
+        }
+        if (ableToAttack && Input.GetButtonDown("EnterCombatMode"))
+        {
+            if(!attackMode) oldFOV = mainCamera.fieldOfView;
+            else
+            {
+                mainCamera.DOFieldOfView(oldFOV, 1);
+                spriteIndicateObject.SetActive(false);
+                whipableObjectTransform = null;
+            }
+            attackMode = !attackMode;
+        }
+
         #endregion
 
     }
@@ -110,14 +151,9 @@ public class Whip : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "WhipJump")
+        if(other.tag == "WhipEnemy")
         {
-            other.SendMessage("SetPlayerTransform", playerTransform);
-            ableToWhipJump = true;
-            distToWhipable = Vector3.Distance(playerTransform.position, whipableObjectTransform.position);
-            distToDestination = Vector3.Distance(playerTransform.position, destinationTrasnform.position);
-            spriteIndicateObject.SetActive(true);
-            spriteIndicateObject.transform.position = whipableObjectTransform.position;
+            enemyList.Add(other.gameObject.transform);
         }
         else if (other.tag == "WhipObject")
         {
@@ -131,11 +167,10 @@ public class Whip : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "WhipJump")
+        if (other.tag == "WhipEnemy")
         {
-            ableToWhipJump = false;
-            inputDown = false;
-            whippin = false;
+            enemyList.Remove(other.transform);
+            mainCamera.DOFieldOfView(oldFOV, 1);
             spriteIndicateObject.SetActive(false);
             whipableObjectTransform = null;
         }
@@ -147,44 +182,8 @@ public class Whip : MonoBehaviour
         }
     }
 
-    public void setDestinationTransform(Transform transform)
-    {
-        destinationTrasnform = transform;
-    }
-
     public void setWhipableJumpObjectTransform(Transform transform)
     {
         whipableObjectTransform = transform;
-    }
-
-    public bool getWhip()
-
-    {
-
-        return whippin;
-
-    }
-    Vector3 calculateBezierCurve(float t, Vector3 p0, Vector3 p1, Vector3 p2)
-
-    {
-
-        float u = 1 - t;
-
-        float tt = t * t;
-
-        float uu = u * u;
-
-        Vector3 newP = uu * p0;
-
-        newP += 2 * u * t * p1;
-
-        newP += tt * p2;
-
-        return newP;
-
-
-
-        //return p1 + Mathf.Sqrt(1 - t) * (p0 - p1) + Mathf.Sqrt(t) * (p2 - p1);
-
     }
 }
