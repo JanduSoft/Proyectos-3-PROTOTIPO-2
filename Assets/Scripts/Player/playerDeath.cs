@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class playerDeath : MonoBehaviour
 {
@@ -26,7 +27,8 @@ public class playerDeath : MonoBehaviour
     {
         GetComponent<PlayerMovement>().StopMovement(true);
         yield return new WaitForSeconds(_s);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);   //reloads the same scene
+        DOTween.Clear(true);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex,LoadSceneMode.Single);   //reloads the same scene
     }
 }
 
