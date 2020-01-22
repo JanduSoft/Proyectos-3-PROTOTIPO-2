@@ -10,18 +10,20 @@ public class Whip : MonoBehaviour
     [SerializeField] GameObject spriteIndicateObject;
     [SerializeField] Camera mainCamera;
     [SerializeField] float lineDrawSpeed;
+    float timePlus = 0.15f;
+    float timeMinus = 0.15f;
     Transform whipableObjectTransform;
-    List<Transform> enemyList = new List<Transform>();
+    [SerializeField] List<Transform> enemyList = new List<Transform>();
     float distToWhipable;
     float counter = 0;
     float time = 0;
     float oldFOV = 0;
-    bool inputDown = false;
-    bool ableToAttack = false;
-    bool attackMode = false;
+    [SerializeField] bool inputDown = false;
+    [SerializeField] bool ableToAttack = false;
+    [SerializeField] bool attackMode = false;
     bool ableToWhipObject = false;
     bool whippin = false;
-    int index = 0;
+    [SerializeField] int index = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,11 +40,22 @@ public class Whip : MonoBehaviour
     {
 
         #region WHIP UPDATE
+        if (index > enemyList.Count - 1) index = enemyList.Count - 1;
         whip.SetPosition(0, playerTransform.position);
         if (!whippin)
             whip.SetPosition(1, playerTransform.position);
-        if (enemyList.Count == 0) attackMode = false;
-        
+        if (enemyList.Count == 0)
+        {
+            index = 0;
+            ableToAttack = false;
+            attackMode = false;
+            oldFOV = mainCamera.fieldOfView;
+        }
+        else
+        {
+            ableToAttack = true;
+        }
+
         if (attackMode)
         {
             whipableObjectTransform = enemyList[index];
@@ -65,8 +78,7 @@ public class Whip : MonoBehaviour
         }
         #endregion
 
-
-        #region PLAYER WHIPJUMP & WHIPOBJECT
+        #region PLAYER WHIPATTACK & WHIPOBJECT
 
         if (time >= lineDrawSpeed/4  && attackMode)
         {
@@ -79,7 +91,6 @@ public class Whip : MonoBehaviour
             whipableObjectTransform.SendMessage("ChangeState");
         }
 
-        if (spriteIndicateObject.activeInHierarchy) spriteIndicateObject.transform.position = whipableObjectTransform.position;
 
         #endregion
 
@@ -89,7 +100,7 @@ public class Whip : MonoBehaviour
             whippin = true;
             inputDown = true;
         }
-        if (Input.GetButtonUp("Whip") )
+        else if (Input.GetButtonUp("Whip") )
         {
             whippin = false;
             inputDown = false;
@@ -97,8 +108,27 @@ public class Whip : MonoBehaviour
             counter = 0;
             time = 0;
         }
-
-        if(ableToAttack && Input.GetButtonDown("EnterCombatMode"))
+        if (Input.GetAxis("RightJoystickHorizontal") == 1f && attackMode)
+        {
+            if (timePlus == 0.15f)
+            {
+                if (index < enemyList.Count - 1) index++;
+                else index = 0;
+            }
+            timePlus -= Time.deltaTime;
+            if (timePlus < 0) timePlus = 0.15f;
+        }
+        else if (Input.GetAxis("RightJoystickHorizontal") == -1f && attackMode)
+        {
+            if (timeMinus == 0.15f)
+            {
+                if (index > 0) index--;
+                else index = enemyList.Count - 1;
+            }
+            timeMinus -= Time.deltaTime;
+            if (timeMinus < 0) timeMinus = 0.15f;
+        }
+        if (ableToAttack && Input.GetButtonDown("EnterCombatMode"))
         {
             if(!attackMode) oldFOV = mainCamera.fieldOfView;
             else
@@ -123,7 +153,6 @@ public class Whip : MonoBehaviour
     {
         if(other.tag == "WhipEnemy")
         {
-            ableToAttack = true;
             enemyList.Add(other.gameObject.transform);
         }
         else if (other.tag == "WhipObject")
@@ -140,7 +169,6 @@ public class Whip : MonoBehaviour
     {
         if (other.tag == "WhipEnemy")
         {
-            ableToAttack = false;
             enemyList.Remove(other.transform);
             mainCamera.DOFieldOfView(oldFOV, 1);
             spriteIndicateObject.SetActive(false);
