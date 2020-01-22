@@ -5,6 +5,8 @@ using UnityEngine;
 public class deathTrigger : MonoBehaviour
 {
     // Start is called before the first frame update
+    public enum deathType { WaterSplash, Spikes}
+    public deathType DeathType;
     void Start()
     {
         
@@ -20,7 +22,17 @@ public class deathTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<playerDeath>().killPlayer(); 
+            switch (DeathType)
+            {
+                case deathType.WaterSplash:
+                    GameObject.Find("Water splash").GetComponent<AudioSource>().Play();
+                    break;
+                case deathType.Spikes:
+                    break;
+            }
+
+
+            other.GetComponent<playerDeath>().killPlayer(0.5f);
 
         }
     }
