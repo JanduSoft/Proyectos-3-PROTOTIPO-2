@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class ActivateAnimation : MonoBehaviour
 {
@@ -13,6 +14,13 @@ public class ActivateAnimation : MonoBehaviour
     }
     [SerializeField] Animator myAnimator;
     [SerializeField] typeAnimator type;
+
+    [Header("FOR CAMERA SHAKE")]
+    [SerializeField] Camera myCamera;
+    [SerializeField] float durationShake;
+    [SerializeField] float strength;
+    [SerializeField] int vibrato;
+    [SerializeField] float randomness;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,6 +37,8 @@ public class ActivateAnimation : MonoBehaviour
         else if (other.CompareTag("Block") && type == typeAnimator.BRIDGE)
         {
             myAnimator.SetBool("Active", true);
+            Debug.Log("Camera Shake!!");
+            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness,true);
         }
 
 
@@ -39,6 +49,7 @@ public class ActivateAnimation : MonoBehaviour
         if (other.CompareTag("Block"))
         {
             DeactivateAnimation();
+            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
         }
     }
 
