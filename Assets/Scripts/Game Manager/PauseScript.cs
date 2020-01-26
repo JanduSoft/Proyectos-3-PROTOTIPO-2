@@ -90,6 +90,7 @@ public class PauseScript : MonoBehaviour
     {
         //This function now quits the app, but it should take you to main menu when it's done!
         Debug.Log("Quit has been pressed!");
+        PlayerPrefs.DeleteKey("hasDoneMain");
         Application.Quit();
     }
 
