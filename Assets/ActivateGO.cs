@@ -10,13 +10,21 @@ public class ActivateGO : MonoBehaviour
         ACTIVATE,
         DESACTIVATE
     }
+    public enum Interactuable
+    {
+        NONE,
+        PLAYER,
+        BLOCK
+    }
 
-    public GameObject[] objects;
-    public ObjectCondition condition;
+    [SerializeField] GameObject[] objects;
+    [SerializeField] ObjectCondition condition;
+    [SerializeField] Interactuable interactuable;
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && interactuable == Interactuable.PLAYER)
         {
             for (int i = 0; i < objects.Length; i++)
             {
@@ -33,6 +41,35 @@ public class ActivateGO : MonoBehaviour
                     default:
                         break;
                 }                
+            }
+        }
+        else if (other.CompareTag("Block") && interactuable == Interactuable.BLOCK)
+        {
+            for (int i = 0; i < objects.Length; i++)
+            {
+                switch (condition)
+                {
+                    case ObjectCondition.NONE:
+                        break;
+                    case ObjectCondition.ACTIVATE:
+                        objects[i].SetActive(true);
+                        break;
+                    case ObjectCondition.DESACTIVATE:
+                        objects[i].SetActive(false);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Block") && interactuable == Interactuable.BLOCK)
+        {
+            for (int i = 0; i < objects.Length; i++)
+            {
+                objects[i].SetActive(false);   
             }
         }
     }

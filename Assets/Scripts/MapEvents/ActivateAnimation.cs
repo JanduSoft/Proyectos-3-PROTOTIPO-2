@@ -8,7 +8,8 @@ public class ActivateAnimation : MonoBehaviour
     {
         NONE,
         DOOR,
-        PLATFORM
+        PLATFORM,
+        BRIDGE
     }
     [SerializeField] Animator myAnimator;
     [SerializeField] typeAnimator type;
@@ -24,6 +25,20 @@ public class ActivateAnimation : MonoBehaviour
         {
             myAnimator.SetBool("Active", true);
             Invoke("DeactivateAnimation", 2.5f);
+        }
+        else if (other.CompareTag("Block") && type == typeAnimator.BRIDGE)
+        {
+            myAnimator.SetBool("Active", true);
+        }
+
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Block"))
+        {
+            DeactivateAnimation();
         }
     }
 
