@@ -14,16 +14,16 @@ public class DragAndDrop : MonoBehaviour
     /// </How_it_works>
 
 
-    GameObject player = null;
-    GameObject grabPlace = null;
-    public float minDistanceToGrabObject = 1.5f;
-    bool objectIsGrabbed = false;
-    bool isFacingBox = false;
+    [SerializeField]GameObject player = null;
+    [SerializeField] GameObject grabPlace = null;
+    [SerializeField] public float minDistanceToGrabObject = 1.5f;
+    [SerializeField] bool objectIsGrabbed = false;
+    [SerializeField] bool isFacingBox = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -43,13 +43,13 @@ public class DragAndDrop : MonoBehaviour
             {
                 if (!objectIsGrabbed)
                 {
+                    grabPlace = player.transform.GetChild(2).gameObject;
                     transform.SetParent(player.transform);
                     transform.position = grabPlace.transform.position;
                     objectIsGrabbed = true;
                 }
                 else
                 {
-                    Debug.Log(this.transform.name + " AAAA");
                     transform.SetParent(null);
                     objectIsGrabbed = false;
                 }
@@ -57,30 +57,6 @@ public class DragAndDrop : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            player = other.gameObject;
-            grabPlace = player.transform.GetChild(1).gameObject;
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            player = other.gameObject;
-            grabPlace = player.transform.GetChild(2).gameObject;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            player = null;
-            grabPlace = null;
-        }
-    }
     public void DropObject()
     {
         transform.SetParent(null);
