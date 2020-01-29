@@ -64,7 +64,7 @@ public class Whip : MonoBehaviour
             spriteIndicateObject.transform.position = whipableObjectTransform.position + new Vector3(0, 2.5f, 0);
             distToWhipable = Vector3.Distance(playerTransform.position, enemyList[index].position + new Vector3(0,5,0) );
         }
-        
+
         if (counter < distToWhipable && inputDown && (attackMode || ableToWhipObject))
         {
             time += Time.deltaTime;
@@ -84,6 +84,13 @@ public class Whip : MonoBehaviour
         {
             Debug.Log("enemyDead");
             enemyList[index].SendMessage("Die");
+            enemyList.Remove(enemyList[index]);
+            if(enemyList.Count == 0)
+            {
+                spriteIndicateObject.SetActive(false);
+                whipableObjectTransform = null;
+                mainCamera.DOFieldOfView(oldFOV, 1);
+            }
             whip.SetPosition(1, whipableObjectTransform.position + new Vector3(0, 2.5f, 0));
         }
         else if (time >= lineDrawSpeed  && ableToWhipObject)

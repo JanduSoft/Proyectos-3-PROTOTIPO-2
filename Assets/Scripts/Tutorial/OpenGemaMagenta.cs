@@ -5,9 +5,10 @@ using UnityEngine;
 public class OpenGemaMagenta : MonoBehaviour
 {
     // Start is called before the first frame update
-    bool lever1 = false;
-    bool lever2 = false;
-    bool lever3 = false;
+    [SerializeField]bool lever1 = false;
+    [SerializeField] bool lever2 = false;
+    [SerializeField] bool lever3 = false;
+    [SerializeField] bool isPlaced = false;
     [SerializeField] List<GameObject> deactivate;
     void Start()
     {
@@ -36,4 +37,5 @@ public class OpenGemaMagenta : MonoBehaviour
         if (name == "lever3") lever3 = false;
         Debug.Log("Broken");
     }
+
 }

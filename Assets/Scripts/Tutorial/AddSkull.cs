@@ -64,7 +64,7 @@ public class AddSkull : MonoBehaviour
         else if (other.CompareTag("Skull"))
         {
             skull = null;
-            canPlace = false;
+            isActivated = false;
             skullTransform = null;
         }
     }

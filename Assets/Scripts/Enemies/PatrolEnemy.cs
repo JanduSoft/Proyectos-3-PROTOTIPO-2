@@ -11,6 +11,7 @@ public class PatrolEnemy : MonoBehaviour
     [SerializeField] GameObject Player;
     [SerializeField] GameObject Skull;
     [SerializeField] PatrolEnemy _this;
+    [SerializeField] GameObject skullModel;
     [SerializeField] NavMeshAgent Agent;
     [SerializeField] float viewingAngle;
     [SerializeField] Animator animController;
@@ -55,18 +56,16 @@ public class PatrolEnemy : MonoBehaviour
             if (Vector3.Distance(transform.position, Player.transform.position) < 2.5) kill.killPlayer(0f);
         }
         else if(trueDeath)
-        {
-            Skull.SetActive(true);
-            Skull.transform.position = gameObject.transform.position;
-            Skull.transform.position += new Vector3(0, 0, 1);
-            Debug.Log(this.name);
-            if (Vector3.Distance(Skull.transform.position, Player.transform.position) < 2.5 && Input.GetButtonDown("Interact"))
-            {
-                agent.enabled = false;
-                _this.StopAllCoroutines();
-                _this.enabled = false;
-            }
-
+        {      
+            if(Skull.activeInHierarchy)
+                if (Vector3.Distance(Skull.transform.position, Player.transform.position) < 2.5 && Input.GetButtonDown("Interact"))
+                {
+                    agent.enabled = false;
+                    _this.StopAllCoroutines();
+                    skullModel.SetActive(false);
+                    _this.enabled = false;
+                    
+                }
         }
     }
 
@@ -80,7 +79,10 @@ public class PatrolEnemy : MonoBehaviour
 
     IEnumerator returnToTheLiving(float _s)
     {
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(2);
+        Skull.SetActive(true);
+        Skull.transform.localPosition = new Vector3(0, 0, 1);
+        yield return new WaitForSeconds(4);
         animController.SetBool("dead", false);
         yield return new WaitForSeconds(2);
         agent.SetDestination(pathPoints[index].transform.position);
