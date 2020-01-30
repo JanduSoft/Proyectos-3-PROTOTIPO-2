@@ -24,7 +24,7 @@ public class ActivateAnimation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Skull") && type == typeAnimator.DOOR )
+        if (other.CompareTag("Player") && type == typeAnimator.DOOR )
         {
             myAnimator.SetBool("Active", true);
             Invoke("DeactivateAnimation", 2f);
