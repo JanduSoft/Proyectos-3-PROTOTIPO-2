@@ -25,7 +25,7 @@ public class deathTrigger : MonoBehaviour
             switch (DeathType)
             {
                 case deathType.WaterSplash:
-                    GameObject.Find("Water splash").GetComponent<AudioSource>().Play();
+                    //GameObject.Find("Water splash").GetComponent<AudioSource>().Play();
                     break;
                 case deathType.Spikes:
                     break;
