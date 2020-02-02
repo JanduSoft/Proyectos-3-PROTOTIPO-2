@@ -10,6 +10,7 @@ public class DragAndDropObject : MonoBehaviour
     Vector3[] grabPoints = new Vector3[4];
     Vector3 closestPoint;
     int minPoint = -1;
+    public float yOffset=0.5f;
 
     Rigidbody rb;
 
@@ -20,7 +21,7 @@ public class DragAndDropObject : MonoBehaviour
     //AUDIO VARIABLES
     bool canDoSound = true;
     bool movingRock = false;
-    AudioSource dragSound;
+    [HideInInspector] public AudioSource dragSound;
 
 
     void Start()
@@ -48,10 +49,10 @@ public class DragAndDropObject : MonoBehaviour
         grabPoints[2] = transform.position + transform.right*3;
         grabPoints[3] = transform.position - transform.right*3;
 
-        grabPoints[0].y = transform.position.y - 0.5f;
-        grabPoints[1].y = transform.position.y - 0.5f;
-        grabPoints[2].y = transform.position.y - 0.5f;
-        grabPoints[3].y = transform.position.y - 0.5f;
+        grabPoints[0].y = transform.position.y - yOffset;
+        grabPoints[1].y = transform.position.y - yOffset;
+        grabPoints[2].y = transform.position.y - yOffset;
+        grabPoints[3].y = transform.position.y - yOffset;
 
         if (minPoint != -1)
             closestPoint = grabPoints[minPoint];
