@@ -25,9 +25,25 @@ public class deathTrigger : MonoBehaviour
             switch (DeathType)
             {
                 case deathType.WaterSplash:
-                    //GameObject.Find("Water splash").GetComponent<AudioSource>().Play();
+                    try
+                    {
+                        GameObject.Find("Water splash").GetComponent<AudioSource>().Play();
+                    }
+                    catch 
+                    { 
+                        Debug.Log("Couldn't play WATER SPLASH sound effect. Make sure to add Global Sounds prefab to scene. Make sure Water splash exists."); 
+                    }
+                    
                     break;
                 case deathType.Spikes:
+                    try
+                    {
+                        GameObject.Find("Player flesh").GetComponent<AudioSource>().Play();
+                    }
+                    catch 
+                    { 
+                        Debug.Log("Couldn't play PLAYER FLESH sound effect. Make sure to add Global Sounds prefab to scene. Make sure Player flesh exists."); 
+                    }
                     break;
             }
 
