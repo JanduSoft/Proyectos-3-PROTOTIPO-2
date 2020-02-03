@@ -43,20 +43,36 @@ public class PauseScript : MonoBehaviour
     {
 
         pauseCanvas.gameObject.SetActive(true);
+        pauseCanvas.transform.GetChild(0).GetComponent<Animation>().Play("PauseAnimation");
+        StartCoroutine(PauseTimeScale());
 
         isPaused = true;
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
 
         pauseCanvas.enabled = true;
     }
 
+    IEnumerator PauseTimeScale()
+    {
+        yield return new WaitForSeconds(pauseCanvas.transform.GetChild(0).GetComponent<Animation>().clip.length);
+        Time.timeScale = 0;
+    }
+
     void ResumeGame()
     {
+        pauseCanvas.transform.GetChild(0).GetComponent<Animation>().Play("DispauseAnim");
+        StartCoroutine(ResumeAfterAnim());
+    }
+
+    IEnumerator ResumeAfterAnim()
+    {
+        Time.timeScale = 1;
+        yield return new WaitForSeconds(pauseCanvas.transform.GetChild(0).GetComponent<Animation>().clip.length);
         pauseCanvas.gameObject.SetActive(false);
         changedButton = false;
 
@@ -65,12 +81,10 @@ public class PauseScript : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        Time.timeScale = 1;
         StartCoroutine(LetPlayerMove());
 
         pauseCanvas.enabled = false;
     }
-
     IEnumerator LetPlayerMove()
     {
         //this avoids player jumping right after RESUME GAME selection
