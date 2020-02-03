@@ -15,6 +15,9 @@ public class PauseScript : MonoBehaviour
 
     [SerializeField] GameObject resumeButton;
     [SerializeField] GameObject quitButton;
+    [SerializeField] GameObject settingsPanel;
+
+    bool isSettings = false;
 
     void Start()
     {
@@ -65,6 +68,10 @@ public class PauseScript : MonoBehaviour
 
     void ResumeGame()
     {
+        //hide settings canvas
+        settingsPanel.SetActive(false);
+        isSettings = false;
+
         pauseCanvas.transform.GetChild(0).GetComponent<Animation>().Play("DispauseAnim");
         StartCoroutine(ResumeAfterAnim());
     }
@@ -106,6 +113,24 @@ public class PauseScript : MonoBehaviour
         Debug.Log("Quit has been pressed!");
         PlayerPrefs.DeleteKey("hasDoneMain");
         Application.Quit();
+    }
+
+    public void btn_Seetings()
+    {
+        if (isSettings)
+        {
+            isSettings = false;
+            //show pause canvas
+            settingsPanel.SetActive(false);
+        }
+        else
+        {
+            isSettings = true;
+            //show settings canvas
+            settingsPanel.SetActive(true);
+            //hide pause canvas
+        }
+
     }
 
 
