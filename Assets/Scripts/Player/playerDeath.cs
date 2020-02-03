@@ -28,7 +28,7 @@ public class playerDeath : MonoBehaviour
         GetComponent<PlayerMovement>().StopMovement(true);
         yield return new WaitForSeconds(_s);
         DOTween.Clear(true);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);   //reloads the same scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex,LoadSceneMode.Single);   //reloads the same scene
     }
 }
 

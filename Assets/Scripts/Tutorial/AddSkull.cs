@@ -5,14 +5,14 @@ using UnityEngine;
 public class AddSkull : MonoBehaviour
 {
     public GameObject placePosition;
-    [SerializeField] Transform skullTransform = null;
-    [SerializeField] private bool canPlace = false;
+    Transform skullTransform = null;
+    private bool canPlace = false;
     public bool isImportantCup=false;
 
-    [SerializeField] GameObject skull = null;
+    GameObject skull = null;
 
     public bool isActivated = false;
-    [SerializeField] bool isCloseEnough = false;
+    bool isCloseEnough = false;
 
     private void Start()
     {
@@ -21,11 +21,16 @@ public class AddSkull : MonoBehaviour
 
     void Update()
     {
-        if (canPlace && Input.GetButtonDown("Interact") && skullTransform != null)
+        if (canPlace && Input.GetButtonDown("Interact"))
         {
             skullTransform.position = placePosition.transform.position;
             skullTransform.rotation = this.transform.rotation;
             isActivated = true;
+            if (isImportantCup)
+            {
+                skull.GetComponent<DragAndDrop>().enabled = false;
+                skull.GetComponent<DragAndDrop>().transform.SetParent(null);
+            }
 
         }
     }
@@ -41,6 +46,7 @@ public class AddSkull : MonoBehaviour
         {
             skull = other.gameObject;
             skullTransform = other.gameObject.transform;
+            Debug.Log(other.name);
         }
 
     }
@@ -50,6 +56,7 @@ public class AddSkull : MonoBehaviour
         {
             skull = other.gameObject;
             skullTransform = other.gameObject.transform;
+            Debug.Log(other.name);
         }
 
     }
@@ -64,7 +71,6 @@ public class AddSkull : MonoBehaviour
         else if (other.CompareTag("Skull"))
         {
             skull = null;
-            isActivated = false;
             skullTransform = null;
         }
     }

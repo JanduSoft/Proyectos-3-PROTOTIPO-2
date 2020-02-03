@@ -18,10 +18,8 @@ public class ActivateDoor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Aqui entra? FUERA");
         if (other.CompareTag("Skull"))
         {
-            Debug.Log("Aqui entra?");
             objectoToMove.DOMove(finalPosition.position, speed);
 
             myPart.isActive = true;

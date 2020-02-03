@@ -48,8 +48,6 @@ public class UpandDownSecondPuzzle : MonoBehaviour
                 }
             }
         }
-        if (targePosition == index) place.SendMessage("Solved", indexLever);
-        else place.SendMessage("Broken", indexLever);
     }
 
     private void OnTriggerEnter(Collider other)
