@@ -16,6 +16,10 @@ public class PauseScript : MonoBehaviour
     [SerializeField] GameObject resumeButton;
     [SerializeField] GameObject quitButton;
     [SerializeField] GameObject settingsPanel;
+    [SerializeField] GameObject pausePanel;
+
+
+    [SerializeField] GameObject resButton;
 
     bool isSettings = false;
 
@@ -31,7 +35,7 @@ public class PauseScript : MonoBehaviour
             btn_Resume();
         }
 
-        if (isPaused)
+        if (isPaused && !isSettings)
         {
             if (!changedButton)
             {
@@ -69,6 +73,7 @@ public class PauseScript : MonoBehaviour
     void ResumeGame()
     {
         //hide settings canvas
+        pausePanel.SetActive(true);
         settingsPanel.SetActive(false);
         isSettings = false;
 
@@ -121,6 +126,8 @@ public class PauseScript : MonoBehaviour
         {
             isSettings = false;
             //show pause canvas
+            pausePanel.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(resumeButton);
             settingsPanel.SetActive(false);
         }
         else
@@ -128,7 +135,9 @@ public class PauseScript : MonoBehaviour
             isSettings = true;
             //show settings canvas
             settingsPanel.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(resButton);
             //hide pause canvas
+            pausePanel.SetActive(false);
         }
 
     }
