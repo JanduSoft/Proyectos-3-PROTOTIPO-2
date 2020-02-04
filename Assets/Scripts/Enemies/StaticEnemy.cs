@@ -6,10 +6,11 @@ public class StaticEnemy : MonoBehaviour
 {
     [SerializeField] GameObject Player;
     [SerializeField] GameObject ArrowPrefab;
+    [SerializeField] GameObject shootingPoint;
     [SerializeField] float viewingAngle;
     [SerializeField] float viewingDistance;
     [SerializeField] float shotTiming;
-    [SerializeField] float angleBetweenEnemyandPlayer = 0;
+     float angleBetweenEnemyandPlayer = 0;
     float time = 0;
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,9 @@ public class StaticEnemy : MonoBehaviour
             //Vector3 newRotV3 = Vector3.Lerp(transform.rotation, new Vector3(Player.transform.position.x, transform.position.y, Player.transform.position.z) - transform.position, 0.5f);
             if(time > shotTiming)
             {
-                Instantiate(ArrowPrefab, transform.position, Quaternion.LookRotation(new Vector3(Player.transform.position.x, transform.position.y, Player.transform.position.z) - transform.position), transform);
+                GameObject aux = Instantiate(ArrowPrefab, shootingPoint.transform.position, Quaternion.LookRotation(new Vector3(Player.transform.position.x, transform.position.y, Player.transform.position.z) - transform.position), transform);
+                aux.transform.LookAt(Player.transform);
+                aux.GetComponent<Rigidbody>().velocity = aux.transform.forward * 40; 
                 time = 0;
             }
         }
