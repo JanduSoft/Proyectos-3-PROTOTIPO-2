@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float horizontalMove;
     [SerializeField] float verticalMove;
     private Vector3 playerInput;
-    private Vector3 movePlayer;
+    public Vector3 movePlayer;  //made public for DragAndDropObject.cs to use
     private bool stopped = false;
 
     [SerializeField] CharacterController player;
