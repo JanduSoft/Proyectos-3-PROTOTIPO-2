@@ -70,7 +70,7 @@ public class DragAndDrop : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
-            grabPlace = player.transform.GetChild(2).gameObject;
+            grabPlace = player.transform.GetChild(1).gameObject;
         }
     }
     private void OnTriggerExit(Collider other)

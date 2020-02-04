@@ -6,7 +6,8 @@ public class DragAndDropObject : MonoBehaviour
 {
     // Start is called before the first frame update
     GameObject player = null;
-    public float MinDistanceToGrabObject;
+    [SerializeField] float MinDistanceToGrabObject;
+    [SerializeField] float stoneSpeed=150;
     Vector3[] grabPoints = new Vector3[4];
     Vector3 closestPoint;
     int minPoint = -1;
@@ -16,6 +17,7 @@ public class DragAndDropObject : MonoBehaviour
 
     bool lerping = false;
     bool rockGrabbed = false;
+    bool lockVertical, lockHorizontal = false;
 
 
     void Start()
@@ -34,8 +36,8 @@ public class DragAndDropObject : MonoBehaviour
 
         grabPoints[0] = transform.position + transform.forward * 3;
         grabPoints[1] = transform.position - transform.forward * 3;
-        grabPoints[2] = transform.position + transform.right*3;
-        grabPoints[3] = transform.position - transform.right*3;
+        grabPoints[2] = transform.position + transform.right * 3;
+        grabPoints[3] = transform.position - transform.right * 3;
 
         grabPoints[0].y = transform.position.y - 0.5f;
         grabPoints[1].y = transform.position.y - 0.5f;
@@ -45,9 +47,9 @@ public class DragAndDropObject : MonoBehaviour
         if (minPoint != -1)
             closestPoint = grabPoints[minPoint];
 
-        if (player!=null)
+        if (player != null)
         {
-            if (Input.GetButtonDown("Interact") && Vector3.Distance(transform.position,player.transform.position)<MinDistanceToGrabObject)
+            if (Input.GetButtonDown("Interact") && Vector3.Distance(transform.position, player.transform.position) < MinDistanceToGrabObject)
             {
                 if (!rockGrabbed)
                 {
@@ -71,23 +73,70 @@ public class DragAndDropObject : MonoBehaviour
             }
             else if (rockGrabbed)
             {
-
                 player.transform.position = closestPoint;
-                Vector3 dir = transform.position - player.transform.position;
-                dir.y = 0;
-                float vert = Input.GetAxis("Vertical");
-                if (vert>0)
+                float horizontalMove = Input.GetAxis("Horizontal");
+                float verticalMove = Input.GetAxis("Vertical");
+
+                bool inputActive = horizontalMove!=0 || verticalMove!=0;
+
+                if (closestPoint == grabPoints[0])
                 {
-                    rb.velocity = dir.normalized * 150 * Time.deltaTime;
+                    Vector3 movingDirection = grabPoints[1] - player.transform.position;
+                    Debug.Log("Entro");
+                    Debug.Log(inputActive);
+
+                    if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
+                    {
+                        Debug.Log(Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer));
+                        rb.velocity = movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                    }
+                    else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
+                    {
+                        Debug.Log(Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer));
+                        rb.velocity = -movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                    }
                 }
-                else if (vert<0)
+                else if (closestPoint == grabPoints[1])
                 {
-                    rb.velocity = -dir.normalized * 200 * Time.deltaTime;
+                    Vector3 movingDirection = grabPoints[0] - player.transform.position;
+
+                    if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
+                    {
+                        rb.velocity = movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                    }
+                    else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
+                    {
+                        rb.velocity = -movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                    }
                 }
-                else
+                else if (closestPoint == grabPoints[2])
                 {
-                    rb.velocity = Vector3.zero;
+                    Vector3 movingDirection = grabPoints[3] - player.transform.position;
+
+                    if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
+                    {
+                        rb.velocity = movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                    }
+                    else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
+                    {
+                        rb.velocity = -movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                    }
                 }
+                else if (closestPoint == grabPoints[3])
+                {
+                    Vector3 movingDirection = grabPoints[2] - player.transform.position;
+
+                    if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
+                    {
+                        rb.velocity = movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                    }
+                    else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
+                    {
+                        rb.velocity = -movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                    }
+                }
+
+
             }
 
             if (GetComponent<Animation>().isPlaying)
@@ -103,13 +152,13 @@ public class DragAndDropObject : MonoBehaviour
     {
         player.GetComponent<PlayerMovement>().StopMovement(true);
         //lerp player towards closest point
-        player.transform.position = Vector3.Lerp(player.transform.position, closestPoint,0.1f);
+        player.transform.position = Vector3.Lerp(player.transform.position, closestPoint, 0.1f);
 
         //lerp rotation to face object
-        Quaternion targetRotation = Quaternion.LookRotation(transform.position- player.transform.position);
+        Quaternion targetRotation = Quaternion.LookRotation(transform.position - player.transform.position);
         player.transform.rotation = Quaternion.Lerp(player.transform.rotation, targetRotation, 0.3f);
 
-        if (Vector3.Distance(player.transform.position,closestPoint)<0.8f)
+        if (Vector3.Distance(player.transform.position, closestPoint) < 0.8f)
         {
             //stop lerping and look at object
             lerping = false;
@@ -121,10 +170,10 @@ public class DragAndDropObject : MonoBehaviour
     {
         //FINDS CLOSEST POINT
         float minDistance = -1;
-        for (int i=0; i<4;i++)
+        for (int i = 0; i < 4; i++)
         {
             float dist = Vector3.Distance(player.transform.position, grabPoints[i]);
-            if (minDistance==-1 || dist<minDistance)
+            if (minDistance == -1 || dist < minDistance)
             {
                 minPoint = i;
                 minDistance = dist;
@@ -163,6 +212,6 @@ public class DragAndDropObject : MonoBehaviour
         Gizmos.DrawSphere(grabPoints[3], 0.5f);
 
         Gizmos.color = Color.black;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward*10);
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * 10);
     }
 }

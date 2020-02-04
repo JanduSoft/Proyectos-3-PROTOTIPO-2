@@ -3086,6 +3086,11 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.004261971
       objectReference: {fileID: 0}
+    - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 119725411}
     - target: {fileID: 1732243685982638574, guid: 4e873c65061ceda4f82894c893b31f7c,
         type: 3}
       propertyPath: m_Size.y
@@ -3116,11 +3121,6 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.17628098
       objectReference: {fileID: 0}
-    - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: camera
-      value: 
-      objectReference: {fileID: 119725411}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e873c65061ceda4f82894c893b31f7c, type: 3}
 --- !u!1 &118181788
@@ -4618,6 +4618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinDistanceToGrabObject: 5
+  stoneSpeed: 500
 --- !u!135 &153690527
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -13992,6 +13993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinDistanceToGrabObject: 5
+  stoneSpeed: 0
 --- !u!135 &480207524
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -22287,12 +22289,12 @@ PrefabInstance:
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.19
+      value: 9.58
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -25.32
+      value: 190.7
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
@@ -22354,20 +22356,28 @@ PrefabInstance:
       propertyPath: jumpForce
       value: 16
       objectReference: {fileID: 0}
-    - target: {fileID: 415923831, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_Positions.Array.data[1].z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
       propertyPath: spriteIndicateObject
       value: 
       objectReference: {fileID: 2012285758}
+    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1157867714}
+    - target: {fileID: 606560527, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 606560528, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.22
       objectReference: {fileID: 0}
-    - target: {fileID: 606560527, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 415923831, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: m_Positions.Array.data[1].z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 583964081, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8523275708601888380, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
@@ -22383,10 +22393,6 @@ PrefabInstance:
     - target: {fileID: 8523275708601888380, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 583964081, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 606560531, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
@@ -24256,6 +24262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinDistanceToGrabObject: 5
+  stoneSpeed: 0
 --- !u!135 &847283236
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -26405,6 +26412,11 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.14958954
       objectReference: {fileID: 0}
+    - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 119725411}
     - target: {fileID: 1732243685982638574, guid: 4e873c65061ceda4f82894c893b31f7c,
         type: 3}
       propertyPath: m_Size.y
@@ -26425,11 +26437,6 @@ PrefabInstance:
       propertyPath: m_Center.x
       value: 1.0765872
       objectReference: {fileID: 0}
-    - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: camera
-      value: 
-      objectReference: {fileID: 119725411}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e873c65061ceda4f82894c893b31f7c, type: 3}
 --- !u!1 &910757521 stripped
@@ -34810,6 +34817,11 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.004261971
       objectReference: {fileID: 0}
+    - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 119725411}
     - target: {fileID: 1732243685982638574, guid: 4e873c65061ceda4f82894c893b31f7c,
         type: 3}
       propertyPath: m_Size.y
@@ -34840,11 +34852,6 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.9429968
       objectReference: {fileID: 0}
-    - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: camera
-      value: 
-      objectReference: {fileID: 119725411}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e873c65061ceda4f82894c893b31f7c, type: 3}
 --- !u!1001 &1175719946
@@ -36353,6 +36360,11 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.004261971
       objectReference: {fileID: 0}
+    - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 119725411}
     - target: {fileID: 1732243685982638574, guid: 4e873c65061ceda4f82894c893b31f7c,
         type: 3}
       propertyPath: m_Size.y
@@ -36383,11 +36395,6 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.17628098
       objectReference: {fileID: 0}
-    - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: camera
-      value: 
-      objectReference: {fileID: 119725411}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e873c65061ceda4f82894c893b31f7c, type: 3}
 --- !u!1 &1234330553
@@ -37607,7 +37614,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1273502962
 Transform:
   m_ObjectHideFlags: 0
@@ -39065,6 +39072,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinDistanceToGrabObject: 5
+  stoneSpeed: 500
 --- !u!135 &1306379982
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -43527,6 +43535,11 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0.2272706
       objectReference: {fileID: 0}
+    - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 119725411}
     - target: {fileID: 1732243685982638574, guid: 4e873c65061ceda4f82894c893b31f7c,
         type: 3}
       propertyPath: m_Size.y
@@ -43547,11 +43560,6 @@ PrefabInstance:
       propertyPath: m_Center.x
       value: 1.0765872
       objectReference: {fileID: 0}
-    - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: camera
-      value: 
-      objectReference: {fileID: 119725411}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e873c65061ceda4f82894c893b31f7c, type: 3}
 --- !u!1001 &1491411751
@@ -43983,6 +43991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinDistanceToGrabObject: 5
+  stoneSpeed: 500
 --- !u!135 &1501671051
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -47721,7 +47730,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1611863261
 Transform:
   m_ObjectHideFlags: 0
@@ -48844,6 +48853,11 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.004261971
       objectReference: {fileID: 0}
+    - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 119725411}
     - target: {fileID: 1732243685982638574, guid: 4e873c65061ceda4f82894c893b31f7c,
         type: 3}
       propertyPath: m_Size.y
@@ -48874,11 +48888,6 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.17628098
       objectReference: {fileID: 0}
-    - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: camera
-      value: 
-      objectReference: {fileID: 119725411}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e873c65061ceda4f82894c893b31f7c, type: 3}
 --- !u!1 &1664963705 stripped
@@ -57308,6 +57317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinDistanceToGrabObject: 5
+  stoneSpeed: 500
 --- !u!135 &1933876425
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -61837,7 +61847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2116858265
 Transform:
   m_ObjectHideFlags: 0
