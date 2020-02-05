@@ -22,6 +22,7 @@ public class PauseScript : MonoBehaviour
     [SerializeField] GameObject resButton;
 
     bool isSettings = false;
+    bool cooldownOver = true;
 
     void Start()
     {
@@ -30,9 +31,11 @@ public class PauseScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Pause") && canPause)
+        if (Input.GetButtonDown("Pause") && canPause && cooldownOver)
         {
             btn_Resume();
+            cooldownOver = false;
+            StartCoroutine(btn_coolDown());
         }
 
         if (isPaused && !isSettings)
@@ -46,9 +49,17 @@ public class PauseScript : MonoBehaviour
         }
     }
 
+    IEnumerator btn_coolDown()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        cooldownOver = true;
+    }
+
     void PauseGame()
     {
 
+        GameObject.Find("Character").GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
         pauseCanvas.gameObject.SetActive(true);
         pauseCanvas.transform.GetChild(0).GetComponent<Animation>().Play("PauseAnimation");
         StartCoroutine(PauseTimeScale());
@@ -59,7 +70,6 @@ public class PauseScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         //Time.timeScale = 0;
-        GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
 
         pauseCanvas.enabled = true;
     }
@@ -102,6 +112,8 @@ public class PauseScript : MonoBehaviour
         //this avoids player jumping right after RESUME GAME selection
         yield return new WaitForSeconds(0.5f);
         GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(false);
+        GameObject.Find("Character").GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        GameObject.Find("Character").GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     public void btn_Resume()

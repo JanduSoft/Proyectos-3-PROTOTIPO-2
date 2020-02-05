@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class DragAndDropObject : MonoBehaviour
 {
     // Start is called before the first frame update
     GameObject player = null;
     [SerializeField] float MinDistanceToGrabObject;
+    [SerializeField] float grabPointHeight = 0.5f;
     [SerializeField] float stoneSpeed=150;
     Vector3[] grabPoints = new Vector3[4];
     Vector3 closestPoint;
@@ -28,22 +30,19 @@ public class DragAndDropObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Recalculate grab points in case the rock has moved
-        //grabPoints[0] = transform.position + new Vector3(3f, -0.5f, 0);
-        //grabPoints[1] = transform.position + new Vector3(-3f, -0.5f, 0);
-        //grabPoints[2] = transform.position + new Vector3(0, -0.5f, 3f);
-        //grabPoints[3] = transform.position + new Vector3(0, -0.5f, -3f);
-
+        //calculate the grab points every frame in case the rock moves
         grabPoints[0] = transform.position + transform.forward * 3;
         grabPoints[1] = transform.position - transform.forward * 3;
         grabPoints[2] = transform.position + transform.right * 3;
         grabPoints[3] = transform.position - transform.right * 3;
 
-        grabPoints[0].y = transform.position.y - 0.5f;
-        grabPoints[1].y = transform.position.y - 0.5f;
-        grabPoints[2].y = transform.position.y - 0.5f;
-        grabPoints[3].y = transform.position.y - 0.5f;
+        //put the points in the desired height
+        grabPoints[0].y = transform.position.y - grabPointHeight;
+        grabPoints[1].y = transform.position.y - grabPointHeight;
+        grabPoints[2].y = transform.position.y - grabPointHeight;
+        grabPoints[3].y = transform.position.y - grabPointHeight;
 
+        //if minpoint isn't null, grab the closest point to the player
         if (minPoint != -1)
             closestPoint = grabPoints[minPoint];
 
@@ -55,6 +54,7 @@ public class DragAndDropObject : MonoBehaviour
                 {
                     //FIND CLOSEST POINT
                     closestPoint = FindClosestPoint();
+                    player.transform.DOMove(closestPoint,0.5f,false);
                     //LERP PLAYER TOWARDS POINT
                     lerping = true;
                 }
@@ -82,17 +82,13 @@ public class DragAndDropObject : MonoBehaviour
                 if (closestPoint == grabPoints[0])
                 {
                     Vector3 movingDirection = grabPoints[1] - player.transform.position;
-                    Debug.Log("Entro");
-                    Debug.Log(inputActive);
 
                     if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
                     {
-                        Debug.Log(Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer));
                         rb.velocity = movingDirection.normalized * Time.deltaTime * stoneSpeed;
                     }
                     else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                     {
-                        Debug.Log(Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer));
                         rb.velocity = -movingDirection.normalized * Time.deltaTime * stoneSpeed;
                     }
                 }
@@ -152,11 +148,12 @@ public class DragAndDropObject : MonoBehaviour
     {
         player.GetComponent<PlayerMovement>().StopMovement(true);
         //lerp player towards closest point
-        player.transform.position = Vector3.Lerp(player.transform.position, closestPoint, 0.1f);
+        //player.transform.position = Vector3.Lerp(player.transform.position, closestPoint, 0.1f);
+
 
         //lerp rotation to face object
         Quaternion targetRotation = Quaternion.LookRotation(transform.position - player.transform.position);
-        player.transform.rotation = Quaternion.Lerp(player.transform.rotation, targetRotation, 0.3f);
+        player.transform.rotation = targetRotation;
 
         if (Vector3.Distance(player.transform.position, closestPoint) < 0.8f)
         {
