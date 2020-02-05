@@ -1,35 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
-public class DragAndDrop : MonoBehaviour
+public class TorchPuzzles : MonoBehaviour
 {
-
-    /// <How_it_works>
-    /// 
-    /// If the player is close enough and he interacts with the object,
-    /// the object will get attached to the player.
-    /// When the object is a child of the player, it will move as he moves.
-    /// 
-    /// </How_it_works>
-
-
     GameObject player = null;
     GameObject grabPlace = null;
     public float minDistanceToGrabObject = 1.5f;
     bool objectIsGrabbed = false;
     bool isFacingBox = false;
+    [SerializeField] GameObject firePlace;
+    [SerializeField] GameObject ropeToBeIgnited;
+    [SerializeField] GameObject fireParticles;
+    [SerializeField] GameObject chains;
+    [SerializeField] PlayableDirector animation;
+    [SerializeField] bool nearFire = false;
+    [SerializeField] bool nearRope = false;
+    [SerializeField] bool torchIgnited = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player!=null)
+        if (player != null)
         {
             isFacingBox = false;
 
@@ -39,7 +38,7 @@ public class DragAndDrop : MonoBehaviour
             float dot = Vector3.Dot(player.transform.forward, (transform.position - player.transform.position).normalized);
             if (dot > 0.7f) { isFacingBox = true; }
 
-            if (distancePlayerObject<minDistanceToGrabObject && Input.GetButtonDown("Interact") && isFacingBox)
+            if (distancePlayerObject < minDistanceToGrabObject && Input.GetButtonDown("Interact") && isFacingBox && (!nearFire && !nearRope))
             {
                 if (!objectIsGrabbed)
                 {
@@ -53,6 +52,19 @@ public class DragAndDrop : MonoBehaviour
                     objectIsGrabbed = false;
                 }
             }
+            else if(nearFire && Input.GetButtonDown("Interact"))
+            {
+                Debug.Log("Torch Ignited");
+                fireParticles.SetActive(true);
+                torchIgnited = true;
+            }
+            else if(torchIgnited && nearRope && Input.GetButtonDown("Interact"))
+            {
+                Debug.Log("Rope Burnt");
+                chains.SetActive(false);
+                animation.enabled = true;
+                nearRope = false;
+            }
         }
     }
 
@@ -63,6 +75,16 @@ public class DragAndDrop : MonoBehaviour
             player = other.gameObject;
             grabPlace = player.transform.GetChild(1).gameObject;
         }
+        else if (other.name == firePlace.name)
+        {
+            Debug.Log("Near Fire");
+            nearFire = true;
+        }
+        else if (other.name == ropeToBeIgnited.name)
+        {
+            Debug.Log("Near Rope");
+            nearRope = true;
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -71,6 +93,16 @@ public class DragAndDrop : MonoBehaviour
             player = other.gameObject;
             grabPlace = player.transform.GetChild(1).gameObject;
         }
+        else if (other.name == firePlace.name)
+        {
+            Debug.Log("Near Fire");
+            nearFire = true;
+        }
+        else if (other.name == ropeToBeIgnited.name)
+        {
+            Debug.Log("Near Rope");
+            nearRope = true;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -78,6 +110,16 @@ public class DragAndDrop : MonoBehaviour
         {
             player = null;
             grabPlace = null;
+        }
+        else if (other.name == firePlace.name)
+        {
+            Debug.Log("Near Fire");
+            nearFire = false;
+        }
+        else if (other.name == ropeToBeIgnited.name)
+        {
+            Debug.Log("Near Rope");
+            nearRope = false;
         }
     }
     public void DropObject()
