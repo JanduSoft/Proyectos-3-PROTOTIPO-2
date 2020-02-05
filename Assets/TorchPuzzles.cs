@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class TorchPuzzles : MonoBehaviour
 {
@@ -12,9 +13,11 @@ public class TorchPuzzles : MonoBehaviour
     [SerializeField] GameObject firePlace;
     [SerializeField] GameObject ropeToBeIgnited;
     [SerializeField] GameObject fireParticles;
-    bool nearFire = false;
-    bool nearRope = false;
-    bool torchIgnited = false;
+    [SerializeField] GameObject chains;
+    [SerializeField] PlayableDirector animation;
+    [SerializeField] bool nearFire = false;
+    [SerializeField] bool nearRope = false;
+    [SerializeField] bool torchIgnited = false;
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +61,9 @@ public class TorchPuzzles : MonoBehaviour
             else if(torchIgnited && nearRope && Input.GetButtonDown("Interact"))
             {
                 Debug.Log("Rope Burnt");
+                chains.SetActive(false);
+                animation.enabled = true;
+                nearRope = false;
             }
         }
     }
@@ -104,6 +110,16 @@ public class TorchPuzzles : MonoBehaviour
         {
             player = null;
             grabPlace = null;
+        }
+        else if (other.name == firePlace.name)
+        {
+            Debug.Log("Near Fire");
+            nearFire = false;
+        }
+        else if (other.name == ropeToBeIgnited.name)
+        {
+            Debug.Log("Near Rope");
+            nearRope = false;
         }
     }
     public void DropObject()
