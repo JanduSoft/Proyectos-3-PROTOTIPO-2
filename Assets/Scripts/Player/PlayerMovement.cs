@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 playerInput;
     public Vector3 movePlayer;  //made public for DragAndDropObject.cs to use
     private bool stopped = false;
+    [SerializeField] GameObject walkinParticles;
+    [SerializeField] Transform walkinParticlesSpawner;
 
     [SerializeField] CharacterController player;
     [SerializeField] float playerSpeed;
@@ -127,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     prevPos = transform.position;
                     playerSteps.Play();
+                    Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position,Quaternion.identity), 0.55f);
                 }
                 player.Move(movePlayer * Time.deltaTime);
 
