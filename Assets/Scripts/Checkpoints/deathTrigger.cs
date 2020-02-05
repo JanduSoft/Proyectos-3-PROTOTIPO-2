@@ -32,7 +32,7 @@ public class deathTrigger : MonoBehaviour
             }
 
 
-            other.GetComponent<playerDeath>().killPlayer(0.5f);
+            other.GetComponent<playerDeath>().killPlayer(0.1f);
 
         }
     }

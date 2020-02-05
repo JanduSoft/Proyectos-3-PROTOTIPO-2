@@ -49,7 +49,6 @@ public class DragAndDrop : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log(this.transform.name + " AAAA");
                     transform.SetParent(null);
                     objectIsGrabbed = false;
                 }
@@ -70,7 +69,7 @@ public class DragAndDrop : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
-            grabPlace = player.transform.GetChild(2).gameObject;
+            grabPlace = player.transform.GetChild(1).gameObject;
         }
     }
     private void OnTriggerExit(Collider other)
