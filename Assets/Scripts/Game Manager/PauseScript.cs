@@ -15,6 +15,13 @@ public class PauseScript : MonoBehaviour
 
     [SerializeField] GameObject resumeButton;
     [SerializeField] GameObject quitButton;
+    [SerializeField] GameObject settingsPanel;
+    [SerializeField] GameObject pausePanel;
+
+
+    [SerializeField] GameObject resButton;
+
+    bool isSettings = false;
 
     void Start()
     {
@@ -28,7 +35,7 @@ public class PauseScript : MonoBehaviour
             btn_Resume();
         }
 
-        if (isPaused)
+        if (isPaused && !isSettings)
         {
             if (!changedButton)
             {
@@ -43,20 +50,41 @@ public class PauseScript : MonoBehaviour
     {
 
         pauseCanvas.gameObject.SetActive(true);
+        pauseCanvas.transform.GetChild(0).GetComponent<Animation>().Play("PauseAnimation");
+        StartCoroutine(PauseTimeScale());
 
         isPaused = true;
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
 
         pauseCanvas.enabled = true;
     }
 
+    IEnumerator PauseTimeScale()
+    {
+        yield return new WaitForSeconds(pauseCanvas.transform.GetChild(0).GetComponent<Animation>().clip.length);
+        Time.timeScale = 0;
+    }
+
     void ResumeGame()
     {
+        //hide settings canvas
+        pausePanel.SetActive(true);
+        settingsPanel.SetActive(false);
+        isSettings = false;
+
+        pauseCanvas.transform.GetChild(0).GetComponent<Animation>().Play("DispauseAnim");
+        StartCoroutine(ResumeAfterAnim());
+    }
+
+    IEnumerator ResumeAfterAnim()
+    {
+        Time.timeScale = 1;
+        yield return new WaitForSeconds(pauseCanvas.transform.GetChild(0).GetComponent<Animation>().clip.length);
         pauseCanvas.gameObject.SetActive(false);
         changedButton = false;
 
@@ -65,12 +93,10 @@ public class PauseScript : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        Time.timeScale = 1;
         StartCoroutine(LetPlayerMove());
 
         pauseCanvas.enabled = false;
     }
-
     IEnumerator LetPlayerMove()
     {
         //this avoids player jumping right after RESUME GAME selection
@@ -92,6 +118,28 @@ public class PauseScript : MonoBehaviour
         Debug.Log("Quit has been pressed!");
         PlayerPrefs.DeleteKey("hasDoneMain");
         Application.Quit();
+    }
+
+    public void btn_Seetings()
+    {
+        if (isSettings)
+        {
+            isSettings = false;
+            //show pause canvas
+            pausePanel.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(resumeButton);
+            settingsPanel.SetActive(false);
+        }
+        else
+        {
+            isSettings = true;
+            //show settings canvas
+            settingsPanel.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(resButton);
+            //hide pause canvas
+            pausePanel.SetActive(false);
+        }
+
     }
 
 

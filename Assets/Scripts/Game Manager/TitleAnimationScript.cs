@@ -27,7 +27,7 @@ public class TitleAnimationScript : MonoBehaviour
         {
             if (!animPlayed)
             {
-                titleCamera.transform.localPosition = Vector3.Lerp(titleCamera.transform.localPosition, newCamPos, 0.02f);
+                titleCamera.transform.localPosition = Vector3.Lerp(titleCamera.transform.localPosition, newCamPos, 0.04f);
                 titleCamera.transform.localRotation = Quaternion.Lerp((titleCamera.transform.localRotation), Quaternion.Euler (newCamRot), 0.04f);
             }
             else
