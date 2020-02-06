@@ -14493,7 +14493,7 @@ MonoBehaviour:
   mainCamera: {fileID: 1157867714}
   newFOV: 35
   targetCamera: {fileID: 497421810}
-  newRotationTarget: {x: -10, y: -45, z: 0}
+  newRotationTarget: {x: -10, y: -80, z: 0}
   speedTransition: 2
 --- !u!65 &497746568
 BoxCollider:
@@ -22287,12 +22287,12 @@ PrefabInstance:
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.19
+      value: 8.7
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -25.32
+      value: 111.9
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
@@ -22354,6 +22354,10 @@ PrefabInstance:
       propertyPath: jumpForce
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 583964081, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 415923831, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
       propertyPath: m_Positions.Array.data[1].z
       value: 1
@@ -22362,14 +22366,6 @@ PrefabInstance:
       propertyPath: spriteIndicateObject
       value: 
       objectReference: {fileID: 2012285758}
-    - target: {fileID: 606560528, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 606560527, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8523275708601888380, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22385,8 +22381,12 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 583964081, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 606560528, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 606560527, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 606560531, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
@@ -32754,7 +32754,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1110653195
 Transform:
   m_ObjectHideFlags: 0
@@ -37607,7 +37607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1273502962
 Transform:
   m_ObjectHideFlags: 0
@@ -45865,9 +45865,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1558988162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5088846b2797d6340833e4be927da414, type: 3}
+  m_Script: {fileID: 11500000, guid: c2e33e277250cb549a34ca281e7c3396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objects:
+  - {fileID: 1850863376}
+  condition: 2
+  interactuable: 3
 --- !u!1001 &1559893111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47721,7 +47725,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1611863261
 Transform:
   m_ObjectHideFlags: 0
@@ -48065,7 +48069,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8674147675623460961, guid: ddeaae0261bdfa544b3ad097220be887, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ddeaae0261bdfa544b3ad097220be887, type: 3}
 --- !u!4 &1630928242 stripped
 Transform:
@@ -48093,11 +48098,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myAnimator: {fileID: 193273858}
   type: 1
-  myCamera: {fileID: 0}
-  durationShake: 0
-  strength: 0
-  vibrato: 0
-  randomness: 0
+  myCamera: {fileID: 1157867714}
+  durationShake: 3
+  strength: 1
+  vibrato: 30
+  randomness: 98
 --- !u!114 &1630928250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48113,7 +48118,7 @@ MonoBehaviour:
   objects:
   - {fileID: 2116858264}
   condition: 1
-  interactuable: 1
+  interactuable: 3
 --- !u!1001 &1633430388
 PrefabInstance:
   m_ObjectHideFlags: 0

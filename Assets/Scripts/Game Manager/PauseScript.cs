@@ -15,6 +15,14 @@ public class PauseScript : MonoBehaviour
 
     [SerializeField] GameObject resumeButton;
     [SerializeField] GameObject quitButton;
+    [SerializeField] GameObject settingsPanel;
+    [SerializeField] GameObject pausePanel;
+
+
+    [SerializeField] GameObject resButton;
+
+    bool isSettings = false;
+    bool cooldownOver = true;
 
     void Start()
     {
@@ -23,12 +31,14 @@ public class PauseScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Pause") && canPause)
+        if (Input.GetButtonDown("Pause") && canPause && cooldownOver)
         {
             btn_Resume();
+            cooldownOver = false;
+            StartCoroutine(btn_coolDown());
         }
 
-        if (isPaused)
+        if (isPaused && !isSettings)
         {
             if (!changedButton)
             {
@@ -39,24 +49,52 @@ public class PauseScript : MonoBehaviour
         }
     }
 
+    IEnumerator btn_coolDown()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        cooldownOver = true;
+    }
+
     void PauseGame()
     {
 
+        GameObject.Find("Character").GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
         pauseCanvas.gameObject.SetActive(true);
+        pauseCanvas.transform.GetChild(0).GetComponent<Animation>().Play("PauseAnimation");
+        StartCoroutine(PauseTimeScale());
 
         isPaused = true;
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        Time.timeScale = 0;
-        GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
+        //Time.timeScale = 0;
 
         pauseCanvas.enabled = true;
     }
 
+    IEnumerator PauseTimeScale()
+    {
+        yield return new WaitForSeconds(pauseCanvas.transform.GetChild(0).GetComponent<Animation>().clip.length);
+        Time.timeScale = 0;
+    }
+
     void ResumeGame()
     {
+        //hide settings canvas
+        pausePanel.SetActive(true);
+        settingsPanel.SetActive(false);
+        isSettings = false;
+
+        pauseCanvas.transform.GetChild(0).GetComponent<Animation>().Play("DispauseAnim");
+        StartCoroutine(ResumeAfterAnim());
+    }
+
+    IEnumerator ResumeAfterAnim()
+    {
+        Time.timeScale = 1;
+        yield return new WaitForSeconds(pauseCanvas.transform.GetChild(0).GetComponent<Animation>().clip.length);
         pauseCanvas.gameObject.SetActive(false);
         changedButton = false;
 
@@ -65,17 +103,17 @@ public class PauseScript : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        Time.timeScale = 1;
         StartCoroutine(LetPlayerMove());
 
         pauseCanvas.enabled = false;
     }
-
     IEnumerator LetPlayerMove()
     {
         //this avoids player jumping right after RESUME GAME selection
         yield return new WaitForSeconds(0.5f);
         GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(false);
+        GameObject.Find("Character").GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        GameObject.Find("Character").GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     public void btn_Resume()
@@ -92,6 +130,28 @@ public class PauseScript : MonoBehaviour
         Debug.Log("Quit has been pressed!");
         PlayerPrefs.DeleteKey("hasDoneMain");
         Application.Quit();
+    }
+
+    public void btn_Seetings()
+    {
+        if (isSettings)
+        {
+            isSettings = false;
+            //show pause canvas
+            pausePanel.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(resumeButton);
+            settingsPanel.SetActive(false);
+        }
+        else
+        {
+            isSettings = true;
+            //show settings canvas
+            settingsPanel.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(resButton);
+            //hide pause canvas
+            pausePanel.SetActive(false);
+        }
+
     }
 
 

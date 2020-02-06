@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 606560527}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.019, y: 0.22, z: 0.34}
+  m_LocalPosition: {x: 0, y: 0, z: 1.106}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6120095539264640499}
@@ -60,9 +60,9 @@ SphereCollider:
   m_GameObject: {fileID: 606560527}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 12
+  m_Radius: 9.02
   m_Center: {x: -0.12039566, y: -3.3887148, z: 0.22876549}
 --- !u!114 &1052674258
 MonoBehaviour:
@@ -79,8 +79,43 @@ MonoBehaviour:
   whip: {fileID: 415923831}
   playerTransform: {fileID: 6120095539264640499}
   spriteIndicateObject: {fileID: 0}
+  mainCamera: {fileID: 0}
   lineDrawSpeed: 1
-  ableToWhipJump: 0
+  enemyList: []
+  inputDown: 0
+  ableToAttack: 0
+  attackMode: 0
+  index: 0
+--- !u!1 &638439895
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 638439896}
+  m_Layer: 10
+  m_Name: WalkingParticleSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &638439896
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638439895}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.65, z: 1.04}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6120095539264640499}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6120095539264640501
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +152,7 @@ Transform:
   m_Children:
   - {fileID: 8523275708601888380}
   - {fileID: 606560528}
+  - {fileID: 638439896}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -164,10 +200,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalMove: 0
   verticalMove: 0
-  player: {fileID: 0}
-  playerSpeed: 8
+  movePlayer: {x: 0, y: 0, z: 0}
+  walkinParticles: {fileID: 1599718021928974, guid: 88010a27506fd2c40980a3c67022eca8,
+    type: 3}
+  walkinParticlesSpawner: {fileID: 638439896}
+  player: {fileID: 6120095539264640500}
+  playerSpeed: 15
   whip: {fileID: 1052674258}
-  jumpForce: 12
+  jumpForce: 16
   jumpSound: {fileID: 583964081}
   gravity: 40
   fallVelocity: 0
@@ -179,7 +219,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6120095539264640501}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ddb9bf7bd2b7ed6418ab3b8cc2122c86, type: 3}
@@ -400,6 +440,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6120095539264640499}
     m_Modifications:
+    - target: {fileID: 8110111147615513432, guid: af89c3327fb50154981f9e00e87d5875,
+        type: 3}
+      propertyPath: m_Name
+      value: Graphics
+      objectReference: {fileID: 0}
     - target: {fileID: 6990247516611851181, guid: af89c3327fb50154981f9e00e87d5875,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -454,11 +499,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8110111147615513432, guid: af89c3327fb50154981f9e00e87d5875,
-        type: 3}
-      propertyPath: m_Name
-      value: Graphics
       objectReference: {fileID: 0}
     - target: {fileID: 3887761421343917100, guid: af89c3327fb50154981f9e00e87d5875,
         type: 3}
