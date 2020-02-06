@@ -48,7 +48,8 @@ public class DragAndDropObject : MonoBehaviour
 
         if (player != null)
         {
-            if (Input.GetButtonDown("Interact") && Vector3.Distance(transform.position, player.transform.position) < MinDistanceToGrabObject)
+            if (Input.GetButtonDown("Interact") && Vector3.Distance(transform.position, player.transform.position) < MinDistanceToGrabObject
+                && player.transform.position.y<transform.position.y)
             {
                 if (!rockGrabbed)
                 {
