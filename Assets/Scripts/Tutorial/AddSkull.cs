@@ -6,32 +6,39 @@ public class AddSkull : MonoBehaviour
 {
     public GameObject placePosition;
     Transform skullTransform = null;
-    private bool canPlace = false;
     public bool isImportantCup=false;
+    bool canPlace = false;
 
     GameObject skull = null;
 
     public bool isActivated = false;
-    bool isCloseEnough = false;
 
     private void Start()
     {
     }
 
 
-    void Update()
+    void LateUpdate()
     {
-        if (canPlace && Input.GetButtonDown("Interact"))
+        if (skull!=null)
         {
-            skullTransform.position = placePosition.transform.position;
-            skullTransform.rotation = this.transform.rotation;
-            isActivated = true;
-            if (isImportantCup)
+            if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && Input.GetButtonDown("Interact"))
             {
-                skull.GetComponent<DragAndDrop>().enabled = false;
-                skull.GetComponent<DragAndDrop>().transform.SetParent(null);
+                skull.GetComponent<DragAndDrop>().DropObject();
+                if (isImportantCup)
+                {
+                    skull.GetComponent<DragAndDrop>().enabled = false;
+                }
+                skullTransform.position = placePosition.transform.position;
+                skullTransform.rotation = transform.rotation;
+                isActivated = true;
             }
-
+            else if (!isImportantCup && canPlace && !skull.GetComponent<DragAndDrop>().objectIsGrabbed && isActivated && Input.GetButtonDown("Interact"))
+            {
+                //skull.GetComponent<DragAndDrop>().CancelledDrop(false);
+                skull.GetComponent<DragAndDrop>().GrabObject();
+                isActivated = false;
+            }
         }
     }
 
@@ -40,13 +47,13 @@ public class AddSkull : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canPlace = true;
-            isCloseEnough = true;
         }
-        if (other.CompareTag("Skull"))
+        else if (other.CompareTag("Skull"))
         {
-            skull = other.gameObject;
-            skullTransform = other.gameObject.transform;
-            Debug.Log(other.name);
+            skull = other.transform.parent.gameObject;
+            skullTransform = other.transform.parent.gameObject.transform;
+            Debug.Log(skull.name);
+            skull.GetComponent<DragAndDrop>().CancelledDrop(true);
         }
 
     }
@@ -54,9 +61,8 @@ public class AddSkull : MonoBehaviour
     {
         if (other.CompareTag("Skull"))
         {
-            skull = other.gameObject;
-            skullTransform = other.gameObject.transform;
-            Debug.Log(other.name);
+            skull = other.transform.parent.gameObject;
+            skullTransform = other.transform.parent.gameObject.transform;
         }
 
     }
@@ -66,12 +72,17 @@ public class AddSkull : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canPlace = false;
-            isCloseEnough = false;
         }
         else if (other.CompareTag("Skull"))
         {
+            other.gameObject.transform.parent.GetComponent<DragAndDrop>().CancelledDrop(false);
             skull = null;
             skullTransform = null;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(GetComponent<SphereCollider>().bounds.center, GetComponent<SphereCollider>().radius * transform.lossyScale.x);
     }
 }

@@ -5,20 +5,12 @@ using UnityEngine;
 public class DragAndDrop : MonoBehaviour
 {
 
-    /// <How_it_works>
-    /// 
-    /// If the player is close enough and he interacts with the object,
-    /// the object will get attached to the player.
-    /// When the object is a child of the player, it will move as he moves.
-    /// 
-    /// </How_it_works>
-
-
-    GameObject player = null;
+    [HideInInspector] public GameObject player = null;
     GameObject grabPlace = null;
     public float minDistanceToGrabObject = 1.5f;
-    bool objectIsGrabbed = false;
+    [HideInInspector] public bool objectIsGrabbed = false;
     bool isFacingBox = false;
+    public bool cancelledDrop = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +19,7 @@ public class DragAndDrop : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (player!=null)
         {
@@ -39,21 +31,23 @@ public class DragAndDrop : MonoBehaviour
             float dot = Vector3.Dot(player.transform.forward, (transform.position - player.transform.position).normalized);
             if (dot > 0.7f) { isFacingBox = true; }
 
-            if (distancePlayerObject<minDistanceToGrabObject && Input.GetButtonDown("Interact") && isFacingBox)
+            if (distancePlayerObject<minDistanceToGrabObject && Input.GetButtonDown("Interact") && isFacingBox && !cancelledDrop)
             {
                 if (!objectIsGrabbed)
                 {
-                    transform.SetParent(player.transform);
-                    transform.position = grabPlace.transform.position;
-                    objectIsGrabbed = true;
+                    GrabObject();
                 }
                 else
                 {
-                    transform.SetParent(null);
-                    objectIsGrabbed = false;
+                    DropObject();
                 }
             }
         }
+    }
+
+    public void CancelledDrop(bool tof)
+    {
+        cancelledDrop = tof;
     }
 
     private void OnTriggerStay(Collider other)
@@ -84,6 +78,13 @@ public class DragAndDrop : MonoBehaviour
     {
         transform.SetParent(null);
         objectIsGrabbed = false;
+    }
+
+    public void GrabObject()
+    {
+        transform.SetParent(player.transform);
+        transform.position = grabPlace.transform.position;
+        objectIsGrabbed = true;
     }
 
     private void OnDrawGizmosSelected()
