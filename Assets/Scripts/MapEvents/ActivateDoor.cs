@@ -14,15 +14,21 @@ public class ActivateDoor : MonoBehaviour
     [SerializeField] EnablePartsOfMap toEnable;
 
     [SerializeField] SectionMapVariables myPart;
+    [SerializeField] Transform skullPlace;
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Skull"))
         {
-            objectoToMove.DOMove(finalPosition.position, speed);
+            if (!other.GetComponent<DragAndDrop>().objectIsGrabbed)
+            {
+                objectoToMove.DOMove(finalPosition.position, speed);
+                other.gameObject.transform.position = skullPlace.position;
+                other.gameObject.GetComponent<DragAndDrop>().enabled = false;
+                myPart.isActive = true;
 
-            myPart.isActive = true;
+            }
         }
     }
 }
