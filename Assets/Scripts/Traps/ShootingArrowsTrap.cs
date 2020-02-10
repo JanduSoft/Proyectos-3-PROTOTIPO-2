@@ -36,6 +36,7 @@ public class ShootingArrowsTrap : MonoBehaviour
                 float z = shootingTransform.position.z + Random.Range(-widthOffset, widthOffset) ;
                 //We isntantiate the arrows
                 Instantiate(arrowPrefab, new Vector3(x,y,z), Quaternion.LookRotation(shootingTransform.forward), shootingTransform);
+                StartCoroutine(ResetArrows());
             }
             trapActivated = false;
         }
@@ -66,6 +67,12 @@ public class ShootingArrowsTrap : MonoBehaviour
         }
 
         #endregion
+    }
+
+    IEnumerator ResetArrows()
+    {
+        yield return new WaitForSeconds(1.5f);
+        i = 0;
     }
 
     private void OnTriggerStay(Collider other)

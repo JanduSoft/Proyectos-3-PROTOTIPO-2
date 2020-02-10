@@ -21,13 +21,18 @@ public class ActivateAnimation : MonoBehaviour
     [SerializeField] float strength;
     [SerializeField] int vibrato;
     [SerializeField] float randomness;
+    [SerializeField] Transform objectPos = null;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Skull") && type == typeAnimator.DOOR )
         {
-            myAnimator.SetBool("Active", true);
-            Invoke("DeactivateAnimation", 2f);
+            if (!other.GetComponent<DragAndDrop>().objectIsGrabbed && objectPos!=null)
+            {
+                other.gameObject.transform.position = objectPos.transform.position;
+                myAnimator.SetBool("Active", true);
+                Invoke("DeactivateAnimation", 2f);
+            }
         }
         else if (other.CompareTag("Player") && type == typeAnimator.PLATFORM)
         {
