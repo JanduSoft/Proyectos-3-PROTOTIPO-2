@@ -19,6 +19,7 @@ public class TorchPuzzles : MonoBehaviour
     [SerializeField] bool nearRope = false;
     [SerializeField] bool torchIgnited = false;
 
+
     // Start is called before the first frame update
     void Start()
     {
