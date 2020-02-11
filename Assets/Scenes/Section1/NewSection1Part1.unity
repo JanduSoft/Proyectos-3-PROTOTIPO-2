@@ -5165,14 +5165,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.4000002
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 198167508463184456, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199616843188106880, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
@@ -7381,7 +7381,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 153690521}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 52.77, y: 7.83, z: 126.68}
+  m_LocalPosition: {x: 52.77, y: 9.2, z: 126.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1332676134}
@@ -7449,7 +7449,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinDistanceToGrabObject: 5
   grabPointHeight: 0.5
-  stoneSpeed: 250
+  stoneSpeed: 5
+  dragSound: {fileID: 0}
 --- !u!135 &153690527
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9034,31 +9035,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000019, y: 5, z: 1}
   m_Center: {x: -0.0000009536743, y: 2.5, z: 0}
---- !u!1 &188288855 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 184820, guid: 9e2131326fc97464987f58ebcb08832a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1093659765}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &188288856 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 491958, guid: 9e2131326fc97464987f58ebcb08832a,
     type: 3}
   m_PrefabInstance: {fileID: 1093659765}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &188288858
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 188288855}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 20.033743, y: 0.101415, z: 9.969618}
-  m_Center: {x: -10.0162325, y: 0.0499075, z: 0.015189171}
 --- !u!1001 &190381638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9965,31 +9947,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 886353862}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &196527803 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 184820, guid: 9e2131326fc97464987f58ebcb08832a,
-    type: 3}
-  m_PrefabInstance: {fileID: 645374226}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &196527804 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 491958, guid: 9e2131326fc97464987f58ebcb08832a,
     type: 3}
   m_PrefabInstance: {fileID: 645374226}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &196527806
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 196527803}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 5.000639, y: 0.101415, z: 4.999998}
-  m_Center: {x: -2.4996805, y: 0.0499075, z: 2.499999}
 --- !u!1001 &196798768
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15874,14 +15837,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.40000045
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 198167508463184456, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199616843188106880, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
@@ -23974,7 +23937,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinDistanceToGrabObject: 5
   grabPointHeight: 0.5
-  stoneSpeed: 200
+  stoneSpeed: 5
+  dragSound: {fileID: 0}
 --- !u!135 &480207524
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -26806,14 +26770,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.40000045
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 198167508463184456, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199616843188106880, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
@@ -37336,17 +37300,17 @@ PrefabInstance:
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.8
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.96
+      value: 1.85
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -30.54
+      value: -29.03
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
@@ -40512,7 +40476,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinDistanceToGrabObject: 5
   grabPointHeight: 0.5
-  stoneSpeed: 200
+  stoneSpeed: 5
+  dragSound: {fileID: 0}
 --- !u!135 &847283236
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -45725,14 +45690,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.4000002
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 198167508463184456, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199616843188106880, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
@@ -53534,6 +53499,7 @@ GameObject:
   - component: {fileID: 1072677748}
   - component: {fileID: 1072677749}
   - component: {fileID: 1072677750}
+  - component: {fileID: 1072677751}
   m_Layer: 0
   m_Name: Transition1
   m_TagString: Untagged
@@ -53626,6 +53592,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   go: {fileID: 1611863260}
+  typeGO: 1
+--- !u!114 &1072677751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072677744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 849d96210fddd794b98fddd58190fd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 1273502961}
   typeGO: 1
 --- !u!1001 &1074914988
 PrefabInstance:
@@ -54247,6 +54227,7 @@ GameObject:
   - component: {fileID: 1090325840}
   - component: {fileID: 1090325841}
   - component: {fileID: 1090325842}
+  - component: {fileID: 1090325843}
   m_Layer: 0
   m_Name: Transition2
   m_TagString: Untagged
@@ -54339,6 +54320,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   go: {fileID: 1611863260}
+  typeGO: 2
+--- !u!114 &1090325843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090325836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 849d96210fddd794b98fddd58190fd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 1273502961}
   typeGO: 2
 --- !u!1001 &1090772189
 PrefabInstance:
@@ -55603,7 +55598,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1110653195
 Transform:
   m_ObjectHideFlags: 0
@@ -59694,6 +59689,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 7984944024938577795, guid: 08f3ed97c4d4e7c4aab02cdb15ea552b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7984944025290465372, guid: 08f3ed97c4d4e7c4aab02cdb15ea552b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -59758,11 +59758,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1.5199174
-      objectReference: {fileID: 0}
-    - target: {fileID: 7984944024938577795, guid: 08f3ed97c4d4e7c4aab02cdb15ea552b,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7984944025481131419, guid: 08f3ed97c4d4e7c4aab02cdb15ea552b,
         type: 3}
@@ -63052,7 +63047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f091356a36e2de48b3c75adf4cfd60c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 1
+  isActive: 0
 --- !u!4 &1273843788 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1732243685436573841, guid: 4e873c65061ceda4f82894c893b31f7c,
@@ -65071,7 +65066,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinDistanceToGrabObject: 5
   grabPointHeight: 0.5
-  stoneSpeed: 250
+  stoneSpeed: 5
+  dragSound: {fileID: 0}
 --- !u!135 &1306379982
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -72841,7 +72837,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinDistanceToGrabObject: 5
   grabPointHeight: 0.5
-  stoneSpeed: 250
+  stoneSpeed: 5
+  dragSound: {fileID: 0}
 --- !u!135 &1501671051
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -77272,6 +77269,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 7984944024938577795, guid: 08f3ed97c4d4e7c4aab02cdb15ea552b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7984944025290465372, guid: 08f3ed97c4d4e7c4aab02cdb15ea552b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -77336,11 +77338,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1.5199174
-      objectReference: {fileID: 0}
-    - target: {fileID: 7984944024938577795, guid: 08f3ed97c4d4e7c4aab02cdb15ea552b,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7984944025481131419, guid: 08f3ed97c4d4e7c4aab02cdb15ea552b,
         type: 3}
@@ -78501,7 +78498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1611863261
 Transform:
   m_ObjectHideFlags: 0
@@ -83603,6 +83600,7 @@ GameObject:
   - component: {fileID: 1737694631}
   - component: {fileID: 1737694630}
   - component: {fileID: 1737694634}
+  - component: {fileID: 1737694635}
   m_Layer: 0
   m_Name: Transition2 (2)
   m_TagString: Untagged
@@ -83695,6 +83693,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   go: {fileID: 1611863260}
+  typeGO: 2
+--- !u!114 &1737694635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737694628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 849d96210fddd794b98fddd58190fd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 1273502961}
   typeGO: 2
 --- !u!1001 &1738060903
 PrefabInstance:
@@ -93546,7 +93558,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinDistanceToGrabObject: 5
   grabPointHeight: 0.5
-  stoneSpeed: 250
+  stoneSpeed: 5
+  dragSound: {fileID: 0}
 --- !u!135 &1933876425
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -95273,14 +95286,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.4000007
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 198167508463184456, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199616843188106880, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
@@ -100224,14 +100237,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.4000007
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 198167508463184456, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199616843188106880, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}

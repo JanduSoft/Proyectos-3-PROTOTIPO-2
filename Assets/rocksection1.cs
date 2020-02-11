@@ -21,22 +21,22 @@ public class rocksection1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (rock.transform.position.z <= centerPoint.z)
-        {
-            //rock child of part 1
-            rock.transform.SetParent(part1.transform);
+        //if (rock.transform.position.z <= centerPoint.z)
+        //{
+        //    //rock child of part 1
+        //    rock.transform.SetParent(part1.transform);
             
-        }
-        else if(rock.transform.position.z>centerPoint.z && part2.activeSelf)
-        {
-            //rock child of part 2
-            rock.transform.SetParent(part2.transform);
-        }
-        else if (rock.transform.position.z > centerPoint.z && part1.activeSelf)
-        {
-            //rock child of part 1
-            rock.transform.SetParent(part1.transform);
-        }
+        //}
+        //else if(rock.transform.position.z>centerPoint.z && part2.activeSelf)
+        //{
+        //    //rock child of part 2
+        //    rock.transform.SetParent(part2.transform);
+        //}
+        //else if (rock.transform.position.z > centerPoint.z && part1.activeSelf)
+        //{
+        //    //rock child of part 1
+        //    rock.transform.SetParent(part1.transform);
+        //}
     }
 
     private void OnDrawGizmos()

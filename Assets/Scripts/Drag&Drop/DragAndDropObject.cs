@@ -9,7 +9,7 @@ public class DragAndDropObject : MonoBehaviour
     GameObject player = null;
     [SerializeField] float MinDistanceToGrabObject;
     [SerializeField] float grabPointHeight = 0.5f;
-    [SerializeField] float stoneSpeed=150;
+    [SerializeField] float stoneSpeed=5;
     Vector3[] grabPoints = new Vector3[4];
     Vector3 closestPoint;
     int minPoint = -1;
@@ -103,12 +103,12 @@ public class DragAndDropObject : MonoBehaviour
 
                     if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
                     {
-                        rb.velocity = movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = movingDirection.normalized * stoneSpeed;
                         playSound = true;
                     }
                     else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                     {
-                        rb.velocity = -movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = -movingDirection.normalized * stoneSpeed;
                         playSound = true;
                     }
                     else
@@ -120,12 +120,12 @@ public class DragAndDropObject : MonoBehaviour
 
                     if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
                     {
-                        rb.velocity = movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = movingDirection.normalized * stoneSpeed;
                         playSound = true;
                     }
                     else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                     {
-                        rb.velocity = -movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = -movingDirection.normalized * stoneSpeed;
                         playSound = true;
                     }
                     else
@@ -137,12 +137,12 @@ public class DragAndDropObject : MonoBehaviour
 
                     if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
                     {
-                        rb.velocity = movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = movingDirection.normalized * stoneSpeed;
                         playSound = true;
                     }
                     else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                     {
-                        rb.velocity = -movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = -movingDirection.normalized * stoneSpeed;
                         playSound = true;
                     }
                     else
@@ -154,12 +154,12 @@ public class DragAndDropObject : MonoBehaviour
 
                     if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
                     {
-                        rb.velocity = movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = movingDirection.normalized * stoneSpeed;
                         playSound = true;
                     }
                     else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                     {
-                        rb.velocity = -movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = -movingDirection.normalized * stoneSpeed;
                         playSound = true;
                     }
                     else
@@ -246,7 +246,7 @@ public class DragAndDropObject : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //player = null;
+            player = null;
         }
     }
 
