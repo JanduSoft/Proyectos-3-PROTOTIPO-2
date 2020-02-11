@@ -43,7 +43,7 @@ public class ActivateAnimation : MonoBehaviour
         {
             myAnimator.SetBool("Active", true);
             Debug.Log("Camera Shake!!");
-            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness,true);
+            //myCamera.DOShakePosition(durationShake, strength, vibrato, randomness,true);
         }
 
 
@@ -54,7 +54,7 @@ public class ActivateAnimation : MonoBehaviour
         if (other.CompareTag("Block"))
         {
             DeactivateAnimation();
-            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+            //myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
         }
     }
 

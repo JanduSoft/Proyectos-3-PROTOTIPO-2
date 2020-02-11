@@ -30,6 +30,9 @@ public class OnTriggerPlayAnim : MonoBehaviour
         }
 
         transform.parent.GetChild(0).GetComponentInParent<DragAndDropObject>().dragSound.Stop();
+        transform.parent.GetChild(0).GetComponentInParent<DragAndDropObject>().LetGoRock();
+        Rigidbody rb = transform.parent.GetChild(0).GetComponentInParent<DragAndDropObject>().rb;
+        rb.AddForce(Physics.gravity * (rb.mass * rb.mass));
         yield return new WaitForSeconds(_s);
         GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(false);
     }

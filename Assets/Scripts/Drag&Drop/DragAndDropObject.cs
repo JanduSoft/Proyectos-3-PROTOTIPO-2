@@ -14,13 +14,14 @@ public class DragAndDropObject : MonoBehaviour
     Vector3 closestPoint;
     int minPoint = -1;
 
-    Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
 
 
     bool lerping = false;
     bool rockGrabbed = false;
     bool lockVertical, lockHorizontal = false;
-    bool playSound = false;
+    [HideInInspector] public bool playSound = false;
+    bool thisRock = false;
 
     [HideInInspector] public AudioSource dragSound;
 
@@ -62,13 +63,13 @@ public class DragAndDropObject : MonoBehaviour
         if (player != null)
         {
             if (Input.GetButtonDown("Interact") && Vector3.Distance(transform.position, player.transform.position) < MinDistanceToGrabObject
-                && player.transform.position.y<transform.position.y)
+                && player.transform.position.y < transform.position.y)
             {
                 if (!rockGrabbed)
                 {
                     //FIND CLOSEST POINT
                     closestPoint = FindClosestPoint();
-                    player.transform.DOMove(closestPoint,0.5f,false);
+                    player.transform.DOMove(closestPoint, 0.5f, false);
                     //LERP PLAYER TOWARDS POINT
                     lerping = true;
                     playSound = false;
@@ -91,11 +92,12 @@ public class DragAndDropObject : MonoBehaviour
             }
             else if (rockGrabbed)
             {
+                thisRock = true;
                 player.transform.position = closestPoint;
                 float horizontalMove = Input.GetAxis("Horizontal");
                 float verticalMove = Input.GetAxis("Vertical");
 
-                bool inputActive = horizontalMove!=0 || verticalMove!=0;
+                bool inputActive = horizontalMove != 0 || verticalMove != 0;
 
                 if (closestPoint == grabPoints[0])
                 {
@@ -168,12 +170,14 @@ public class DragAndDropObject : MonoBehaviour
 
 
             }
+            else
+                thisRock = false;
 
-            if (playSound && !dragSound.isPlaying)
+            if (playSound && !dragSound.isPlaying && thisRock)
             {
                 dragSound.Play();
             }
-            else if (!playSound)
+            else if (!playSound && thisRock)
             {
                 dragSound.Stop();
             }
@@ -185,6 +189,7 @@ public class DragAndDropObject : MonoBehaviour
                 dragSound.Stop();
                 lerping = false;
                 rockGrabbed = false;
+                thisRock = false;
             }
         }
     }
@@ -195,6 +200,7 @@ public class DragAndDropObject : MonoBehaviour
         dragSound.Stop();
         lerping = false;
         rockGrabbed = false;
+        thisRock = false;
 
     }
     void DoLerp()
@@ -247,6 +253,7 @@ public class DragAndDropObject : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             player = null;
+            thisRock = false;
         }
     }
 
