@@ -18,7 +18,7 @@ public class DragAndDropObject : MonoBehaviour
 
 
     bool lerping = false;
-    bool rockGrabbed = false;
+    [SerializeField] bool rockGrabbed = false;
     bool lockVertical, lockHorizontal = false;
     [HideInInspector] public bool playSound = false;
     bool thisRock = false;
@@ -43,7 +43,6 @@ public class DragAndDropObject : MonoBehaviour
     void Update()
     {
 
-        Debug.Log(rockGrabbed);
         //calculate the grab points every frame in case the rock moves
         grabPoints[0] = transform.position + transform.forward * 3;
         grabPoints[1] = transform.position - transform.forward * 3;
@@ -62,12 +61,14 @@ public class DragAndDropObject : MonoBehaviour
 
         if (player != null)
         {
+
             if (Input.GetButtonDown("Interact") && Vector3.Distance(transform.position, player.transform.position) < MinDistanceToGrabObject
-                && player.transform.position.y < transform.position.y)
+                && Mathf.Abs(player.transform.position.y - transform.position.y)<1) //checks the diference between player and rock height isn't bigger than 1
             {
                 if (!rockGrabbed)
                 {
                     //FIND CLOSEST POINT
+                    Debug.Log("haha");
                     closestPoint = FindClosestPoint();
                     player.transform.DOMove(closestPoint, 0.5f, false);
                     //LERP PLAYER TOWARDS POINT

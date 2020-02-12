@@ -10,6 +10,7 @@ public class isPlaced : MonoBehaviour
     Transform skullTransform = null;
     private bool canPlace = false;
     bool placed = false;
+
     void Update()
     {
         if (canPlace && Input.GetButtonDown("Interact"))

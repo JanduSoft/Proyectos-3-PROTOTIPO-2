@@ -28,8 +28,13 @@ public class DragAndDrop : MonoBehaviour
             //checks if the distance from the player to the rock is close enough
             var distancePlayerObject = Vector3.Distance(player.transform.position, transform.position);
             //checks if the player is staring in the direction of the rock
-            float dot = Vector3.Dot(player.transform.forward, (transform.position - player.transform.position).normalized);
-            if (dot > 0.7f) { isFacingBox = true; }
+            Vector2 playerForward2d = new Vector2(player.transform.forward.x, player.transform.forward.z);
+            Vector2 dirToObject2d = new Vector2(transform.position.x-player.transform.position.x, transform.position.z-player.transform.position.z);
+            
+            //we do the dot product of X and Z, to ignore the Y in case the object is placed above or below
+            float dot = Vector3.Dot(playerForward2d,dirToObject2d);
+
+            if (dot > 0.5f) { isFacingBox = true; }
 
             if (distancePlayerObject<minDistanceToGrabObject && Input.GetButtonDown("Interact") && isFacingBox && !cancelledDrop)
             {
