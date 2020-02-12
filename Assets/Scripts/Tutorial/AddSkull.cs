@@ -52,7 +52,6 @@ public class AddSkull : MonoBehaviour
         {
             skull = other.transform.parent.gameObject;
             skullTransform = other.transform.parent.gameObject.transform;
-            Debug.Log(skull.name);
             skull.GetComponent<DragAndDrop>().CancelledDrop(true);
         }
 
