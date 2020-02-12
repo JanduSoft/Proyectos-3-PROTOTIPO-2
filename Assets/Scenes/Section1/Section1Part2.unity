@@ -8814,7 +8814,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d1bc1b197c00444b7d8d8720e94943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   minDistanceToGrabObject: 3
+  objectIsGrabbed: 0
+  cancelledDrop: 0
 --- !u!135 &987687392
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8960,7 +8963,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinDistanceToGrabObject: 5
+  grabPointHeight: 0.5
   stoneSpeed: 150
+  rb: {fileID: 0}
+  playSound: 0
+  dragSound: {fileID: 0}
 --- !u!135 &992833822
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10786,79 +10793,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640498, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1156270887}
-    - target: {fileID: 6120095539264640498, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
-        type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 388564906}
-    - target: {fileID: 6120095539264640498, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
-        type: 3}
-      propertyPath: playerSpeed
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6120095539264640498, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
-        type: 3}
-      propertyPath: jumpForce
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 415923831, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_Positions.Array.data[1].z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: spriteIndicateObject
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 388564906}
-    - target: {fileID: 606560528, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 606560527, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8523275708601888380, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8523275708601888380, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8523275708601888380, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 583964081, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 606560531, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_Radius
-      value: 9.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 606560531, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
---- !u!143 &1156270887 stripped
-CharacterController:
-  m_CorrespondingSourceObject: {fileID: 6120095539264640500, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
-    type: 3}
-  m_PrefabInstance: {fileID: 1156270886}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1156270888 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
@@ -11005,7 +10948,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d1bc1b197c00444b7d8d8720e94943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   minDistanceToGrabObject: 3
+  objectIsGrabbed: 0
+  cancelledDrop: 0
 --- !u!54 &1208414770
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18500,7 +18446,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d1bc1b197c00444b7d8d8720e94943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   minDistanceToGrabObject: 4
+  objectIsGrabbed: 0
+  cancelledDrop: 0
 --- !u!54 &2102304130
 Rigidbody:
   m_ObjectHideFlags: 0
