@@ -12,6 +12,7 @@ public class AddSkull : MonoBehaviour
     GameObject skull = null;
 
     public bool isActivated = false;
+    [SerializeField] bool faceOppositeDirection = false;
 
     private void Start()
     {
@@ -31,6 +32,7 @@ public class AddSkull : MonoBehaviour
                 }
                 skullTransform.position = placePosition.transform.position;
                 skullTransform.rotation = transform.rotation;
+                if (faceOppositeDirection) skullTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
                 isActivated = true;
             }
             else if (!isImportantCup && canPlace && !skull.GetComponent<DragAndDrop>().objectIsGrabbed && isActivated && Input.GetButtonDown("Interact"))
