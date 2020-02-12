@@ -25,6 +25,7 @@ public class AddSkull : MonoBehaviour
         {
             if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && Input.GetButtonDown("Interact"))
             {
+                Debug.Log("Tries to place skull");
                 skull.GetComponent<DragAndDrop>().DropObject();
                 if (isImportantCup)
                 {
@@ -62,6 +63,7 @@ public class AddSkull : MonoBehaviour
     {
         if (other.CompareTag("Skull"))
         {
+            Debug.Log("detects skull");
             skull = other.transform.parent.gameObject;
             skullTransform = other.transform.parent.gameObject.transform;
         }
