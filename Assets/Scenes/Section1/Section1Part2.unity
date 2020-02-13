@@ -5899,6 +5899,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Chain_01 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 105538, guid: 2178485d4c522584aa93ff4f062b058e, type: 3}
+      propertyPath: m_TagString
+      value: Rope
+      objectReference: {fileID: 0}
     - target: {fileID: 482006, guid: 2178485d4c522584aa93ff4f062b058e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -21.885447
@@ -8955,6 +8959,21 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1156270888}
+    - target: {fileID: 1732243685982638572, guid: 4e873c65061ceda4f82894c893b31f7c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732243685982638572, guid: 4e873c65061ceda4f82894c893b31f7c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732243685982638572, guid: 4e873c65061ceda4f82894c893b31f7c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.52
+      objectReference: {fileID: 0}
     - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
         type: 3}
       propertyPath: camera
@@ -9009,21 +9028,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.x
       value: 0.4112027
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732243685982638572, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.67
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732243685982638572, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 7.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732243685982638572, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -8.52
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e873c65061ceda4f82894c893b31f7c, type: 3}
@@ -10639,6 +10643,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Forge_FirePit_01
       objectReference: {fileID: 0}
+    - target: {fileID: 198458, guid: 6f6053668e9f3ec4f966c505fc71bf60, type: 3}
+      propertyPath: m_TagString
+      value: Fire
+      objectReference: {fileID: 0}
     - target: {fileID: 439472, guid: 6f6053668e9f3ec4f966c505fc71bf60, type: 3}
       propertyPath: m_LocalPosition.x
       value: -33.53545
@@ -11110,6 +11118,18 @@ PrefabInstance:
       propertyPath: jumpForce
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 388564906}
+    - target: {fileID: 606560527, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 606560528, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.22
+      objectReference: {fileID: 0}
     - target: {fileID: 583964081, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -11118,10 +11138,6 @@ PrefabInstance:
       propertyPath: m_Positions.Array.data[1].z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 388564906}
     - target: {fileID: 8523275708601888380, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11136,14 +11152,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 606560528, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 606560527, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 606560531, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
       propertyPath: m_Radius
@@ -12650,14 +12658,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.7941644
       objectReference: {fileID: 0}
-    - target: {fileID: 93926643, guid: af396d8ad6d9ca641966c18f3e031c64, type: 3}
-      propertyPath: minDistanceToGrabObject
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 7096974301650477566, guid: af396d8ad6d9ca641966c18f3e031c64,
         type: 3}
       propertyPath: m_Name
       value: Skull
+      objectReference: {fileID: 0}
+    - target: {fileID: 93926643, guid: af396d8ad6d9ca641966c18f3e031c64, type: 3}
+      propertyPath: minDistanceToGrabObject
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af396d8ad6d9ca641966c18f3e031c64, type: 3}
@@ -17599,8 +17607,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minDistanceToGrabObject: 3
-  firePlace: {fileID: 688338772}
-  ropeToBeIgnited: {fileID: 1013956443}
   fireParticles: {fileID: 1905722887}
   chains: {fileID: 594061671}
   animation: {fileID: 646130970}

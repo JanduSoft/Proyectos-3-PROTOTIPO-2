@@ -10,8 +10,6 @@ public class TorchPuzzles : MonoBehaviour
     public float minDistanceToGrabObject = 1.5f;
     bool objectIsGrabbed = false;
     bool isFacingBox = false;
-    [SerializeField] GameObject firePlace;
-    [SerializeField] GameObject ropeToBeIgnited;
     [SerializeField] GameObject fireParticles;
     [SerializeField] GameObject chains;
     [SerializeField] PlayableDirector animation;
@@ -75,12 +73,12 @@ public class TorchPuzzles : MonoBehaviour
             player = other.gameObject;
             grabPlace = player.transform.GetChild(1).gameObject;
         }
-        else if (other.name == firePlace.name)
+        else if (other.tag == "Fire")
         {
             Debug.Log("Near Fire");
             nearFire = true;
         }
-        else if (other.name == ropeToBeIgnited.name)
+        else if (other.tag == "Rope")
         {
             Debug.Log("Near Rope");
             nearRope = true;
@@ -93,12 +91,12 @@ public class TorchPuzzles : MonoBehaviour
             player = other.gameObject;
             grabPlace = player.transform.GetChild(1).gameObject;
         }
-        else if (other.name == firePlace.name)
+        else if (other.tag == "Fire")
         {
             Debug.Log("Near Fire");
             nearFire = true;
         }
-        else if (other.name == ropeToBeIgnited.name)
+        else if (other.tag == "Rope")
         {
             Debug.Log("Near Rope");
             nearRope = true;
@@ -111,12 +109,12 @@ public class TorchPuzzles : MonoBehaviour
             player = null;
             grabPlace = null;
         }
-        else if (other.name == firePlace.name)
+        else if (other.tag == "Fire")
         {
             Debug.Log("Near Fire");
             nearFire = false;
         }
-        else if (other.name == ropeToBeIgnited.name)
+        else if (other.tag == "Rope")
         {
             Debug.Log("Near Rope");
             nearRope = false;
