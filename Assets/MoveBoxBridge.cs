@@ -43,7 +43,7 @@ public class MoveBoxBridge : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            canActivate = true;
+            canActivate = false;
         }
     }
 }

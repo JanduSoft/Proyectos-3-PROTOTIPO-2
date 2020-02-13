@@ -8,7 +8,7 @@ public class TorchPuzzles : MonoBehaviour
     GameObject player = null;
     GameObject grabPlace = null;
     public float minDistanceToGrabObject = 1.5f;
-    bool objectIsGrabbed = false;
+    public bool objectIsGrabbed = false;
     bool isFacingBox = false;
     [SerializeField] GameObject firePlace;
     [SerializeField] GameObject ropeToBeIgnited;
@@ -17,7 +17,7 @@ public class TorchPuzzles : MonoBehaviour
     [SerializeField] PlayableDirector animation;
     [SerializeField] bool nearFire = false;
     [SerializeField] bool nearRope = false;
-    [SerializeField] bool torchIgnited = false;
+    public bool torchIgnited = false;
 
 
     // Start is called before the first frame update
@@ -43,6 +43,7 @@ public class TorchPuzzles : MonoBehaviour
             {
                 if (!objectIsGrabbed)
                 {
+                    transform.SetParent(null);
                     transform.SetParent(player.transform);
                     transform.position = grabPlace.transform.position;
                     objectIsGrabbed = true;
@@ -127,6 +128,11 @@ public class TorchPuzzles : MonoBehaviour
     {
         transform.SetParent(null);
         objectIsGrabbed = false;
+    }
+
+    public bool getTochIgnited()
+    {
+        return torchIgnited;
     }
 
     private void OnDrawGizmosSelected()

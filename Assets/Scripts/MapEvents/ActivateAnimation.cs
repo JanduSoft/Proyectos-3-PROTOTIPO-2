@@ -10,10 +10,14 @@ public class ActivateAnimation : MonoBehaviour
         NONE,
         DOOR,
         PLATFORM,
-        BRIDGE
+        BRIDGE,
+        ROPE
     }
     [SerializeField] Animator myAnimator;
     [SerializeField] typeAnimator type;
+
+    bool isTorchInside = false;
+    bool canBurn = false;
 
     [Header("FOR CAMERA SHAKE")]
     [SerializeField] Camera myCamera;
@@ -22,9 +26,17 @@ public class ActivateAnimation : MonoBehaviour
     [SerializeField] int vibrato;
     [SerializeField] float randomness;
 
+    private void Update()
+    {
+        if (isTorchInside && canBurn && Input.GetButtonDown("Interact"))
+        {
+            myAnimator.SetBool("Active", true);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Skull") && type == typeAnimator.DOOR )
+        if (other.CompareTag("Skull") && type == typeAnimator.DOOR)
         {
             myAnimator.SetBool("Active", true);
             Invoke("DeactivateAnimation", 2f);
@@ -38,11 +50,18 @@ public class ActivateAnimation : MonoBehaviour
         {
             myAnimator.SetBool("Active", true);
             Debug.Log("Camera Shake!!");
-            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness,true);
+            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+        }
+        else if (other.CompareTag("Torch") && type == typeAnimator.ROPE)
+        {
+            isTorchInside = true;
+            if (other.gameObject.GetComponent<TorchPuzzles>().getTochIgnited())
+            {
+                canBurn = true;
+            }
         }
 
-
-    }
+     }
 
     private void OnTriggerExit(Collider other)
     {
@@ -50,6 +69,10 @@ public class ActivateAnimation : MonoBehaviour
         {
             DeactivateAnimation();
             myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+        }
+        else if (other.CompareTag("Torch") && type == typeAnimator.ROPE)
+        {
+            isTorchInside = false;
         }
     }
 
