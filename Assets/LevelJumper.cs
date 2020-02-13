@@ -33,5 +33,11 @@ public class LevelJumper : MonoBehaviour
             SceneManager.LoadScene(3, LoadSceneMode.Single);
 
         }
+
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            PlayerPrefs.DeleteAll();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);   //reloads the same scene you're in
+        }
     }
 }
