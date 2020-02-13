@@ -27,10 +27,6 @@ public class AddSkull : MonoBehaviour
             {
                 Debug.Log("Tries to place skull");
                 skull.GetComponent<DragAndDrop>().DropObject();
-                if (isImportantCup)
-                {
-                    skull.GetComponent<DragAndDrop>().enabled = false;
-                }
                 skullTransform.position = placePosition.transform.position;
                 skullTransform.rotation = transform.rotation;
                 if (faceOppositeDirection) skullTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
