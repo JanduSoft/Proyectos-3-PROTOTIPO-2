@@ -70,7 +70,10 @@ public class PlaceAnyObject : MonoBehaviour
                         otherObject.transform.position = this.transform.position;
 
                         otherObject.transform.SetParent(null);
+                        Vector3 auxScale = otherObject.transform.localScale; 
                         otherObject.transform.SetParent(this.transform);
+                        //otherObject.transform.localScale = auxScale;
+
                         isPlaced = true;
                         break;
                     }

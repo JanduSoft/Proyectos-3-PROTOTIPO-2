@@ -10,27 +10,48 @@ public class MoveBoxBridge : MonoBehaviour
     [SerializeField] Transform box;
     [SerializeField] Transform position1;
     [SerializeField] Transform position2;
+    [SerializeField] Transform position3;
+    [SerializeField] Transform position4;
     [SerializeField] float speed;
-    int position = 1;
+    bool isMoving = false;
 
     private void Update()
     {
         if (Input.GetButtonDown("Interact") && canActivate)
         {
-            if (position == 1)
+            if (!isMoving)
             {
-                position = 2;
-                box.DOMove(position2.position, speed);
-            }
-            else
-            {
-                position = 1;
-                box.DOMove(position1.position, speed);
+                isMoving = true;
+                MoveToPosition2();               
             }
         }
     }
 
+    void MoveToPosition1()
+    {
+        box.DOMove(position1.position, speed);
+        Invoke("isMovingToFalse", speed);
+    }
 
+    void MoveToPosition2()
+    {
+        box.DOMove(position2.position, speed);
+        Invoke("MoveToPosition3", speed);
+    }
+    void MoveToPosition3()
+    {
+        box.DOMove(position3.position, speed);
+        Invoke("MoveToPosition1", speed);
+    }
+    void MoveToPosition4()
+    {
+        box.DOMove(position4.position, speed);
+        Invoke("MoveToPosition1", speed);
+    }
+    void isMovingToFalse()
+    {
+        isMoving = false;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
