@@ -5,11 +5,11 @@ using UnityEngine;
 public class AddObject : MonoBehaviour
 {
     public GameObject placePosition;
-    Transform skullTransform = null;
+    Transform _objectTransform = null;
     public bool isImportantCup = false;
     bool canPlace = false;
 
-    [SerializeField] GameObject skull = null;
+    [SerializeField] GameObject _object = null;
 
     public bool isActivated = false;
     [SerializeField] bool faceOppositeDirection = false;
@@ -21,21 +21,21 @@ public class AddObject : MonoBehaviour
 
     void LateUpdate()
     {
-        if (skull != null)
+        if (_object != null)
         {
-            if (canPlace && skull.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && !isActivated && Input.GetButtonDown("Interact"))
+            if (canPlace && _object.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && !isActivated && Input.GetButtonDown("Interact"))
             {
-                Debug.Log("Tries to place skull");
-                skull.GetComponent<PickUpandDrop>().DropObject();
-                skullTransform.position = placePosition.transform.position;
-                skullTransform.rotation = transform.rotation;
-                if (faceOppositeDirection) skullTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
+                Debug.Log("Tries to place obejct");
+                _object.GetComponent<PickUpandDrop>().DropObject();
+                _objectTransform.position = placePosition.transform.position;
+                _objectTransform.rotation = transform.rotation;
+                if (faceOppositeDirection) _objectTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
                 isActivated = true;
             }
-            else if (!isImportantCup && canPlace && !skull.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && isActivated && Input.GetButtonDown("Interact"))
+            else if (canPlace && !_object.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && isActivated && Input.GetButtonDown("Interact"))
             {
-                //skull.GetComponent<DragAndDrop>().CancelledDrop(false);
-                skull.GetComponent<PickUpandDrop>().GrabObject();
+                Debug.Log("Tries to pick up object");
+                _object.GetComponent<PickUpandDrop>().ForceGrabObject();
                 isActivated = false;
             }
         }
@@ -43,15 +43,16 @@ public class AddObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.name);
         if (other.CompareTag("Player"))
         {
             canPlace = true;
         }
         else if (other.CompareTag("Place"))
         {
-            skull = other.transform.parent.gameObject;
-            skullTransform = other.transform.parent.gameObject.transform;
-            skull.GetComponent<PickUpandDrop>().SetCancelledDrop(true);
+            _object = other.transform.parent.gameObject;
+            _objectTransform = other.transform.parent.gameObject.transform;
+            _object.GetComponent<PickUpandDrop>().SetCancelledDrop(true);
         }
 
     }
@@ -59,9 +60,8 @@ public class AddObject : MonoBehaviour
     {
         if (other.CompareTag("Place"))
         {
-            Debug.Log("detects skull");
-            skull = other.transform.parent.gameObject;
-            skullTransform = other.transform.parent.gameObject.transform;
+            _object = other.transform.parent.gameObject;
+            _objectTransform = other.transform.parent.gameObject.transform;
         }
 
     }
@@ -75,8 +75,8 @@ public class AddObject : MonoBehaviour
         else if (other.CompareTag("Place"))
         {
             other.gameObject.transform.parent.GetComponent<PickUpandDrop>().SetCancelledDrop(false);
-            skull = null;
-            skullTransform = null;
+            _object = null;
+            _objectTransform = null;
         }
     }
 

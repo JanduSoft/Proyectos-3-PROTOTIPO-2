@@ -39,9 +39,22 @@ public class PickUp : MonoBehaviour
             }
         }
     }
+    protected void ForcePickUpObject()
+    {        
+        if (!objectIsGrabbed)
+        {
+            transform.SetParent(player.transform);
+            transform.position = grabPlace.transform.position;
+            objectIsGrabbed = true;
+        }       
+    }
     public void GrabObject()
     {
         PickUpObject();
+    }
+    public void ForceGrabObject()
+    {
+        ForcePickUpObject();
     }
     public void SetCancelledDrop(bool status)
     {

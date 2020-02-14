@@ -40,17 +40,13 @@ public class PickUpandDrop : PickUp
             grabPlace = player.transform.GetChild(1).gameObject;
         }
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            player = null;
-            grabPlace = null;
-        }
-    }
-    public void DropObject()
+    protected void ObjectDrop()
     {
         transform.SetParent(null);
         objectIsGrabbed = false;
+    }
+    public void DropObject()
+    {
+        ObjectDrop();
     }
 }
