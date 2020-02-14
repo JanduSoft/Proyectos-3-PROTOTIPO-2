@@ -10,9 +10,9 @@ public class PickUp : MonoBehaviour
     protected bool objectIsGrabbed = false;
     protected bool isFacingBox = false;
     protected bool cancelledDrop = false;
-    float distancePlayerObject;
+    protected float distancePlayerObject;
     // Start is called before the first frame update
-    protected void CheckVariables()
+    protected virtual void CheckVariables()
     {
         if (player != null)
         {
@@ -27,7 +27,7 @@ public class PickUp : MonoBehaviour
             if (dot > 0.5f) { isFacingBox = true; }
         }
     }
-    protected void PickUpObject()
+    protected virtual void PickUpObject()
     {
         if (distancePlayerObject < minDistanceToGrabObject)
         {

@@ -197,10 +197,10 @@ public class DragAndDropObject : MonoBehaviour
     public void LetGoRock()
     {
         playSound = false;
-        dragSound.Stop();
         lerping = false;
         rockGrabbed = false;
         thisRock = false;
+        dragSound.Stop();
 
     }
     void DoLerp()

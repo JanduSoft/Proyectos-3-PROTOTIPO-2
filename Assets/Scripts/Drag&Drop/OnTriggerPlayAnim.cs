@@ -17,7 +17,7 @@ public class OnTriggerPlayAnim : MonoBehaviour
             //rockAnim.Play(animationClipName);
             GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
             //StartCoroutine(startMovingAgain(rockAnim.GetClip(animationClipName).length));
-            transform.parent.GetChild(0).GetComponentInParent<DragAndDropObject>().LetGoRock();
+            transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().LetGoRock();
             StartCoroutine(startMovingAgain(0.5f));
         }
     }
@@ -26,12 +26,12 @@ public class OnTriggerPlayAnim : MonoBehaviour
     {
         if (deactivateRock)
         {
-            transform.parent.GetChild(0).GetComponent<DragAndDropObject>().enabled = false;
+            transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().enabled = false;
         }
 
-        transform.parent.GetChild(0).GetComponentInParent<DragAndDropObject>().dragSound.Stop();
-        transform.parent.GetChild(0).GetComponentInParent<DragAndDropObject>().LetGoRock();
-        Rigidbody rb = transform.parent.GetChild(0).GetComponentInParent<DragAndDropObject>().rb;
+        transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().dragSound.Stop();
+        transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().LetGoRock();
+        Rigidbody rb = transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().rb;
         rb.AddForce(Physics.gravity * (rb.mass * rb.mass));
         yield return new WaitForSeconds(_s);
         GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(false);
