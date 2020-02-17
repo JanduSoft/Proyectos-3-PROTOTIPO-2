@@ -21,11 +21,11 @@ public class ActivateDoor : MonoBehaviour
     {
         if (other.CompareTag("Skull"))
         {
-            if (!other.GetComponent<DragAndDrop>().objectIsGrabbed)
+            if (!other.GetComponent<PickUpandDrop>().GetObjectIsGrabbed())
             {
                 objectoToMove.DOMove(finalPosition.position, speed);
                 other.gameObject.transform.position = skullPlace.position;
-                other.gameObject.GetComponent<DragAndDrop>().enabled = false;
+                other.gameObject.GetComponent<PickUpandDrop>().enabled = false;
                 myPart.isActive = true;
 
             }

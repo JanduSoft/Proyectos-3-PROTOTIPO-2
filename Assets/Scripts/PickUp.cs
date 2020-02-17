@@ -7,7 +7,7 @@ public class PickUp : MonoBehaviour
     protected GameObject player = null;
     protected GameObject grabPlace = null;
     protected float minDistanceToGrabObject = 1.5f;
-    protected bool objectIsGrabbed = false;
+    protected bool objectIsGrabbed;
     protected bool isFacingBox = false;
     protected bool cancelledDrop = false;
     protected float distancePlayerObject;
@@ -59,10 +59,6 @@ public class PickUp : MonoBehaviour
     public void SetCancelledDrop(bool status)
     {
         cancelledDrop = status;
-    }
-    public bool GetObjectIsGrabbed()
-    {
-        return objectIsGrabbed;
     }
     private void OnDrawGizmosSelected()
     {

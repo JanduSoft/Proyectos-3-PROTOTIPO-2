@@ -27,7 +27,7 @@ public class ActivateAnimation : MonoBehaviour
     {
         if (other.CompareTag("Skull") && type == typeAnimator.DOOR )
         {
-            if (!other.GetComponent<DragAndDrop>().objectIsGrabbed && objectPos!=null)
+            if (!other.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos!=null)
             {
                 other.gameObject.transform.position = objectPos.transform.position;
                 myAnimator.SetBool("Active", true);

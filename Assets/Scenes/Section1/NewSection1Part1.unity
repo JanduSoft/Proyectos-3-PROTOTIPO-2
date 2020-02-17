@@ -9524,6 +9524,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2521b624e0701a94194b77ff83af611a, type: 2}
+    - target: {fileID: 8063487915692806610, guid: 71d540d5badae0d4d855364c5d0b3b0e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8063487917267176244, guid: 71d540d5badae0d4d855364c5d0b3b0e,
         type: 3}
       propertyPath: m_IsActive
@@ -9723,6 +9728,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.z
       value: -0.3050679
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063487916316666039, guid: 71d540d5badae0d4d855364c5d0b3b0e,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063487916316666039, guid: 71d540d5badae0d4d855364c5d0b3b0e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8063487917769406344, guid: 71d540d5badae0d4d855364c5d0b3b0e, type: 3}
@@ -12018,6 +12033,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skull
       objectReference: {fileID: 0}
+    - target: {fileID: 2149013360220066532, guid: 748968f45ced16b4db564e10579c07b2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Skull
+      objectReference: {fileID: 0}
     - target: {fileID: 2149013360219904696, guid: 748968f45ced16b4db564e10579c07b2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12088,7 +12108,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2149013360170266184, guid: 748968f45ced16b4db564e10579c07b2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 748968f45ced16b4db564e10579c07b2, type: 3}
 --- !u!4 &234810299 stripped
 Transform:
@@ -36372,6 +36393,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149013360220066532, guid: 748968f45ced16b4db564e10579c07b2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2149013360219904696, guid: 748968f45ced16b4db564e10579c07b2,
         type: 3}
@@ -63403,23 +63429,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 234431447}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1266151076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266151075}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6498c777b142928449efeda6923d1451, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grabPointHeight: 0.5
-  stoneSpeed: 5
-  playSound: 0
-  rb: {fileID: 0}
-  dragSound: {fileID: 0}
 --- !u!114 &1266151082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76456,6 +76465,50 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2079124, y: 1.1730324, z: 1.2079135}
   m_Center: {x: 0, y: 0.5865162, z: -0.00000023841858}
+--- !u!1 &1556252894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1556252895}
+  - component: {fileID: 1556252896}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Skull
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1556252895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556252894}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 745625292}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1556252896
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556252894}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.42609575, z: 0.4258711}
+  m_Center: {x: 9.193801e-11, y: 0.28695148, z: 0.03981115}
 --- !u!1001 &1556367120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79433,7 +79486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1611863261
 Transform:
   m_ObjectHideFlags: 0
@@ -84328,6 +84381,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0314bb02f28144347b48c97eaeaa03f9, type: 3}
+--- !u!1 &1735502687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1735502688}
+  - component: {fileID: 1735502689}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Skull
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1735502688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735502687}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1932350466}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1735502689
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735502687}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.464315, z: 0.42587614}
+  m_Center: {x: -1.760373e-10, y: 0.26784253, z: 0.026032718}
 --- !u!1001 &1736008256
 PrefabInstance:
   m_ObjectHideFlags: 0

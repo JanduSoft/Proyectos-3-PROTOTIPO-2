@@ -7,7 +7,7 @@ public class PickUpandDrop : PickUp
     // Start is called before the first frame update
     void Start()
     {
-        
+        objectIsGrabbed = false;
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class PickUpandDrop : PickUp
             else
                 DropObject();
         }
-        
+
     }
 
     private void OnTriggerStay(Collider other)
@@ -48,5 +48,10 @@ public class PickUpandDrop : PickUp
     public void DropObject()
     {
         ObjectDrop();
+    }
+    public bool GetObjectIsGrabbed()
+    {
+        Debug.Log(transform.name + " " + objectIsGrabbed);
+        return objectIsGrabbed;
     }
 }
