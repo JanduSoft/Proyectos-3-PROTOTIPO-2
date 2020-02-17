@@ -29,7 +29,6 @@ public class activateOncePlaced : MonoBehaviour
             skullTransform = other.transform;
             isObject = true;
             //other.SendMessage("DropObject");
-            Debug.Log(other.name);
         }
 
     }
@@ -38,7 +37,6 @@ public class activateOncePlaced : MonoBehaviour
         if (other.name == "")
         {
             skullTransform = other.transform;
-            Debug.Log(other.name);
         }
 
     }
