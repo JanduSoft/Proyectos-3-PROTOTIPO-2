@@ -51,7 +51,6 @@ public class PickUpandDrop : PickUp
     }
     public bool GetObjectIsGrabbed()
     {
-        Debug.Log(transform.name + " " + objectIsGrabbed);
         return objectIsGrabbed;
     }
 }

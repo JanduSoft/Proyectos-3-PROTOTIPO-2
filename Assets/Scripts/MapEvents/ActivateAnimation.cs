@@ -14,6 +14,7 @@ public class ActivateAnimation : MonoBehaviour
     }
     [SerializeField] Animator myAnimator;
     [SerializeField] typeAnimator type;
+    [SerializeField] GameObject objectToBePlaced;
 
     [Header("FOR CAMERA SHAKE")]
     [SerializeField] Camera myCamera;
@@ -22,14 +23,19 @@ public class ActivateAnimation : MonoBehaviour
     [SerializeField] int vibrato;
     [SerializeField] float randomness;
     [SerializeField] Transform objectPos = null;
+    bool isObjectPlaced = false;
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Skull") && type == typeAnimator.DOOR )
+        if (other.CompareTag("Place") && type == typeAnimator.DOOR )
         {
             if (!other.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos!=null)
             {
                 other.gameObject.transform.position = objectPos.transform.position;
+                isObjectPlaced = true;
+            }
+            if (isObjectPlaced && other.name == objectToBePlaced.name)
+            {
                 myAnimator.SetBool("Active", true);
                 Invoke("DeactivateAnimation", 2f);
             }
@@ -56,6 +62,10 @@ public class ActivateAnimation : MonoBehaviour
             DeactivateAnimation();
             //myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
         }
+        if (other.CompareTag("Place"))
+            isObjectPlaced = false;
+
+        
     }
 
     void DeactivateAnimation()

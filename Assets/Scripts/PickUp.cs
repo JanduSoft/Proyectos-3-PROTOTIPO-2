@@ -6,11 +6,12 @@ public class PickUp : MonoBehaviour
 {
     protected GameObject player = null;
     protected GameObject grabPlace = null;
-    protected float minDistanceToGrabObject = 1.5f;
+    protected float minDistanceToGrabObject = 2.5f;
     protected bool objectIsGrabbed;
     protected bool isFacingBox = false;
     protected bool cancelledDrop = false;
     protected float distancePlayerObject;
+    protected float minDot = 0.5f;
     // Start is called before the first frame update
     protected virtual void CheckVariables()
     {
@@ -24,7 +25,7 @@ public class PickUp : MonoBehaviour
             Vector2 dirToObject2d = new Vector2(transform.position.x - player.transform.position.x, transform.position.z - player.transform.position.z);
             //we do the dot product of X and Z, to ignore the Y in case the object is placed above or below
             float dot = Vector3.Dot(playerForward2d, dirToObject2d);
-            if (dot > 0.5f) { isFacingBox = true; }
+            if (dot > minDot) { isFacingBox = true; }
         }
     }
     protected virtual void PickUpObject()
