@@ -6,7 +6,6 @@ public class AddObject : MonoBehaviour
 {
     public GameObject placePosition;
     Transform _objectTransform = null;
-    public bool isImportantCup = false;
     bool canPlace = false;
 
     [SerializeField] GameObject _object = null;
@@ -23,7 +22,7 @@ public class AddObject : MonoBehaviour
     {
         if (_object != null)
         {
-            if (canPlace && _object.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && !isActivated && Input.GetButtonDown("Interact"))
+            if (canPlace && _object.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && !isActivated && Input.GetButtonDown("Interact") && _object != null)
             {
                 Debug.Log("Tries to place obejct");
                 _object.GetComponent<PickUpandDrop>().DropObject();
