@@ -14,6 +14,7 @@ public class PickUpDropandThrow : PickUpandDrop
     [Header("EXTERNAL OBJECTS")]
     [SerializeField] GameObject dustParticles;
     [SerializeField] GameObject objectInside;
+    [SerializeField] GameObject brokenVase;
     bool useGravity = true;
     // Start is called before the first frame update
     void Start()
@@ -93,6 +94,8 @@ public class PickUpDropandThrow : PickUpandDrop
             dustParticles.SetActive(true);
             dustParticles.transform.SetParent(null);
             objectInside.transform.SetParent(null);
+            brokenVase.transform.SetParent(null);
+            brokenVase.SetActive(true);
             gameObject.SetActive(false);
         }
     }
