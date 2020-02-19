@@ -17,17 +17,7 @@ public class BreakableFloorTrap : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.CompareTag("Player"))
-        {
-            if (destroyableObj.activeInHierarchy == false)
-            {
-                destroyableObj.SetActive(true);
-                transform.parent.gameObject.SetActive(false);
-            }
-        }
-    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.transform.CompareTag("Player"))    

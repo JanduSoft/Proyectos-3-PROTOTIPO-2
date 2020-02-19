@@ -18,10 +18,6 @@ public class TitleAnimationScript : MonoBehaviour
     void Start()
     {
         titleAnim = GetComponent<Animation>();
-        if (PlayerPrefs.HasKey("hasDoneTitle"))
-        {
-            gameObject.SetActive(false);
-        }
     }
 
     // Update is called once per frame

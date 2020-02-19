@@ -15,12 +15,12 @@ public class UpandDownSecondPuzzle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         if (canInteract)
         {
             if(Input.GetButtonDown("Interact"))
@@ -46,8 +46,6 @@ public class UpandDownSecondPuzzle : MonoBehaviour
                         index = 0;
                         break;
                 }
-                if (index == targePosition) place.SendMessage("Solved", indexLever);
-                else place.SendMessage("Broken", indexLever);
             }
         }
     }

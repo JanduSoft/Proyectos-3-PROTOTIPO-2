@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     {
         player = GetComponent<CharacterController>();
         fallVelocity = -10;
-        DOTween.Clear(true);
+
         playerSteps = GameObject.Find("Player walking").GetComponent<AudioSource>();
         prevPos = transform.position;
     }

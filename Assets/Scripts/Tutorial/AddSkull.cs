@@ -12,7 +12,6 @@ public class AddSkull : MonoBehaviour
     GameObject skull = null;
 
     public bool isActivated = false;
-    [SerializeField] bool faceOppositeDirection = false;
 
     private void Start()
     {
@@ -25,11 +24,13 @@ public class AddSkull : MonoBehaviour
         {
             if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && Input.GetButtonDown("Interact"))
             {
-                Debug.Log("Tries to place skull");
                 skull.GetComponent<DragAndDrop>().DropObject();
+                if (isImportantCup)
+                {
+                    skull.GetComponent<DragAndDrop>().enabled = false;
+                }
                 skullTransform.position = placePosition.transform.position;
                 skullTransform.rotation = transform.rotation;
-                if (faceOppositeDirection) skullTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
                 isActivated = true;
             }
             else if (!isImportantCup && canPlace && !skull.GetComponent<DragAndDrop>().objectIsGrabbed && isActivated && Input.GetButtonDown("Interact"))
@@ -51,6 +52,7 @@ public class AddSkull : MonoBehaviour
         {
             skull = other.transform.parent.gameObject;
             skullTransform = other.transform.parent.gameObject.transform;
+            Debug.Log(skull.name);
             skull.GetComponent<DragAndDrop>().CancelledDrop(true);
         }
 
@@ -59,7 +61,6 @@ public class AddSkull : MonoBehaviour
     {
         if (other.CompareTag("Skull"))
         {
-            Debug.Log("detects skull");
             skull = other.transform.parent.gameObject;
             skullTransform = other.transform.parent.gameObject.transform;
         }

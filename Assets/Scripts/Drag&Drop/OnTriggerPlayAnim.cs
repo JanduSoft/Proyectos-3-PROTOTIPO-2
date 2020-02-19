@@ -13,12 +13,10 @@ public class OnTriggerPlayAnim : MonoBehaviour
     {
         if (other.CompareTag("Stone") && !other.isTrigger)
         {
-            //rockAnim = transform.parent.GetChild(0).GetComponent<Animation>();
-            //rockAnim.Play(animationClipName);
+            rockAnim = transform.parent.GetChild(0).GetComponent<Animation>();
+            rockAnim.Play(animationClipName);
             GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
-            //StartCoroutine(startMovingAgain(rockAnim.GetClip(animationClipName).length));
-            transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().LetGoRock();
-            StartCoroutine(startMovingAgain(0.5f));
+            StartCoroutine(startMovingAgain(rockAnim.GetClip(animationClipName).length));
         }
     }
 
@@ -26,13 +24,8 @@ public class OnTriggerPlayAnim : MonoBehaviour
     {
         if (deactivateRock)
         {
-            transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().enabled = false;
+            transform.parent.GetChild(0).GetComponent<DragAndDropObject>().enabled = false;
         }
-
-        transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().dragSound.Stop();
-        transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().LetGoRock();
-        Rigidbody rb = transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().rb;
-        rb.AddForce(Physics.gravity * (rb.mass * rb.mass));
         yield return new WaitForSeconds(_s);
         GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(false);
     }

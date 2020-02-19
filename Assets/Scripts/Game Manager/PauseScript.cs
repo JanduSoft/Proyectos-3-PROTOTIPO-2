@@ -58,6 +58,7 @@ public class PauseScript : MonoBehaviour
     void PauseGame()
     {
 
+        GameObject.Find("Character").GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
         pauseCanvas.gameObject.SetActive(true);
         pauseCanvas.transform.GetChild(0).GetComponent<Animation>().Play("PauseAnimation");
@@ -111,6 +112,8 @@ public class PauseScript : MonoBehaviour
         //this avoids player jumping right after RESUME GAME selection
         yield return new WaitForSeconds(0.5f);
         GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(false);
+        GameObject.Find("Character").GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        GameObject.Find("Character").GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     public void btn_Resume()
