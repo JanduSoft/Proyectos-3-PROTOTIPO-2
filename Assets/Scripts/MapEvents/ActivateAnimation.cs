@@ -11,7 +11,8 @@ public class ActivateAnimation : MonoBehaviour
         DOOR,
         PLATFORM,
         BRIDGE,
-        ROPE
+        ROPE,
+        TORCH
     }
     [SerializeField] Animator myAnimator;
     [SerializeField] typeAnimator type;
@@ -60,8 +61,12 @@ public class ActivateAnimation : MonoBehaviour
                 canBurn = true;
             }
         }
+        else if (other.CompareTag("Torch") && type == typeAnimator.TORCH)
+        {
+            myAnimator.SetBool("Active", true);
+        }
 
-     }
+    }
 
     private void OnTriggerExit(Collider other)
     {
