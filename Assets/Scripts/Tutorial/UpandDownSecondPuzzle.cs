@@ -46,6 +46,8 @@ public class UpandDownSecondPuzzle : MonoBehaviour
                         index = 0;
                         break;
                 }
+                if (index == targePosition) place.SendMessage("Solved", indexLever);
+                else place.SendMessage("Broken", indexLever);
             }
         }
     }

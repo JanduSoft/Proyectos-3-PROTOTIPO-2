@@ -42,7 +42,7 @@ public class PlaceDragAndDrop : MonoBehaviour
         {
             skull = other.transform.gameObject;
             skullTransform = other.transform.gameObject.transform;
-            skull.GetComponent<PickUpandDrop>().SetCancelledDrop(true);
+            skull.GetComponent<DragAndDrop>().cancelledDrop = (true);
         }
 
     }
@@ -64,7 +64,7 @@ public class PlaceDragAndDrop : MonoBehaviour
         }
         else if (other.CompareTag("PlaceObject"))
         {
-            other.gameObject.transform.GetComponent<PickUpandDrop>().SetCancelledDrop(false);
+            other.gameObject.transform.GetComponent<DragAndDrop>().cancelledDrop = (false);
             skull = null;
             skullTransform = null;
         }

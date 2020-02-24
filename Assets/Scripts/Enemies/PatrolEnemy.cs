@@ -9,6 +9,9 @@ using UnityEngine.AI;
 public class PatrolEnemy : MonoBehaviour
 {
     [SerializeField] GameObject Player;
+    [SerializeField] GameObject Skull;
+    [SerializeField] PatrolEnemy _this;
+    [SerializeField] GameObject skullModel;
     [SerializeField] NavMeshAgent Agent;
     [SerializeField] float viewingAngle;
     [SerializeField] Animator animController;
@@ -18,10 +21,11 @@ public class PatrolEnemy : MonoBehaviour
     [SerializeField] playerDeath kill;
     float angleBetweenEnemyandPlayer = 0;
     bool trueDeath = false;
-    [SerializeField] int pathNumer = 1;
+    [SerializeField] int index = 1;
     // Start is called before the first frame update
     void Start()
     {
+        Skull.SetActive(false);
     }
 
     // Update is called once per frame
@@ -29,6 +33,7 @@ public class PatrolEnemy : MonoBehaviour
     {
         if (!trueDeath)
         {
+            Skull.SetActive(false);
             angleBetweenEnemyandPlayer = Vector3.Angle(transform.forward, new Vector3(Player.transform.position.x, transform.position.y, Player.transform.position.z) - transform.position);
             if (angleBetweenEnemyandPlayer < viewingAngle && Vector3.Distance(transform.position, Player.transform.position) < viewingDistance)
             {
@@ -40,32 +45,47 @@ public class PatrolEnemy : MonoBehaviour
             }
             else
             {
-                Agent.SetDestination(pathPoints[pathNumer].transform.position);
-                if (Vector3.Distance(transform.position, pathPoints[pathNumer].transform.position) < 3)
+                Agent.SetDestination(pathPoints[index].transform.position);
+                if (Vector3.Distance(transform.position, pathPoints[index].transform.position) < 3)
                 {
-                    if (pathNumer < pathPoints.Count - 1) pathNumer++;
-                    else pathNumer = 0;
+                    if (index < pathPoints.Count - 1) index++;
+                    else index = 0;
                 }
             }
 
             if (Vector3.Distance(transform.position, Player.transform.position) < 2.5) kill.killPlayer(0f);
         }
+        else if (trueDeath)
+        {
+            if (Skull.activeInHierarchy)
+                if (Vector3.Distance(Skull.transform.position, Player.transform.position) < 2.5 && Input.GetButtonDown("Interact"))
+                {
+                    agent.enabled = false;
+                    _this.StopAllCoroutines();
+                    skullModel.SetActive(false);
+                    _this.enabled = false;
+
+                }
+        }
     }
 
-   public void Die()
-   {
+    public void Die()
+    {
         trueDeath = true;
         animController.SetBool("dead", true);
-        agent.enabled = false;
+        agent.SetDestination(agent.transform.position);
         StartCoroutine(returnToTheLiving(2));
-   }
+    }
 
     IEnumerator returnToTheLiving(float _s)
     {
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(2);
+        Skull.SetActive(true);
+        Skull.transform.localPosition = new Vector3(0, 0, 1);
+        yield return new WaitForSeconds(4);
         animController.SetBool("dead", false);
         yield return new WaitForSeconds(2);
-        agent.enabled = true;
+        agent.SetDestination(pathPoints[index].transform.position);
         trueDeath = false;
     }
 }

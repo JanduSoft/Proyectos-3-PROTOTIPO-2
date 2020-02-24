@@ -9,27 +9,40 @@ public class DragAndDropObject : MonoBehaviour
     GameObject player = null;
     [SerializeField] float MinDistanceToGrabObject;
     [SerializeField] float grabPointHeight = 0.5f;
-    [SerializeField] float stoneSpeed=150;
+    [SerializeField] float stoneSpeed = 5;
     Vector3[] grabPoints = new Vector3[4];
     Vector3 closestPoint;
     int minPoint = -1;
 
-    Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
 
 
     bool lerping = false;
     bool rockGrabbed = false;
     bool lockVertical, lockHorizontal = false;
+    [HideInInspector] public bool playSound = false;
+    bool thisRock = false;
+
+    [HideInInspector] public AudioSource dragSound;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        try
+        {
+            dragSound = GameObject.Find("Drag sound").GetComponent<AudioSource>();
+        }
+        catch
+        {
+            Debug.LogWarning("Add global sounds");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+
         //calculate the grab points every frame in case the rock moves
         grabPoints[0] = transform.position + transform.forward * 3;
         grabPoints[1] = transform.position - transform.forward * 3;
@@ -49,15 +62,18 @@ public class DragAndDropObject : MonoBehaviour
         if (player != null)
         {
             if (Input.GetButtonDown("Interact") && Vector3.Distance(transform.position, player.transform.position) < MinDistanceToGrabObject
-                && player.transform.position.y<transform.position.y)
+                && Mathf.Abs(player.transform.position.y - transform.position.y) < 1)
             {
+
                 if (!rockGrabbed)
                 {
                     //FIND CLOSEST POINT
                     closestPoint = FindClosestPoint();
-                    player.transform.DOMove(closestPoint,0.5f,false);
+                    player.transform.DOMove(closestPoint, 0.5f, false);
                     //LERP PLAYER TOWARDS POINT
                     lerping = true;
+                    playSound = false;
+                    dragSound.Stop();
                 }
                 else
                 {
@@ -65,6 +81,8 @@ public class DragAndDropObject : MonoBehaviour
                     player.GetComponent<PlayerMovement>().StopMovement(false);
                     lerping = false;
                     rockGrabbed = false;
+                    playSound = false;
+                    dragSound.Stop();
                 }
 
             }
@@ -74,11 +92,12 @@ public class DragAndDropObject : MonoBehaviour
             }
             else if (rockGrabbed)
             {
+                thisRock = true;
                 player.transform.position = closestPoint;
                 float horizontalMove = Input.GetAxis("Horizontal");
                 float verticalMove = Input.GetAxis("Vertical");
 
-                bool inputActive = horizontalMove!=0 || verticalMove!=0;
+                bool inputActive = horizontalMove != 0 || verticalMove != 0;
 
                 if (closestPoint == grabPoints[0])
                 {
@@ -86,12 +105,16 @@ public class DragAndDropObject : MonoBehaviour
 
                     if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
                     {
-                        rb.velocity = movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = movingDirection.normalized * stoneSpeed;
+                        playSound = true;
                     }
                     else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                     {
-                        rb.velocity = -movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = -movingDirection.normalized * stoneSpeed;
+                        playSound = true;
                     }
+                    else
+                        playSound = false;
                 }
                 else if (closestPoint == grabPoints[1])
                 {
@@ -99,12 +122,16 @@ public class DragAndDropObject : MonoBehaviour
 
                     if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
                     {
-                        rb.velocity = movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = movingDirection.normalized * stoneSpeed;
+                        playSound = true;
                     }
                     else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                     {
-                        rb.velocity = -movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = -movingDirection.normalized * stoneSpeed;
+                        playSound = true;
                     }
+                    else
+                        playSound = false;
                 }
                 else if (closestPoint == grabPoints[2])
                 {
@@ -112,12 +139,16 @@ public class DragAndDropObject : MonoBehaviour
 
                     if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
                     {
-                        rb.velocity = movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = movingDirection.normalized * stoneSpeed;
+                        playSound = true;
                     }
                     else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                     {
-                        rb.velocity = -movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = -movingDirection.normalized * stoneSpeed;
+                        playSound = true;
                     }
+                    else
+                        playSound = false;
                 }
                 else if (closestPoint == grabPoints[3])
                 {
@@ -125,26 +156,53 @@ public class DragAndDropObject : MonoBehaviour
 
                     if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
                     {
-                        rb.velocity = movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = movingDirection.normalized * stoneSpeed;
+                        playSound = true;
                     }
                     else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                     {
-                        rb.velocity = -movingDirection.normalized * Time.deltaTime * stoneSpeed;
+                        rb.velocity = -movingDirection.normalized * stoneSpeed;
+                        playSound = true;
                     }
+                    else
+                        playSound = false;
                 }
 
 
+            }
+            else
+                thisRock = false;
+
+            if (playSound && !dragSound.isPlaying && thisRock)
+            {
+                dragSound.Play();
+            }
+            else if (!playSound && thisRock)
+            {
+                dragSound.Stop();
             }
 
             if (GetComponent<Animation>().isPlaying)
             {
                 //player.GetComponent<PlayerMovement>().StopMovement(false);
+                playSound = false;
+                dragSound.Stop();
                 lerping = false;
                 rockGrabbed = false;
+                thisRock = false;
             }
         }
     }
 
+    public void LetGoRock()
+    {
+        playSound = false;
+        dragSound.Stop();
+        lerping = false;
+        rockGrabbed = false;
+        thisRock = false;
+
+    }
     void DoLerp()
     {
         player.GetComponent<PlayerMovement>().StopMovement(true);
@@ -194,7 +252,8 @@ public class DragAndDropObject : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //player = null;
+            player = null;
+            thisRock = false;
         }
     }
 
