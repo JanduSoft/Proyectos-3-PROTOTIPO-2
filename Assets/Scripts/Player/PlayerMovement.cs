@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     {
         player = GetComponent<CharacterController>();
         fallVelocity = -10;
-
+        DOTween.Clear(true);
         playerSteps = GameObject.Find("Player walking").GetComponent<AudioSource>();
         prevPos = transform.position;
     }
@@ -66,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        Debug.Log(player.isGrounded);
         if (moveToPortal1)
         {
             transform.position = portal1.position;

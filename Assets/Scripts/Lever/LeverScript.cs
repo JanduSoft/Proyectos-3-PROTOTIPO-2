@@ -26,6 +26,7 @@ public class LeverScript : MonoBehaviour
     public float distanceToLever = 3f;
     GameObject player = null;
     bool leverPulled = false;
+    [SerializeField] bool canPullLeverAlways = false;
 
     void Start()
     {
@@ -37,7 +38,7 @@ public class LeverScript : MonoBehaviour
         if (player!=null)
         {
             var currentDistanceToLever = Vector3.Distance(transform.position, player.transform.position);
-            if (showCanvas && (currentDistanceToLever<distanceToLever) && !leverPulled && Input.GetButtonDown("Interact"))
+            if (showCanvas && (currentDistanceToLever<distanceToLever) && (!leverPulled||canPullLeverAlways) && Input.GetButtonDown("Interact"))
             {
                 showCanvas = false;
                 leverPulled = true;
@@ -69,9 +70,14 @@ public class LeverScript : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, distanceToLever);
+        if (activateObject!=null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, activateObject.transform.position);
+        }
     }
 }
