@@ -22,6 +22,7 @@ public class Whip : MonoBehaviour
     [SerializeField] bool ableToAttack = false;
     [SerializeField] bool attackMode = false;
     bool ableToWhipObject = false;
+    bool resetWhip = false;
     bool whippin = false;
     [SerializeField] int index = 0;
     // Start is called before the first frame update
@@ -83,8 +84,11 @@ public class Whip : MonoBehaviour
         if (time >= lineDrawSpeed/4  && attackMode)
         {
             Debug.Log("enemyDead");
+            counter = 0;
+            resetWhip = true;
+            inputDown = false;
+            whip.SetPosition(1, playerTransform.position);
             enemyList[index].SendMessage("Die");
-            whip.SetPosition(1, whipableObjectTransform.position + new Vector3(0, 2.5f, 0));
         }
         else if (time >= lineDrawSpeed  && ableToWhipObject)
         {
@@ -95,7 +99,7 @@ public class Whip : MonoBehaviour
         #endregion
 
         #region INPUT CONTROL
-        if (Input.GetButtonDown("Whip") && (ableToAttack || ableToWhipObject))
+        if (Input.GetButtonDown("Whip") && (ableToAttack || ableToWhipObject) && !resetWhip)
         {
             whippin = true;
             inputDown = true;
@@ -103,6 +107,7 @@ public class Whip : MonoBehaviour
         else if (Input.GetButtonUp("Whip") )
         {
             whippin = false;
+            resetWhip = false;
             inputDown = false;
             whip.SetPosition(1, playerTransform.position);
             counter = 0;
@@ -154,6 +159,7 @@ public class Whip : MonoBehaviour
         if(other.tag == "WhipEnemy")
         {
             enemyList.Add(other.gameObject.transform);
+            attackMode = true;
         }
         else if (other.tag == "WhipObject")
         {

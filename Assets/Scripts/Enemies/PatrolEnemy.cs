@@ -33,7 +33,6 @@ public class PatrolEnemy : MonoBehaviour
     {
         if (!trueDeath)
         {
-            Skull.SetActive(false);
             angleBetweenEnemyandPlayer = Vector3.Angle(transform.forward, new Vector3(Player.transform.position.x, transform.position.y, Player.transform.position.z) - transform.position);
             if (angleBetweenEnemyandPlayer < viewingAngle && Vector3.Distance(transform.position, Player.transform.position) < viewingDistance)
             {
@@ -60,8 +59,8 @@ public class PatrolEnemy : MonoBehaviour
             if (Skull.activeInHierarchy)
                 if (Vector3.Distance(Skull.transform.position, Player.transform.position) < 2.5 && Input.GetButtonDown("Interact"))
                 {
-                    agent.enabled = false;
                     _this.StopAllCoroutines();
+                    agent.enabled = false;
                     skullModel.SetActive(false);
                     _this.enabled = false;
 
@@ -83,6 +82,7 @@ public class PatrolEnemy : MonoBehaviour
         Skull.SetActive(true);
         Skull.transform.localPosition = new Vector3(0, 0, 1);
         yield return new WaitForSeconds(4);
+        Skull.SetActive(false);
         animController.SetBool("dead", false);
         yield return new WaitForSeconds(2);
         agent.SetDestination(pathPoints[index].transform.position);
