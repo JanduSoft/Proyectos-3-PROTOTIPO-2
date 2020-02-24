@@ -2648,7 +2648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &174178349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6615,15 +6615,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f196f53a8849aee44ae75121cef7bed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDiscovered1: 0
-  isSelected1: 0
+  isDiscovered1: 1
+  isSelected1: 1
   nameObject1: BRUJULA
   description1: Esta es la brujula de mi hermano
   position1: {fileID: 1555718638}
   mark1: {fileID: 898332388}
   interrogante1: {fileID: 1692969264}
   itemImage1: {fileID: 1341121104}
-  isDiscovered2: 0
+  isDiscovered2: 1
   isSelected2: 0
   nameObject2: PICO
   description2: Este es el Pico de mi hermano
@@ -6631,7 +6631,7 @@ MonoBehaviour:
   mark2: {fileID: 1388166854}
   interrogante2: {fileID: 201381414}
   itemImage2: {fileID: 279753230}
-  isDiscovered3: 0
+  isDiscovered3: 1
   isSelected3: 0
   position3: {fileID: 1408729122}
   nameObject3: CUCHILLO
@@ -6647,7 +6647,7 @@ MonoBehaviour:
   mark4: {fileID: 1125272110}
   interrogante4: {fileID: 1757527995}
   itemImage4: {fileID: 1628827497}
-  isDiscovered5: 0
+  isDiscovered5: 1
   isSelected5: 0
   nameObject5: MAPA
   description5: Este es el mapa de mi hermano
@@ -8861,11 +8861,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myAnimator: {fileID: 458960323}
   type: 5
+  objectToBePlaced: {fileID: 0}
   myCamera: {fileID: 1382943953}
   durationShake: 0
   strength: 0
   vibrato: 0
   randomness: 0
+  objectPos: {fileID: 0}
 --- !u!65 &722047874
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11312,11 +11314,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myAnimator: {fileID: 458960323}
   type: 4
+  objectToBePlaced: {fileID: 0}
   myCamera: {fileID: 1382943953}
   durationShake: 0
   strength: 0
   vibrato: 0
   randomness: 0
+  objectPos: {fileID: 0}
 --- !u!114 &906918443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15860,7 +15864,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1096024846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16251,7 +16255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1125272111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20352,7 +20356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1388166855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21417,7 +21421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1477737309
 MonoBehaviour:
   m_ObjectHideFlags: 0

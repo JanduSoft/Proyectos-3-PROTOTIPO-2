@@ -20,7 +20,8 @@ public class SecretScreen : MonoBehaviour
     };
     public Item[] secrets;
 
-    [Header("ELEMENTO 1")]
+    #region ELEMENTO 1
+    [Header("ELEMENTO 1")]    
         [SerializeField] bool isDiscovered1;
         [SerializeField] bool isSelected1;
         [SerializeField] string nameObject1;
@@ -29,6 +30,9 @@ public class SecretScreen : MonoBehaviour
         [SerializeField] GameObject mark1;
         [SerializeField] public GameObject interrogante1;
         [SerializeField] public GameObject itemImage1;
+    #endregion
+
+    #region ELEMENTO 2
     [Header("ELEMENTO 2")]
         [SerializeField] bool isDiscovered2;
         [SerializeField] bool isSelected2;
@@ -38,6 +42,9 @@ public class SecretScreen : MonoBehaviour
         [SerializeField] GameObject mark2;
         [SerializeField] public GameObject interrogante2;
         [SerializeField] public GameObject itemImage2;
+    #endregion
+
+    #region ELEMENTO 3
     [Header("ELEMENTO 3")]
         [SerializeField] bool isDiscovered3;
         [SerializeField] bool isSelected3;
@@ -47,6 +54,9 @@ public class SecretScreen : MonoBehaviour
         [SerializeField] GameObject mark3;
         [SerializeField] public GameObject interrogante3;
         [SerializeField] public GameObject itemImage3;
+    #endregion
+
+    #region ELEMENTO 4
     [Header("ELEMENTO 4")]
         [SerializeField] bool isDiscovered4;
         [SerializeField] bool isSelected4;
@@ -56,6 +66,9 @@ public class SecretScreen : MonoBehaviour
         [SerializeField] GameObject mark4;
         [SerializeField] public GameObject interrogante4;
         [SerializeField] public GameObject itemImage4;
+    #endregion
+
+    #region ELEMENTO 5
     [Header("ELEMENTO 5")]
         [SerializeField] bool isDiscovered5;
         [SerializeField] bool isSelected5;
@@ -65,6 +78,9 @@ public class SecretScreen : MonoBehaviour
         [SerializeField] GameObject mark5;
         [SerializeField] public GameObject interrogante5;
         [SerializeField] public GameObject itemImage5;
+    #endregion
+
+    #region ELEMENTO 6
     [Header("ELEMENTO 6")]
         [SerializeField] bool isDiscovered6;
         [SerializeField] bool isSelected6;
@@ -74,16 +90,20 @@ public class SecretScreen : MonoBehaviour
         [SerializeField] GameObject mark6;
         [SerializeField] public GameObject interrogante6;
         [SerializeField] public GameObject itemImage6;
+    #endregion
 
     [Header("NOMBRE Y DESCRIPCION")]
         [SerializeField] Text nameText;
         [SerializeField] Text descriptionText;
+        int currentSelected;
 
     #endregion
 
     #region START
     void Start()
     {
+        currentSelected = 1;
+
         secrets = new Item[6];
 
         for (int i = 0; i < secrets.Length; i++)
@@ -95,13 +115,33 @@ public class SecretScreen : MonoBehaviour
                     {
                         secrets[i].ID = i;
                         secrets[i].isDiscovered = isDiscovered1;
-                        secrets[i].isSelected = isDiscovered1;
+                        secrets[i].isSelected = isSelected1;
                         secrets[i].name = nameObject1;
                         secrets[i].description = description1;
                         secrets[i].position = position1;
                         secrets[i].mark = mark1;
                         secrets[i].interrogante = interrogante1;
                         secrets[i].itemImage = itemImage1;
+                        
+                        ///comprobar si esta descubierto el objeto
+                        if (secrets[i].isDiscovered)
+                        {
+                            secrets[i].interrogante.SetActive(false);
+                            secrets[i].itemImage.SetActive(true);
+
+                            nameText.text = secrets[i].name;
+                            descriptionText.text = secrets[i].description;
+                        }
+                        else
+                        {
+                            secrets[i].interrogante.SetActive(true);
+                            secrets[i].itemImage.SetActive(false);
+
+                            nameText.text = "?????????????";
+                            descriptionText.text = "";
+                        }
+
+                        secrets[i].mark.SetActive(true);
                         break;
                     }
                 ///-------------ELEMENTO 2
@@ -109,13 +149,27 @@ public class SecretScreen : MonoBehaviour
                     {
                         secrets[i].ID = i;
                         secrets[i].isDiscovered = isDiscovered2;
-                        secrets[i].isSelected = isDiscovered2;
+                        secrets[i].isSelected = isSelected2;
                         secrets[i].name = nameObject2;
                         secrets[i].description = description2;
                         secrets[i].position = position2;
                         secrets[i].mark = mark2;
                         secrets[i].interrogante = interrogante2;
                         secrets[i].itemImage = itemImage2;
+
+
+                        ////comprobar si esta descubierto el objeto
+                        if (secrets[i].isDiscovered)
+                        {
+                            secrets[i].interrogante.SetActive(false);
+                            secrets[i].itemImage.SetActive(true);
+                        }
+                        else
+                        {
+                            secrets[i].interrogante.SetActive(true);
+                            secrets[i].itemImage.SetActive(false);
+                        }
+
                         break;
                     }
                 ///-------------ELEMENTO 3
@@ -123,13 +177,25 @@ public class SecretScreen : MonoBehaviour
                     {
                         secrets[i].ID = i;
                         secrets[i].isDiscovered = isDiscovered3;
-                        secrets[i].isSelected = isDiscovered3;
+                        secrets[i].isSelected = isSelected3;
                         secrets[i].name = nameObject3;
                         secrets[i].description = description3;
                         secrets[i].position = position3;
                         secrets[i].mark = mark3;
                         secrets[i].interrogante = interrogante3;
                         secrets[i].itemImage = itemImage3;
+
+                        ////comprobar si esta descubierto el objeto
+                        if (secrets[i].isDiscovered)
+                        {
+                            secrets[i].interrogante.SetActive(false);
+                            secrets[i].itemImage.SetActive(true);
+                        }
+                        else
+                        {
+                            secrets[i].interrogante.SetActive(true);
+                            secrets[i].itemImage.SetActive(false);
+                        }
                         break;
                     }
                 ///-------------ELEMENTO 4
@@ -137,13 +203,26 @@ public class SecretScreen : MonoBehaviour
                     {
                         secrets[i].ID = i;
                         secrets[i].isDiscovered = isDiscovered4;
-                        secrets[i].isSelected = isDiscovered4;
+                        secrets[i].isSelected = isSelected4;
                         secrets[i].name = nameObject4;
                         secrets[i].description = description4;
                         secrets[i].position = position4;
                         secrets[i].mark = mark4;
                         secrets[i].interrogante = interrogante4;
                         secrets[i].itemImage = itemImage4;
+
+                        ////comprobar si esta descubierto el objeto
+                        if (secrets[i].isDiscovered)
+                        {
+                            secrets[i].interrogante.SetActive(false);
+                            secrets[i].itemImage.SetActive(true);
+                        }
+                        else
+                        {
+                            secrets[i].interrogante.SetActive(true);
+                            secrets[i].itemImage.SetActive(false);
+                        }
+
                         break;
                     }
                 ///-------------ELEMENTO 5
@@ -151,13 +230,26 @@ public class SecretScreen : MonoBehaviour
                     {
                         secrets[i].ID = i;
                         secrets[i].isDiscovered = isDiscovered5;
-                        secrets[i].isSelected = isDiscovered5;
+                        secrets[i].isSelected = isSelected5;
                         secrets[i].name = nameObject5;
                         secrets[i].description = description5;
                         secrets[i].position = position5;
                         secrets[i].mark = mark5;
                         secrets[i].interrogante = interrogante5;
                         secrets[i].itemImage = itemImage5;
+
+                        ////comprobar si esta descubierto el objeto
+                        if (secrets[i].isDiscovered)
+                        {
+                            secrets[i].interrogante.SetActive(false);
+                            secrets[i].itemImage.SetActive(true);
+                        }
+                        else
+                        {
+                            secrets[i].interrogante.SetActive(true);
+                            secrets[i].itemImage.SetActive(false);
+                        }
+
                         break;
                     }
                 ///-------------ELEMENTO 6
@@ -165,13 +257,26 @@ public class SecretScreen : MonoBehaviour
                     {
                         secrets[i].ID = i;
                         secrets[i].isDiscovered = isDiscovered6;
-                        secrets[i].isSelected = isDiscovered6;
+                        secrets[i].isSelected = isSelected6;
                         secrets[i].name = nameObject6;
                         secrets[i].description = description6;
                         secrets[i].position = position6;
                         secrets[i].mark = mark6;
                         secrets[i].interrogante = interrogante6;
                         secrets[i].itemImage = itemImage6;
+
+                        ////comprobar si esta descubierto el objeto
+                        if (secrets[i].isDiscovered)
+                        {
+                            secrets[i].interrogante.SetActive(false);
+                            secrets[i].itemImage.SetActive(true);
+                        }
+                        else
+                        {
+                            secrets[i].interrogante.SetActive(true);
+                            secrets[i].itemImage.SetActive(false);
+                        }
+
                         break;
                     }
                 default:
@@ -184,194 +289,269 @@ public class SecretScreen : MonoBehaviour
     #region UPDATE
     void Update()
     {
-        ///COMPROBACION QUE FUNCIONA LA SELECCION Y EL LLENADO DE ELEMENTOS
-        for (int i = 0; i < secrets.Length; i++)
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            switch (i)
+            secrets[currentSelected - 1].mark.SetActive(false);
+            if (currentSelected < 4)
             {
-                ///-------------ELEMENTO 1
-                case 0:
-                    {
-                        ///controlTimeline the selection
-                        if (isSelected1)
-                        {
-                            secrets[i].mark.SetActive(true);
-                            nameText.text = secrets[i].name;
-                            descriptionText.text = secrets[i].description;
+                currentSelected += 3; 
+            }
+            else
+            {
+                currentSelected -= 3;
+            }
 
-                        }
-                        else
-                        {
-                            secrets[i].mark.SetActive(false);
-                        }
+            SelectNewItem(currentSelected);
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            secrets[currentSelected - 1].mark.SetActive(false);
 
-                        ///active image if is discoverted
-                        if (isDiscovered1)
-                        {
-                            secrets[i].interrogante.SetActive(false);
-                            secrets[i].itemImage.SetActive(true);
-                        }
-                        else
-                        {
-                            secrets[i].interrogante.SetActive(true);
-                            secrets[i].itemImage.SetActive(false);
-                        }
-                        break;
-                    }
-                ///-------------ELEMENTO 2
-                case 1:
-                    {
-                        ///controlTimeline the selection
-                        if (isSelected2)
-                        {
-                            secrets[i].mark.SetActive(true);
-                            nameText.text = secrets[i].name;
-                            descriptionText.text = secrets[i].description;
+            if (currentSelected == 1 || currentSelected == 4)
+            {
+                currentSelected += 2;
+            }
+            else
+            {
+                currentSelected -= 1;
+            }
+            SelectNewItem(currentSelected);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            secrets[currentSelected - 1].mark.SetActive(false);
+            if (currentSelected < 4)
+            {
+                currentSelected += 3;
+            }
+            else
+            {
+                currentSelected -= 3;
+            }
 
-                        }
-                        else
-                        {
-                            secrets[i].mark.SetActive(false);
-                        }
+            SelectNewItem(currentSelected);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            secrets[currentSelected - 1].mark.SetActive(false);
 
-                        ///active image if is discoverted
-                        if (isDiscovered2)
-                        {
-                            secrets[i].interrogante.SetActive(false);
-                            secrets[i].itemImage.SetActive(true);
-                        }
-                        else
-                        {
-                            secrets[i].interrogante.SetActive(true);
-                            secrets[i].itemImage.SetActive(false);
-                        }
-                        break;
-                        break;
-                    }
-                ///-------------ELEMENTO 3
-                case 2:
-                    {
-                        ///controlTimeline the selection
-                        if (isSelected3)
-                        {
-                            secrets[i].mark.SetActive(true);
-                            nameText.text = secrets[i].name;
-                            descriptionText.text = secrets[i].description;
+            if (currentSelected == 3 || currentSelected == 6)
+            {
+                currentSelected -= 2;
+            }
+            else
+            {
+                currentSelected += 1;
+            }
+            SelectNewItem(currentSelected);
+        }
 
-                        }
-                        else
-                        {
-                            secrets[i].mark.SetActive(false);
-                        }
+        #region  PRIMERA LOGICA CONTROLAR EL MENU
+        ///COMPROBACION QUE FUNCIONA LA SELECCION Y EL LLENADO DE ELEMENTOS
 
-                        ///active image if is discoverted
-                        if (isDiscovered3)
-                        {
-                            secrets[i].interrogante.SetActive(false);
-                            secrets[i].itemImage.SetActive(true);
-                        }
-                        else
-                        {
-                            secrets[i].interrogante.SetActive(true);
-                            secrets[i].itemImage.SetActive(false);
-                        }
-                        break;
-                        break;
-                    }
-                ///-------------ELEMENTO 4
-                case 3:
-                    {
-                        ///controlTimeline the selection
-                        if (isSelected4)
-                        {
-                            secrets[i].mark.SetActive(true);
-                            nameText.text = secrets[i].name;
-                            descriptionText.text = secrets[i].description;
+        /* for (int i = 0; i < secrets.Length; i++)
+         {
+             switch (i)
+             {
+                 ///-------------ELEMENTO 1
+                 case 0:
+                     {
+                         ///controlTimeline the selection
+                         if (isSelected1)
+                         {
+                             secrets[i].mark.SetActive(true);
+                             nameText.text = secrets[i].name;
+                             descriptionText.text = secrets[i].description;
 
-                        }
-                        else
-                        {
-                            secrets[i].mark.SetActive(false);
-                        }
+                         }
+                         else
+                         {
+                             secrets[i].mark.SetActive(false);
+                         }
 
-                        ///active image if is discoverted
-                        if (isDiscovered4)
-                        {
-                            secrets[i].interrogante.SetActive(false);
-                            secrets[i].itemImage.SetActive(true);
-                        }
-                        else
-                        {
-                            secrets[i].interrogante.SetActive(true);
-                            secrets[i].itemImage.SetActive(false);
-                        }
-                        break;
-                        break;
-                    }
-                ///-------------ELEMENTO 5
-                case 4:
-                    {
-                        ///controlTimeline the selection
-                        if (isSelected5)
-                        {
-                            secrets[i].mark.SetActive(true);
-                            nameText.text = secrets[i].name;
-                            descriptionText.text = secrets[i].description;
+                         ///active image if is discoverted
+                         if (isDiscovered1)
+                         {
+                             secrets[i].interrogante.SetActive(false);
+                             secrets[i].itemImage.SetActive(true);
+                         }
+                         else
+                         {
+                             secrets[i].interrogante.SetActive(true);
+                             secrets[i].itemImage.SetActive(false);
+                         }
+                         break;
+                     }
+                 ///-------------ELEMENTO 2
+                 case 1:
+                     {
+                         ///controlTimeline the selection
+                         if (isSelected2)
+                         {
+                             secrets[i].mark.SetActive(true);
+                             nameText.text = secrets[i].name;
+                             descriptionText.text = secrets[i].description;
 
-                        }
-                        else
-                        {
-                            secrets[i].mark.SetActive(false);
-                        }
+                         }
+                         else
+                         {
+                             secrets[i].mark.SetActive(false);
+                         }
 
-                        ///active image if is discoverted
-                        if (isDiscovered5)
-                        {
-                            secrets[i].interrogante.SetActive(false);
-                            secrets[i].itemImage.SetActive(true);
-                        }
-                        else
-                        {
-                            secrets[i].interrogante.SetActive(true);
-                            secrets[i].itemImage.SetActive(false);
-                        }
-                        break;
-                        break;
-                    }
-                ///-------------ELEMENTO 6
-                case 5:
-                    {
-                        ///controlTimeline the selection
-                        if (isSelected6)
-                        {
-                            secrets[i].mark.SetActive(true);
-                            nameText.text = secrets[i].name;
-                            descriptionText.text = secrets[i].description;
+                         ///active image if is discoverted
+                         if (isDiscovered2)
+                         {
+                             secrets[i].interrogante.SetActive(false);
+                             secrets[i].itemImage.SetActive(true);
+                         }
+                         else
+                         {
+                             secrets[i].interrogante.SetActive(true);
+                             secrets[i].itemImage.SetActive(false);
+                         }
+                         break;
+                     }
+                 ///-------------ELEMENTO 3
+                 case 2:
+                     {
+                         ///controlTimeline the selection
+                         if (isSelected3)
+                         {
+                             secrets[i].mark.SetActive(true);
+                             nameText.text = secrets[i].name;
+                             descriptionText.text = secrets[i].description;
 
-                        }
-                        else
-                        {
-                            secrets[i].mark.SetActive(false);
-                        }
+                         }
+                         else
+                         {
+                             secrets[i].mark.SetActive(false);
+                         }
 
-                        ///active image if is discoverted
-                        if (isDiscovered6)
-                        {
-                            secrets[i].interrogante.SetActive(false);
-                            secrets[i].itemImage.SetActive(true);
-                        }
-                        else
-                        {
-                            secrets[i].interrogante.SetActive(true);
-                            secrets[i].itemImage.SetActive(false);
-                        }
-                        break;
-                        break;
-                    }
-                default:
-                    break;
-            }  
+                         ///active image if is discoverted
+                         if (isDiscovered3)
+                         {
+                             secrets[i].interrogante.SetActive(false);
+                             secrets[i].itemImage.SetActive(true);
+                         }
+                         else
+                         {
+                             secrets[i].interrogante.SetActive(true);
+                             secrets[i].itemImage.SetActive(false);
+                         }
+                         break;
+                     }
+                 ///-------------ELEMENTO 4
+                 case 3:
+                     {
+                         ///controlTimeline the selection
+                         if (isSelected4)
+                         {
+                             secrets[i].mark.SetActive(true);
+                             nameText.text = secrets[i].name;
+                             descriptionText.text = secrets[i].description;
 
+                         }
+                         else
+                         {
+                             secrets[i].mark.SetActive(false);
+                         }
+
+                         ///active image if is discoverted
+                         if (isDiscovered4)
+                         {
+                             secrets[i].interrogante.SetActive(false);
+                             secrets[i].itemImage.SetActive(true);
+                         }
+                         else
+                         {
+                             secrets[i].interrogante.SetActive(true);
+                             secrets[i].itemImage.SetActive(false);
+                         }
+                         break;
+                     }
+                 ///-------------ELEMENTO 5
+                 case 4:
+                     {
+                         ///controlTimeline the selection
+                         if (isSelected5)
+                         {
+                             secrets[i].mark.SetActive(true);
+                             nameText.text = secrets[i].name;
+                             descriptionText.text = secrets[i].description;
+
+                         }
+                         else
+                         {
+                             secrets[i].mark.SetActive(false);
+                         }
+
+                         ///active image if is discoverted
+                         if (isDiscovered5)
+                         {
+                             secrets[i].interrogante.SetActive(false);
+                             secrets[i].itemImage.SetActive(true);
+                         }
+                         else
+                         {
+                             secrets[i].interrogante.SetActive(true);
+                             secrets[i].itemImage.SetActive(false);
+                         }
+                         break;
+                     }
+                 ///-------------ELEMENTO 6
+                 case 5:
+                     {
+                         ///controlTimeline the selection
+                         if (isSelected6)
+                         {
+                             secrets[i].mark.SetActive(true);
+                             nameText.text = secrets[i].name;
+                             descriptionText.text = secrets[i].description;
+
+                         }
+                         else
+                         {
+                             secrets[i].mark.SetActive(false);
+                         }
+
+                         ///active image if is discoverted
+                         if (isDiscovered6)
+                         {
+                             secrets[i].interrogante.SetActive(false);
+                             secrets[i].itemImage.SetActive(true);
+                         }
+                         else
+                         {
+                             secrets[i].interrogante.SetActive(true);
+                             secrets[i].itemImage.SetActive(false);
+                         }
+                         break;
+                     }
+                 default:
+                     break;
+             }  
+
+         }*/
+        #endregion
+    }
+    #endregion
+
+    #region SELECT NEW ITEM
+    void SelectNewItem(int _newSelection)
+    {
+        secrets[_newSelection - 1].mark.SetActive(true);
+
+        if (secrets[_newSelection - 1].isDiscovered)
+        {
+
+            nameText.text = secrets[_newSelection - 1].name;
+            descriptionText.text = secrets[_newSelection - 1].description;
+        }
+        else
+        {
+
+            nameText.text = "?????????????";
+            descriptionText.text = "";
         }
     }
     #endregion
