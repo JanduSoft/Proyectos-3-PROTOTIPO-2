@@ -26,7 +26,8 @@ public class OnTriggerPlayAnimationLegacy : MonoBehaviour
     {
         if (deactivateRock)
         {
-            transform.parent.GetChild(0).GetComponent<DragAndDropObject>().enabled = false;
+            transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().LetGoRock();
+            transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().enabled = false;
         }
 
         //transform.parent.GetChild(0).GetComponentInParent<DragAndDropObject>().dragSound.Stop();

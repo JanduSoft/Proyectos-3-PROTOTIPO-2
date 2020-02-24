@@ -7,6 +7,10 @@ public class openDoorTutorialpt2 : MonoBehaviour
     bool canPlace = false;
     [SerializeField] GameObject dor;
     [SerializeField] int index;
+    public GameObject placePosition;
+    GameObject skull = null;
+
+    public bool isActivated = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,9 +20,13 @@ public class openDoorTutorialpt2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canPlace && Input.GetButtonDown("Interact"))
+        if (skull != null)
         {
-            dor.SendMessage("Solved", index);
+            if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && Input.GetButtonDown("Interact"))
+            {
+                dor.SendMessage("Solved", index);
+                isActivated = true;
+            }
         }
 
 
@@ -29,10 +37,19 @@ public class openDoorTutorialpt2 : MonoBehaviour
         {
             canPlace = true;
         }
+        else if (other.CompareTag("PlaceObject"))
+        {
+            skull = other.transform.gameObject;
+
+        }
 
     }
     private void OnTriggerStay(Collider other)
     {
+        if (other.CompareTag("PlaceObject"))
+        {
+            skull = other.transform.gameObject;
+        }
 
     }
 
@@ -41,6 +58,11 @@ public class openDoorTutorialpt2 : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canPlace = false;
+        }
+        else if (other.CompareTag("PlaceObject"))
+        {
+            other.gameObject.transform.GetComponent<PickUpandDrop>().SetCancelledDrop(false);
+            skull = null;
         }
 
     }

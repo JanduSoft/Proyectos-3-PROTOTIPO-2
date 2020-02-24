@@ -7463,9 +7463,6 @@ MonoBehaviour:
   MinDistanceToGrabObject: 5
   grabPointHeight: 0.5
   stoneSpeed: 5
-  rb: {fileID: 0}
-  playSound: 0
-  dragSound: {fileID: 0}
 --- !u!135 &153690527
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -12036,7 +12033,7 @@ PrefabInstance:
     - target: {fileID: 2149013360220066532, guid: 748968f45ced16b4db564e10579c07b2,
         type: 3}
       propertyPath: m_TagString
-      value: Place
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2149013360219904696, guid: 748968f45ced16b4db564e10579c07b2,
         type: 3}
@@ -18284,12 +18281,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0093621, y: 1.1730324, z: 1.2079134}
   m_Center: {x: 0.099274985, y: 0.5865162, z: -0.00000023665784}
---- !u!4 &373624104 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8674147675097521601, guid: ddeaae0261bdfa544b3ad097220be887,
-    type: 3}
-  m_PrefabInstance: {fileID: 1630928241}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &374217186 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 141252, guid: 704e69058eb050c4cbd210b4a79924ce,
@@ -24374,9 +24365,6 @@ MonoBehaviour:
   MinDistanceToGrabObject: 5
   grabPointHeight: 0.5
   stoneSpeed: 5
-  rb: {fileID: 0}
-  playSound: 0
-  dragSound: {fileID: 0}
 --- !u!135 &480207524
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -27289,11 +27277,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8261477383318435108, guid: 6e1fbd1057493534bb666dcb375fe754,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8261477382856604517, guid: 6e1fbd1057493534bb666dcb375fe754,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27397,6 +27380,11 @@ PrefabInstance:
     - target: {fileID: 8261477382856604517, guid: 6e1fbd1057493534bb666dcb375fe754,
         type: 3}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8261477383318435108, guid: 6e1fbd1057493534bb666dcb375fe754,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8261477382856604512, guid: 6e1fbd1057493534bb666dcb375fe754,
@@ -27815,13 +27803,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myAnimator: {fileID: 1816737653}
   type: 3
-  objectToBePlaced: {fileID: 0}
   myCamera: {fileID: 1157867714}
   durationShake: 3
   strength: 1
   vibrato: 30
   randomness: 56
-  objectPos: {fileID: 0}
 --- !u!65 &557597651
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -36398,7 +36384,7 @@ PrefabInstance:
     - target: {fileID: 2149013360220066532, guid: 748968f45ced16b4db564e10579c07b2,
         type: 3}
       propertyPath: m_TagString
-      value: Place
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2149013360219904696, guid: 748968f45ced16b4db564e10579c07b2,
         type: 3}
@@ -38053,7 +38039,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &783966978
 Transform:
   m_ObjectHideFlags: 0
@@ -40933,9 +40919,6 @@ MonoBehaviour:
   MinDistanceToGrabObject: 5
   grabPointHeight: 0.5
   stoneSpeed: 5
-  rb: {fileID: 0}
-  playSound: 0
-  dragSound: {fileID: 0}
 --- !u!135 &847283236
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -46956,13 +46939,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myAnimator: {fileID: 946906942}
   type: 2
-  objectToBePlaced: {fileID: 0}
   myCamera: {fileID: 0}
   durationShake: 0
   strength: 0
   vibrato: 0
   randomness: 0
-  objectPos: {fileID: 0}
 --- !u!95 &946906942
 Animator:
   serializedVersion: 3
@@ -56265,7 +56246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1110653195
 Transform:
   m_ObjectHideFlags: 0
@@ -57876,13 +57857,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myAnimator: {fileID: 1151202954}
   type: 2
-  objectToBePlaced: {fileID: 0}
   myCamera: {fileID: 0}
   durationShake: 0
   strength: 0
   vibrato: 0
   randomness: 0
-  objectPos: {fileID: 0}
 --- !u!4 &1151438355 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 405718, guid: 0314bb02f28144347b48c97eaeaa03f9,
@@ -65746,9 +65725,6 @@ MonoBehaviour:
   MinDistanceToGrabObject: 5
   grabPointHeight: 0.5
   stoneSpeed: 5
-  rb: {fileID: 0}
-  playSound: 0
-  dragSound: {fileID: 0}
 --- !u!135 &1306379982
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -68946,13 +68922,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myAnimator: {fileID: 1706263409}
   type: 3
-  objectToBePlaced: {fileID: 0}
   myCamera: {fileID: 1157867714}
   durationShake: 1
   strength: 1
   vibrato: 30
   randomness: 75
-  objectPos: {fileID: 0}
 --- !u!65 &1394174984
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -69794,13 +69768,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectoToMove: {fileID: 0}
   finalPosition: {fileID: 0}
-  objectToBePlaced: {fileID: 0}
+  skullFinalPos: {fileID: 0}
   speed: 0
   toDisable1: {fileID: 0}
   toDisable2: {fileID: 0}
   toEnable: {fileID: 0}
   myPart: {fileID: 0}
-  skullPlace: {fileID: 0}
 --- !u!1 &1411947176
 GameObject:
   m_ObjectHideFlags: 0
@@ -73657,9 +73630,6 @@ MonoBehaviour:
   MinDistanceToGrabObject: 5
   grabPointHeight: 0.5
   stoneSpeed: 5
-  rb: {fileID: 0}
-  playSound: 0
-  dragSound: {fileID: 0}
 --- !u!135 &1501671051
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -73894,13 +73864,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myAnimator: {fileID: 1510110800}
   type: 2
-  objectToBePlaced: {fileID: 0}
   myCamera: {fileID: 0}
   durationShake: 0
   strength: 0
   vibrato: 0
   randomness: 0
-  objectPos: {fileID: 0}
 --- !u!1001 &1510363205
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76037,13 +76005,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myAnimator: {fileID: 1536200037}
   type: 3
-  objectToBePlaced: {fileID: 0}
   myCamera: {fileID: 1157867714}
   durationShake: 3
   strength: 1
   vibrato: 25
   randomness: 89
-  objectPos: {fileID: 0}
 --- !u!65 &1546171010
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -76484,7 +76450,7 @@ GameObject:
   - component: {fileID: 1556252896}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Place
+  m_TagString: Skull
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76750,13 +76716,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectoToMove: {fileID: 1850863377}
   finalPosition: {fileID: 1010961235}
-  objectToBePlaced: {fileID: 1266151075}
+  skullFinalPos: {fileID: 539418393}
   speed: 2
   toDisable1: {fileID: 1090325840}
   toDisable2: {fileID: 1737694631}
   toEnable: {fileID: 1072677748}
   myPart: {fileID: 1611863262}
-  skullPlace: {fileID: 539418393}
 --- !u!135 &1558988166
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -79494,7 +79459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1611863261
 Transform:
   m_ObjectHideFlags: 0
@@ -79967,13 +79932,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myAnimator: {fileID: 193273858}
   type: 1
-  objectToBePlaced: {fileID: 0}
   myCamera: {fileID: 1157867714}
   durationShake: 1
   strength: 0.5
   vibrato: 1
   randomness: 0.5
-  objectPos: {fileID: 373624104}
 --- !u!54 &1630928245
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -82209,13 +82172,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myAnimator: {fileID: 1683846023}
   type: 2
-  objectToBePlaced: {fileID: 0}
   myCamera: {fileID: 0}
   durationShake: 0
   strength: 0
   vibrato: 0
   randomness: 0
-  objectPos: {fileID: 0}
 --- !u!95 &1683846023
 Animator:
   serializedVersion: 3
@@ -84403,7 +84364,7 @@ GameObject:
   - component: {fileID: 1735502689}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Place
+  m_TagString: Skull
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94378,9 +94339,6 @@ MonoBehaviour:
   MinDistanceToGrabObject: 5
   grabPointHeight: 0.5
   stoneSpeed: 5
-  rb: {fileID: 0}
-  playSound: 0
-  dragSound: {fileID: 0}
 --- !u!135 &1933876425
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -102684,7 +102642,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2116858265
 Transform:
   m_ObjectHideFlags: 0

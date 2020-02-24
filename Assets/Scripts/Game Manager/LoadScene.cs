@@ -26,7 +26,6 @@ public class LoadScene : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             other.GetComponent<PlayerMovement>().StopMovement(true);
             StartCoroutine(LoadDaScene());
         }

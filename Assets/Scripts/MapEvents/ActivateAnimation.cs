@@ -10,15 +10,11 @@ public class ActivateAnimation : MonoBehaviour
         NONE,
         DOOR,
         PLATFORM,
-        BRIDGE,
-        ROPE,
-        TORCH
+        BRIDGE
     }
     [SerializeField] Animator myAnimator;
     [SerializeField] typeAnimator type;
-
-    bool isTorchInside = false;
-    bool canBurn = false;
+    [SerializeField] GameObject objectToBePlaced;
 
     [Header("FOR CAMERA SHAKE")]
     [SerializeField] Camera myCamera;
@@ -26,21 +22,23 @@ public class ActivateAnimation : MonoBehaviour
     [SerializeField] float strength;
     [SerializeField] int vibrato;
     [SerializeField] float randomness;
+    [SerializeField] Transform objectPos = null;
+    bool isObjectPlaced = false;
 
-    private void Update()
+    private void OnTriggerStay(Collider other)
     {
-        if (isTorchInside && canBurn && Input.GetButtonDown("Interact"))
+        if (other.CompareTag("Place") && type == typeAnimator.DOOR)
         {
-            myAnimator.SetBool("Active", true);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Skull") && type == typeAnimator.DOOR)
-        {
-            myAnimator.SetBool("Active", true);
-            Invoke("DeactivateAnimation", 2f);
+            if (!other.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos != null)
+            {
+                other.gameObject.transform.position = objectPos.transform.position;
+                isObjectPlaced = true;
+            }
+            if (isObjectPlaced && other.name == objectToBePlaced.name)
+            {
+                myAnimator.SetBool("Active", true);
+                Invoke("DeactivateAnimation", 2f);
+            }
         }
         else if (other.CompareTag("Player") && type == typeAnimator.PLATFORM)
         {
@@ -51,20 +49,9 @@ public class ActivateAnimation : MonoBehaviour
         {
             myAnimator.SetBool("Active", true);
             Debug.Log("Camera Shake!!");
-            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+            //myCamera.DOShakePosition(durationShake, strength, vibrato, randomness,true);
         }
-        else if (other.CompareTag("Torch") && type == typeAnimator.ROPE)
-        {
-            isTorchInside = true;
-            if (other.gameObject.GetComponent<TorchPuzzles>().getTochIgnited())
-            {
-                canBurn = true;
-            }
-        }
-        else if (other.CompareTag("Torch") && type == typeAnimator.TORCH)
-        {
-            myAnimator.SetBool("Active", true);
-        }
+
 
     }
 
@@ -73,12 +60,12 @@ public class ActivateAnimation : MonoBehaviour
         if (other.CompareTag("Block"))
         {
             DeactivateAnimation();
-            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+            //myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
         }
-        else if (other.CompareTag("Torch") && type == typeAnimator.ROPE)
-        {
-            isTorchInside = false;
-        }
+        if (other.CompareTag("Place"))
+            isObjectPlaced = false;
+
+
     }
 
     void DeactivateAnimation()
