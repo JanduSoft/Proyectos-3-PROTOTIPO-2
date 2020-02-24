@@ -67,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
-        Debug.Log(player.isGrounded);
         if (moveToPortal1)
         {
             transform.position = portal1.position;
@@ -171,7 +170,8 @@ public class PlayerMovement : MonoBehaviour
     #region SET GRAVITY
     void SetGravity()
     {
-        
+
+        Debug.Log(player.isGrounded);
         if (player.isGrounded)
         {
             fallVelocity = -gravity * Time.deltaTime;

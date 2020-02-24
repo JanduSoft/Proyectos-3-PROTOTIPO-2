@@ -14,8 +14,11 @@ public class PlatformMovement : MonoBehaviour
     bool toPos2 = true;
     bool hasBeenActivated = false;
 
+    bool moveThePlatform;
+
     void Start()
     {
+        moveThePlatform = isActive;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -58,6 +61,11 @@ public class PlatformMovement : MonoBehaviour
                 StopPlatform();
             }
         }
+
+        if (moveThePlatform)
+        {
+            MovePlatform();
+        }
     }
 
     bool CheckHasReachedDestination(Vector3 destination)
@@ -67,13 +75,14 @@ public class PlatformMovement : MonoBehaviour
 
     void StopPlatform()
     {
-        Debug.Log("what");
         //If it's not activated, leave the velocity at zero so the platform is stopped
-        rb.velocity = Vector3.zero;
+        //rb.velocity = Vector3.zero;
+        moveThePlatform = false;
     }
 
     void MovePlatform()
     {
+        moveThePlatform = true;
         Vector3 dir;
         if (toPos2)
         {
@@ -84,7 +93,8 @@ public class PlatformMovement : MonoBehaviour
             dir = position1 - transform.position;
         }
         dir.Normalize();
-        rb.velocity = dir * speed;
+        transform.position = transform.position + dir * Time.deltaTime * speed;
+        //rb.velocity = dir * speed;
     }
 
     public void ActivateObject()
@@ -101,6 +111,25 @@ public class PlatformMovement : MonoBehaviour
         {
             //If it's not activated, leave the velocity at zero so the platform is stopped
             StopPlatform();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("holi");
+            other.transform.SetParent(transform);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("ravioli");
+            other.transform.SetParent(null);
+
         }
     }
 
