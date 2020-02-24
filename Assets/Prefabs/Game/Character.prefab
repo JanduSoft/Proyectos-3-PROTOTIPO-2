@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1052674258}
   m_Layer: 10
   m_Name: HookSpawner
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 638439896}
   m_Layer: 10
   m_Name: WalkingParticleSpawner
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,7 +129,6 @@ GameObject:
   - component: {fileID: 7219794959162274814}
   - component: {fileID: 6120095539264640498}
   - component: {fileID: 583964081}
-  - component: {fileID: 415923832}
   - component: {fileID: 415923831}
   - component: {fileID: 415923833}
   m_Layer: 10
@@ -308,22 +307,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!54 &415923832
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6120095539264640501}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 3
 --- !u!120 &415923831
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -444,6 +427,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Graphics
+      objectReference: {fileID: 0}
+    - target: {fileID: 8110111147615513432, guid: af89c3327fb50154981f9e00e87d5875,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6990247516611851181, guid: af89c3327fb50154981f9e00e87d5875,
         type: 3}
