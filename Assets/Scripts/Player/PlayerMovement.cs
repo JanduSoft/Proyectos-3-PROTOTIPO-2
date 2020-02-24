@@ -66,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        Debug.Log(player.isGrounded);
         if (moveToPortal1)
         {
             transform.position = portal1.position;

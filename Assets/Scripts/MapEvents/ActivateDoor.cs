@@ -7,7 +7,6 @@ public class ActivateDoor : MonoBehaviour
 {
     [SerializeField] Transform objectoToMove;
     [SerializeField] Transform finalPosition;
-    [SerializeField] GameObject objectToBePlaced;
     [SerializeField] float speed;
     [Header("PARTS TO ACTIVATE")]
     [SerializeField] EnablePartsOfMap toDisable1;
@@ -16,30 +15,20 @@ public class ActivateDoor : MonoBehaviour
 
     [SerializeField] SectionMapVariables myPart;
     [SerializeField] Transform skullPlace;
-    bool isObjectPlaced = false;
 
 
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Place"))
         {
-            if (!other.GetComponent<PickUpandDrop>().GetObjectIsGrabbed())
-            {
-                other.gameObject.transform.position = skullPlace.position;
-                isObjectPlaced = true;
-            }
-            if(isObjectPlaced && other.name == objectToBePlaced.name)
+            if (!other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed())
             {
                 objectoToMove.DOMove(finalPosition.position, speed);
+                other.transform.parent.gameObject.transform.position = skullPlace.position;
+                other.transform.parent.gameObject.GetComponent<PickUpandDrop>().enabled = false;
                 myPart.isActive = true;
+
             }
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.CompareTag("Place"))
-            isObjectPlaced = false;
-
     }
 }

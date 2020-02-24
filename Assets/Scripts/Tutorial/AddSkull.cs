@@ -6,7 +6,7 @@ public class AddSkull : MonoBehaviour
 {
     public GameObject placePosition;
     Transform skullTransform = null;
-    public bool isImportantCup=false;
+    public bool isImportantCup = false;
     bool canPlace = false;
 
     GameObject skull = null;
@@ -21,12 +21,16 @@ public class AddSkull : MonoBehaviour
 
     void LateUpdate()
     {
-        if (skull!=null)
+        if (skull != null)
         {
             if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && Input.GetButtonDown("Interact"))
             {
                 Debug.Log("Tries to place skull");
                 skull.GetComponent<DragAndDrop>().DropObject();
+                if (isImportantCup)
+                {
+                    skull.GetComponent<DragAndDrop>().enabled = false;
+                }
                 skullTransform.position = placePosition.transform.position;
                 skullTransform.rotation = transform.rotation;
                 if (faceOppositeDirection) skullTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction

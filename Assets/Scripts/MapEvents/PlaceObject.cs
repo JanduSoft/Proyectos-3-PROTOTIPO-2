@@ -13,17 +13,8 @@ public class PlaceObject : MonoBehaviour
     {
         if (canPlace && Input.GetButtonDown("Interact"))
         {
-            //Exception control in case the object grabbed doesn't have the DragAndDrop script
-            try
-            {
-                //makes the player drop the object and deactivates the scrip so it doesn't pick it up again
-                skullTransform.gameObject.GetComponent<PickUpandDrop>().DropObject();
-                skullTransform.position = placePosition.position;
-                skullTransform.rotation = this.transform.rotation;
-            }
-            catch
-            {
-            }
+            skullTransform.position = placePosition.position;
+            skullTransform.rotation = this.transform.rotation;
         }
     }
 
@@ -46,7 +37,7 @@ public class PlaceObject : MonoBehaviour
         if (other.name == name)
         {
             skullTransform = other.transform;
-            //Debug.Log(other.name);
+            Debug.Log(other.name);
         }
 
     }

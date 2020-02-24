@@ -14,7 +14,9 @@ public class ActivateGO : MonoBehaviour
     {
         NONE,
         PLAYER,
-        BLOCK
+        BLOCK,
+        FIRE,
+        ENEMY
     }
 
     [SerializeField] GameObject[] objects;
@@ -40,10 +42,48 @@ public class ActivateGO : MonoBehaviour
                         break;
                     default:
                         break;
-                }                
+                }
             }
         }
         else if (other.CompareTag("Block") && interactuable == Interactuable.BLOCK)
+        {
+            for (int i = 0; i < objects.Length; i++)
+            {
+                switch (condition)
+                {
+                    case ObjectCondition.NONE:
+                        break;
+                    case ObjectCondition.ACTIVATE:
+                        objects[i].SetActive(true);
+                        break;
+                    case ObjectCondition.DESACTIVATE:
+                        objects[i].SetActive(false);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        else if (other.CompareTag("Fire") && interactuable == Interactuable.FIRE)
+        {
+            for (int i = 0; i < objects.Length; i++)
+            {
+                switch (condition)
+                {
+                    case ObjectCondition.NONE:
+                        break;
+                    case ObjectCondition.ACTIVATE:
+                        objects[i].SetActive(true);
+                        break;
+                    case ObjectCondition.DESACTIVATE:
+                        objects[i].SetActive(false);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        else if (other.CompareTag("Skull") && interactuable == Interactuable.ENEMY)
         {
             for (int i = 0; i < objects.Length; i++)
             {

@@ -22,5 +22,6 @@ public class EndTutorial2 : MonoBehaviour
     {
         if (index == 1) gem1Placed = true;
         if (index == 2) gem2Placed = true;
+        Debug.Log("Solved");
     }
 }

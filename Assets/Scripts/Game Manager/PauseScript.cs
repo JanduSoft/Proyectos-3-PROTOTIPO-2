@@ -57,7 +57,6 @@ public class PauseScript : MonoBehaviour
 
     void PauseGame()
     {
-
         GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
         pauseCanvas.gameObject.SetActive(true);
         pauseCanvas.transform.GetChild(0).GetComponent<Animation>().Play("PauseAnimation");
@@ -85,7 +84,6 @@ public class PauseScript : MonoBehaviour
         pausePanel.SetActive(true);
         settingsPanel.SetActive(false);
         isSettings = false;
-
         pauseCanvas.transform.GetChild(0).GetComponent<Animation>().Play("DispauseAnim");
         StartCoroutine(ResumeAfterAnim());
     }
@@ -96,14 +94,10 @@ public class PauseScript : MonoBehaviour
         yield return new WaitForSeconds(pauseCanvas.transform.GetChild(0).GetComponent<Animation>().clip.length);
         pauseCanvas.gameObject.SetActive(false);
         changedButton = false;
-
         isPaused = false;
-
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
         StartCoroutine(LetPlayerMove());
-
         pauseCanvas.enabled = false;
     }
     IEnumerator LetPlayerMove()
@@ -148,7 +142,6 @@ public class PauseScript : MonoBehaviour
             //hide pause canvas
             pausePanel.SetActive(false);
         }
-
     }
 
 

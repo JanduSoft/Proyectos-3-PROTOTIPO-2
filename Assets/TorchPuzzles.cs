@@ -8,14 +8,17 @@ public class TorchPuzzles : MonoBehaviour
     GameObject player = null;
     GameObject grabPlace = null;
     public float minDistanceToGrabObject = 1.5f;
-    bool objectIsGrabbed = false;
+    public bool objectIsGrabbed = false;
     bool isFacingBox = false;
+    [SerializeField] GameObject firePlace;
+    [SerializeField] GameObject ropeToBeIgnited;
     [SerializeField] GameObject fireParticles;
     [SerializeField] GameObject chains;
     [SerializeField] PlayableDirector animation;
     [SerializeField] bool nearFire = false;
     [SerializeField] bool nearRope = false;
-    [SerializeField] bool torchIgnited = false;
+    public bool torchIgnited = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,18 +36,14 @@ public class TorchPuzzles : MonoBehaviour
             //checks if the distance from the player to the rock is close enough
             var distancePlayerObject = Vector3.Distance(player.transform.position, transform.position);
             //checks if the player is staring in the direction of the rock
-            Vector2 playerForward2d = new Vector2(player.transform.forward.x, player.transform.forward.z);
-            Vector2 dirToObject2d = new Vector2(transform.position.x - player.transform.position.x, transform.position.z - player.transform.position.z);
-
-            //we do the dot product of X and Z, to ignore the Y in case the object is placed above or below
-            float dot = Vector3.Dot(playerForward2d, dirToObject2d);
-
-            if (dot > 0.5f) { isFacingBox = true; }
+            float dot = Vector3.Dot(player.transform.forward, (transform.position - player.transform.position).normalized);
+            if (dot > 0.7f) { isFacingBox = true; }
 
             if (distancePlayerObject < minDistanceToGrabObject && Input.GetButtonDown("Interact") && isFacingBox && (!nearFire && !nearRope))
             {
                 if (!objectIsGrabbed)
                 {
+                    transform.SetParent(null);
                     transform.SetParent(player.transform);
                     transform.position = grabPlace.transform.position;
                     objectIsGrabbed = true;
@@ -78,12 +77,12 @@ public class TorchPuzzles : MonoBehaviour
             player = other.gameObject;
             grabPlace = player.transform.GetChild(1).gameObject;
         }
-        else if (other.tag == "Fire")
+        else if (other.name == firePlace.name)
         {
             Debug.Log("Near Fire");
             nearFire = true;
         }
-        else if (other.tag == "Rope")
+        else if (other.name == ropeToBeIgnited.name)
         {
             Debug.Log("Near Rope");
             nearRope = true;
@@ -96,12 +95,12 @@ public class TorchPuzzles : MonoBehaviour
             player = other.gameObject;
             grabPlace = player.transform.GetChild(1).gameObject;
         }
-        else if (other.tag == "Fire")
+        else if (other.name == firePlace.name)
         {
             Debug.Log("Near Fire");
             nearFire = true;
         }
-        else if (other.tag == "Rope")
+        else if (other.name == ropeToBeIgnited.name)
         {
             Debug.Log("Near Rope");
             nearRope = true;
@@ -114,12 +113,12 @@ public class TorchPuzzles : MonoBehaviour
             player = null;
             grabPlace = null;
         }
-        else if (other.tag == "Fire")
+        else if (other.name == firePlace.name)
         {
             Debug.Log("Near Fire");
             nearFire = false;
         }
-        else if (other.tag == "Rope")
+        else if (other.name == ropeToBeIgnited.name)
         {
             Debug.Log("Near Rope");
             nearRope = false;
@@ -129,6 +128,11 @@ public class TorchPuzzles : MonoBehaviour
     {
         transform.SetParent(null);
         objectIsGrabbed = false;
+    }
+
+    public bool getTochIgnited()
+    {
+        return torchIgnited;
     }
 
     private void OnDrawGizmosSelected()

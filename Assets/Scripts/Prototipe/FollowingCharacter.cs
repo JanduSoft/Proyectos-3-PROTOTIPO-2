@@ -10,7 +10,9 @@ public class FollowingCharacter : MonoBehaviour
     ////////////////////////////
 
     [SerializeField] Transform player;
-    [SerializeField] float cameraSpeed;    
+    [SerializeField] float cameraSpeed;
+    public bool staticTarget = false;
+    public Vector3 target;
 
     ////////////////////////////
     /// /////////////////////////////------------------------------METHODS
@@ -19,8 +21,15 @@ public class FollowingCharacter : MonoBehaviour
     /// /////////////////---- UPDATE
     void Update()
     {
-        Vector3 newPosition = new Vector3(player.position.x, player.position.y , player.position.z);        
-        transform.DOMove(player.position, cameraSpeed);        
+        if (!staticTarget)
+        {
+            transform.DOMove(player.position, cameraSpeed);
+        }
+        else
+        {
+            transform.DOMove(target, cameraSpeed);
+        }
+                
     }
 
     

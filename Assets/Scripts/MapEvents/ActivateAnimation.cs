@@ -27,14 +27,14 @@ public class ActivateAnimation : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Place") && type == typeAnimator.DOOR )
+        if (other.CompareTag("Place") && type == typeAnimator.DOOR)
         {
-            if (!other.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos!=null)
+            if (!other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos != null)
             {
-                other.gameObject.transform.position = objectPos.transform.position;
+                other.transform.parent.gameObject.transform.position = objectPos.transform.position;
                 isObjectPlaced = true;
             }
-            if (isObjectPlaced && other.name == objectToBePlaced.name)
+            if (isObjectPlaced && other.transform.parent.name == objectToBePlaced.name)
             {
                 myAnimator.SetBool("Active", true);
                 Invoke("DeactivateAnimation", 2f);
@@ -65,7 +65,7 @@ public class ActivateAnimation : MonoBehaviour
         if (other.CompareTag("Place"))
             isObjectPlaced = false;
 
-        
+
     }
 
     void DeactivateAnimation()

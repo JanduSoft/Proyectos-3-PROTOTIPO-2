@@ -74,7 +74,6 @@ public class ShootingArrowsTrap : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         i = 0;
     }
-
     private void OnTriggerStay(Collider other)
     {
         if (other.transform.tag == "Player")

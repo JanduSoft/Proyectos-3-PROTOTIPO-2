@@ -26,7 +26,6 @@ public class NewWhipJump : MonoBehaviour
     {
         player = GameObject.Find("Character").gameObject.transform;
     }
-
     #region UPDATE
     private void Update()
     {
