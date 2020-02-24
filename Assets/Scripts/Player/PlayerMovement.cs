@@ -126,7 +126,10 @@ public class PlayerMovement : MonoBehaviour
 
                 // MOVING CHARACTER
 
-                if (player.isGrounded && !playerSteps.isPlaying && (prevPos.x!=transform.position.x && prevPos.z!=transform.position.z) && (playerInput.x+playerInput.z>0.5f || playerInput.x+playerInput.z<-0.5f))
+                if (player.isGrounded && 
+                    !playerSteps.isPlaying && 
+                    (prevPos.x!=transform.position.x && prevPos.z!=transform.position.z) && 
+                    (playerInput.x+playerInput.z>0.5f || playerInput.x+playerInput.z<-0.5f))
                 {
                     prevPos = transform.position;
                     playerSteps.Play();
