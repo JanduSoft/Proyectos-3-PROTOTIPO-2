@@ -1008,7 +1008,7 @@ RectTransform:
   - {fileID: 307340921}
   - {fileID: 136788532}
   m_Father: {fileID: 1296873677}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6623,7 +6623,8 @@ MonoBehaviour:
   mark1: {fileID: 898332388}
   interrogante1: {fileID: 1692969264}
   itemImage1: {fileID: 1341121104}
-  isDiscovered2: 1
+  model1: {fileID: 1985618592835916, guid: 23205be0f9e922a409362d919454a8ec, type: 3}
+  isDiscovered2: 0
   isSelected2: 0
   nameObject2: PICO
   description2: Este es el Pico de mi hermano
@@ -6631,7 +6632,8 @@ MonoBehaviour:
   mark2: {fileID: 1388166854}
   interrogante2: {fileID: 201381414}
   itemImage2: {fileID: 279753230}
-  isDiscovered3: 1
+  model2: {fileID: 1142447475620354, guid: fe9dacf4691172643ad563458276b926, type: 3}
+  isDiscovered3: 0
   isSelected3: 0
   position3: {fileID: 1408729122}
   nameObject3: CUCHILLO
@@ -6639,7 +6641,8 @@ MonoBehaviour:
   mark3: {fileID: 1477737308}
   interrogante3: {fileID: 1137936850}
   itemImage3: {fileID: 1353252723}
-  isDiscovered4: 0
+  model3: {fileID: 1470200395674642, guid: 734f81580a44b3d4b8c820a092d9f247, type: 3}
+  isDiscovered4: 1
   isSelected4: 0
   nameObject4: LINTERNA
   description4: Esta es la linterna de mi hermano.
@@ -6647,6 +6650,7 @@ MonoBehaviour:
   mark4: {fileID: 1125272110}
   interrogante4: {fileID: 1757527995}
   itemImage4: {fileID: 1628827497}
+  model4: {fileID: 1892380104291328, guid: 563f33ec243972442a81d8bdff4d40ad, type: 3}
   isDiscovered5: 1
   isSelected5: 0
   nameObject5: MAPA
@@ -6655,6 +6659,7 @@ MonoBehaviour:
   mark5: {fileID: 1096024845}
   interrogante5: {fileID: 11578613}
   itemImage5: {fileID: 686735879}
+  model5: {fileID: 1383624726206210, guid: 01d723dd750749c45aafc607856b4dfd, type: 3}
   isDiscovered6: 0
   isSelected6: 0
   nameObject6: PRISMATICOS
@@ -15256,7 +15261,7 @@ RectTransform:
   - {fileID: 39123071}
   - {fileID: 1312996033}
   m_Father: {fileID: 1296873677}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -18902,6 +18907,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2105286231}
   - {fileID: 1070824845}
   - {fileID: 1412638869}
   - {fileID: 47831840}
@@ -20786,7 +20792,7 @@ RectTransform:
   - {fileID: 1101666973}
   - {fileID: 982581291}
   m_Father: {fileID: 1296873677}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -28558,6 +28564,80 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2097506041}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2105286230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2105286231}
+  - component: {fileID: 2105286233}
+  - component: {fileID: 2105286232}
+  m_Layer: 5
+  m_Name: Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2105286231
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105286230}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1296873677}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 36.6, y: -44.6}
+  m_SizeDelta: {x: 1977.9, y: 1206.6}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2105286232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105286230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!222 &2105286233
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105286230}
+  m_CullTransparentMesh: 0
 --- !u!1 &2109713734
 GameObject:
   m_ObjectHideFlags: 0

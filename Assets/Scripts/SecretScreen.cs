@@ -17,6 +17,7 @@ public class SecretScreen : MonoBehaviour
         public GameObject mark;
         public GameObject interrogante;
         public GameObject itemImage;
+        public GameObject model;
     };
     public Item[] secrets;
 
@@ -30,6 +31,7 @@ public class SecretScreen : MonoBehaviour
         [SerializeField] GameObject mark1;
         [SerializeField] public GameObject interrogante1;
         [SerializeField] public GameObject itemImage1;
+        [SerializeField] public GameObject model1;
     #endregion
 
     #region ELEMENTO 2
@@ -42,6 +44,7 @@ public class SecretScreen : MonoBehaviour
         [SerializeField] GameObject mark2;
         [SerializeField] public GameObject interrogante2;
         [SerializeField] public GameObject itemImage2;
+        [SerializeField] public GameObject model2;
     #endregion
 
     #region ELEMENTO 3
@@ -54,6 +57,7 @@ public class SecretScreen : MonoBehaviour
         [SerializeField] GameObject mark3;
         [SerializeField] public GameObject interrogante3;
         [SerializeField] public GameObject itemImage3;
+        [SerializeField] public GameObject model3;
     #endregion
 
     #region ELEMENTO 4
@@ -66,6 +70,7 @@ public class SecretScreen : MonoBehaviour
         [SerializeField] GameObject mark4;
         [SerializeField] public GameObject interrogante4;
         [SerializeField] public GameObject itemImage4;
+        [SerializeField] public GameObject model4;
     #endregion
 
     #region ELEMENTO 5
@@ -78,6 +83,7 @@ public class SecretScreen : MonoBehaviour
         [SerializeField] GameObject mark5;
         [SerializeField] public GameObject interrogante5;
         [SerializeField] public GameObject itemImage5;
+        [SerializeField] public GameObject model5;
     #endregion
 
     #region ELEMENTO 6
@@ -90,6 +96,7 @@ public class SecretScreen : MonoBehaviour
         [SerializeField] GameObject mark6;
         [SerializeField] public GameObject interrogante6;
         [SerializeField] public GameObject itemImage6;
+        [SerializeField] public GameObject model6;
     #endregion
 
     [Header("NOMBRE Y DESCRIPCION")]
@@ -122,6 +129,7 @@ public class SecretScreen : MonoBehaviour
                         secrets[i].mark = mark1;
                         secrets[i].interrogante = interrogante1;
                         secrets[i].itemImage = itemImage1;
+                        secrets[i].model = model1;
                         
                         ///comprobar si esta descubierto el objeto
                         if (secrets[i].isDiscovered)
@@ -156,6 +164,7 @@ public class SecretScreen : MonoBehaviour
                         secrets[i].mark = mark2;
                         secrets[i].interrogante = interrogante2;
                         secrets[i].itemImage = itemImage2;
+                        secrets[i].model = model2;
 
 
                         ////comprobar si esta descubierto el objeto
@@ -184,6 +193,7 @@ public class SecretScreen : MonoBehaviour
                         secrets[i].mark = mark3;
                         secrets[i].interrogante = interrogante3;
                         secrets[i].itemImage = itemImage3;
+                        secrets[i].model = model3;
 
                         ////comprobar si esta descubierto el objeto
                         if (secrets[i].isDiscovered)
@@ -210,6 +220,7 @@ public class SecretScreen : MonoBehaviour
                         secrets[i].mark = mark4;
                         secrets[i].interrogante = interrogante4;
                         secrets[i].itemImage = itemImage4;
+                        secrets[i].model = model4;
 
                         ////comprobar si esta descubierto el objeto
                         if (secrets[i].isDiscovered)
@@ -237,6 +248,7 @@ public class SecretScreen : MonoBehaviour
                         secrets[i].mark = mark5;
                         secrets[i].interrogante = interrogante5;
                         secrets[i].itemImage = itemImage5;
+                        secrets[i].model = model5;
 
                         ////comprobar si esta descubierto el objeto
                         if (secrets[i].isDiscovered)
@@ -264,6 +276,7 @@ public class SecretScreen : MonoBehaviour
                         secrets[i].mark = mark6;
                         secrets[i].interrogante = interrogante6;
                         secrets[i].itemImage = itemImage6;
+                        secrets[i].model = model6;
 
                         ////comprobar si esta descubierto el objeto
                         if (secrets[i].isDiscovered)
