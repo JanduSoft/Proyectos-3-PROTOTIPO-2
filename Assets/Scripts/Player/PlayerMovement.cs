@@ -174,7 +174,6 @@ public class PlayerMovement : MonoBehaviour
     void SetGravity()
     {
 
-        Debug.Log(player.isGrounded);
         if (player.isGrounded)
         {
             fallVelocity = -gravity * Time.deltaTime;
