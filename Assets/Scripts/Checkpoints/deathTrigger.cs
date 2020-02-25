@@ -28,7 +28,7 @@ public class deathTrigger : MonoBehaviour
                     GameObject.Find("Water splash").GetComponent<AudioSource>().Play();
                     break;
                 case deathType.Spikes:
-                    GameObject.Find("Player Flesh").GetComponent<AudioSource>().Play();
+                    GameObject.Find("Player flesh").GetComponent<AudioSource>().Play();
                     break;
                 case deathType.Fall:
                     GameObject.Find("Fall").GetComponent<AudioSource>().Play();

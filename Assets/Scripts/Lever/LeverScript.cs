@@ -38,7 +38,7 @@ public class LeverScript : MonoBehaviour
         if (player!=null)
         {
             var currentDistanceToLever = Vector3.Distance(transform.position, player.transform.position);
-            if (showCanvas && (currentDistanceToLever<distanceToLever) && (!leverPulled||canPullLeverAlways) && Input.GetButtonDown("Interact"))
+            if (showCanvas && (currentDistanceToLever<distanceToLever) && (!leverPulled || canPullLeverAlways) && Input.GetButtonDown("Interact"))
             {
                 showCanvas = false;
                 leverPulled = true;
