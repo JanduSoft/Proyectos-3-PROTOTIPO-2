@@ -3,47 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class LeverScript : MonoBehaviour
+public class LeverMinecart : MonoBehaviour
 {
-    /// <How_it_works>
-    /// 
-    /// STILL NEED TO DO THE CANVAS
-    /// 
-    /// If the player enters the lever trigger, the canvas will activate,
-    /// if the player exits the trigger or activates the lever, the canvas will disappear.
-    /// To activate the lever, the player needs to be at a certain distance from the lever.
-    /// 
-    /// You can only activate the lever once.
-    /// 
-    /// </How_it_works>
-
-
     // Variables
-    [SerializeField] GameObject activateObject;
+    [SerializeField] Animator activateObject;
     [SerializeField] GameObject lever;
 
     bool showCanvas = false;
     public float distanceToLever = 3f;
     GameObject player = null;
     bool leverPulled = false;
+    [SerializeField] bool minecartAction = false;
     [SerializeField] bool canPullLeverAlways = false;
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        if (player!=null)
+        if (player != null)
         {
             var currentDistanceToLever = Vector3.Distance(transform.position, player.transform.position);
-            if (showCanvas && (currentDistanceToLever<distanceToLever) && (!leverPulled || canPullLeverAlways) && Input.GetButtonDown("Interact"))
+            if (showCanvas && (currentDistanceToLever < distanceToLever) && (!leverPulled || canPullLeverAlways) && Input.GetButtonDown("Interact"))
             {
                 showCanvas = false;
                 leverPulled = true;
-                lever.transform.localEulerAngles = new Vector3 (lever.transform.localRotation.x, lever.transform.localRotation.y, lever.transform.localEulerAngles.z - 45) ;
-                activateObject.SendMessage("ActivateObject", false, SendMessageOptions.DontRequireReceiver);
+                lever.transform.localEulerAngles = new Vector3(lever.transform.localRotation.x, lever.transform.localRotation.y, lever.transform.localEulerAngles.z - 45);
+                activateObject.SetBool("Straight", minecartAction);
+                minecartAction = !minecartAction;
                 //We could have another object attached here, such as a GameObject MortalTrap, and that
                 //object has a function activate. That way we could easily do MortalTrap.activate(); from here.
             }
@@ -74,7 +63,7 @@ public class LeverScript : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, distanceToLever);
-        if (activateObject!=null)
+        if (activateObject != null)
         {
             Gizmos.color = Color.green;
             Gizmos.DrawLine(transform.position, activateObject.transform.position);

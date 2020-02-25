@@ -20,7 +20,7 @@ public class ActivateGO : MonoBehaviour
     }
 
     [SerializeField] GameObject[] objects;
-    [SerializeField] ObjectCondition condition;
+    [SerializeField] ObjectCondition Action;
     [SerializeField] Interactuable interactuable;
 
 
@@ -30,7 +30,7 @@ public class ActivateGO : MonoBehaviour
         {
             for (int i = 0; i < objects.Length; i++)
             {
-                switch (condition)
+                switch (Action)
                 {
                     case ObjectCondition.NONE:
                         break;
@@ -49,7 +49,7 @@ public class ActivateGO : MonoBehaviour
         {
             for (int i = 0; i < objects.Length; i++)
             {
-                switch (condition)
+                switch (Action)
                 {
                     case ObjectCondition.NONE:
                         break;
@@ -68,7 +68,7 @@ public class ActivateGO : MonoBehaviour
         {
             for (int i = 0; i < objects.Length; i++)
             {
-                switch (condition)
+                switch (Action)
                 {
                     case ObjectCondition.NONE:
                         break;
@@ -87,7 +87,7 @@ public class ActivateGO : MonoBehaviour
         {
             for (int i = 0; i < objects.Length; i++)
             {
-                switch (condition)
+                switch (Action)
                 {
                     case ObjectCondition.NONE:
                         break;
