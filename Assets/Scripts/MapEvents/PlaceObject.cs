@@ -48,7 +48,7 @@ public class PlaceObject : MonoBehaviour
         {
             canPlace = false;
         }
-        else if (other.name == "Skull")
+        else if (other.name == name)
         {
             skullTransform = null;
         }
