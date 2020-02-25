@@ -14,7 +14,7 @@ public class LeverMinecart : MonoBehaviour
     GameObject player = null;
     bool leverPulled = false;
     [SerializeField] bool minecartAction = false;
-    [SerializeField] bool canPullLeverAlways = false;
+    [SerializeField] bool canPullLeverAlways = true;
 
     void Start()
     {
@@ -29,8 +29,12 @@ public class LeverMinecart : MonoBehaviour
             if (showCanvas && (currentDistanceToLever < distanceToLever) && (!leverPulled || canPullLeverAlways) && Input.GetButtonDown("Interact"))
             {
                 showCanvas = false;
-                leverPulled = true;
-                lever.transform.localEulerAngles = new Vector3(lever.transform.localRotation.x, lever.transform.localRotation.y, lever.transform.localEulerAngles.z - 45);
+                leverPulled = !leverPulled;
+                if(leverPulled)
+                    lever.transform.localEulerAngles = new Vector3(lever.transform.localRotation.x, lever.transform.localRotation.y, lever.transform.localEulerAngles.z - 45);
+                else
+                    lever.transform.localEulerAngles = new Vector3(lever.transform.localRotation.x, lever.transform.localRotation.y, lever.transform.localEulerAngles.z + 90);
+
                 activateObject.SetBool("Straight", minecartAction);
                 minecartAction = !minecartAction;
                 //We could have another object attached here, such as a GameObject MortalTrap, and that
