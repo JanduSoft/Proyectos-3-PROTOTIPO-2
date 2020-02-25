@@ -22,6 +22,10 @@ public class NewWhipJump : MonoBehaviour
 
     #endregion
 
+    private void Start()
+    {
+        player = GameObject.Find("Character").gameObject.transform;
+    }
     #region UPDATE
     private void Update()
     {
