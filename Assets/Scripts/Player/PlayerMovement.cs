@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private bool stopped = false;
     [SerializeField] GameObject walkinParticles;
     [SerializeField] Transform walkinParticlesSpawner;
-
+    bool grounded = false;
     [SerializeField] CharacterController player;
     [SerializeField] float playerSpeed;
     [SerializeField] Whip whip;
@@ -218,10 +218,27 @@ public class PlayerMovement : MonoBehaviour
            Debug.Log("Entrando al portal 6");
            moveToPortal6 = true;
        }
-
-
+        else if (other.CompareTag("Ground"))
+       {
+            grounded = true;
+       }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Ground"))
+        {
+            grounded = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Ground"))
+        {
+            grounded = false;
+        }
+    }
     public void StopMovement(bool _tof)
     {
         stopped = _tof;
