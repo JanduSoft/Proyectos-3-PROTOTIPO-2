@@ -159,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
     #region  PLAYER SKILLS
     void PlayerSkills()
     {
-        if (player.isGrounded && Input.GetButtonDown("Jump"))
+        if ((player.isGrounded || grounded) && Input.GetButtonDown("Jump"))
         {
             fallVelocity = jumpForce;
             movePlayer.y = fallVelocity;
