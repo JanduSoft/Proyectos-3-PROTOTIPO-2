@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class LookAtCamera : MonoBehaviour
 {
-    [SerializeField] Transform camera;
+    [SerializeField] Transform cameraMain;
 
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(camera.position);
+        this.transform.LookAt(cameraMain.position);
     }
 }
