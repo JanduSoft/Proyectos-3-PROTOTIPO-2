@@ -29,7 +29,7 @@ public class ActivateAnimation : MonoBehaviour
     {
         if (other.CompareTag("Place") && type == typeAnimator.DOOR)
         {
-            if (!other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos != null)
+            if (other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos != null && Input.GetButtonDown("Interact"))
             {
                 other.transform.parent.gameObject.transform.position = objectPos.transform.position;
                 isObjectPlaced = true;
@@ -75,7 +75,24 @@ public class ActivateAnimation : MonoBehaviour
 
 
     }
-
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Place") && type == typeAnimator.DOOR)
+        {
+            if (other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos != null && Input.GetButtonDown("Interact"))
+            {
+                other.transform.parent.gameObject.transform.position = objectPos.transform.position;
+                isObjectPlaced = true;
+            }
+            if (isObjectPlaced && other.transform.parent.name == objectToBePlaced.name)
+            {
+                myAnimator.SetBool("Active", true);
+                Invoke("DeactivateAnimation", 2f);
+                Debug.Log("Camera Shake!!");
+                myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+            }
+        }
+    }
     void DeactivateAnimation()
     {
         myAnimator.SetBool("Active", false);
