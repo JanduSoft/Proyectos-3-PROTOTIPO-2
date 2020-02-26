@@ -47,7 +47,8 @@ public class PlayerMovement : MonoBehaviour
     private bool moveToPortal5 = false;
     private Transform portal6;
     private bool moveToPortal6 = false;
-
+    [Header("WHIP JUMP")]
+    public bool isInWhipJump = false;
     #endregion
 
 
