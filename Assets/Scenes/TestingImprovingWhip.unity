@@ -317,22 +317,6 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 196263790}
-    - target: {fileID: 1515244427, guid: 4e873c65061ceda4f82894c893b31f7c, type: 3}
-      propertyPath: m_Pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1515244427, guid: 4e873c65061ceda4f82894c893b31f7c, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 23287e7b5118a7f43b4cf053618c642e, type: 3}
-    - target: {fileID: 354643105, guid: 4e873c65061ceda4f82894c893b31f7c, type: 3}
-      propertyPath: m_Pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 354643105, guid: 4e873c65061ceda4f82894c893b31f7c, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 23287e7b5118a7f43b4cf053618c642e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e873c65061ceda4f82894c893b31f7c, type: 3}
 --- !u!20 &1074846667 stripped
@@ -359,6 +343,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
+    - target: {fileID: 6120095539264640498, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1074846667}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -414,11 +403,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6120095539264640498, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
-        type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 1074846667}
     - target: {fileID: 415923831, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
       propertyPath: m_RendererPriority
       value: 1

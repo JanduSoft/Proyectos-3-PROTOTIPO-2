@@ -71,7 +71,6 @@ public class NewWhipJump : MonoBehaviour
         if (playerMovement.isInWhipJump)
         {
             whip.SetPosition(0, player.position);
-            whip.SetPosition(0, toWhipObject.transform.position);
         }
         
 
@@ -126,7 +125,8 @@ public class NewWhipJump : MonoBehaviour
     void StopWhipDrawing()
     {
         playerMovement.isInWhipJump = false;
-        //whip.SetPosition(1, player.position);
+        whip.SetPosition(1, player.position);
+        whip.SetPosition(0, player.position);
     }
     #endregion
     #region WHIP JUMP ACTIVATE
