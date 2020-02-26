@@ -49,7 +49,7 @@ public class ActivateAnimation : MonoBehaviour
         {
             myAnimator.SetBool("Active", true);
             Debug.Log("Camera Shake!!");
-            //myCamera.DOShakePosition(durationShake, strength, vibrato, randomness,true);
+            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness,true);
         }
 
 
