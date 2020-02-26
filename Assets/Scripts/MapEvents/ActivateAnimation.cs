@@ -53,12 +53,6 @@ public class ActivateAnimation : MonoBehaviour
             Debug.Log("Camera Shake!!");
             myCamera.DOShakePosition(durationShake, strength, vibrato, randomness,true);
         }
-        else if (other.CompareTag("Skull") && type == typeAnimator.DOOR)
-        {
-            myAnimator.SetBool("Active", true);
-            Debug.Log("Camera Shake!!");
-            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
-        }
 
 
     }
