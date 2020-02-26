@@ -24,8 +24,8 @@ public class ActivateAnimation : MonoBehaviour
     [SerializeField] float randomness;
     [SerializeField] Transform objectPos = null;
     bool isObjectPlaced = false;
-
-    private void OnTriggerStay(Collider other)
+    
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Place") && type == typeAnimator.DOOR)
         {
@@ -38,6 +38,8 @@ public class ActivateAnimation : MonoBehaviour
             {
                 myAnimator.SetBool("Active", true);
                 Invoke("DeactivateAnimation", 2f);
+                Debug.Log("Camera Shake!!");
+                myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
             }
         }
         else if (other.CompareTag("Player") && type == typeAnimator.PLATFORM)
@@ -49,7 +51,13 @@ public class ActivateAnimation : MonoBehaviour
         {
             myAnimator.SetBool("Active", true);
             Debug.Log("Camera Shake!!");
-            //myCamera.DOShakePosition(durationShake, strength, vibrato, randomness,true);
+            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness,true);
+        }
+        else if (other.CompareTag("Skull") && type == typeAnimator.DOOR)
+        {
+            myAnimator.SetBool("Active", true);
+            Debug.Log("Camera Shake!!");
+            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
         }
 
 
