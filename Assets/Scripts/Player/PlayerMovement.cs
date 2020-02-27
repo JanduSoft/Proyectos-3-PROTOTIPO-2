@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float horizontalMove;
     [SerializeField] float verticalMove;
     private Vector3 playerInput;
+    public bool grabbedToRock = false;
     public Vector3 movePlayer;  //made public for DragAndDropObject.cs to use
     private bool stopped = false;
     [SerializeField] GameObject walkinParticles;
@@ -131,11 +132,11 @@ public class PlayerMovement : MonoBehaviour
                     timeIdle = 0;
                 }
             }
-            else
+            else if(!grabbedToRock && movePlayer != Vector3.zero)
             {
-                player.transform.LookAt(player.transform.position + movePlayer);
+                player.transform.DOLookAt(player.transform.position + movePlayer,0.5f);
                 model.transform.position = player.transform.position;
-                model.transform.LookAt(player.transform.position + movePlayer);
+                model.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
 
                 animatorController.SetBool("walking", true);
                 timeIdle = 0;

@@ -11,11 +11,12 @@ public class PickUpDragandDrop : PickUpandDrop
     [SerializeField] Animator animator;
     [HideInInspector] public bool playSound = false;
     [SerializeField] CharacterController playerController;
+    [SerializeField] PlayerMovement playerMovement;
     Vector3[] grabPoints = new Vector3[4];
     Vector3 closestPoint;
     int minPoint = -1;[HideInInspector] public Rigidbody rb;
-    bool lerping = false;
-    bool rockGrabbed = false;
+    [SerializeField] bool lerping = false;
+    [SerializeField] bool rockGrabbed = false;
     bool lockVertical, lockHorizontal = false;
     bool thisRock = false;
     [HideInInspector] public AudioSource dragSound;
@@ -43,10 +44,12 @@ public class PickUpDragandDrop : PickUpandDrop
             if (!objectIsGrabbed)
             {
                 PickUpObject();
+                playerMovement.grabbedToRock = true;
             }
             else
             {
                 animator.SetBool("Attached", false);
+                playerMovement.grabbedToRock = false;
                 DropObject();
             }
         }
@@ -77,8 +80,7 @@ public class PickUpDragandDrop : PickUpandDrop
                 }
                 else
                 {
-                    animator.SetBool("Pulling", false);
-                    playSound = false;
+                    other();
                 }
             }
             else if (closestPoint == grabPoints[1])
@@ -95,8 +97,7 @@ public class PickUpDragandDrop : PickUpandDrop
                 }
                 else
                 {
-                    animator.SetBool("Pulling", false);
-                    playSound = false;
+                    other();
                 }
             }
             else if (closestPoint == grabPoints[2])
@@ -113,8 +114,7 @@ public class PickUpDragandDrop : PickUpandDrop
                 }
                 else
                 {
-                    animator.SetBool("Pulling", false);
-                    playSound = false;
+                    other();
                 }
             }
             else if (closestPoint == grabPoints[3])
@@ -131,17 +131,17 @@ public class PickUpDragandDrop : PickUpandDrop
                 }
                 else
                 {
-                    animator.SetBool("Pulling", false);
-                    playSound = false;
+                    other();
                 }
             }
-
-
+        }
+        else if(!rockGrabbed && player != null)
+        {
+            playerMovement.grabbedToRock = false;
+            animator.SetBool("Attached", false);
         }
         else
-        {
             thisRock = false;
-        }
 
         if (playSound && !dragSound.isPlaying && thisRock)
         {
@@ -191,6 +191,12 @@ public class PickUpDragandDrop : PickUpandDrop
         rb.velocity = movingDirection.normalized * stoneSpeed;
         playSound = true;
     }
+    void other()
+    {
+        animator.SetBool("Push", false);
+        animator.SetBool("Pulling", false);
+        playSound = false;
+    }
     void PullRock(Vector3 movingDirection)
     {
         animator.SetBool("Pulling", true);
@@ -200,10 +206,10 @@ public class PickUpDragandDrop : PickUpandDrop
     protected override void CheckVariables()
     {
         //calculate the grab points every frame in case the rock moves
-        grabPoints[0] = transform.position + transform.forward * 3;
-        grabPoints[1] = transform.position - transform.forward * 3;
-        grabPoints[2] = transform.position + transform.right * 3;
-        grabPoints[3] = transform.position - transform.right * 3;
+        grabPoints[0] = transform.position + transform.forward * 3.5f;
+        grabPoints[1] = transform.position - transform.forward * 3.5f;
+        grabPoints[2] = transform.position + transform.right * 3.5f;
+        grabPoints[3] = transform.position - transform.right * 3.5f;
 
         //put the points in the desired height
         grabPoints[0].y = transform.position.y - grabPointHeight;
@@ -230,6 +236,10 @@ public class PickUpDragandDrop : PickUpandDrop
     public void LetGoRock()
     {
         animator.SetBool("Attached", false);
+        animator.SetBool("Push", false);
+        animator.SetBool("Pulling", false);
+        playerMovement.grabbedToRock = false;
+        player.transform.DOLookAt(new Vector3(0, 0, 0), 0.5f);
         playSound = false;
         dragSound.Stop();
         lerping = false;
@@ -241,13 +251,10 @@ public class PickUpDragandDrop : PickUpandDrop
         player.GetComponent<PlayerMovement>().StopMovement(true);
         //lerp player towards closest point
         //player.transform.position = Vector3.Lerp(player.transform.position, closestPoint, 0.1f);
-
-
         //lerp rotation to face object
-        Quaternion targetRotation = Quaternion.LookRotation(transform.position - player.transform.position);
-        player.transform.rotation = targetRotation;
-
-        if (Vector3.Distance(player.transform.position, closestPoint) < 0.8f)
+        Vector3 targetPostition = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
+        player.transform.DOLookAt(targetPostition,0.25f);
+        if (Vector3.Distance(player.transform.position, closestPoint) < 0.1f)
         {
             //stop lerping and look at object
             lerping = false;
