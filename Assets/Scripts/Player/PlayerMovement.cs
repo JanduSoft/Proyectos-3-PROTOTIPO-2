@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEditor.Animations;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -49,6 +50,10 @@ public class PlayerMovement : MonoBehaviour
     private bool moveToPortal6 = false;
     [Header("WHIP JUMP")]
     public bool isInWhipJump = false;
+
+    [Header("ANIMATIONS")]
+    [SerializeField] Animator animatorController;
+    float timeIdle = 0;
     #endregion
 
 
@@ -107,29 +112,44 @@ public class PlayerMovement : MonoBehaviour
 
             playerInput = new Vector3(horizontalMove, 0, verticalMove);
             playerInput = Vector3.ClampMagnitude(playerInput, 1);
-
+            
             //GETTING CAMERA DIRECTION
             CamDirection();
 
             // CALCULATING CHARACTER MOVEMENT
             movePlayer = playerInput.x * camRight + playerInput.z * camForward;
             movePlayer *= playerSpeed;
+            if(movePlayer == Vector3.zero)
+            {
+                animatorController.SetBool("walking", false);
+                timeIdle += Time.deltaTime;
+                animatorController.SetFloat("idle", timeIdle);
+                if(timeIdle > 1.5)
+                {
+                    animatorController.SetInteger("randomIdle", Random.Range(0, 2));
+                    timeIdle = 0;
+                }
+            }
+            else
+            {
+                player.transform.LookAt(player.transform.position + movePlayer);
+                animatorController.SetBool("walking", true);
+                timeIdle = 0;
+                animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
+            }
+            // GRAVITY
+            SetGravity();
 
             if (!stopped)
             {
-                // CHARACTER ROTATION (LOOK AT)
-                player.transform.LookAt(player.transform.position + movePlayer);
-
-                // GRAVITY
-                SetGravity();
-
                 // JUMP
                 PlayerSkills();
 
                 // MOVING CHARACTER
 
-                if (player.isGrounded && !playerSteps.isPlaying && (prevPos.x!=transform.position.x && prevPos.z!=transform.position.z) && (playerInput.x+playerInput.z>0.5f || playerInput.x+playerInput.z<-0.5f))
+                if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
                 {
+                    animatorController.SetBool("Jumping", false);
                     prevPos = transform.position;
                     playerSteps.Play();
                     Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position,Quaternion.identity), 0.55f);
@@ -162,6 +182,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if ((player.isGrounded || grounded) && Input.GetButtonDown("Jump"))
         {
+            animatorController.SetBool("Jumping", true);
             fallVelocity = jumpForce;
             movePlayer.y = fallVelocity;
             jumpSound.Play();
