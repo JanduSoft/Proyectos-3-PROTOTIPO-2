@@ -83,7 +83,6 @@ public class ActivateAnimation : MonoBehaviour
                 myAnimator.SetBool("Active", true);
                 Invoke("DeactivateAnimation", 2f);
                 Debug.Log("Camera Shake!!");
-                myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
             }
         }
     }
