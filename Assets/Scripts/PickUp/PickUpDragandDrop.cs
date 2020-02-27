@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEditor.Animations;
 
 public class PickUpDragandDrop : PickUpandDrop
 {
     [SerializeField] float grabPointHeight = 0.5f;
     [SerializeField] float stoneSpeed = 5;
+    [SerializeField] Animator animator;
     [HideInInspector] public bool playSound = false;
+    [SerializeField] CharacterController playerController;
     Vector3[] grabPoints = new Vector3[4];
     Vector3 closestPoint;
     int minPoint = -1;[HideInInspector] public Rigidbody rb;
@@ -35,15 +38,21 @@ public class PickUpDragandDrop : PickUpandDrop
     {
 
         CheckVariables();
-        if (Input.GetButtonDown("Interact") && isFacingBox && !cancelledDrop)
+        if (Input.GetButtonDown("Interact") && isFacingBox && !cancelledDrop && playerController.isGrounded)
         {
             if (!objectIsGrabbed)
+            {
                 PickUpObject();
+            }
             else
+            {
+                animator.SetBool("Attached", false);
                 DropObject();
+            }
         }
         else if (lerping)
         {
+            animator.SetBool("Attached", true);
             DoLerp();
         }
         else if (rockGrabbed)
@@ -58,19 +67,19 @@ public class PickUpDragandDrop : PickUpandDrop
             if (closestPoint == grabPoints[0])
             {
                 Vector3 movingDirection = grabPoints[1] - player.transform.position;
-
                 if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
                 {
-                    rb.velocity = movingDirection.normalized * stoneSpeed;
-                    playSound = true;
+                    PushRock(movingDirection);
                 }
                 else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                 {
-                    rb.velocity = -movingDirection.normalized * stoneSpeed;
-                    playSound = true;
+                    PullRock(movingDirection);
                 }
                 else
+                {
+                    animator.SetBool("Pulling", false);
                     playSound = false;
+                }
             }
             else if (closestPoint == grabPoints[1])
             {
@@ -78,16 +87,17 @@ public class PickUpDragandDrop : PickUpandDrop
 
                 if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
                 {
-                    rb.velocity = movingDirection.normalized * stoneSpeed;
-                    playSound = true;
+                    PushRock(movingDirection);
                 }
                 else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                 {
-                    rb.velocity = -movingDirection.normalized * stoneSpeed;
-                    playSound = true;
+                    PullRock(movingDirection);
                 }
                 else
+                {
+                    animator.SetBool("Pulling", false);
                     playSound = false;
+                }
             }
             else if (closestPoint == grabPoints[2])
             {
@@ -95,16 +105,17 @@ public class PickUpDragandDrop : PickUpandDrop
 
                 if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
                 {
-                    rb.velocity = movingDirection.normalized * stoneSpeed;
-                    playSound = true;
+                    PushRock(movingDirection);
                 }
                 else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                 {
-                    rb.velocity = -movingDirection.normalized * stoneSpeed;
-                    playSound = true;
+                    PullRock(movingDirection);
                 }
                 else
+                {
+                    animator.SetBool("Pulling", false);
                     playSound = false;
+                }
             }
             else if (closestPoint == grabPoints[3])
             {
@@ -112,22 +123,25 @@ public class PickUpDragandDrop : PickUpandDrop
 
                 if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
                 {
-                    rb.velocity = movingDirection.normalized * stoneSpeed;
-                    playSound = true;
+                    PushRock(movingDirection);
                 }
                 else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                 {
-                    rb.velocity = -movingDirection.normalized * stoneSpeed;
-                    playSound = true;
+                    PullRock(movingDirection);
                 }
                 else
+                {
+                    animator.SetBool("Pulling", false);
                     playSound = false;
+                }
             }
 
 
         }
         else
+        {
             thisRock = false;
+        }
 
         if (playSound && !dragSound.isPlaying && thisRock)
         {
@@ -171,6 +185,18 @@ public class PickUpDragandDrop : PickUpandDrop
             dragSound.Stop();
         }
     }
+    void PushRock(Vector3 movingDirection)
+    {
+        animator.SetBool("Push", true);
+        rb.velocity = movingDirection.normalized * stoneSpeed;
+        playSound = true;
+    }
+    void PullRock(Vector3 movingDirection)
+    {
+        animator.SetBool("Pulling", true);
+        rb.velocity = -movingDirection.normalized * stoneSpeed;
+        playSound = true;
+    }
     protected override void CheckVariables()
     {
         //calculate the grab points every frame in case the rock moves
@@ -203,12 +229,12 @@ public class PickUpDragandDrop : PickUpandDrop
     }
     public void LetGoRock()
     {
+        animator.SetBool("Attached", false);
         playSound = false;
         dragSound.Stop();
         lerping = false;
         rockGrabbed = false;
         thisRock = false;
-
     }
     void DoLerp()
     {
@@ -259,6 +285,7 @@ public class PickUpDragandDrop : PickUpandDrop
     {
         if (other.CompareTag("Player"))
         {
+            animator.SetBool("Attached", false);
             player = null;
             thisRock = false;
         }

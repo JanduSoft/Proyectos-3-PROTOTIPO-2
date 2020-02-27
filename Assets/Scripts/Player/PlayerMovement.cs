@@ -125,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
                 animatorController.SetBool("walking", false);
                 timeIdle += Time.deltaTime;
                 animatorController.SetFloat("idle", timeIdle);
-                if(timeIdle > 1.5)
+                if(timeIdle > 4)
                 {
                     animatorController.SetInteger("randomIdle", Random.Range(0, 2));
                     timeIdle = 0;
@@ -134,7 +134,9 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 player.transform.LookAt(player.transform.position + movePlayer);
+                model.transform.position = player.transform.position;
                 model.transform.LookAt(player.transform.position + movePlayer);
+
                 animatorController.SetBool("walking", true);
                 timeIdle = 0;
                 animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
