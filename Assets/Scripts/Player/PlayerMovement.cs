@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private bool stopped = false;
     [SerializeField] GameObject walkinParticles;
     [SerializeField] Transform walkinParticlesSpawner;
-    bool grounded = false;
+    bool grounded = true;
     [SerializeField] CharacterController player;
     [SerializeField] float playerSpeed;
     [SerializeField] Whip whip;
@@ -125,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
                 animatorController.SetBool("walking", false);
                 timeIdle += Time.deltaTime;
                 animatorController.SetFloat("idle", timeIdle);
-                if(timeIdle > 1.5)
+                if(timeIdle > 4)
                 {
                     animatorController.SetInteger("randomIdle", Random.Range(0, 2));
                     timeIdle = 0;
@@ -134,7 +134,9 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 player.transform.LookAt(player.transform.position + movePlayer);
+                model.transform.position = player.transform.position;
                 model.transform.LookAt(player.transform.position + movePlayer);
+
                 animatorController.SetBool("walking", true);
                 timeIdle = 0;
                 animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
@@ -151,11 +153,16 @@ public class PlayerMovement : MonoBehaviour
 
                 if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
                 {
-                    animatorController.SetBool("Jumping", false);
                     prevPos = transform.position;
                     playerSteps.Play();
                     Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position,Quaternion.identity), 0.55f);
                 }
+
+                if(player.isGrounded || grounded)
+                    animatorController.SetBool("Jumping", false);
+                else if (!player.isGrounded && !grounded)
+                    animatorController.SetBool("Jumping", true);
+
                 player.Move(movePlayer * Time.deltaTime);
 
             }
@@ -184,6 +191,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if ((player.isGrounded || grounded) && Input.GetButtonDown("Jump"))
         {
+            grounded = false;
             animatorController.SetBool("Jumping", true);
             fallVelocity = jumpForce;
             movePlayer.y = fallVelocity;

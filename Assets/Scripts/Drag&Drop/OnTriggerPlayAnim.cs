@@ -16,7 +16,8 @@ public class OnTriggerPlayAnim : MonoBehaviour
             rockAnim = transform.parent.GetChild(0).GetComponent<Animation>();
             rockAnim.Play(animationClipName);
             GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
-            other.GetComponent<PickUpDragandDrop>().LetGoRock();
+            transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().dragSound.Stop();
+            transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().LetGoRock();
             StartCoroutine(startMovingAgain(rockAnim.GetClip(animationClipName).length));
         }
     }
