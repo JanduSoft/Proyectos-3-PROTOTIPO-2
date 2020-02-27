@@ -156,6 +156,9 @@ public class PlayerMovement : MonoBehaviour
                     playerSteps.Play();
                     Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position,Quaternion.identity), 0.55f);
                 }
+                else if(!player.isGrounded || !grounded)
+                    animatorController.SetBool("Jumping", true);
+
                 player.Move(movePlayer * Time.deltaTime);
 
             }
