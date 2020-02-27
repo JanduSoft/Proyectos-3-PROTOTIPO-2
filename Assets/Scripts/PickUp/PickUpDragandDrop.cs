@@ -256,7 +256,7 @@ public class PickUpDragandDrop : PickUpandDrop
         Quaternion targetRotation = Quaternion.LookRotation(transform.position - player.transform.position);
         player.transform.rotation = (targetRotation);
         
-        if (Vector3.Distance(player.transform.position, closestPoint) < 0.8f)
+        if (Vector3.Distance(player.transform.position, closestPoint) < 2f)
         {
             //stop lerping and look at object
             lerping = false;

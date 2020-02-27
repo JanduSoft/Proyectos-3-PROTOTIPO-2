@@ -134,9 +134,9 @@ public class PlayerMovement : MonoBehaviour
             }
             else if(!grabbedToRock && movePlayer != Vector3.zero)
             {
-                player.transform.LookAt(player.transform.position + movePlayer);
+                player.transform.DOLookAt(player.transform.position + movePlayer,0.5f);
                 model.transform.position = player.transform.position;
-                model.transform.LookAt(player.transform.position + movePlayer);
+                model.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
 
                 animatorController.SetBool("walking", true);
                 timeIdle = 0;
