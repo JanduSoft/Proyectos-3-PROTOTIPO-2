@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private bool stopped = false;
     [SerializeField] GameObject walkinParticles;
     [SerializeField] Transform walkinParticlesSpawner;
-    bool grounded = false;
+    bool grounded = true;
     [SerializeField] CharacterController player;
     [SerializeField] float playerSpeed;
     [SerializeField] Whip whip;
@@ -151,12 +151,14 @@ public class PlayerMovement : MonoBehaviour
 
                 if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
                 {
-                    animatorController.SetBool("Jumping", false);
                     prevPos = transform.position;
                     playerSteps.Play();
                     Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position,Quaternion.identity), 0.55f);
                 }
-                else if(!player.isGrounded || !grounded)
+
+                if(player.isGrounded || grounded)
+                    animatorController.SetBool("Jumping", false);
+                else if (!player.isGrounded && !grounded)
                     animatorController.SetBool("Jumping", true);
 
                 player.Move(movePlayer * Time.deltaTime);
@@ -187,6 +189,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if ((player.isGrounded || grounded) && Input.GetButtonDown("Jump"))
         {
+            grounded = false;
             animatorController.SetBool("Jumping", true);
             fallVelocity = jumpForce;
             movePlayer.y = fallVelocity;
