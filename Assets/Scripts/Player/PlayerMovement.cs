@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("ANIMATIONS")]
     [SerializeField] Animator animatorController;
+    [SerializeField] GameObject model;
     float timeIdle = 0;
     #endregion
 
@@ -133,6 +134,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 player.transform.LookAt(player.transform.position + movePlayer);
+                model.transform.LookAt(player.transform.position + movePlayer);
                 animatorController.SetBool("walking", true);
                 timeIdle = 0;
                 animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
