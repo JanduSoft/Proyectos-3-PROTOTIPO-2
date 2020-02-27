@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class StaticEnemy : MonoBehaviour
 {
     [SerializeField] GameObject Player;
@@ -27,7 +27,7 @@ public class StaticEnemy : MonoBehaviour
         {
             Quaternion finalRot = Quaternion.LookRotation(new Vector3(Player.transform.position.x, transform.position.y, Player.transform.position.z) - transform.position);
             //Vector3 newRotV3 = Vector3.Lerp(transform.rotation, new Vector3(Player.transform.position.x, transform.position.y, Player.transform.position.z) - transform.position, 0.5f);
-            transform.LookAt(Player.transform);
+            transform.DOLookAt(Player.transform.position, 0.5f);
             if(time > shotTiming)
             {
                 GameObject aux = Instantiate(ArrowPrefab, shootingPoint.transform.position, Quaternion.LookRotation(new Vector3(Player.transform.position.x, transform.position.y, Player.transform.position.z) - transform.position));
