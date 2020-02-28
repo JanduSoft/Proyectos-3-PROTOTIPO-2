@@ -11,6 +11,8 @@ public class PickUpDropandIgnite : PickUpandDrop
     [SerializeField] bool nearFire = false;
     [SerializeField] bool nearRope = false;
     [SerializeField] bool torchIgnited = false;
+
+    [SerializeField] CamerShake shaking;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,7 @@ public class PickUpDropandIgnite : PickUpandDrop
                 ObjectToBeBurnt.SetActive(false);
                 consequence.SetActive( true);
                 nearRope = false;
+                shaking.StartShake(0.75f);
             }
         }
     }
