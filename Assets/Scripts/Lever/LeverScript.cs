@@ -28,10 +28,15 @@ public class LeverScript : MonoBehaviour
     bool leverPulled = false;
     [SerializeField] bool canPullLeverAlways = false;
 
-    void Start()
-    {
-        
-    }
+    [Header("FOR CAMERA SHAKE")]
+    [SerializeField] Camera myCamera;
+    [SerializeField] float durationShake;
+    [SerializeField] float strength;
+    [SerializeField] int vibrato;
+    [SerializeField] float randomness;
+    [SerializeField] bool needToShake;
+    bool shakeActivated = false;
+    
 
     void Update()
     {
@@ -44,6 +49,12 @@ public class LeverScript : MonoBehaviour
                 leverPulled = true;
                 lever.transform.localEulerAngles = new Vector3 (lever.transform.localRotation.x, lever.transform.localRotation.y, lever.transform.localEulerAngles.z - 45) ;
                 activateObject.SendMessage("ActivateObject", false, SendMessageOptions.DontRequireReceiver);
+                //////CAMERA SHAKE
+                if (!shakeActivated && needToShake )
+                {
+                    shakeActivated = true;
+                    myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+                }
                 //We could have another object attached here, such as a GameObject MortalTrap, and that
                 //object has a function activate. That way we could easily do MortalTrap.activate(); from here.
             }

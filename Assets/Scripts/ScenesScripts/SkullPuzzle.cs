@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class SkullPuzzle : MonoBehaviour
 {
@@ -9,6 +10,14 @@ public class SkullPuzzle : MonoBehaviour
     public List<bool> answers = new List<bool>();
     public Animation cellAnim;
     bool puzzleDone = false;
+
+    [Header("FOR CAMERA SHAKE")]
+    [SerializeField] Camera myCamera;
+    [SerializeField] float durationShake;
+    [SerializeField] float strength;
+    [SerializeField] int vibrato;
+    [SerializeField] float randomness;
+    bool shakeActivated = false;
 
     void Start()
     {
@@ -31,6 +40,14 @@ public class SkullPuzzle : MonoBehaviour
             if (checkAnswers())
             {
                 Debug.Log("All active!");
+
+                //////CAMERA SHAKE
+                if (!shakeActivated)
+                {
+                    shakeActivated = true;
+                    myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+                }
+
                 cellAnim.Play();
                 puzzleDone = true;
 
