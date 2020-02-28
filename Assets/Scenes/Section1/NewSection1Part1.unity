@@ -12425,11 +12425,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6256814316364482659, guid: 267b71fc5ce67014797aa596897e70b4,
-        type: 3}
-      propertyPath: m_Name
-      value: Player walking
-      objectReference: {fileID: 0}
     - target: {fileID: 6256814316364482658, guid: 267b71fc5ce67014797aa596897e70b4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12484,6 +12479,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256814316364482659, guid: 267b71fc5ce67014797aa596897e70b4,
+        type: 3}
+      propertyPath: m_Name
+      value: Player walking
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 267b71fc5ce67014797aa596897e70b4, type: 3}
@@ -39193,7 +39193,7 @@ PrefabInstance:
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.2
+      value: 2.04
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
@@ -42509,8 +42509,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.001224, y: 2.778885, z: 3.0096855}
-  m_Center: {x: 0.068264484, y: 0.55360126, z: 0.0034389496}
+  m_Size: {x: 3.001224, y: 4.0853157, z: 3.0096855}
+  m_Center: {x: 0.068264484, y: 1.2068167, z: 0.0034389496}
 --- !u!111 &847283233
 Animation:
   m_ObjectHideFlags: 0
@@ -72971,6 +72971,12 @@ MonoBehaviour:
   toEnable: {fileID: 0}
   myPart: {fileID: 0}
   skullPlace: {fileID: 0}
+  myCamera: {fileID: 0}
+  durationShake: 0
+  strength: 0
+  vibrato: 0
+  randomness: 0
+  objectPos: {fileID: 0}
 --- !u!1 &1411947176
 GameObject:
   m_ObjectHideFlags: 0
@@ -80071,6 +80077,12 @@ MonoBehaviour:
   toEnable: {fileID: 1072677748}
   myPart: {fileID: 1611863262}
   skullPlace: {fileID: 539418393}
+  myCamera: {fileID: 1157867714}
+  durationShake: 2
+  strength: 1.5
+  vibrato: 25
+  randomness: 69
+  objectPos: {fileID: 0}
 --- !u!135 &1558988166
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -82846,7 +82858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1611863261
 Transform:
   m_ObjectHideFlags: 0
@@ -83322,9 +83334,9 @@ MonoBehaviour:
   objectToBePlaced: {fileID: 376034736}
   myCamera: {fileID: 1157867714}
   durationShake: 2
-  strength: 0.5
-  vibrato: 1
-  randomness: 0.5
+  strength: 1.5
+  vibrato: 35
+  randomness: 27
   objectPos: {fileID: 903097144}
 --- !u!54 &1630928245
 Rigidbody:
@@ -84865,7 +84877,7 @@ BoxCollider:
   m_GameObject: {fileID: 1664963705}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.2079124, y: 1.0413646, z: 1.2079134}
   m_Center: {x: 0, y: 0.65235, z: -0.00000023665784}
@@ -107053,7 +107065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2116858265
 Transform:
   m_ObjectHideFlags: 0
