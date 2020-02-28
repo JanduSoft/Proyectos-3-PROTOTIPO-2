@@ -57,6 +57,12 @@ public class ActivateAnimation : MonoBehaviour
             Debug.Log("Camera Shake!!");
             myCamera.DOShakePosition(durationShake, strength, vibrato, randomness,true);
         }
+        else if (other.CompareTag("Torch") && type == typeAnimator.BRIDGE)
+        {
+            myAnimator.SetBool("Active", true);
+            Invoke("StartShake", 1.25f);
+            
+        }
 
 
     }
@@ -110,6 +116,13 @@ public class ActivateAnimation : MonoBehaviour
     void DeactivateAnimation()
     {
         myAnimator.SetBool("Active", false);
+    }
+    #endregion
+
+    #region START SHAKE
+    void StartShake()
+    {
+        myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
     }
     #endregion
 
