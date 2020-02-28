@@ -11,6 +11,7 @@ public class cryptPuzzle : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] Transform destination;
     bool notMoved = true;
+    [SerializeField] CamerShake shaking;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,7 @@ public class cryptPuzzle : MonoBehaviour
         {
             horn.transform.DOMove(destination.position, 1);
             notMoved = false;
+            shaking.StartShake(1.5f);
         }
     }
 }
