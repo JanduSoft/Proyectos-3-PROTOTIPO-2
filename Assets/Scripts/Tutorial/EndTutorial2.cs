@@ -35,7 +35,7 @@ public class EndTutorial2 : MonoBehaviour
                 myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
             }
 
-            dorr.SetActive(false);
+            dorr.transform.DOMove(new Vector3(-5.1f, -2, 49.06f),2);
         }
     }
     public void Solved(int index)
