@@ -20,9 +20,9 @@ public class OpenDoorsTemple : MonoBehaviour
     {
         
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.transform.tag == "Player")
         {
             DoorLeft.transform.DORotateQuaternion(new Quaternion(rotDoorLeft.x, rotDoorLeft.y, rotDoorLeft.z, DoorLeft.transform.rotation.w),2);
             DoorRight.transform.DORotateQuaternion(new Quaternion(rotDoorRight.x, rotDoorRight.y, rotDoorRight.z, DoorRight.transform.rotation.w), 2);

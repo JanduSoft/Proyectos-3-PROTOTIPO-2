@@ -54,7 +54,7 @@ public class SkullPuzzle : MonoBehaviour
             }
             else if (!checkAnswers())
             {
-                Debug.Log("Not all active");
+
             }
 
         }

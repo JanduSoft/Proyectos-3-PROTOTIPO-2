@@ -40,7 +40,7 @@ public class OpenGemaMagenta : MonoBehaviour
                 shakeActivated = true;
                 myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
             }
-            for (int i = 0; i < deactivate.Count; i++) deactivate[i].SetActive(false);
+            for (int i = 0; i < deactivate.Count; i++) deactivate[i].transform.DOMoveY(deactivate[i].transform.position.y + 2,2);
         }
     }
     public void Solved(string name)
