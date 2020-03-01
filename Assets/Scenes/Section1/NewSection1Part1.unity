@@ -1128,6 +1128,12 @@ Transform:
   m_Father: {fileID: 886992787}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -15.573001, y: 1.2470001, z: 36.124}
+--- !u!95 &30473083 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95810304588308272, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
+    type: 3}
+  m_PrefabInstance: {fileID: 769675061}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &30932282 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 122438, guid: 77c8e6cf2d527d445a8bf0da83740ae2,
@@ -2494,6 +2500,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 120682632}
     m_Modifications:
+    - target: {fileID: 162300, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
+      propertyPath: m_Name
+      value: ST_Prop_Vase_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 162300, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 460208, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.02
@@ -2549,14 +2563,6 @@ PrefabInstance:
     - target: {fileID: 460208, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
       propertyPath: m_LocalScale.z
       value: 2.2458
-      objectReference: {fileID: 0}
-    - target: {fileID: 162300, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
-      propertyPath: m_Name
-      value: ST_Prop_Vase_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 162300, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
@@ -3331,6 +3337,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 149903541}
     m_Modifications:
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_Name
+      value: SM_Env_Brick_Rubble_01 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.18
@@ -3386,14 +3400,6 @@ PrefabInstance:
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalScale.z
       value: 4.2888
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_Name
-      value: SM_Env_Brick_Rubble_01 (12)
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
@@ -5237,6 +5243,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.4000002
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 198167508463184456, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -5247,10 +5257,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 95181fd42392fe247b7f127dec362552, type: 2}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
 --- !u!1 &123984827
@@ -6874,14 +6880,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.666667
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3625328676708743523, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 4.83
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
@@ -7447,10 +7453,10 @@ GameObject:
   m_Component:
   - component: {fileID: 153690522}
   - component: {fileID: 153690527}
-  - component: {fileID: 153690526}
   - component: {fileID: 153690525}
   - component: {fileID: 153690524}
   - component: {fileID: 153690523}
+  - component: {fileID: 153690526}
   m_Layer: 0
   m_Name: DraggableObject (1)
   m_TagString: Stone
@@ -7529,14 +7535,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 153690521}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cc3fa3dc9ccefd4391e0e506cabffb9, type: 3}
+  m_Script: {fileID: 11500000, guid: 6498c777b142928449efeda6923d1451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinDistanceToGrabObject: 5
-  grabPointHeight: 0.5
+  grabPointHeight: 1.5
   stoneSpeed: 5
-  rb: {fileID: 0}
+  animator: {fileID: 30473083}
   playSound: 0
+  playerController: {fileID: 1089988084}
+  playerMovement: {fileID: 802829150}
+  rb: {fileID: 0}
+  lerping: 0
+  rockGrabbed: 0
   dragSound: {fileID: 0}
 --- !u!135 &153690527
 SphereCollider:
@@ -12415,11 +12425,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6256814316364482659, guid: 267b71fc5ce67014797aa596897e70b4,
-        type: 3}
-      propertyPath: m_Name
-      value: Player walking
-      objectReference: {fileID: 0}
     - target: {fileID: 6256814316364482658, guid: 267b71fc5ce67014797aa596897e70b4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12474,6 +12479,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256814316364482659, guid: 267b71fc5ce67014797aa596897e70b4,
+        type: 3}
+      propertyPath: m_Name
+      value: Player walking
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 267b71fc5ce67014797aa596897e70b4, type: 3}
@@ -13713,6 +13723,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 149903541}
     m_Modifications:
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_Name
+      value: SM_Env_Brick_Rubble_01 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.95
@@ -13768,14 +13786,6 @@ PrefabInstance:
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalScale.z
       value: 4.2888
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_Name
-      value: SM_Env_Brick_Rubble_01 (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
@@ -15660,14 +15670,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.666667
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3625328676708743523, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 3.97
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
@@ -16421,6 +16431,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.40000045
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 198167508463184456, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -16431,10 +16445,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 95181fd42392fe247b7f127dec362552, type: 2}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
 --- !u!1 &325693874
@@ -19488,7 +19498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 485206, guid: d2d8555f61f391b40aa36448f9466ad5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.26
+      value: 2.72
       objectReference: {fileID: 0}
     - target: {fileID: 485206, guid: d2d8555f61f391b40aa36448f9466ad5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -20637,6 +20647,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 149903541}
     m_Modifications:
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_Name
+      value: SM_Env_Brick_Rubble_01 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.18
@@ -20692,14 +20710,6 @@ PrefabInstance:
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalScale.z
       value: 4.2888
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_Name
-      value: SM_Env_Brick_Rubble_01 (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
@@ -25136,10 +25146,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6498c777b142928449efeda6923d1451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabPointHeight: 0.5
+  grabPointHeight: 1.5
   stoneSpeed: 5
+  animator: {fileID: 30473083}
   playSound: 0
+  playerController: {fileID: 1089988084}
+  playerMovement: {fileID: 802829150}
   rb: {fileID: 0}
+  lerping: 0
+  rockGrabbed: 0
   dragSound: {fileID: 0}
 --- !u!1 &481263623
 GameObject:
@@ -27062,6 +27077,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 149903541}
     m_Modifications:
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_Name
+      value: SM_Env_Brick_Rubble_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.95
@@ -27117,14 +27140,6 @@ PrefabInstance:
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalScale.z
       value: 4.2888
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_Name
-      value: SM_Env_Brick_Rubble_01 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
@@ -27958,6 +27973,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.40000045
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 198167508463184456, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -27968,10 +27987,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 95181fd42392fe247b7f127dec362552, type: 2}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
 --- !u!1 &545007831 stripped
@@ -30712,6 +30727,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 149903541}
     m_Modifications:
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_Name
+      value: SM_Env_Brick_Rubble_01 (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.95
@@ -30767,14 +30790,6 @@ PrefabInstance:
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalScale.z
       value: 4.2888
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_Name
-      value: SM_Env_Brick_Rubble_01 (11)
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
@@ -32107,6 +32122,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.3740058
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3625328676708743523, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -32116,10 +32135,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7625354715746988733, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
@@ -33455,6 +33470,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 149903541}
     m_Modifications:
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_Name
+      value: SM_Env_Brick_Rubble_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.18
@@ -33510,14 +33533,6 @@ PrefabInstance:
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalScale.z
       value: 4.2888
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_Name
-      value: SM_Env_Brick_Rubble_01 (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
@@ -36378,14 +36393,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.666667
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3625328676708743523, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 4.97
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
@@ -39178,7 +39193,7 @@ PrefabInstance:
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.2
+      value: 2.04
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
@@ -39188,7 +39203,7 @@ PrefabInstance:
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 134.9
+      value: -18.5
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
@@ -39248,6 +39263,14 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1157867714}
+    - target: {fileID: 606560528, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 606560528, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.52
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 415923832, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
@@ -42449,7 +42472,6 @@ GameObject:
   m_Component:
   - component: {fileID: 847283231}
   - component: {fileID: 847283236}
-  - component: {fileID: 847283235}
   - component: {fileID: 847283234}
   - component: {fileID: 847283233}
   - component: {fileID: 847283232}
@@ -42487,8 +42509,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.001224, y: 2.778885, z: 3.0096855}
-  m_Center: {x: 0.068264484, y: 0.55360126, z: 0.0034389496}
+  m_Size: {x: 3.001224, y: 4.0853157, z: 3.0096855}
+  m_Center: {x: 0.068264484, y: 1.2068167, z: 0.0034389496}
 --- !u!111 &847283233
 Animation:
   m_ObjectHideFlags: 0
@@ -42523,24 +42545,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &847283235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 847283230}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cc3fa3dc9ccefd4391e0e506cabffb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MinDistanceToGrabObject: 5
-  grabPointHeight: 0.5
-  stoneSpeed: 5
-  rb: {fileID: 0}
-  playSound: 0
-  dragSound: {fileID: 0}
 --- !u!135 &847283236
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -42566,10 +42570,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6498c777b142928449efeda6923d1451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabPointHeight: 0.5
+  grabPointHeight: 1.5
   stoneSpeed: 5
+  animator: {fileID: 30473083}
   playSound: 0
+  playerController: {fileID: 1089988084}
+  playerMovement: {fileID: 802829150}
   rb: {fileID: 0}
+  lerping: 0
+  rockGrabbed: 0
   dragSound: {fileID: 0}
 --- !u!1001 &847453746
 PrefabInstance:
@@ -43374,6 +43383,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 149903541}
     m_Modifications:
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_Name
+      value: SM_Env_Brick_Rubble_01 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.18
@@ -43429,14 +43446,6 @@ PrefabInstance:
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalScale.z
       value: 4.2888
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_Name
-      value: SM_Env_Brick_Rubble_01 (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
@@ -48044,6 +48053,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.4000002
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 198167508463184456, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -48054,10 +48067,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 95181fd42392fe247b7f127dec362552, type: 2}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
 --- !u!1001 &931703089
@@ -52418,6 +52427,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.666667
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3625328676708743523, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -52432,10 +52445,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.88
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
@@ -56289,7 +56298,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072677744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.57, y: 0, z: 48.94}
+  m_LocalPosition: {x: 2.57, y: 0, z: 51.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 885834706}
@@ -57060,6 +57069,12 @@ Transform:
   m_Father: {fileID: 1935317791}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -8.865001, y: 5.6200004, z: -56.956}
+--- !u!143 &1089988084 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: 6120095539264640500, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
+    type: 3}
+  m_PrefabInstance: {fileID: 769675061}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1090325836
 GameObject:
   m_ObjectHideFlags: 0
@@ -61324,6 +61339,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 149903541}
     m_Modifications:
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_Name
+      value: SM_Env_Brick_Rubble_01 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.95
@@ -61379,14 +61402,6 @@ PrefabInstance:
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalScale.z
       value: 4.2888
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_Name
-      value: SM_Env_Brick_Rubble_01 (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
@@ -65197,6 +65212,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.666667
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3625328676708743523, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -65206,10 +65225,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 2.58
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
@@ -66514,7 +66529,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1273502962
 Transform:
   m_ObjectHideFlags: 0
@@ -68669,10 +68684,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6498c777b142928449efeda6923d1451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabPointHeight: 0.5
+  grabPointHeight: 1.5
   stoneSpeed: 5
+  animator: {fileID: 30473083}
   playSound: 0
+  playerController: {fileID: 1089988084}
+  playerMovement: {fileID: 802829150}
   rb: {fileID: 0}
+  lerping: 0
+  rockGrabbed: 0
   dragSound: {fileID: 0}
 --- !u!4 &1306989818 stripped
 Transform:
@@ -69132,6 +69152,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 149903541}
     m_Modifications:
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_Name
+      value: SM_Env_Brick_Rubble_01 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.95
@@ -69187,14 +69215,6 @@ PrefabInstance:
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalScale.z
       value: 4.2888
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_Name
-      value: SM_Env_Brick_Rubble_01 (7)
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
@@ -72951,6 +72971,12 @@ MonoBehaviour:
   toEnable: {fileID: 0}
   myPart: {fileID: 0}
   skullPlace: {fileID: 0}
+  myCamera: {fileID: 0}
+  durationShake: 0
+  strength: 0
+  vibrato: 0
+  randomness: 0
+  objectPos: {fileID: 0}
 --- !u!1 &1411947176
 GameObject:
   m_ObjectHideFlags: 0
@@ -74654,14 +74680,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.666667
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3625328676708743523, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 5.34
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
@@ -74921,7 +74947,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 485206, guid: d2d8555f61f391b40aa36448f9466ad5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.26
+      value: 6.88
       objectReference: {fileID: 0}
     - target: {fileID: 485206, guid: d2d8555f61f391b40aa36448f9466ad5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -76817,10 +76843,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6498c777b142928449efeda6923d1451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabPointHeight: 0.5
+  grabPointHeight: 1.5
   stoneSpeed: 5
+  animator: {fileID: 30473083}
   playSound: 0
+  playerController: {fileID: 1089988084}
+  playerMovement: {fileID: 802829150}
   rb: {fileID: 0}
+  lerping: 0
+  rockGrabbed: 0
   dragSound: {fileID: 0}
 --- !u!1 &1502815077
 GameObject:
@@ -80046,6 +80077,12 @@ MonoBehaviour:
   toEnable: {fileID: 1072677748}
   myPart: {fileID: 1611863262}
   skullPlace: {fileID: 539418393}
+  myCamera: {fileID: 1157867714}
+  durationShake: 2
+  strength: 1.5
+  vibrato: 25
+  randomness: 69
+  objectPos: {fileID: 0}
 --- !u!135 &1558988166
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -80146,6 +80183,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.666667
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3625328676708743523, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -80155,10 +80196,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 3.36
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
@@ -83297,9 +83334,9 @@ MonoBehaviour:
   objectToBePlaced: {fileID: 376034736}
   myCamera: {fileID: 1157867714}
   durationShake: 2
-  strength: 0.5
-  vibrato: 1
-  randomness: 0.5
+  strength: 1.5
+  vibrato: 35
+  randomness: 27
   objectPos: {fileID: 903097144}
 --- !u!54 &1630928245
 Rigidbody:
@@ -84840,7 +84877,7 @@ BoxCollider:
   m_GameObject: {fileID: 1664963705}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.2079124, y: 1.0413646, z: 1.2079134}
   m_Center: {x: 0, y: 0.65235, z: -0.00000023665784}
@@ -89240,6 +89277,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 149903541}
     m_Modifications:
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_Name
+      value: SM_Env_Brick_Rubble_01 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.18
@@ -89295,14 +89340,6 @@ PrefabInstance:
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalScale.z
       value: 4.2888
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_Name
-      value: SM_Env_Brick_Rubble_01 (8)
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
@@ -93986,6 +94023,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.666667
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3625328676708743523, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -93995,10 +94036,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
@@ -96405,6 +96442,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 120682632}
     m_Modifications:
+    - target: {fileID: 162300, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
+      propertyPath: m_Name
+      value: ST_Prop_Vase_02 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 162300, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 460208, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.282938
@@ -96460,14 +96505,6 @@ PrefabInstance:
     - target: {fileID: 460208, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
       propertyPath: m_LocalScale.z
       value: 2.3479
-      objectReference: {fileID: 0}
-    - target: {fileID: 162300, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
-      propertyPath: m_Name
-      value: ST_Prop_Vase_02 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 162300, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
@@ -98441,10 +98478,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6498c777b142928449efeda6923d1451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabPointHeight: 0.5
+  grabPointHeight: 1.5
   stoneSpeed: 5
+  animator: {fileID: 30473083}
   playSound: 0
+  playerController: {fileID: 1089988084}
+  playerMovement: {fileID: 802829150}
   rb: {fileID: 0}
+  lerping: 0
+  rockGrabbed: 0
   dragSound: {fileID: 0}
 --- !u!4 &1934462710 stripped
 Transform:
@@ -100238,6 +100280,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.4000007
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 198167508463184456, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -100248,10 +100294,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 95181fd42392fe247b7f127dec362552, type: 2}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
 --- !u!1001 &1960110771
@@ -102948,7 +102990,7 @@ PrefabInstance:
     - target: {fileID: 6765114992974806436, guid: 3d523f78f9a872148852fac19bd23065,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -6.1999817
+      value: -6.199951
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d523f78f9a872148852fac19bd23065, type: 3}
@@ -103522,6 +103564,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 149903541}
     m_Modifications:
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_Name
+      value: SM_Env_Brick_Rubble_01 (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.18
@@ -103577,14 +103627,6 @@ PrefabInstance:
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalScale.z
       value: 4.2888
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_Name
-      value: SM_Env_Brick_Rubble_01 (10)
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
@@ -105400,6 +105442,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.4000007
       objectReference: {fileID: 0}
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 198167508463184456, guid: ef30331bc4c461842a1da74c1c8052ab,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -105410,10 +105456,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 95181fd42392fe247b7f127dec362552, type: 2}
-    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
 --- !u!1001 &2066711979
@@ -106301,6 +106343,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 149903541}
     m_Modifications:
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_Name
+      value: SM_Env_Brick_Rubble_01 (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.95
@@ -106356,14 +106406,6 @@ PrefabInstance:
     - target: {fileID: 404298, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
       propertyPath: m_LocalScale.z
       value: 4.2888
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_Name
-      value: SM_Env_Brick_Rubble_01 (9)
-      objectReference: {fileID: 0}
-    - target: {fileID: 191796, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e288e91154144d4a8449e8f03d24b20, type: 3}

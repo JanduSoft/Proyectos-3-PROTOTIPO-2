@@ -75,7 +75,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
-        Debug.Log(player.isGrounded);
         if (moveToPortal1)
         {
             transform.position = portal1.position;

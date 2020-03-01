@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class OpenGemaMagenta : MonoBehaviour
 {
@@ -8,7 +9,21 @@ public class OpenGemaMagenta : MonoBehaviour
     bool lever1 = false;
     bool lever2 = false;
     bool lever3 = false;
+
+
+
+    [Header("FOR CAMERA SHAKE")]
+    [SerializeField] Camera myCamera;
+    [SerializeField] float durationShake;
+    [SerializeField] float strength;
+    [SerializeField] int vibrato;
+    [SerializeField] float randomness;
+    bool shakeActivated = false;
+
+
     [SerializeField] List<GameObject> deactivate;
+
+
     void Start()
     {
         
@@ -19,7 +34,13 @@ public class OpenGemaMagenta : MonoBehaviour
     {
         if(lever1 && lever2 && lever3)
         {
-            for (int i = 0; i < deactivate.Count; i++) deactivate[i].SetActive(false);
+            //////CAMERA SHAKE
+            if (!shakeActivated)
+            {
+                shakeActivated = true;
+                myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+            }
+            for (int i = 0; i < deactivate.Count; i++) deactivate[i].transform.DOMoveY(deactivate[i].transform.position.y + 2,2);
         }
     }
     public void Solved(string name)

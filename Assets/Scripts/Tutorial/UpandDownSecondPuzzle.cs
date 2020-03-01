@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UpandDownSecondPuzzle : MonoBehaviour
 {
+    #region VARABLES
     [SerializeField] Transform target;
     [SerializeField] GameObject place;
     [SerializeField] List<Transform> positions;
@@ -12,6 +13,7 @@ public class UpandDownSecondPuzzle : MonoBehaviour
     [SerializeField] int index = 0;
     int max_index = 2;
     bool canInteract = false;
+    #endregion
     // Start is called before the first frame update
     void Start()
     {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class EndTutorial2 : MonoBehaviour
 {
@@ -8,6 +9,15 @@ public class EndTutorial2 : MonoBehaviour
     bool gem1Placed = false;
     bool gem2Placed = false;
     [SerializeField] GameObject dorr;
+
+    [Header("FOR CAMERA SHAKE")]
+    [SerializeField] Camera myCamera;
+    [SerializeField] float durationShake;
+    [SerializeField] float strength;
+    [SerializeField] int vibrato;
+    [SerializeField] float randomness;
+    bool shakeActivated = false;
+
     void Start()
     {
         
@@ -16,7 +26,17 @@ public class EndTutorial2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gem1Placed && gem2Placed) dorr.SetActive(false);
+        if (gem1Placed && gem2Placed)
+        {
+            //////CAMERA SHAKE
+            if (!shakeActivated)
+            {
+                shakeActivated = true;
+                myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+            }
+
+            dorr.transform.DOMove(new Vector3(-5.1f, -2, 49.06f),2);
+        }
     }
     public void Solved(int index)
     {

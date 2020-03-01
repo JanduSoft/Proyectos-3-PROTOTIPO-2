@@ -16,6 +16,15 @@ public class ActivateDoor : MonoBehaviour
     [SerializeField] SectionMapVariables myPart;
     [SerializeField] Transform skullPlace;
 
+    [Header("FOR CAMERA SHAKE")]
+    [SerializeField] Camera myCamera;
+    [SerializeField] float durationShake;
+    [SerializeField] float strength;
+    [SerializeField] int vibrato;
+    [SerializeField] float randomness;
+    [SerializeField] Transform objectPos = null;
+    bool isOpened = false;
+
 
     private void OnTriggerStay(Collider other)
     {
@@ -27,6 +36,11 @@ public class ActivateDoor : MonoBehaviour
                 other.transform.parent.gameObject.transform.position = skullPlace.position;
                 other.transform.parent.gameObject.GetComponent<PickUpandDrop>().enabled = false;
                 myPart.isActive = true;
+                if (!isOpened)
+                {
+                    isOpened = true;
+                    myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+                }
 
             }
         }

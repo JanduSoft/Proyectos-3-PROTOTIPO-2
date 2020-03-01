@@ -87,7 +87,7 @@ public class DragAndDrop : MonoBehaviour
 
     public void GrabObject()
     {
-        transform.SetParent(player.transform);
+        transform.SetParent(grabPlace.transform);
         transform.position = grabPlace.transform.position;
         objectIsGrabbed = true;
     }

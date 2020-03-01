@@ -10,6 +10,8 @@ public class dinosaurOpening : MonoBehaviour
     [SerializeField] GameObject fire2;
     [SerializeField] GameObject horn;
     [SerializeField] PlayableDirector destination;
+
+    [SerializeField] CamerShake shaking;
     bool notMoved = true;
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,7 @@ public class dinosaurOpening : MonoBehaviour
         {
             destination.enabled = true;
             notMoved = false;
+            shaking.StartShake(5);
         }
     }
 }

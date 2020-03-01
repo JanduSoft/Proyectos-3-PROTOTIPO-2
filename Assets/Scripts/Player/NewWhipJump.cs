@@ -70,7 +70,8 @@ public class NewWhipJump : MonoBehaviour
         /////CHECKING IF IS IN WHIP JUP FOR DE LINE RENDERER
         if (playerMovement.isInWhipJump)
         {
-            whip.SetPosition(0, player.position);
+            Vector3 aux = new Vector3(player.position.x, player.position.y + 3f, player.position.z);
+            whip.SetPosition(0, aux);
         }
         
 
