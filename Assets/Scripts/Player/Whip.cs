@@ -28,12 +28,7 @@ public class Whip : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        whip.SetPosition(0, playerTransform.position);
-        whip.SetPosition(1, playerTransform.position);
-        whip.startColor = Color.black;
-        whip.endColor = Color.black;
-        whip.startWidth = (0.2f);
-        whip.endWidth = (0.2f);
+       
     }
 
     // Update is called once per frame
@@ -50,7 +45,6 @@ public class Whip : MonoBehaviour
             index = 0;
             ableToAttack = false;
             attackMode = false;
-            oldFOV = mainCamera.fieldOfView;
         }
         else
         {
@@ -60,7 +54,6 @@ public class Whip : MonoBehaviour
         if (attackMode)
         {
             whipableObjectTransform = enemyList[index];
-            mainCamera.DOFieldOfView(60, 1);
             spriteIndicateObject.SetActive(true);
             spriteIndicateObject.transform.position = whipableObjectTransform.position + new Vector3(0, 2.5f, 0);
             distToWhipable = Vector3.Distance(playerTransform.position, enemyList[index].position + new Vector3(0, 5, 0));
@@ -135,10 +128,12 @@ public class Whip : MonoBehaviour
         }
         if (ableToAttack && Input.GetButtonDown("EnterCombatMode"))
         {
-            if (!attackMode) oldFOV = mainCamera.fieldOfView;
+            if (!attackMode)
+            {
+
+            }
             else
             {
-                mainCamera.DOFieldOfView(oldFOV, 1);
                 spriteIndicateObject.SetActive(false);
                 whipableObjectTransform = null;
             }
@@ -164,14 +159,12 @@ public class Whip : MonoBehaviour
             spriteIndicateObject.SetActive(true);
             spriteIndicateObject.transform.position = whipableObjectTransform.position;
         }
-
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "WhipEnemy")
         {
             enemyList.Remove(other.transform);
-            mainCamera.DOFieldOfView(oldFOV, 1);
             spriteIndicateObject.SetActive(false);
             whipableObjectTransform = null;
         }

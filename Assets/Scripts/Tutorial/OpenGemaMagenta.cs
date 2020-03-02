@@ -50,7 +50,7 @@ public class OpenGemaMagenta : MonoBehaviour
         if (name == "lever3") lever3 = true;
         Debug.Log("Solved");
     }
-    public void Broken(int i)
+    public void Broken(string name)
     {
         if (name == "lever1") lever1 = false;
         if (name == "lever2") lever2 = false;

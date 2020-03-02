@@ -17,6 +17,7 @@ public class PatrolEnemy : MonoBehaviour
     [SerializeField] Animator animController;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] float viewingDistance;
+    [SerializeField] Whip whipScript;
     [SerializeField] List<GameObject> pathPoints;
     [SerializeField] playerDeath kill;
     float angleBetweenEnemyandPlayer = 0;
@@ -96,5 +97,14 @@ public class PatrolEnemy : MonoBehaviour
         yield return new WaitForSeconds(2);
         agent.SetDestination(pathPoints[index].transform.position);
         trueDeath = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player")) whipScript.enabled = true;
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player")) whipScript.enabled = false;
     }
 }

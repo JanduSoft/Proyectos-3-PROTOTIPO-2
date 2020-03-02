@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class DragAndDrop : MonoBehaviour
 {
-
+    Animator playerAnimator;
     [HideInInspector] public GameObject player = null;
     GameObject grabPlace = null;
+    GameObject distanceChecker;
     public float minDistanceToGrabObject = 1.5f;
     [HideInInspector] public bool objectIsGrabbed = false;
     bool isFacingBox = false;
@@ -16,6 +17,7 @@ public class DragAndDrop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        grabPlace = GameObject.Find("Hand_R_PickUp");
         startPosition = transform.position;
     }
 
@@ -37,15 +39,30 @@ public class DragAndDrop : MonoBehaviour
 
             if (dot > 0.5f) { isFacingBox = true; }
 
-            if (distancePlayerObject < minDistanceToGrabObject && Input.GetButtonDown("Interact") && isFacingBox && !cancelledDrop)
+            if (Input.GetButtonDown("Interact")  && !cancelledDrop)
             {
-                if (!objectIsGrabbed)
+                if (distancePlayerObject < minDistanceToGrabObject && !objectIsGrabbed && isFacingBox)
                 {
-                    GrabObject();
+                    playerAnimator.SetBool("PickUp", true);
+                    playerAnimator.SetFloat("Distance", Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)));
+                    player.SendMessage("StopMovement", true);
+                    if (Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)) < 0.6)
+                    {
+                        StartCoroutine(PickUpCoroutine(0.75f));
+                        StartCoroutine(AnimationsCoroutine(3f));
+                    }
+                    else
+                    {
+                        StartCoroutine(PickUpCoroutine(2f));
+                        StartCoroutine(AnimationsCoroutine(3f));
+                    }
                 }
-                else
+                else if (objectIsGrabbed)
                 {
-                    DropObject();
+                    playerAnimator.SetBool("DropObject", true);
+                    player.SendMessage("StopMovement", true);
+                    StartCoroutine(DropObjectCoroutine(1.9f));
+                    StartCoroutine(AnimationsCoroutine(1.7f));
                 }
             }
         }
@@ -61,7 +78,7 @@ public class DragAndDrop : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
-            grabPlace = player.transform.GetChild(1).gameObject;
+            distanceChecker = player.transform.GetChild(1).gameObject;
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -69,7 +86,7 @@ public class DragAndDrop : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
-            grabPlace = player.transform.GetChild(1).gameObject;
+            playerAnimator = player.GetComponentInChildren<Animator>();
         }
     }
     private void OnTriggerExit(Collider other)
@@ -77,7 +94,6 @@ public class DragAndDrop : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             player = null;
-            grabPlace = null;
         }
     }
     public void DropObject()
@@ -87,6 +103,13 @@ public class DragAndDrop : MonoBehaviour
         objectIsGrabbed = false;
     }
 
+    public void publicDropObject()
+    {
+        playerAnimator.SetBool("DropObject", true);
+        player.SendMessage("StopMovement", true);
+        StartCoroutine(DropObjectCoroutine(1.9f));
+        StartCoroutine(AnimationsCoroutine(1.7f));
+    }
     public void ResetObject()
     {
         transform.position = startPosition;
@@ -97,6 +120,8 @@ public class DragAndDrop : MonoBehaviour
         player.GetComponent<playerDeath>().objectGrabbed = gameObject;
         transform.SetParent(grabPlace.transform);
         transform.position = grabPlace.transform.position;
+        transform.localPosition = new Vector3(0, 0, 0);
+        transform.localRotation = new Quaternion(0, 0, 0, 1);
         objectIsGrabbed = true;
     }
 
@@ -104,5 +129,27 @@ public class DragAndDrop : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, minDistanceToGrabObject);
+    }
+
+    IEnumerator AnimationsCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        player.SendMessage("StopMovement", false);
+        playerAnimator.SetBool("PickUp", false);
+        playerAnimator.SetBool("DropObject", false);
+        playerAnimator.SetBool("PlaceObject", false);
+
+    }
+
+    IEnumerator PickUpCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        
+        GrabObject();
+    }
+    IEnumerator DropObjectCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        DropObject();
     }
 }
