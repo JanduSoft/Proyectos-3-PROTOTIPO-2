@@ -26,12 +26,12 @@ public class PickUpandDrop : PickUp
                 if (Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)) < 0.6)
                 {
                     StartCoroutine(PickUpCoroutine(0.75f));
-                    StartCoroutine(AnimationsCoroutine(3.5f));
+                    StartCoroutine(AnimationsCoroutine(3f));
                 }
                 else
                 {
                     StartCoroutine(PickUpCoroutine(2f));
-                    StartCoroutine(AnimationsCoroutine(3.5f));
+                    StartCoroutine(AnimationsCoroutine(3f));
                 }
             }
             else if(objectIsGrabbed)
@@ -39,7 +39,7 @@ public class PickUpandDrop : PickUp
                 playerAnimator.SetBool("DropObject", true);
                 player.SendMessage("StopMovement", true);
                 StartCoroutine(DropObjectCoroutine(1.9f));
-                StartCoroutine(AnimationsCoroutine(1.9f));
+                StartCoroutine(AnimationsCoroutine(1.7f));
             }
         }
 
@@ -81,6 +81,7 @@ public class PickUpandDrop : PickUp
         player.SendMessage("StopMovement", false);
         playerAnimator.SetBool("PickUp", false);
         playerAnimator.SetBool("DropObject", false);
+        playerAnimator.SetBool("PlaceObject", false);
 
     }
 

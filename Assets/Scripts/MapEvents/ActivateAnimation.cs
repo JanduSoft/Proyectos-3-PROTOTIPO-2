@@ -90,7 +90,9 @@ public class ActivateAnimation : MonoBehaviour
         {
             if (other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos != null && Input.GetButtonDown("Interact"))
             {
-                other.transform.parent.gameObject.transform.position = objectPos.transform.position;
+                other.transform.parent.parent = null;
+                other.transform.parent.gameObject.transform.position = objectPos.position;
+                other.transform.parent.gameObject.transform.rotation = objectPos.rotation;
                 isObjectPlaced = true;
                 if (!isOpened)
                 {

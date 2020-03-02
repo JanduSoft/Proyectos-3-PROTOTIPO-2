@@ -8,6 +8,7 @@ public class ActivateDoor : MonoBehaviour
     [SerializeField] Transform objectoToMove;
     [SerializeField] Transform finalPosition;
     [SerializeField] float speed;
+    [SerializeField] Animator animator;
     [Header("PARTS TO ACTIVATE")]
     [SerializeField] EnablePartsOfMap toDisable1;
     [SerializeField] EnablePartsOfMap toDisable2;
@@ -30,10 +31,13 @@ public class ActivateDoor : MonoBehaviour
     {
         if (other.CompareTag("Place"))
         {
+            if (Input.GetButtonDown("Interact"))
+                animator.SetBool("PlaceObject", true);
             if (!other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed())
             {
                 objectoToMove.DOMove(finalPosition.position, speed);
                 other.transform.parent.gameObject.transform.position = skullPlace.position;
+                other.transform.parent.gameObject.transform.rotation = skullPlace.rotation;
                 other.transform.parent.gameObject.GetComponent<PickUpandDrop>().enabled = false;
                 myPart.isActive = true;
                 if (!isOpened)
@@ -41,7 +45,6 @@ public class ActivateDoor : MonoBehaviour
                     isOpened = true;
                     myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
                 }
-
             }
         }
     }
