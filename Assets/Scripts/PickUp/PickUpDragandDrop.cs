@@ -39,7 +39,7 @@ public class PickUpDragandDrop : PickUpandDrop
     {
 
         CheckVariables();
-        if (Input.GetButtonDown("Interact") && isFacingBox && !cancelledDrop && playerController.isGrounded)
+        if (Input.GetButtonDown("Interact") && isFacingBox && !cancelledDrop && playerController.isGrounded && distanceSuficient)
         {
             if (!objectIsGrabbed)
             {

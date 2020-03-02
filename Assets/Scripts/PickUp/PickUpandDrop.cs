@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PickUpandDrop : PickUp
 {
+    [SerializeField] Animator playerAnimator;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,12 +15,23 @@ public class PickUpandDrop : PickUp
     void Update()
     {
         CheckVariables();
-        if (Input.GetButtonDown("Interact") && isFacingBox && !cancelledDrop)
+        if (Input.GetButtonDown("Interact") && isFacingBox && !cancelledDrop && distanceSuficient)
         {
             if (!objectIsGrabbed)
-                PickUpObject();
+            {
+                playerAnimator.SetBool("PickUp", true);
+                playerAnimator.SetFloat("Distance", Mathf.Abs((transform.position.y - grabPlace.transform.position.y)));
+                player.SendMessage("StopMovement", true);
+                StartCoroutine(PickUpCoroutine(0.75f));
+                StartCoroutine(AnimationsCoroutine(2.75f));
+            }
             else
-                DropObject();
+            {
+                playerAnimator.SetBool("DropObject", true);
+                player.SendMessage("StopMovement", true);
+                StartCoroutine(DropObjectCoroutine(0.75f));
+                StartCoroutine(AnimationsCoroutine(2.5f));
+            }
         }
 
     }
@@ -37,6 +49,7 @@ public class PickUpandDrop : PickUp
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
+            playerAnimator = player.GetComponentInChildren<Animator>();
             grabPlace = player.transform.GetChild(1).gameObject;
         }
     }
@@ -52,5 +65,25 @@ public class PickUpandDrop : PickUp
     public bool GetObjectIsGrabbed()
     {
         return objectIsGrabbed;
+    }
+
+    IEnumerator AnimationsCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        player.SendMessage("StopMovement", false);
+        playerAnimator.SetBool("PickUp", false);
+        playerAnimator.SetBool("DropObject", false);
+
+    }
+
+    IEnumerator PickUpCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        PickUpObject();
+    }
+    IEnumerator DropObjectCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        DropObject();
     }
 }

@@ -34,9 +34,9 @@ public class PickUpDropandThrow : PickUpandDrop
         }
         else if ((Input.GetButtonUp("Interact")))
         {
-            if (isFacingBox && !cancelledDrop)
+            if (isFacingBox && !cancelledDrop )
             {
-                if (!objectIsGrabbed)
+                if (!objectIsGrabbed && distanceSuficient)
                 {
                     PickUpObject();
                 }

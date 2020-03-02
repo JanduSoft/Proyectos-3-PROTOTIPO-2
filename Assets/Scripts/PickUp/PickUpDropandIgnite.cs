@@ -23,7 +23,7 @@ public class PickUpDropandIgnite : PickUpandDrop
     void Update()
     {
         CheckVariables();
-        if (Input.GetButtonDown("Interact") && isFacingBox && !cancelledDrop)
+        if (Input.GetButtonDown("Interact") && isFacingBox && !cancelledDrop && distanceSuficient)
         {
             if (!objectIsGrabbed)
                 PickUpObject();
