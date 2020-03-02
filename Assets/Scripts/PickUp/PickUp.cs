@@ -6,6 +6,7 @@ public class PickUp : MonoBehaviour
 {
     protected GameObject player = null;
     protected GameObject grabPlace = null;
+    protected GameObject distanceChecker = null;
     protected float minDistanceToGrabObject = 2.5f;
     protected bool objectIsGrabbed;
     protected bool distanceSuficient = false;
@@ -32,10 +33,11 @@ public class PickUp : MonoBehaviour
     }
     protected virtual void PickUpObject()
     {
-        transform.SetParent(player.transform);
-        transform.position = grabPlace.transform.position;
+        transform.SetParent(grabPlace.transform);
+        transform.localPosition = new Vector3(0,0,0);
+        transform.localRotation = new Quaternion(0, 0, 0, 1);
         objectIsGrabbed = true;
-       }
+    }
     protected void ForcePickUpObject()
     {        
         if (!objectIsGrabbed)

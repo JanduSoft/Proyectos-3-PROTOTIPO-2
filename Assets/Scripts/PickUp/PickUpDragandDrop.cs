@@ -39,14 +39,14 @@ public class PickUpDragandDrop : PickUpandDrop
     {
 
         CheckVariables();
-        if (Input.GetButtonDown("Interact") && isFacingBox && !cancelledDrop && playerController.isGrounded && distanceSuficient)
+        if (Input.GetButtonDown("Interact")  && !cancelledDrop && playerController.isGrounded )
         {
-            if (!objectIsGrabbed)
+            if (!objectIsGrabbed && isFacingBox)
             {
                 PickUpObject();
                 playerMovement.grabbedToRock = true;
             }
-            else
+            else if (objectIsGrabbed)
             {
                 animator.SetBool("Attached", false);
                 playerMovement.grabbedToRock = false;

@@ -131,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
                     timeIdle = 0;
                 }
             }
-            else if(!grabbedToRock && movePlayer != Vector3.zero)
+            else if(!grabbedToRock && movePlayer != Vector3.zero && !stopped)
             {
                 player.transform.DOLookAt(player.transform.position + movePlayer,0.5f);
                 model.transform.position = player.transform.position;

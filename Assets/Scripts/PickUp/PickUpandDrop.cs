@@ -4,33 +4,42 @@ using UnityEngine;
 
 public class PickUpandDrop : PickUp
 {
-    [SerializeField] Animator playerAnimator;
+    Animator playerAnimator;
     // Start is called before the first frame update
     void Start()
     {
         objectIsGrabbed = false;
+        grabPlace = GameObject.Find("Hand_R_PickUp");
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckVariables();
-        if (Input.GetButtonDown("Interact") && isFacingBox && !cancelledDrop && distanceSuficient)
+        if (Input.GetButtonDown("Interact") && !cancelledDrop )
         {
-            if (!objectIsGrabbed)
+            if (!objectIsGrabbed && distanceSuficient && isFacingBox)
             {
                 playerAnimator.SetBool("PickUp", true);
-                playerAnimator.SetFloat("Distance", Mathf.Abs((transform.position.y - grabPlace.transform.position.y)));
+                playerAnimator.SetFloat("Distance", Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)));
                 player.SendMessage("StopMovement", true);
-                StartCoroutine(PickUpCoroutine(0.75f));
-                StartCoroutine(AnimationsCoroutine(2.75f));
+                if (Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)) < 0.6)
+                {
+                    StartCoroutine(PickUpCoroutine(0.75f));
+                    StartCoroutine(AnimationsCoroutine(3.5f));
+                }
+                else
+                {
+                    StartCoroutine(PickUpCoroutine(2f));
+                    StartCoroutine(AnimationsCoroutine(3.5f));
+                }
             }
-            else
+            else if(objectIsGrabbed)
             {
                 playerAnimator.SetBool("DropObject", true);
                 player.SendMessage("StopMovement", true);
-                StartCoroutine(DropObjectCoroutine(0.75f));
-                StartCoroutine(AnimationsCoroutine(2.5f));
+                StartCoroutine(DropObjectCoroutine(1.9f));
+                StartCoroutine(AnimationsCoroutine(1.9f));
             }
         }
 
@@ -41,7 +50,7 @@ public class PickUpandDrop : PickUp
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
-            grabPlace = player.transform.GetChild(1).gameObject;
+            distanceChecker = player.transform.GetChild(1).gameObject;
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -50,7 +59,6 @@ public class PickUpandDrop : PickUp
         {
             player = other.gameObject;
             playerAnimator = player.GetComponentInChildren<Animator>();
-            grabPlace = player.transform.GetChild(1).gameObject;
         }
     }
     protected void ObjectDrop()

@@ -23,9 +23,9 @@ public class PickUpDropandIgnite : PickUpandDrop
     void Update()
     {
         CheckVariables();
-        if (Input.GetButtonDown("Interact") && isFacingBox && !cancelledDrop && distanceSuficient)
+        if (Input.GetButtonDown("Interact")  && !cancelledDrop )
         {
-            if (!objectIsGrabbed)
+            if (!objectIsGrabbed && distanceSuficient && isFacingBox)
                 PickUpObject();
             else if (!nearFire && !nearRope)
                 DropObject();
