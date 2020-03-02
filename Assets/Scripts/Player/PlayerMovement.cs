@@ -16,8 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private bool stopped = false;
     [SerializeField] GameObject walkinParticles;
     [SerializeField] Transform walkinParticlesSpawner;
-    bool grounded = true;
-    [SerializeField] CharacterController player;
+    public bool grounded = true;
+    [SerializeField] public CharacterController player;
     [SerializeField] float playerSpeed;
     [SerializeField] Whip whip;
     [Header("JUMP")]
@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isInWhipJump = false;
 
     [Header("ANIMATIONS")]
-    [SerializeField] Animator animatorController;
+    [SerializeField] public Animator animatorController;
     [SerializeField] GameObject model;
     float timeIdle = 0;
     #endregion
@@ -74,7 +74,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (moveToPortal1)
         {
             transform.position = portal1.position;
@@ -113,19 +112,19 @@ public class PlayerMovement : MonoBehaviour
 
             playerInput = new Vector3(horizontalMove, 0, verticalMove);
             playerInput = Vector3.ClampMagnitude(playerInput, 1);
-            
+
             //GETTING CAMERA DIRECTION
             CamDirection();
 
             // CALCULATING CHARACTER MOVEMENT
             movePlayer = playerInput.x * camRight + playerInput.z * camForward;
             movePlayer *= playerSpeed;
-            if(movePlayer == Vector3.zero)
+            if (movePlayer == Vector3.zero)
             {
                 animatorController.SetBool("walking", false);
                 timeIdle += Time.deltaTime;
                 animatorController.SetFloat("idle", timeIdle);
-                if(timeIdle > 4)
+                if (timeIdle > 4)
                 {
                     animatorController.SetInteger("randomIdle", Random.Range(0, 2));
                     timeIdle = 0;
@@ -133,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if(!grabbedToRock && movePlayer != Vector3.zero && !stopped)
             {
-                player.transform.DOLookAt(player.transform.position + movePlayer,0.5f);
+                player.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
                 model.transform.position = player.transform.position;
                 model.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
 
@@ -155,10 +154,10 @@ public class PlayerMovement : MonoBehaviour
                 {
                     prevPos = transform.position;
                     playerSteps.Play();
-                    Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position,Quaternion.identity), 0.55f);
+                    Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position, Quaternion.identity), 0.55f);
                 }
 
-                if(player.isGrounded || grounded)
+                if (player.isGrounded || grounded)
                     animatorController.SetBool("Jumping", false);
                 else if (!player.isGrounded && !grounded)
                     animatorController.SetBool("Jumping", true);
@@ -167,8 +166,8 @@ public class PlayerMovement : MonoBehaviour
 
             }
         }
-        
-        
+
+
     }
     #endregion
 
@@ -203,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
     #region SET GRAVITY
     void SetGravity()
     {
-        
+
         if (player.isGrounded)
         {
             fallVelocity = -gravity * Time.deltaTime;
@@ -214,46 +213,46 @@ public class PlayerMovement : MonoBehaviour
             fallVelocity -= gravity * Time.deltaTime;
             movePlayer.y = fallVelocity;
         }
-        
+
     }
     #endregion
 
     private void OnTriggerEnter(Collider other)
     {
-       if (other.CompareTag("Portal1"))
-       {
+        if (other.CompareTag("Portal1"))
+        {
             Debug.Log("Entrando al portal 1");
             moveToPortal1 = true;
-       }
-       else if (other.CompareTag("Portal2"))
-       {
+        }
+        else if (other.CompareTag("Portal2"))
+        {
             Debug.Log("Entrando al portal 2");
             moveToPortal2 = true;
-       }
-       else if (other.CompareTag("Portal3"))
-       {
+        }
+        else if (other.CompareTag("Portal3"))
+        {
             Debug.Log("Entrando al portal 3");
             moveToPortal3 = true;
-       }
-       else if (other.CompareTag("Portal4"))
-       {
+        }
+        else if (other.CompareTag("Portal4"))
+        {
             Debug.Log("Entrando al portal 4");
             moveToPortal4 = true;
-       }
-       else if (other.CompareTag("Portal5"))
-       {
-           Debug.Log("Entrando al portal 5");
-           moveToPortal5 = true;
-       }
-       else if (other.CompareTag("Portal6"))
-       {
-           Debug.Log("Entrando al portal 6");
-           moveToPortal6 = true;
-       }
+        }
+        else if (other.CompareTag("Portal5"))
+        {
+            Debug.Log("Entrando al portal 5");
+            moveToPortal5 = true;
+        }
+        else if (other.CompareTag("Portal6"))
+        {
+            Debug.Log("Entrando al portal 6");
+            moveToPortal6 = true;
+        }
         else if (other.CompareTag("Ground"))
-       {
+        {
             grounded = true;
-       }
+        }
     }
 
     private void OnTriggerStay(Collider other)

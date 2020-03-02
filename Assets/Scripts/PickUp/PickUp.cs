@@ -14,6 +14,14 @@ public class PickUp : MonoBehaviour
     protected bool cancelledDrop = false;
     protected float distancePlayerObject;
     protected float minDot = 0.5f;
+    protected Vector3 startingPosition;
+
+    public virtual void ResetPosition()
+    {
+        Debug.Log(startingPosition);
+        transform.position = startingPosition;
+    }
+
     // Start is called before the first frame update
     protected virtual void CheckVariables()
     {
@@ -39,13 +47,14 @@ public class PickUp : MonoBehaviour
         objectIsGrabbed = true;
     }
     protected void ForcePickUpObject()
-    {        
+    {
         if (!objectIsGrabbed)
         {
-            transform.SetParent(player.transform);
-            transform.position = grabPlace.transform.position;
+            transform.SetParent(grabPlace.transform);
+            transform.localPosition = Vector3.zero;
             objectIsGrabbed = true;
-        }       
+            player.GetComponent<playerDeath>().objectGrabbed = gameObject;
+        }
     }
     public void GrabObject()
     {

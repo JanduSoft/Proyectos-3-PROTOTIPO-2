@@ -11,11 +11,12 @@ public class DragAndDrop : MonoBehaviour
     [HideInInspector] public bool objectIsGrabbed = false;
     bool isFacingBox = false;
     public bool cancelledDrop = false;
+    Vector3 startPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        startPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -81,12 +82,19 @@ public class DragAndDrop : MonoBehaviour
     }
     public void DropObject()
     {
+        player.GetComponent<playerDeath>().objectGrabbed = null;
         transform.SetParent(null);
         objectIsGrabbed = false;
     }
 
+    public void ResetObject()
+    {
+        transform.position = startPosition;
+    }
+
     public void GrabObject()
     {
+        player.GetComponent<playerDeath>().objectGrabbed = gameObject;
         transform.SetParent(grabPlace.transform);
         transform.position = grabPlace.transform.position;
         objectIsGrabbed = true;

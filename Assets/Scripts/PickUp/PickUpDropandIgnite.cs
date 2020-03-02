@@ -16,7 +16,7 @@ public class PickUpDropandIgnite : PickUpandDrop
     // Start is called before the first frame update
     void Start()
     {
-        
+        startingPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -39,7 +39,7 @@ public class PickUpDropandIgnite : PickUpandDrop
             {
                 Debug.Log("Rope Burnt");
                 ObjectToBeBurnt.SetActive(false);
-                consequence.SetActive( true);
+                consequence.SetActive(true);
                 nearRope = false;
                 shaking.StartShake(0.75f);
             }
