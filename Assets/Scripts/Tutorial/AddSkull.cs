@@ -25,22 +25,24 @@ public class AddSkull : MonoBehaviour
         {
             if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && Input.GetButtonDown("Interact"))
             {
-                Debug.Log("Tries to place skull");
-                skull.GetComponent<DragAndDrop>().DropObject();
+                skull.GetComponent<DragAndDrop>().publicDropObject();
                 if (isImportantCup)
                 {
                     skull.GetComponent<DragAndDrop>().enabled = false;
                 }
-                skullTransform.position = placePosition.transform.position;
-                skullTransform.rotation = transform.rotation;
-                if (faceOppositeDirection) skullTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
-                isActivated = true;
             }
             else if (!isImportantCup && canPlace && !skull.GetComponent<DragAndDrop>().objectIsGrabbed && isActivated && Input.GetButtonDown("Interact"))
             {
                 //skull.GetComponent<DragAndDrop>().CancelledDrop(false);
                 skull.GetComponent<DragAndDrop>().GrabObject();
                 isActivated = false;
+            }
+            if(!skull.GetComponent<DragAndDrop>().objectIsGrabbed)
+            {
+                skullTransform.position = placePosition.transform.position;
+                skullTransform.rotation = transform.rotation;
+                if (faceOppositeDirection) skullTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
+                isActivated = true;
             }
         }
     }

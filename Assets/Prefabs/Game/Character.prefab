@@ -57,7 +57,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 606560527}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 1.106}
+  m_LocalPosition: {x: 0, y: 1.56, z: 0.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6120095539264640499}
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 606560527}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0afe60eac35b99349a5b049f85ce04cc, type: 3}
   m_Name: 
@@ -217,6 +217,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 996ae6a9a10055e459e9b387c969ebbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovementScript: {fileID: 6120095539264640498}
+  whipAttackScript: {fileID: 1052674258}
+  deathPanel: {fileID: 0}
+  objectGrabbed: {fileID: 0}
 --- !u!114 &6120095539264640498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +240,7 @@ MonoBehaviour:
   walkinParticles: {fileID: 1599718021928974, guid: 88010a27506fd2c40980a3c67022eca8,
     type: 3}
   walkinParticlesSpawner: {fileID: 638439896}
+  grounded: 1
   player: {fileID: 6120095539264640500}
   playerSpeed: 15
   whip: {fileID: 1052674258}
@@ -456,7 +461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4435402632355884, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.25225496
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4435402632355884, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -511,6 +516,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 33819a894fba6eb4c8baa9c260ac4ab4, type: 2}
+    - target: {fileID: 1567018642395164, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
+      propertyPath: m_Name
+      value: Hand_R_PickUp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
 --- !u!1 &1669957099268278 stripped
