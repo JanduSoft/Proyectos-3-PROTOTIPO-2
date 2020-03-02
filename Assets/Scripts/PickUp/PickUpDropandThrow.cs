@@ -8,7 +8,7 @@ public class PickUpDropandThrow : PickUpandDrop
     double timeKeyDown = 0f;
     bool keyDown = false;
     int force = 10;
-    [Header("OBJECT COMPONENTS")] 
+    [Header("OBJECT COMPONENTS")]
     [SerializeField] Rigidbody _thisRB;
     [SerializeField] SphereCollider _thisSC;
     [Header("EXTERNAL OBJECTS")]
@@ -21,6 +21,7 @@ public class PickUpDropandThrow : PickUpandDrop
     {
         _thisRB.useGravity = false;
         useGravity = false;
+        startingPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -30,7 +31,7 @@ public class PickUpDropandThrow : PickUpandDrop
         if (Input.GetButtonDown("Interact"))
         {
             keyDown = true;
-            
+
         }
         else if ((Input.GetButtonUp("Interact")))
         {
@@ -88,7 +89,7 @@ public class PickUpDropandThrow : PickUpandDrop
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(tag == "Destroyable")
+        if (tag == "Destroyable")
         {
             objectInside.SetActive(true);
             dustParticles.SetActive(true);

@@ -24,6 +24,7 @@ public class PickUpDragandDrop : PickUpandDrop
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        startingPosition = transform.position;
         try
         {
             dragSound = GameObject.Find("Drag sound").GetComponent<AudioSource>();
@@ -135,7 +136,7 @@ public class PickUpDragandDrop : PickUpandDrop
                 }
             }
         }
-        else if(!rockGrabbed && player != null)
+        else if (!rockGrabbed && player != null)
         {
             playerMovement.grabbedToRock = false;
             animator.SetBool("Attached", false);
@@ -253,7 +254,7 @@ public class PickUpDragandDrop : PickUpandDrop
         //player.transform.position = Vector3.Lerp(player.transform.position, closestPoint, 0.1f);
         //lerp rotation to face object
         Vector3 targetPostition = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
-        player.transform.DOLookAt(targetPostition,0.25f);
+        player.transform.DOLookAt(targetPostition, 0.25f);
         if (Vector3.Distance(player.transform.position, closestPoint) < 0.1f)
         {
             //stop lerping and look at object

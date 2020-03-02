@@ -20,7 +20,7 @@ public class Whip : MonoBehaviour
     float oldFOV = 0;
     [SerializeField] bool inputDown = false;
     [SerializeField] bool ableToAttack = false;
-    [SerializeField] bool attackMode = false;
+    [SerializeField] public bool attackMode = false;
     bool ableToWhipObject = false;
     bool resetWhip = false;
     bool whippin = false;
@@ -63,9 +63,9 @@ public class Whip : MonoBehaviour
             mainCamera.DOFieldOfView(60, 1);
             spriteIndicateObject.SetActive(true);
             spriteIndicateObject.transform.position = whipableObjectTransform.position + new Vector3(0, 2.5f, 0);
-            distToWhipable = Vector3.Distance(playerTransform.position, enemyList[index].position + new Vector3(0,5,0) );
+            distToWhipable = Vector3.Distance(playerTransform.position, enemyList[index].position + new Vector3(0, 5, 0));
         }
-        
+
         if (counter < distToWhipable && inputDown && (attackMode || ableToWhipObject))
         {
             time += Time.deltaTime;
@@ -81,7 +81,7 @@ public class Whip : MonoBehaviour
 
         #region PLAYER WHIPATTACK & WHIPOBJECT
 
-        if (time >= lineDrawSpeed/4  && attackMode)
+        if (time >= lineDrawSpeed / 4 && attackMode)
         {
             Debug.Log("enemyDead");
             counter = 0;
@@ -90,7 +90,7 @@ public class Whip : MonoBehaviour
             whip.SetPosition(1, playerTransform.position);
             enemyList[index].SendMessage("Die");
         }
-        else if (time >= lineDrawSpeed  && ableToWhipObject)
+        else if (time >= lineDrawSpeed && ableToWhipObject)
         {
             whipableObjectTransform.SendMessage("ChangeState");
         }
@@ -104,7 +104,7 @@ public class Whip : MonoBehaviour
             whippin = true;
             inputDown = true;
         }
-        else if (Input.GetButtonUp("Whip") )
+        else if (Input.GetButtonUp("Whip"))
         {
             whippin = false;
             resetWhip = false;
@@ -135,7 +135,7 @@ public class Whip : MonoBehaviour
         }
         if (ableToAttack && Input.GetButtonDown("EnterCombatMode"))
         {
-            if(!attackMode) oldFOV = mainCamera.fieldOfView;
+            if (!attackMode) oldFOV = mainCamera.fieldOfView;
             else
             {
                 mainCamera.DOFieldOfView(oldFOV, 1);
@@ -149,14 +149,9 @@ public class Whip : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "WhipEnemy")
+        if (other.tag == "WhipEnemy")
         {
             enemyList.Add(other.gameObject.transform);
             attackMode = true;
@@ -169,7 +164,7 @@ public class Whip : MonoBehaviour
             spriteIndicateObject.SetActive(true);
             spriteIndicateObject.transform.position = whipableObjectTransform.position;
         }
-        
+
     }
     private void OnTriggerExit(Collider other)
     {
@@ -191,5 +186,17 @@ public class Whip : MonoBehaviour
     public void setWhipableJumpObjectTransform(Transform transform)
     {
         whipableObjectTransform = transform;
+    }
+
+    public void ResetAllEnemiesAround()
+    {
+        foreach (var enemy in enemyList)
+        {
+            try
+            {
+                enemy.GetComponent<PatrolEnemy>().ResetEnemy();
+            }
+            catch { }
+        }
     }
 }
