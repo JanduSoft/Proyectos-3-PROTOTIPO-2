@@ -6,8 +6,10 @@ public class PickUp : MonoBehaviour
 {
     protected GameObject player = null;
     protected GameObject grabPlace = null;
+    protected GameObject distanceChecker = null;
     protected float minDistanceToGrabObject = 2.5f;
     protected bool objectIsGrabbed;
+    protected bool distanceSuficient = false;
     protected bool isFacingBox = false;
     protected bool cancelledDrop = false;
     protected float distancePlayerObject;
@@ -34,20 +36,15 @@ public class PickUp : MonoBehaviour
             //we do the dot product of X and Z, to ignore the Y in case the object is placed above or below
             float dot = Vector3.Dot(playerForward2d, dirToObject2d);
             if (dot > minDot) { isFacingBox = true; }
+            distanceSuficient = (distancePlayerObject < minDistanceToGrabObject);
         }
     }
     protected virtual void PickUpObject()
     {
-        if (distancePlayerObject < minDistanceToGrabObject)
-        {
-            if (!objectIsGrabbed)
-            {
-                transform.SetParent(grabPlace.transform);
-                transform.localPosition = Vector3.zero;
-                objectIsGrabbed = true;
-                player.GetComponent<playerDeath>().objectGrabbed = gameObject;
-            }
-        }
+        transform.SetParent(grabPlace.transform);
+        transform.localPosition = new Vector3(0,0,0);
+        transform.localRotation = new Quaternion(0, 0, 0, 1);
+        objectIsGrabbed = true;
     }
     protected void ForcePickUpObject()
     {
