@@ -12,6 +12,7 @@ public class PickUpDragandDrop : PickUpandDrop
     [HideInInspector] public bool playSound = false;
     [SerializeField] CharacterController playerController;
     [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] Quaternion rotation;
     Vector3[] grabPoints = new Vector3[4];
     Vector3 closestPoint;
     int minPoint = -1;[HideInInspector] public Rigidbody rb;
@@ -44,6 +45,7 @@ public class PickUpDragandDrop : PickUpandDrop
         {
             if (!objectIsGrabbed && isFacingBox)
             {
+                rotation = player.transform.rotation;
                 PickUpObject();
                 playerMovement.grabbedToRock = true;
             }
@@ -241,7 +243,7 @@ public class PickUpDragandDrop : PickUpandDrop
         animator.SetBool("Pulling", false);
         playerMovement.grabbedToRock = false;
         //ERRORRRRERRRORRRERRRORRR
-        player.transform.DOLookAt(new Vector3(0, 0, 0), 0.5f);
+        player.transform.DORotateQuaternion(rotation, 0.5f);
         playSound = false;
         dragSound.Stop();
         lerping = false;
