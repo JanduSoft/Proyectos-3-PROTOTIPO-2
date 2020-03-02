@@ -22,9 +22,11 @@ public class PatrolEnemy : MonoBehaviour
     float angleBetweenEnemyandPlayer = 0;
     bool trueDeath = false;
     [SerializeField] int index = 1;
+    Vector3 startPosition;
     // Start is called before the first frame update
     void Start()
     {
+        startPosition = transform.position;
         Skull.SetActive(false);
     }
 
@@ -74,6 +76,13 @@ public class PatrolEnemy : MonoBehaviour
         animController.SetBool("dead", true);
         agent.SetDestination(agent.transform.position);
         StartCoroutine(returnToTheLiving(2));
+    }
+
+    public void ResetEnemy()
+    {
+        transform.position = startPosition;
+        StartCoroutine(returnToTheLiving(0));
+
     }
 
     IEnumerator returnToTheLiving(float _s)

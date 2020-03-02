@@ -8,6 +8,7 @@ public class PickUpandDrop : PickUp
     void Start()
     {
         objectIsGrabbed = false;
+        startingPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -29,7 +30,7 @@ public class PickUpandDrop : PickUp
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
-            grabPlace = player.transform.GetChild(1).gameObject;
+            grabPlace = player.transform.GetChild(2).gameObject;
         }
     }
     private void OnTriggerEnter(Collider other)
