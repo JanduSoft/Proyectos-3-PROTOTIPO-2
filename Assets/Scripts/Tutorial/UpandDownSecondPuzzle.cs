@@ -31,17 +31,14 @@ public class UpandDownSecondPuzzle : MonoBehaviour
                 {
                     case 0:
                         target.position = positions[1].position;
-                        
                         index++;
                         break;
                     case 1:
                         target.position = positions[2].position;
-                       
                         index++;
                         break;
                     case 2:
                         target.position = positions[0].position;
-                       
                         index = 0;
                         break;
                     default:

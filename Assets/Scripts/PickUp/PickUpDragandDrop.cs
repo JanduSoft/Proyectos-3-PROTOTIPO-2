@@ -240,6 +240,7 @@ public class PickUpDragandDrop : PickUpandDrop
         animator.SetBool("Push", false);
         animator.SetBool("Pulling", false);
         playerMovement.grabbedToRock = false;
+        //ERRORRRRERRRORRRERRRORRR
         player.transform.DOLookAt(new Vector3(0, 0, 0), 0.5f);
         playSound = false;
         dragSound.Stop();

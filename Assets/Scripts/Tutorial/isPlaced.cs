@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class isPlaced : MonoBehaviour
 {
-    [SerializeField] Transform placePosition;
-    [SerializeField] string name;
+
     [SerializeField] UpandDownSecondPuzzle lever;
+    [SerializeField] AddSkull killme;
     Transform skullTransform = null;
     private bool canPlace = false;
     bool placed = false;
@@ -15,6 +15,7 @@ public class isPlaced : MonoBehaviour
         if (canPlace && Input.GetButtonDown("Interact"))
         {
             lever.enabled = true;
+            killme.enabled = false;
         }
     }
 
