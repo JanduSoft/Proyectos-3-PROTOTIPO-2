@@ -32,7 +32,11 @@ public class ActivateDoor : MonoBehaviour
         if (other.CompareTag("Place"))
         {
             if (Input.GetButtonDown("Interact"))
+            {
+                animator.SetBool("DropObject", false);
                 animator.SetBool("PlaceObject", true);
+                StartCoroutine(AnimationsCoroutine(1f));
+            }
             if (!other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed())
             {
                 objectoToMove.DOMove(finalPosition.position, speed);
@@ -47,5 +51,13 @@ public class ActivateDoor : MonoBehaviour
                 }
             }
         }
+    }
+    IEnumerator AnimationsCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        animator.SetBool("PickUp", false);
+        animator.SetBool("DropObject", false);
+        animator.SetBool("PlaceObject", false);
+
     }
 }

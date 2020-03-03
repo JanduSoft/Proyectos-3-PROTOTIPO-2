@@ -15,8 +15,8 @@ public class isPlaced : MonoBehaviour
         if (canPlace && Input.GetButtonDown("Interact"))
         {
             lever.enabled = true;
-            killme.enabled = false;
         }
+        if (killme.isActivated) killme.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
