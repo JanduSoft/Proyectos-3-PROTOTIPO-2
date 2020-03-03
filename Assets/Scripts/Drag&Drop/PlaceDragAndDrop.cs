@@ -7,7 +7,7 @@ public class PlaceDragAndDrop : MonoBehaviour
     public GameObject placePosition;
     Transform skullTransform = null;
     bool canPlace = false;
-
+    [SerializeField] Animator playeranimator;
     GameObject skull = null;
 
     public bool isActivated = false;
@@ -21,6 +21,12 @@ public class PlaceDragAndDrop : MonoBehaviour
     {
         if (skull != null)
         {
+            if (Input.GetButtonDown("Interact"))
+            {
+                playeranimator.SetBool("DropObject", false);
+                playeranimator.SetBool("PlaceObject", true);
+                StartCoroutine(AnimationsCoroutine(1f));
+            }
             if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && Input.GetButtonDown("Interact"))
             {
                 skull.GetComponent<DragAndDrop>().DropObject();
@@ -73,5 +79,14 @@ public class PlaceDragAndDrop : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(GetComponent<SphereCollider>().bounds.center, GetComponent<SphereCollider>().radius * transform.lossyScale.x);
+    }
+
+    IEnumerator AnimationsCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        playeranimator.SetBool("PickUp", false);
+        playeranimator.SetBool("DropObject", false);
+        playeranimator.SetBool("PlaceObject", false);
+
     }
 }
