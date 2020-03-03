@@ -8,6 +8,7 @@ public class AddSkull : MonoBehaviour
     Transform skullTransform = null;
     public bool isImportantCup = false;
     bool canPlace = false;
+    [SerializeField] Animator playeranimator;
 
     GameObject skull = null;
 
@@ -23,6 +24,12 @@ public class AddSkull : MonoBehaviour
     {
         if (skull != null)
         {
+            if (Input.GetButtonDown("Interact"))
+            {
+                playeranimator.SetBool("PlaceObject", true);
+                playeranimator.SetBool("DropObject", false);
+                StartCoroutine(AnimationsCoroutine(1f));
+            }
             if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && Input.GetButtonDown("Interact"))
             {
                 skull.GetComponent<DragAndDrop>().publicDropObject();
@@ -86,6 +93,14 @@ public class AddSkull : MonoBehaviour
         }
     }
 
+    IEnumerator AnimationsCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        playeranimator.SetBool("PickUp", false);
+        playeranimator.SetBool("DropObject", false);
+        playeranimator.SetBool("PlaceObject", false);
+
+    }
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(GetComponent<SphereCollider>().bounds.center, GetComponent<SphereCollider>().radius * transform.lossyScale.x);

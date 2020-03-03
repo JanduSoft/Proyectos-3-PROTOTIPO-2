@@ -33,6 +33,7 @@ public class ActivateDoor : MonoBehaviour
         {
             if (Input.GetButtonDown("Interact"))
             {
+                animator.SetBool("DropObject", false);
                 animator.SetBool("PlaceObject", true);
                 StartCoroutine(AnimationsCoroutine(1f));
             }

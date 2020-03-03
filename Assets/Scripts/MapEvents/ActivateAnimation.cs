@@ -16,6 +16,7 @@ public class ActivateAnimation : MonoBehaviour
     [SerializeField] Animator myAnimator;
     [SerializeField] typeAnimator type;
     [SerializeField] GameObject objectToBePlaced;
+    [SerializeField] Animator playeranimator;
 
     [Header("FOR CAMERA SHAKE")]
     [SerializeField] Camera myCamera;
@@ -88,6 +89,12 @@ public class ActivateAnimation : MonoBehaviour
     {
         if (other.CompareTag("Place") && type == typeAnimator.DOOR)
         {
+            if (Input.GetButtonDown("Interact"))
+            {
+                playeranimator.SetBool("DropObject", false);
+                playeranimator.SetBool("PlaceObject", true);
+                StartCoroutine(AnimationsCoroutine(1f));
+            }
             if (other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos != null && Input.GetButtonDown("Interact"))
             {
                 other.transform.parent.parent = null;
@@ -128,4 +135,12 @@ public class ActivateAnimation : MonoBehaviour
     }
     #endregion
 
+    IEnumerator AnimationsCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        playeranimator.SetBool("PickUp", false);
+        playeranimator.SetBool("DropObject", false);
+        playeranimator.SetBool("PlaceObject", false);
+
+    }
 }
