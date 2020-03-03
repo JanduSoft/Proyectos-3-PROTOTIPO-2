@@ -65,7 +65,6 @@ public class PickUpandDrop : PickUp
     {
         playerAnimator.SetBool("DropObject", true);
         player.SendMessage("StopMovement", true);
-        StartCoroutine(DropObjectCoroutine(1.9f));
         StartCoroutine(AnimationsCoroutine(1.7f));
         transform.SetParent(null);
         objectIsGrabbed = false;
