@@ -5,7 +5,6 @@ using UnityEngine;
 public class OnTriggerPlayAnim : MonoBehaviour
 {
     public string animationClipName;
-
     Animation rockAnim;
     [SerializeField]bool deactivateRock = false;
 

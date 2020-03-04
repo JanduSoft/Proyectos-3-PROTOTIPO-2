@@ -5,6 +5,9 @@ using UnityEngine;
 public class UpandDownSecondPuzzle : MonoBehaviour
 {
     #region VARABLES
+    [Header ("Sound Variables")]
+    [SerializeField] AudioSource leverSound;
+    [Header ("Puzzle Variables")]
     [SerializeField] Transform target;
     [SerializeField] GameObject place;
     [SerializeField] List<Transform> positions;
@@ -27,6 +30,8 @@ public class UpandDownSecondPuzzle : MonoBehaviour
         {
             if(Input.GetButtonDown("Interact"))
             {
+                leverSound.Play();
+                canInteract = false;
                 switch(index)
                 {
                     case 0:
@@ -50,10 +55,17 @@ public class UpandDownSecondPuzzle : MonoBehaviour
             }
         }
     }
-
+    
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.tag == "Player" && !leverSound.isPlaying)
+        {
+            canInteract = true;
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.tag == "Player" && !leverSound.isPlaying)
         {
             canInteract = true;
         }

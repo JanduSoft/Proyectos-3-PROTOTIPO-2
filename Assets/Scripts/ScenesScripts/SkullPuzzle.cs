@@ -10,7 +10,7 @@ public class SkullPuzzle : MonoBehaviour
     public List<bool> answers = new List<bool>();
     public Animation cellAnim;
     bool puzzleDone = false;
-
+    AudioSource puzzleJingle;
     [Header("FOR CAMERA SHAKE")]
     [SerializeField] Camera myCamera;
     [SerializeField] float durationShake;
@@ -21,6 +21,7 @@ public class SkullPuzzle : MonoBehaviour
 
     void Start()
     {
+        puzzleJingle = GameObject.Find("Puzzle Jingle").GetComponent<AudioSource>(); 
         foreach (var aux in skullCupArray)
         {
             answers.Add(false);
@@ -44,6 +45,7 @@ public class SkullPuzzle : MonoBehaviour
                 //////CAMERA SHAKE
                 if (!shakeActivated)
                 {
+                    puzzleJingle.Play();
                     shakeActivated = true;
                     myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
                 }

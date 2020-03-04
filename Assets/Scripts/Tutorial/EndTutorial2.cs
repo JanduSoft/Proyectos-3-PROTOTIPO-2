@@ -10,6 +10,9 @@ public class EndTutorial2 : MonoBehaviour
     bool gem2Placed = false;
     [SerializeField] GameObject dorr;
 
+    [Header("FOR SOUNDS")]
+    [SerializeField] AudioSource puzzleJingle;
+    [SerializeField] AudioSource openDoor;
     [Header("FOR CAMERA SHAKE")]
     [SerializeField] Camera myCamera;
     [SerializeField] float durationShake;
@@ -20,7 +23,6 @@ public class EndTutorial2 : MonoBehaviour
 
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -31,6 +33,8 @@ public class EndTutorial2 : MonoBehaviour
             //////CAMERA SHAKE
             if (!shakeActivated)
             {
+                puzzleJingle.Play();
+                openDoor.Play();
                 shakeActivated = true;
                 myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
             }
