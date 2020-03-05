@@ -12395,6 +12395,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6256814316364482659, guid: 267b71fc5ce67014797aa596897e70b4,
+        type: 3}
+      propertyPath: m_Name
+      value: Player walking
+      objectReference: {fileID: 0}
     - target: {fileID: 6256814316364482658, guid: 267b71fc5ce67014797aa596897e70b4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12449,11 +12454,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6256814316364482659, guid: 267b71fc5ce67014797aa596897e70b4,
-        type: 3}
-      propertyPath: m_Name
-      value: Player walking
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 267b71fc5ce67014797aa596897e70b4, type: 3}
@@ -28585,6 +28585,7 @@ MonoBehaviour:
   vibrato: 30
   randomness: 56
   objectPos: {fileID: 0}
+  puzzleJingle: {fileID: 0}
 --- !u!65 &557597651
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39099,6 +39100,10 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1157867714}
+    - target: {fileID: 1599299466, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
 --- !u!1001 &769806503
@@ -41782,7 +41787,35 @@ PrefabInstance:
     - target: {fileID: 815971939336466904, guid: 005bbc59aefd45445838aac4a90462aa,
         type: 3}
       propertyPath: Mute
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 815971939336466904, guid: 005bbc59aefd45445838aac4a90462aa,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b9a5c81bd85158f479efc43dc12e742f, type: 3}
+    - target: {fileID: 619179721, guid: 005bbc59aefd45445838aac4a90462aa, type: 3}
+      propertyPath: m_Pitch
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 619179721, guid: 005bbc59aefd45445838aac4a90462aa, type: 3}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 865645786794212991, guid: 005bbc59aefd45445838aac4a90462aa,
+        type: 3}
+      propertyPath: m_Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 865645786794212991, guid: 005bbc59aefd45445838aac4a90462aa,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 865645786794212991, guid: 005bbc59aefd45445838aac4a90462aa,
+        type: 3}
+      propertyPath: Loop
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 005bbc59aefd45445838aac4a90462aa, type: 3}
@@ -48812,6 +48845,7 @@ MonoBehaviour:
   vibrato: 0
   randomness: 0
   objectPos: {fileID: 0}
+  puzzleJingle: {fileID: 0}
 --- !u!95 &946906942
 Animator:
   serializedVersion: 3
@@ -60381,6 +60415,7 @@ MonoBehaviour:
   vibrato: 0
   randomness: 0
   objectPos: {fileID: 0}
+  puzzleJingle: {fileID: 0}
 --- !u!4 &1151438355 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 405718, guid: 0314bb02f28144347b48c97eaeaa03f9,
@@ -72102,6 +72137,7 @@ MonoBehaviour:
   vibrato: 30
   randomness: 75
   objectPos: {fileID: 0}
+  puzzleJingle: {fileID: 0}
 --- !u!65 &1394174984
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73029,6 +73065,7 @@ MonoBehaviour:
   vibrato: 0
   randomness: 0
   objectPos: {fileID: 0}
+  puzzleJingle: {fileID: 0}
 --- !u!1 &1411947176
 GameObject:
   m_ObjectHideFlags: 0
@@ -77220,6 +77257,7 @@ MonoBehaviour:
   vibrato: 0
   randomness: 0
   objectPos: {fileID: 0}
+  puzzleJingle: {fileID: 0}
 --- !u!1001 &1510363205
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79647,6 +79685,7 @@ MonoBehaviour:
   vibrato: 25
   randomness: 89
   objectPos: {fileID: 0}
+  puzzleJingle: {fileID: 0}
 --- !u!65 &1546171010
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -80439,6 +80478,7 @@ MonoBehaviour:
   vibrato: 25
   randomness: 69
   objectPos: {fileID: 0}
+  puzzleJingle: {fileID: 1866908909}
 --- !u!135 &1558988166
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -83370,7 +83410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1611863261
 Transform:
   m_ObjectHideFlags: 0
@@ -83856,6 +83896,7 @@ MonoBehaviour:
   vibrato: 35
   randomness: 27
   objectPos: {fileID: 903097144}
+  puzzleJingle: {fileID: 1866908909}
 --- !u!54 &1630928245
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -95395,6 +95436,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe3604ebbc8e42e40aae478b5acc072f, type: 3}
+--- !u!82 &1866908909 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 619179721, guid: 005bbc59aefd45445838aac4a90462aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 838532755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1867437472
 GameObject:
   m_ObjectHideFlags: 0
@@ -107885,7 +107932,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2116858265
 Transform:
   m_ObjectHideFlags: 0
