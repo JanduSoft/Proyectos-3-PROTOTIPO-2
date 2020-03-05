@@ -28,6 +28,8 @@ public class LeverScript : MonoBehaviour
     bool leverPulled = false;
     [SerializeField] bool canPullLeverAlways = false;
 
+    [Header("FOR SOUND EFFECTS")]
+    [SerializeField] AudioSource leverSound;
     [Header("FOR CAMERA SHAKE")]
     [SerializeField] Camera myCamera;
     [SerializeField] float durationShake;
@@ -52,6 +54,7 @@ public class LeverScript : MonoBehaviour
                 //////CAMERA SHAKE
                 if (!shakeActivated && needToShake )
                 {
+                    leverSound.Play();
                     shakeActivated = true;
                     myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
                 }

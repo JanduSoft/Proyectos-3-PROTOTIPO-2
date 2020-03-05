@@ -27,6 +27,8 @@ public class ActivateAnimation : MonoBehaviour
     [SerializeField] Transform objectPos = null;
     bool isObjectPlaced = false;
     bool isOpened = false;
+    [Header("FOR SOUND EFFECTS")]
+    [SerializeField] AudioSource puzzleJingle;
     #endregion
 
     #region TRIGGER ENTER
@@ -41,6 +43,7 @@ public class ActivateAnimation : MonoBehaviour
             }
             if (isObjectPlaced && other.transform.parent.name == objectToBePlaced.name)
             {
+                puzzleJingle.Play();
                 myAnimator.SetBool("Active", true);
                 Invoke("DeactivateAnimation", 2f);
                 Debug.Log("Camera Shake!!");
