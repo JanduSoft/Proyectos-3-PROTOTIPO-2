@@ -33,7 +33,16 @@ public class LevelJumper : MonoBehaviour
             SceneManager.LoadScene(3, LoadSceneMode.Single);
 
         }
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            SceneManager.LoadScene(4, LoadSceneMode.Single);
 
+        }
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            SceneManager.LoadScene(5, LoadSceneMode.Single);
+
+        }
         if (Input.GetKeyDown(KeyCode.F12))
         {
             PlayerPrefs.DeleteAll();
