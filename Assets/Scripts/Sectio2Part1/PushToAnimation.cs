@@ -19,7 +19,7 @@ public class PushToAnimation : MonoBehaviour
             Animator anim = other.GetComponent<Animator>();
 
             anim.SetBool("Active", true);
-            Invoke("StartShake", 2.5f);
+            Invoke("StartShake", 3f);
         }
     }
 
