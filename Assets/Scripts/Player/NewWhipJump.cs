@@ -79,7 +79,6 @@ public class NewWhipJump : MonoBehaviour
         //////CHECK IF YOU CAN WHIP
         if (Vector3.Distance(player.position, toWhipObject.position) <= maxDistance && isPlayerInside)
         {
-            Debug.Log(this.name + ":  " + Vector3.Distance(player.position, toWhipObject.position));
             spriteIndicateObject.SetActive(true);
             canWhip = true;
 
