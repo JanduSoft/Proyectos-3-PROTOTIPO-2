@@ -65,6 +65,7 @@ public class ActivateAnimation : MonoBehaviour
         {
             myAnimator.SetBool("Active", true);
             Invoke("StartShake", 1.25f);
+            Destroy(this.gameObject);
             
         }
 
