@@ -25,21 +25,21 @@ public class PickUpandDrop : PickUp
                 player.SendMessage("StopMovement", true);
                 if (Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)) < 0.6)
                 {
-                    StartCoroutine(PickUpCoroutine(0.75f));
-                    StartCoroutine(AnimationsCoroutine(3f));
+                    StartCoroutine(PickUpCoroutine(0.35f));
+                    StartCoroutine(AnimationsCoroutine(0.5f));
                 }
                 else
                 {
-                    StartCoroutine(PickUpCoroutine(2f));
-                    StartCoroutine(AnimationsCoroutine(3f));
+                    StartCoroutine(PickUpCoroutine(0.5f));
+                    StartCoroutine(AnimationsCoroutine(0.65f));
                 }
             }
             else if(objectIsGrabbed)
             {
                 playerAnimator.SetBool("DropObject", true);
                 player.SendMessage("StopMovement", true);
-                StartCoroutine(DropObjectCoroutine(1.9f));
-                StartCoroutine(AnimationsCoroutine(1.7f));
+                StartCoroutine(DropObjectCoroutine(0.5f));
+                StartCoroutine(AnimationsCoroutine(0.65f));
             }
         }
 
@@ -63,9 +63,6 @@ public class PickUpandDrop : PickUp
     }
     protected void ObjectDrop()
     {
-        playerAnimator.SetBool("DropObject", true);
-        player.SendMessage("StopMovement", true);
-        StartCoroutine(AnimationsCoroutine(1.7f));
         transform.SetParent(null);
         objectIsGrabbed = false;
     }

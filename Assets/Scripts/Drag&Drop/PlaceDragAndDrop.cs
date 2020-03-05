@@ -21,11 +21,11 @@ public class PlaceDragAndDrop : MonoBehaviour
     {
         if (skull != null)
         {
-            if (Input.GetButtonDown("Interact"))
+            if (Input.GetButtonDown("Interact") && canPlace)
             {
                 playeranimator.SetBool("DropObject", false);
                 playeranimator.SetBool("PlaceObject", true);
-                StartCoroutine(AnimationsCoroutine(1f));
+                StartCoroutine(AnimationsCoroutine(0.5f));
             }
             if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && Input.GetButtonDown("Interact"))
             {

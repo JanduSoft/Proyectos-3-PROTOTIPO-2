@@ -24,24 +24,18 @@ public class AddSkull : MonoBehaviour
     {
         if (skull != null)
         {
-            if (Input.GetButtonDown("Interact"))
+            if (Input.GetButtonDown("Interact") && skull.GetComponent<DragAndDrop>().objectIsGrabbed)
             {
                 playeranimator.SetBool("PlaceObject", true);
-                playeranimator.SetBool("DropObject", false);
-                StartCoroutine(AnimationsCoroutine(1f));
-            }
-            if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && Input.GetButtonDown("Interact"))
-            {
                 skull.GetComponent<DragAndDrop>().publicDropObject();
-                if (isImportantCup)
-                {
-                    skull.GetComponent<DragAndDrop>().enabled = false;
-                }
+                playeranimator.SetBool("DropObject", false);
+                StartCoroutine(AnimationsCoroutine(0.5f));
             }
-            else if (!isImportantCup && canPlace && !skull.GetComponent<DragAndDrop>().objectIsGrabbed && isActivated && Input.GetButtonDown("Interact"))
+
+            if (!isImportantCup && canPlace && !skull.GetComponent<DragAndDrop>().objectIsGrabbed && isActivated && Input.GetButtonDown("Interact"))
             {
                 //skull.GetComponent<DragAndDrop>().CancelledDrop(false);
-                skull.GetComponent<DragAndDrop>().GrabObject();
+                skull.GetComponent<DragAndDrop>().publicPickUp();
                 isActivated = false;
             }
             if(!skull.GetComponent<DragAndDrop>().objectIsGrabbed)

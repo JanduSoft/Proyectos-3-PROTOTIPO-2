@@ -37,11 +37,12 @@ public class ActivateDoor : MonoBehaviour
             {
                 animator.SetBool("DropObject", false);
                 animator.SetBool("PlaceObject", true);
-                StartCoroutine(AnimationsCoroutine(1f));
+                StartCoroutine(AnimationsCoroutine(0.5f));
             }
             if (!other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed())
             {
                 objectoToMove.DOMove(finalPosition.position, speed);
+                other.tag = "Untagged";
                 other.transform.parent.gameObject.transform.position = skullPlace.position;
                 other.transform.parent.gameObject.transform.rotation = skullPlace.rotation;
                 other.transform.parent.gameObject.GetComponent<PickUpandDrop>().enabled = false;

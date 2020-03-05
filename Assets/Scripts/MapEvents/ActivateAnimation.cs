@@ -97,11 +97,12 @@ public class ActivateAnimation : MonoBehaviour
             {
                 playeranimator.SetBool("DropObject", false);
                 playeranimator.SetBool("PlaceObject", true);
-                StartCoroutine(AnimationsCoroutine(1f));
+                StartCoroutine(AnimationsCoroutine(0.5f));
             }
             if (other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos != null && Input.GetButtonDown("Interact"))
             {
                 other.transform.parent.parent = null;
+                other.tag = "Untagged";
                 other.transform.parent.gameObject.transform.position = objectPos.position;
                 other.transform.parent.gameObject.transform.rotation = objectPos.rotation;
                 isObjectPlaced = true;
