@@ -121,6 +121,8 @@ public class NewWhipJump : MonoBehaviour
         playerMovement.isInWhipJump = true;
         
         whip.SetPosition(1, toWhipObject.position);
+        whip.startWidth = 0.5f;
+        whip.endWidth = 0.5f;
 
         player.DOJump(destination.position, jump, 1, speed);
         Invoke("StopWhipDrawing", speed);
