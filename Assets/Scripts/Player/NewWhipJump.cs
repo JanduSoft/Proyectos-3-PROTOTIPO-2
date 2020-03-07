@@ -59,11 +59,13 @@ public class NewWhipJump : MonoBehaviour
     {
         ////CHECK INPUT
         if ((Input.GetButtonDown("Whip")) && canWhip && !playerMovement.isInWhipJump)
-        {
-            playerMovement.isInWhipJump = true;
+        {            
 
+            Vector3 toLookAt = new Vector3(toWhipObject.position.x, player.position.y , toWhipObject.position.z);
+
+            player.DOLookAt(toLookAt, timeImpulse+0.2f);
             player.DOMoveY( player.position.y+impulse ,timeImpulse);
-            whip.SetPosition(1, toWhipObject.position);
+
             Invoke("WhipJump", timeImpulse);
         }
 
@@ -115,7 +117,13 @@ public class NewWhipJump : MonoBehaviour
 
     #region WHIP JUMP
     void WhipJump()
-    {        
+    {
+        playerMovement.isInWhipJump = true;
+        
+        whip.SetPosition(1, toWhipObject.position);
+        whip.startWidth = 0.5f;
+        whip.endWidth = 0.5f;
+
         player.DOJump(destination.position, jump, 1, speed);
         Invoke("StopWhipDrawing", speed);
     }
