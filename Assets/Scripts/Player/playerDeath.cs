@@ -9,9 +9,11 @@ public class playerDeath : MonoBehaviour
 {
     // Start is called before the first frame update
     Vector3 lastGroundedPosition;
+    Vector3 lastDirection;
     [SerializeField] PlayerMovement playerMovementScript;
     [SerializeField] Whip whipAttackScript;
     [SerializeField] GameObject deathPanel;
+    [SerializeField] float respawnOffset;
     bool isDead = false;
 
     [HideInInspector] public GameObject objectGrabbed;
@@ -24,7 +26,10 @@ public class playerDeath : MonoBehaviour
     void Update()
     {
         if (playerMovementScript.player.isGrounded && !whipAttackScript.attackMode && !isDead)
+        {
             lastGroundedPosition = playerMovementScript.player.transform.position;
+            lastDirection = playerMovementScript.player.velocity;
+        }
     }
 
     public void killPlayer(float _secondsToRestart = 0)
@@ -47,26 +52,30 @@ public class playerDeath : MonoBehaviour
         }
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex,LoadSceneMode.Single);   //reloads the same scene
         //teleport player to previous grounded place
-        Debug.Log(objectGrabbed);
-        if (objectGrabbed!=null)
-        {
-            DragAndDrop DADScript = objectGrabbed.GetComponent<DragAndDrop>();
-            if (DADScript!=null)
-            {
-                //do for objects with draganddrop
-                objectGrabbed.GetComponent<DragAndDrop>().ResetObject();
-                objectGrabbed.GetComponent<DragAndDrop>().DropObject();
 
-            }
-            else
-            {
-                //do for objects with PickUp
-                objectGrabbed.GetComponent<PickUp>().ResetPosition();
-                objectGrabbed.GetComponent<PickUpandDrop>().DropObject();
+        //This section is commented so when you die with an object, you still have that object
+        //Debug.Log(objectGrabbed);
+        //if (objectGrabbed!=null)
+        //{
+        //    DragAndDrop DADScript = objectGrabbed.GetComponent<DragAndDrop>();
+        //    if (DADScript!=null)
+        //    {
+        //        //do for objects with draganddrop
+        //        objectGrabbed.GetComponent<DragAndDrop>().ResetObject();
+        //        objectGrabbed.GetComponent<DragAndDrop>().DropObject();
 
-            }
-        }
-        playerMovementScript.player.transform.position = lastGroundedPosition;
+        //    }
+        //    else
+        //    {
+        //        //do for objects with PickUp
+        //        objectGrabbed.GetComponent<PickUp>().ResetPosition();
+        //        objectGrabbed.GetComponent<PickUpandDrop>().DropObject();
+
+        //    }
+        //}
+
+        Vector3 offsetDir = new Vector3(lastDirection.x, -1, lastDirection.z);
+        playerMovementScript.player.transform.position = lastGroundedPosition-offsetDir*respawnOffset;
         playerMovementScript.grounded = true;
         playerMovementScript.animatorController.SetBool("Jumping", false);
         whipAttackScript.ResetAllEnemiesAround();

@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("GRAVITY")]
     [SerializeField] float gravity = 9.8f;
-    [SerializeField] float fallVelocity;
+    [SerializeField] public float fallVelocity;
 
     [Header("CAMERA")]
     [SerializeField] Camera mainCamera;
@@ -202,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
     void SetGravity()
     {
 
-        if (player.isGrounded)
+        if (player.isGrounded || grounded)
         {
             fallVelocity = -gravity * Time.deltaTime;
             movePlayer.y = fallVelocity;

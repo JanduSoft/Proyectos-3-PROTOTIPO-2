@@ -75,6 +75,7 @@ public class TitleAnimationScript : MonoBehaviour
     IEnumerator ResumeGameToNormal()
     {
         yield return new WaitForSeconds(titleAnim.clip.length);
+        PlayerPrefs.SetInt("hasDoneTitle", 1); //title will only be done once
         newCamPos = mainCamera.transform.position;
         newCamRot = mainCamera.transform.rotation.eulerAngles;
         animPlayed = true;
