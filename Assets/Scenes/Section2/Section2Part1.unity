@@ -36948,6 +36948,11 @@ PrefabInstance:
       propertyPath: crushedStaff
       value: 
       objectReference: {fileID: 2003166306}
+    - target: {fileID: 7541246659566688303, guid: 86600bb6859568f4bbb68f4b02ca6e29,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7541246659566710322, guid: 86600bb6859568f4bbb68f4b02ca6e29,
         type: 3}
       propertyPath: m_Radius
@@ -36957,11 +36962,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.y
       value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7541246659566688303, guid: 86600bb6859568f4bbb68f4b02ca6e29,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86600bb6859568f4bbb68f4b02ca6e29, type: 3}
@@ -39746,21 +39746,6 @@ PrefabInstance:
       propertyPath: activateObject
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 4222265005434164496, guid: 99189a4535fa3f641b053d51caabd76c,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 4222265005434164496, guid: 99189a4535fa3f641b053d51caabd76c,
-        type: 3}
-      propertyPath: m_Center.y
-      value: -0.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 4222265005434164496, guid: 99189a4535fa3f641b053d51caabd76c,
-        type: 3}
-      propertyPath: m_Center.x
-      value: -0.06
-      objectReference: {fileID: 0}
     - target: {fileID: 4222265004018155830, guid: 99189a4535fa3f641b053d51caabd76c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -39775,6 +39760,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222265005434164496, guid: 99189a4535fa3f641b053d51caabd76c,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222265005434164496, guid: 99189a4535fa3f641b053d51caabd76c,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222265005434164496, guid: 99189a4535fa3f641b053d51caabd76c,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.06
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4222265005434164498, guid: 99189a4535fa3f641b053d51caabd76c, type: 3}
@@ -40982,6 +40982,39 @@ PrefabInstance:
       objectReference: {fileID: 1777961098}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db86855d49dc464b946a69cbab5ac65, type: 3}
+--- !u!1 &1074625554 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1655264899136477333, guid: 6db86855d49dc464b946a69cbab5ac65,
+    type: 3}
+  m_PrefabInstance: {fileID: 1074625553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1074625555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074625554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb841ed17a74ce459ed8eac2b537b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transparentMaterial: {fileID: 2100000, guid: a550ce2ad27df0c41a52608c4972af10, type: 2}
+  replicateTexture: 0
+  fadingTime: 0.3
+  transparenceValue: 0.3
+  ignoreTriggers: 1
+  fadingColorFullWhite: {r: 1, g: 1, b: 1, a: 1}
+  fadingColorToUse: {r: 1, g: 1, b: 1, a: 0.3}
+  layersToFade:
+    serializedVersion: 2
+    m_Bits: 1847
+  playerTransform: {fileID: 0}
+  offset: -0.5
+  playerTag: Player
+  useSpherecast: 0
+  spherecastRadius: 0.5
 --- !u!1001 &1074716939
 PrefabInstance:
   m_ObjectHideFlags: 0

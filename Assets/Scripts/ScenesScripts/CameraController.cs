@@ -39,13 +39,14 @@ public class CameraController : MonoBehaviour
         cam = Camera.main;
         targetZoom = cam.orthographicSize;
 
-        obstructionPlayer = player;
+        obstructionPlayer = Target;
         obstructionTarget = Target;
     }
 
     /// /////////////////---- UPDATE
     void Update()
     {
+        //ViewObstructedPlayer();
         //cam.transform.DOLookAt(Target.position, 0.5f);
 
         //////////---------ZOOM
@@ -61,7 +62,7 @@ public class CameraController : MonoBehaviour
         }*/
 
         //targetZoom -= scrollData * zoomFactor;
-       // targetZoom = Mathf.Clamp(targetZoom, 5f, 30f);
+        // targetZoom = Mathf.Clamp(targetZoom, 5f, 30f);
         //cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * zoomLerpSpeed);
         //cam.DOOrthoSize(targetZoom, 2f);
     }
@@ -80,79 +81,34 @@ public class CameraController : MonoBehaviour
         //transform.LookAt(Target);
         //Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
     }
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(this.transform.position, Target.position);
+    }
     /// /////////////////---- OBSTRUCTION PLAYER
     void ViewObstructedPlayer()
-    {
+    { 
+        RaycastHit hit;
 
-       /* RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, player.position - transform.position, out hit, 30))
+        if (Physics.Raycast(this.transform.position, Target.position, out hit, 100f))
         {
-
-
-            if (hit.collider.gameObject.tag == "Wall1")
+            if (hit.collider.gameObject.tag != "Player")
             {
-                if (obstructionPlayer.gameObject.tag != "Wall1")
-                {
-                    obstructionPlayer.gameObject.SetActive(true);
-                }
+
+                //obstructionPlayer.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+
 
                 obstructionPlayer = hit.transform;
-                //obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
-                obstructionPlayer.gameObject.SetActive(false);
+                obstructionPlayer.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                Debug.Log("Algo Obstruye el jugador");
+                return;
 
-                if (Vector3.Distance(obstructionPlayer.position, transform.position) >= 3f && Vector3.Distance(transform.position, player.position) >= 1.5f)
-                {
-                    transform.Translate(Vector3.forward * zoomSpeed * Time.deltaTime);
-                }
-            }
-            else if (hit.collider.gameObject.tag == "Wall2")
+            }            
+            else
             {
-                if (obstructionPlayer.gameObject.tag != "Wall2")
-                {
-                    obstructionPlayer.gameObject.SetActive(true);
-                }
-
-                obstructionPlayer = hit.transform;
-                obstructionPlayer.gameObject.SetActive(false);
-
-                if (Vector3.Distance(obstructionPlayer.position, transform.position) >= 3f && Vector3.Distance(transform.position, player.position) >= 1.5f)
-                {
-                    transform.Translate(Vector3.forward * zoomSpeed * Time.deltaTime);
-                }
+                //obstructionPlayer.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
             }
-            else if (hit.collider.gameObject.tag == "Wall3")
-            {
-                if (obstructionPlayer.gameObject.tag != "Wall3")
-                {
-                    obstructionPlayer.gameObject.SetActive(true);
-                }
-
-                obstructionPlayer = hit.transform;
-                obstructionPlayer.gameObject.SetActive(false);
-
-                if (Vector3.Distance(obstructionPlayer.position, transform.position) >= 3f && Vector3.Distance(transform.position, player.position) >= 1.5f)
-                {
-                    transform.Translate(Vector3.forward * zoomSpeed * Time.deltaTime);
-                }
-            }
-            else if (hit.collider.gameObject.tag == "Wall4")
-            {
-                if (obstructionPlayer.gameObject.tag != "Wall4")
-                {
-                    obstructionPlayer.gameObject.SetActive(true);
-                }
-
-                obstructionPlayer = hit.transform;
-                obstructionPlayer.gameObject.SetActive(false);
-
-                if (Vector3.Distance(obstructionPlayer.position, transform.position) >= 3f && Vector3.Distance(transform.position, player.position) >= 1.5f)
-                {
-                    transform.Translate(Vector3.forward * zoomSpeed * Time.deltaTime);
-                }
-            }
-        }*/
+        }
     }
 
     /// /////////////////---- OBSTRUCTION TARGET
