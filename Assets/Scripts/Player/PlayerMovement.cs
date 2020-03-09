@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("JUMP")]
     [SerializeField] float jumpForce;
     [SerializeField] AudioSource jumpSound;
+    [SerializeField] float minPitch;
+    [SerializeField] float maxPitch;
 
     [Header("GRAVITY")]
     [SerializeField] float gravity = 9.8f;
@@ -193,6 +195,7 @@ public class PlayerMovement : MonoBehaviour
             animatorController.SetBool("Jumping", true);
             fallVelocity = jumpForce;
             movePlayer.y = fallVelocity;
+            jumpSound.pitch = Random.Range(minPitch, maxPitch);
             jumpSound.Play();
         }
     }
