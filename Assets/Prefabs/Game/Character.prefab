@@ -92,7 +92,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 9.02
+  m_Radius: 15
   m_Center: {x: -0.12039566, y: -3.3887148, z: 0.22876549}
 --- !u!114 &1052674258
 MonoBehaviour:
@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: 583964081}
   - component: {fileID: 415923831}
   - component: {fileID: 2935746029734998397}
+  - component: {fileID: 914713605}
   m_Layer: 10
   m_Name: Character
   m_TagString: Player
@@ -321,6 +322,7 @@ MonoBehaviour:
   playerMovementScript: {fileID: 6120095539264640498}
   whipAttackScript: {fileID: 1052674258}
   deathPanel: {fileID: 0}
+  respawnOffset: 0
   objectGrabbed: {fileID: 0}
 --- !u!114 &6120095539264640498
 MonoBehaviour:
@@ -347,6 +349,8 @@ MonoBehaviour:
   whip: {fileID: 1052674258}
   jumpForce: 14
   jumpSound: {fileID: 583964081}
+  minPitch: 0.8
+  maxPitch: 1.2
   gravity: 40
   fallVelocity: 0
   mainCamera: {fileID: 0}
@@ -498,7 +502,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.19444656
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -557,6 +561,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad903eea758e4d4f8a43ab1b8dad6fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!81 &914713605
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6120095539264640501}
+  m_Enabled: 1
 --- !u!1001 &668748010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -613,28 +625,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11900000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_FarClipPlane
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11900000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_FieldOfView
       value: 21.61
       objectReference: {fileID: 0}
     - target: {fileID: 11900000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_IgnoreLayers.m_Bits
       value: 1024
-      objectReference: {fileID: 0}
-    - target: {fileID: 11900000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_OrthographicSize
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11900000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_Orthographic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11900000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_FarClipPlane
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 11900000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_AspectRatio
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
@@ -654,6 +654,10 @@ PrefabInstance:
     - target: {fileID: 1669957847032716, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
       propertyPath: m_Name
       value: Character_Explorer_Male_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1669957847032716, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4435402632355884, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -908,6 +912,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 243430210898580274, guid: 829dfea7bf13d0a4796ae2472460ce0b,
         type: 2}
+    - target: {fileID: 6256814316364482661, guid: 267b71fc5ce67014797aa596897e70b4,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 267b71fc5ce67014797aa596897e70b4, type: 3}
 --- !u!4 &1599299469 stripped
