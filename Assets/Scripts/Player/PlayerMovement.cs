@@ -205,7 +205,7 @@ public class PlayerMovement : MonoBehaviour
     void SetGravity()
     {
 
-        if (player.isGrounded || grounded)
+        if (player.isGrounded)
         {
             fallVelocity = -gravity * Time.deltaTime;
             movePlayer.y = fallVelocity;
