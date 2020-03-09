@@ -27,15 +27,24 @@ public class LoadScene : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerMovement>().StopMovement(true);
-            StartCoroutine(LoadDaScene());
+            StartCoroutine(ShowLoadingScreen());
         }
 
     }
 
-    IEnumerator LoadDaScene()
+    IEnumerator ShowLoadingScreen()
     {
         animationToPlay.clip = animationsToPlay[0];
         animationToPlay.Play();
+        yield return new WaitForSeconds(0.5f);
+        animationToPlay.clip = animationsToPlay[1];
+        animationToPlay.Play();
+        yield return new WaitForSeconds(2f);    //to show loading screen
+        StartCoroutine(LoadDaScene());
+    }
+
+    IEnumerator LoadDaScene()
+    {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneToLoad);
         operation.allowSceneActivation = false;
 
@@ -45,22 +54,7 @@ public class LoadScene : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(2f);
-
-        //when operation is done, play press any key to continue
-        animationToPlay.clip = animationsToPlay[1];
-        animationToPlay.Play();
-
-        while (operation.progress==0.9f)
-        {
-            if (Input.anyKeyDown)
-            {
-                operation.allowSceneActivation = true;
-                break;
-            }
-
-            yield return null;
-        }
+        operation.allowSceneActivation = true;
 
         yield return null;
     }
