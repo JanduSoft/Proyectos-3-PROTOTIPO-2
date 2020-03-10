@@ -9,13 +9,15 @@ public class StaticEnemy : MonoBehaviour
     [SerializeField] GameObject shootingPoint;
     [SerializeField] float viewingAngle;
     [SerializeField] float viewingDistance;
-    [SerializeField] float shotTiming;
-     float angleBetweenEnemyandPlayer = 0;
-    float time = 0;
+    [SerializeField] float shotTiming = 1;
+    [SerializeField] List<GameObject> listShots = new List<GameObject>();
+    float angleBetweenEnemyandPlayer = 0;
+    [SerializeField] float time = 0;
+    Quaternion startingRotation;
     // Start is called before the first frame update
     void Start()
     {
-        
+        startingRotation = gameObject.transform.rotation;
     }
 
     // Update is called once per frame
@@ -31,11 +33,23 @@ public class StaticEnemy : MonoBehaviour
             if(time > shotTiming)
             {
                 GameObject aux = Instantiate(ArrowPrefab, shootingPoint.transform.position, Quaternion.LookRotation(new Vector3(Player.transform.position.x, transform.position.y, Player.transform.position.z) - transform.position));
+                listShots.Add(aux);
                 aux.transform.LookAt(Player.transform);
                 aux.GetComponent<Rigidbody>().velocity = aux.transform.forward * 20; 
                 time = 0;
             }
         }
         
+    }
+    public void DestroyMe(GameObject go)
+    {
+        listShots.Remove(go);
+        Destroy(go);
+    }
+    public void DestroyAll()
+    {
+        gameObject.transform.rotation = startingRotation;
+        for (int i = 0; i < listShots.Count; i++)
+            Destroy(listShots[i]);
     }
 }

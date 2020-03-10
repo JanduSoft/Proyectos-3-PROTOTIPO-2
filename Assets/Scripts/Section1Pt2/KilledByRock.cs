@@ -5,6 +5,7 @@ using UnityEngine;
 public class KilledByRock : MonoBehaviour
 {
     [SerializeField] GameObject pedra;
+    [SerializeField] GameObject foc;
     [SerializeField] GameObject staff;
     [SerializeField] GameObject crushedStaff;
     // Start is called before the first frame update
@@ -23,6 +24,7 @@ public class KilledByRock : MonoBehaviour
     {
         if(other.tag == pedra.tag)
         {
+            foc.SetActive(false);
             Destroy(gameObject);
             staff.transform.rotation = crushedStaff.transform.rotation;
             staff.transform.position = crushedStaff.transform.position;

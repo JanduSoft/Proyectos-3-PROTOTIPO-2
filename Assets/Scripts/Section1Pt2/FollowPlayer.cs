@@ -6,6 +6,7 @@ public class FollowPlayer : MonoBehaviour
 {
     [SerializeField] Transform player;
     [SerializeField] Rigidbody thisRB;
+    [SerializeField] GameObject enemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,24 @@ public class FollowPlayer : MonoBehaviour
     void Update()
     {
         if(name != "Fire01")
-            thisRB.velocity = (player.position - transform.position).normalized * 17;
+            thisRB.velocity = (new Vector3(player.position.x, player.position.y + 1, player.position.z) - transform.position).normalized * 17;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.name);
+        if (other.CompareTag("Player"))
+            StartCoroutine(DestroyAllGO());
+        else if (!other.CompareTag("Path"))
+            StartCoroutine(DestroyGO());
+    }
+    IEnumerator DestroyGO()
+    {
+        yield return new WaitForEndOfFrame();
+        enemy.SendMessage("DestroyMe", gameObject);
+    }
+    IEnumerator DestroyAllGO()
+    {
+        yield return new WaitForEndOfFrame();
+        enemy.SendMessage("DestroyAll");
     }
 }
