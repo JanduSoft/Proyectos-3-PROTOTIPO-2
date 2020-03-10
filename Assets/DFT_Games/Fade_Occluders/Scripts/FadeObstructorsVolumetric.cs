@@ -23,7 +23,7 @@ using UnityEngine;
 namespace DFTGames.Tools
 {
     [AddComponentMenu("Camera/Fade obstructors by volume"),
-     RequireComponent(typeof(Camera)), RequireComponent(typeof(Rigidbody))]
+    RequireComponent(typeof(Rigidbody))]
     public class FadeObstructorsVolumetric : FadeObstructorsBaseClass
     {
         public static bool commonVolume = true;
@@ -68,6 +68,7 @@ namespace DFTGames.Tools
         public void OnTriggerEnter(Collider other)
         {
             int objLayer = 1 << other.gameObject.layer;
+            Debug.Log(other.name);
             if (other.isTrigger && ignoreTriggers || other.CompareTag(playerTag) || (layersToFade & objLayer) != objLayer)
                 return;
             // Retrieve all the renderers

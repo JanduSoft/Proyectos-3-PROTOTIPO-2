@@ -63,7 +63,7 @@ namespace DFTGames.Tools
                 tmpColor = mats[i].color;
                 if (fadeOut)
                 {
-                    tmpColor.a = fadingAmount;
+                    tmpColor.a = 0;
                     mats[i].color = tmpColor;
                 }
                 else
@@ -105,7 +105,7 @@ namespace DFTGames.Tools
         {
             if (tmpColor.a < fadingAmount)
             {
-                tmpColor.a = fadingAmount;
+                tmpColor.a = 0;
                 mats[i].color = tmpColor;
                 done = true;
                 return;
