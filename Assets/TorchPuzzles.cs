@@ -37,11 +37,14 @@ public class TorchPuzzles : MonoBehaviour
             var distancePlayerObject = Vector3.Distance(player.transform.position, transform.position);
             //checks if the player is staring in the direction of the rock
             float dot = Vector3.Dot(player.transform.forward, (transform.position - player.transform.position).normalized);
-            if (dot > 0.7f) { isFacingBox = true; }
+            if(Input.GetButtonDown("Interact"))
+                Debug.Log(dot);
 
-            if (distancePlayerObject < minDistanceToGrabObject && Input.GetButtonDown("Interact") && isFacingBox && (!nearFire && !nearRope))
+            if (dot > 0.55f) { isFacingBox = true; }
+
+            if (distancePlayerObject < minDistanceToGrabObject && Input.GetButtonDown("Interact") && (!nearFire && !nearRope))
             {
-                if (!objectIsGrabbed)
+                if (!objectIsGrabbed && isFacingBox)
                 {
                     transform.SetParent(null);
                     transform.SetParent(player.transform);
