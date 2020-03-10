@@ -68,7 +68,6 @@ namespace DFTGames.Tools
         public void OnTriggerEnter(Collider other)
         {
             int objLayer = 1 << other.gameObject.layer;
-            Debug.Log(other.name);
             if (other.isTrigger && ignoreTriggers || other.CompareTag(playerTag) || (layersToFade & objLayer) != objLayer)
                 return;
             // Retrieve all the renderers

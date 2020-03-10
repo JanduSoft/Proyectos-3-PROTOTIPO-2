@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PickUpandDrop : PickUp
 {
-    Animator playerAnimator;
+    protected Animator playerAnimator;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,14 +68,16 @@ public class PickUpandDrop : PickUp
     }
     public void DropObject()
     {
-        ObjectDrop();
+        player.SendMessage("StopMovement", true);
+        StartCoroutine(DropObjectCoroutine(0.5f));
+        StartCoroutine(AnimationsCoroutine(0.5f));
     }
     public bool GetObjectIsGrabbed()
     {
         return objectIsGrabbed;
     }
 
-    IEnumerator AnimationsCoroutine(float time)
+    protected IEnumerator AnimationsCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
         player.SendMessage("StopMovement", false);
@@ -85,14 +87,14 @@ public class PickUpandDrop : PickUp
 
     }
 
-    IEnumerator PickUpCoroutine(float time)
+    protected IEnumerator PickUpCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
         PickUpObject();
     }
-    IEnumerator DropObjectCoroutine(float time)
+    protected IEnumerator DropObjectCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
-        DropObject();
+        ObjectDrop();
     }
 }

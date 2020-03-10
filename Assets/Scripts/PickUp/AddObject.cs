@@ -7,11 +7,12 @@ public class AddObject : MonoBehaviour
     public GameObject placePosition;
     Transform _objectTransform = null;
     bool canPlace = false;
-
+    protected Animator playerAnimator;
     [SerializeField] GameObject _object = null;
 
     public bool isActivated = false;
     [SerializeField] bool faceOppositeDirection = false;
+    [SerializeField] bool quarterRotation = false;
 
     private void Start()
     {
@@ -24,16 +25,13 @@ public class AddObject : MonoBehaviour
         {
             if (canPlace && _object.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && !isActivated && Input.GetButtonDown("Interact") && _object != null)
             {
-                Debug.Log("Tries to place obejct");
+                playerAnimator.SetBool("PlaceObject", true);
                 _object.GetComponent<PickUpandDrop>().DropObject();
-                _objectTransform.position = placePosition.transform.position;
-                _objectTransform.rotation = transform.rotation;
-                if (faceOppositeDirection) _objectTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
-                isActivated = true;
+                StartCoroutine(PlaceObject());
+                
             }
             else if (canPlace && !_object.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && isActivated && Input.GetButtonDown("Interact"))
             {
-                Debug.Log("Tries to pick up object");
                 _object.GetComponent<PickUpandDrop>().ForceGrabObject();
                 isActivated = false;
             }
@@ -46,6 +44,7 @@ public class AddObject : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canPlace = true;
+            playerAnimator = other.GetComponentInChildren<Animator>();
         }
         else if (other.CompareTag("Place"))
         {
@@ -63,6 +62,15 @@ public class AddObject : MonoBehaviour
             _objectTransform = other.transform.parent.gameObject.transform;
         }
 
+    }
+    IEnumerator PlaceObject()
+    {
+        yield return new WaitForSeconds(0.55f);
+        _objectTransform.position = placePosition.transform.position;
+        _objectTransform.rotation = transform.rotation;
+        if (faceOppositeDirection) _objectTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
+        else if(quarterRotation) _objectTransform.Rotate(90, 90, 0);
+        isActivated = true;
     }
 
     private void OnTriggerExit(Collider other)
