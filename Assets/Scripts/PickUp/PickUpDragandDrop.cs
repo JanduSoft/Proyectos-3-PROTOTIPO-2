@@ -40,7 +40,7 @@ public class PickUpDragandDrop : PickUpandDrop
     {
 
         CheckVariables();
-        if (Input.GetButtonDown("Interact")  && !cancelledDrop && playerController.isGrounded )
+        if (Input.GetButtonDown("Interact")  && !cancelledDrop && playerController.isGrounded && player != null)
         {
             if (!objectIsGrabbed && isFacingBox)
             {
@@ -55,7 +55,7 @@ public class PickUpDragandDrop : PickUpandDrop
                 DropObject();
             }
         }
-        else if (lerping)
+        else if (lerping && player != null)
         {
             animator.SetBool("Attached", true);
             DoLerp();
@@ -251,17 +251,20 @@ public class PickUpDragandDrop : PickUpandDrop
     }
     void DoLerp()
     {
-        player.GetComponent<PlayerMovement>().StopMovement(true);
-        //lerp player towards closest point
-        //player.transform.position = Vector3.Lerp(player.transform.position, closestPoint, 0.1f);
-        //lerp rotation to face object
-        Vector3 targetPostition = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
-        player.transform.DOLookAt(targetPostition, 0.25f);
-        if (Vector3.Distance(player.transform.position, closestPoint) < 0.1f)
+        if (player != null)
         {
-            //stop lerping and look at object
-            lerping = false;
-            rockGrabbed = true;
+            player.GetComponent<PlayerMovement>().StopMovement(true);
+            //lerp player towards closest point
+            //player.transform.position = Vector3.Lerp(player.transform.position, closestPoint, 0.1f);
+            //lerp rotation to face object
+            Vector3 targetPostition = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
+            player.transform.DOLookAt(targetPostition, 0.25f);
+            if (Vector3.Distance(player.transform.position, closestPoint) < 0.1f)
+            {
+                //stop lerping and look at object
+                lerping = false;
+                rockGrabbed = true;
+            }
         }
     }
 
