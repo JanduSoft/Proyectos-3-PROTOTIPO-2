@@ -61,7 +61,7 @@ public class ActivateAnimation : MonoBehaviour
             Debug.Log("Camera Shake!!");
             myCamera.DOShakePosition(durationShake, strength, vibrato, randomness,true);
         }
-        else if (other.CompareTag("Torch") && type == typeAnimator.BRIDGE)
+        else if (other.CompareTag("Place") && type == typeAnimator.BRIDGE)
         {
             myAnimator.SetBool("Active", true);
             Invoke("StartShake", 1.25f);
