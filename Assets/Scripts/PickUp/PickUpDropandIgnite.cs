@@ -11,24 +11,43 @@ public class PickUpDropandIgnite : PickUpandDrop
     [SerializeField] bool nearFire = false;
     [SerializeField] bool nearRope = false;
     [SerializeField] bool torchIgnited = false;
-
     [SerializeField] CamerShake shaking;
     // Start is called before the first frame update
     void Start()
     {
         startingPosition = transform.position;
+        grabPlace = GameObject.Find("Hand_R_PickUp");
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckVariables();
-        if (Input.GetButtonDown("Interact")  && !cancelledDrop )
+        if (Input.GetButtonDown("Interact")  && !cancelledDrop && player != null)
         {
-            if (!objectIsGrabbed && distanceSuficient && isFacingBox)
-                PickUpObject();
+            if (!objectIsGrabbed && distanceSuficient )
+            {
+                playerAnimator.SetBool("PickUp", true);
+                playerAnimator.SetFloat("Distance", Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)));
+                player.SendMessage("StopMovement", true);
+                if (Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)) < 0.6)
+                {
+                    StartCoroutine(PickUpCoroutine(0.35f));
+                    StartCoroutine(AnimationsCoroutine(0.5f));
+                }
+                else
+                {
+                    StartCoroutine(PickUpCoroutine(0.5f));
+                    StartCoroutine(AnimationsCoroutine(0.65f));
+                }
+            }
             else if (!nearFire && !nearRope)
-                DropObject();
+            {
+                playerAnimator.SetBool("DropObject", true);
+                player.SendMessage("StopMovement", true);
+                StartCoroutine(DropObjectCoroutine(0.5f));
+                StartCoroutine(AnimationsCoroutine(0.65f));
+            }
             else if (nearFire)
             {
                 Debug.Log("Torch Ignited");
@@ -50,7 +69,7 @@ public class PickUpDropandIgnite : PickUpandDrop
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
-            grabPlace = player.transform.GetChild(1).gameObject;
+            distanceChecker = player.transform.GetChild(1).gameObject;
         }
         else if (other.tag == "Fire")
         {
@@ -68,7 +87,7 @@ public class PickUpDropandIgnite : PickUpandDrop
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
-            grabPlace = player.transform.GetChild(1).gameObject;
+            playerAnimator = player.GetComponentInChildren<Animator>();
         }
         else if (other.tag == "Fire")
         {

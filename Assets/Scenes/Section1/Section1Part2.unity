@@ -1195,6 +1195,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 50641838}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &50729000 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 125756, guid: 1c9878cdc3f9c3b4dad10dddc05eafba,
+    type: 3}
+  m_PrefabInstance: {fileID: 1571504867}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &50729003
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50729000}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.350366, y: 10.484112, z: 2.77789}
+  m_Center: {x: -2.6374025, y: 5.242056, z: -0.12946476}
 --- !u!1001 &52046101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16547,6 +16566,7 @@ MonoBehaviour:
   _object: {fileID: 0}
   isActivated: 0
   faceOppositeDirection: 0
+  quarterRotation: 0
 --- !u!65 &726321926
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20847,6 +20867,7 @@ MonoBehaviour:
   _object: {fileID: 0}
   isActivated: 0
   faceOppositeDirection: 0
+  quarterRotation: 0
 --- !u!65 &891321329
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22492,6 +22513,7 @@ MonoBehaviour:
   _object: {fileID: 0}
   isActivated: 0
   faceOppositeDirection: 0
+  quarterRotation: 0
 --- !u!1001 &945639804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25281,7 +25303,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062016650}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.432, z: 0}
+  m_LocalPosition: {x: -0.94, y: 1.432, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1617647435}
@@ -37399,20 +37421,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: fa0789dcf9776f447b25f3f442f0ac8f, type: 3}
---- !u!64 &1489893940
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489893938}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: fa0789dcf9776f447b25f3f442f0ac8f, type: 3}
 --- !u!1 &1490342836 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 173052, guid: f18318a9de51f9b4f993559b01c40e15,
@@ -41193,6 +41201,7 @@ MonoBehaviour:
   _object: {fileID: 0}
   isActivated: 0
   faceOppositeDirection: 0
+  quarterRotation: 1
 --- !u!114 &1617647438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41207,37 +41216,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fire: {fileID: 310976911}
   name: SM_Wep_Crystal_DoubleSword_01
---- !u!114 &1617647439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1617647436}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cad533dc497979f4ea2011396fcdab50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  placePosition: {fileID: 1062016651}
-  name: Skull
---- !u!114 &1617647440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1617647436}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9c6617cda4e14046a7c997b9b40e93e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  placePosition: {fileID: 1062016650}
-  isImportantCup: 1
-  playeranimator: {fileID: 0}
-  isActivated: 0
-  faceOppositeDirection: 0
 --- !u!65 &1617647441
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -55280,6 +55258,11 @@ PrefabInstance:
       propertyPath: crushedStaff
       value: 
       objectReference: {fileID: 711037207}
+    - target: {fileID: 7541246659566710321, guid: 86600bb6859568f4bbb68f4b02ca6e29,
+        type: 3}
+      propertyPath: foc
+      value: 
+      objectReference: {fileID: 2019180227}
     - target: {fileID: 7541246659573935259, guid: 86600bb6859568f4bbb68f4b02ca6e29,
         type: 3}
       propertyPath: m_Controller

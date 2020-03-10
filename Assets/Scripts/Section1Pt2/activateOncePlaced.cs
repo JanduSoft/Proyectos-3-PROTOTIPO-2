@@ -14,7 +14,7 @@ public class activateOncePlaced : MonoBehaviour
     {
         if (canPlace && Input.GetButtonDown("Interact")  && isObject)
         {
-            fire.SetActive(true);
+            StartCoroutine(Activate());
         }
     }
 
@@ -33,15 +33,6 @@ public class activateOncePlaced : MonoBehaviour
         }
 
     }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.name == "")
-        {
-            skullTransform = other.transform;
-            Debug.Log(other.name);
-        }
-
-    }
 
     private void OnTriggerExit(Collider other)
     {
@@ -53,5 +44,10 @@ public class activateOncePlaced : MonoBehaviour
         {
             skullTransform = null;
         }
+    }
+    IEnumerator Activate()
+    {
+        yield return new WaitForSeconds(0.55f);
+            fire.SetActive(true);
     }
 }
