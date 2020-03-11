@@ -21,6 +21,7 @@ public class LeverScript : MonoBehaviour
     // Variables
     [SerializeField] GameObject activateObject;
     [SerializeField] GameObject lever;
+    [SerializeField] AudioSource shakeSound;
 
     bool showCanvas = false;
     public float distanceToLever = 3f;
@@ -56,6 +57,7 @@ public class LeverScript : MonoBehaviour
                 {
                     leverSound.Play();
                     shakeActivated = true;
+                    shakeSound.Play();
                     myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
                 }
                 //We could have another object attached here, such as a GameObject MortalTrap, and that
