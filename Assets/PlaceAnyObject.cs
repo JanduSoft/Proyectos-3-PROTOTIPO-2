@@ -107,7 +107,7 @@ public class PlaceAnyObject : MonoBehaviour
                 }
             case ObjectsToPlace.TORCH:
                 {
-                    if (other.CompareTag("Torch"))
+                    if (other.CompareTag("Place"))
                     {
                         otherObject = other.gameObject;
                         isObjectInside = true;
@@ -140,7 +140,7 @@ public class PlaceAnyObject : MonoBehaviour
                 }
             case ObjectsToPlace.TORCH:
                 {
-                    if (other.CompareTag("Torch"))
+                    if (other.CompareTag("Place"))
                     {
                         otherObject = null;
                         isObjectInside = false;
