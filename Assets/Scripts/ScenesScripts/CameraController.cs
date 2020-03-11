@@ -20,8 +20,8 @@ public class CameraController : MonoBehaviour
     private float targetZoom;
     [SerializeField] float zoomFactor;
     [SerializeField] float zoomLerpSpeed;
-    public Transform obstructionPlayer;
-    public Transform obstructionTarget;
+    //public Transform obstructionPlayer;
+    //public Transform obstructionTarget;
 
     [SerializeField] GameObject wall1;
 
@@ -39,8 +39,8 @@ public class CameraController : MonoBehaviour
         cam = Camera.main;
         targetZoom = cam.orthographicSize;
 
-        obstructionPlayer = Target;
-        obstructionTarget = Target;
+        //obstructionPlayer = Target;
+        //obstructionTarget = Target;
     }
 
     /// /////////////////---- UPDATE
@@ -98,9 +98,9 @@ public class CameraController : MonoBehaviour
                 //obstructionPlayer.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
 
 
-                obstructionPlayer = hit.transform;
-                obstructionPlayer.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
-                Debug.Log("Algo Obstruye el jugador");
+                //obstructionPlayer = hit.transform;
+                //obstructionPlayer.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                //Debug.Log("Algo Obstruye el jugador");
                 return;
 
             }            

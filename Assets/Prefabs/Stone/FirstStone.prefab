@@ -106,7 +106,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 6b17ae9b317833447b16953995e78770, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -263,7 +263,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 6b17ae9b317833447b16953995e78770, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -410,6 +410,9 @@ MonoBehaviour:
   MinDistanceToGrabObject: 5
   grabPointHeight: 0.5
   stoneSpeed: 150
+  rb: {fileID: 0}
+  playSound: 0
+  dragSound: {fileID: 0}
 --- !u!54 &720092587904537924
 Rigidbody:
   m_ObjectHideFlags: 0
