@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public Animator animatorController;
     [SerializeField] GameObject model;
     float timeIdle = 0;
+    public bool inRespawn=false;
     #endregion
 
 
@@ -205,7 +206,7 @@ public class PlayerMovement : MonoBehaviour
     void SetGravity()
     {
 
-        if (player.isGrounded)
+        if (player.isGrounded || inRespawn)
         {
             fallVelocity = -gravity * Time.deltaTime;
             movePlayer.y = fallVelocity;

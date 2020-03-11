@@ -17,9 +17,9 @@ public class PickUpDragandDrop : PickUpandDrop
     int minPoint = -1;[HideInInspector] public Rigidbody rb;
     [SerializeField] bool lerping = false;
     [SerializeField] bool rockGrabbed = false;
-    bool lockVertical, lockHorizontal = false;
     bool thisRock = false;
     [HideInInspector] public AudioSource dragSound;
+
     // Start is called before the first frame update
     void Start()
     {
