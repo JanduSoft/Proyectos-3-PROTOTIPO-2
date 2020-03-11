@@ -24,10 +24,10 @@ public class KilledByRock : MonoBehaviour
     {
         if(other.tag == pedra.tag)
         {
-            foc.SetActive(false);
             Destroy(gameObject);
             staff.transform.rotation = crushedStaff.transform.rotation;
             staff.transform.position = crushedStaff.transform.position;
+            foc.SetActive(false);
         }
     }
 }

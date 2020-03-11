@@ -10,14 +10,13 @@ public class FollowPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
         if(name != "Fire01")
-            thisRB.velocity = (new Vector3(player.position.x, player.position.y + 1, player.position.z) - transform.position).normalized * 17;
+            thisRB.velocity = (new Vector3(player.position.x, player.position.y + 1.5f, player.position.z) - transform.position).normalized * 17;
     }
     private void OnTriggerEnter(Collider other)
     {
