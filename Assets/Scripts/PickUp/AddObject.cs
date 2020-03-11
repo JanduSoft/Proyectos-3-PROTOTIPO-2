@@ -9,6 +9,7 @@ public class AddObject : MonoBehaviour
     bool canPlace = false;
     protected Animator playerAnimator;
     [SerializeField] GameObject _object = null;
+    [SerializeField] PickUpandDrop pu = null;
 
     public bool isActivated = false;
     [SerializeField] bool faceOppositeDirection = false;
@@ -25,6 +26,7 @@ public class AddObject : MonoBehaviour
         {
             if (canPlace && _object.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && !isActivated && Input.GetButtonDown("Interact") && _object != null)
             {
+                Debug.Log(_object.name);
                 playerAnimator.SetBool("PlaceObject", true);
                 _object.GetComponent<PickUpandDrop>().DropObject();
                 StartCoroutine(PlaceObject());
@@ -40,7 +42,6 @@ public class AddObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
         if (other.CompareTag("Player"))
         {
             canPlace = true;
@@ -48,9 +49,10 @@ public class AddObject : MonoBehaviour
         }
         else if (other.CompareTag("Place"))
         {
+            Debug.Log(other.name);
             _object = other.transform.parent.gameObject;
             _objectTransform = other.transform.parent.gameObject.transform;
-            _object.GetComponent<PickUpandDrop>().SetCancelledDrop(true);
+           _object.transform.parent.GetComponent<PickUpandDrop>().SetCancelledDrop(true);
         }
 
     }
@@ -66,8 +68,10 @@ public class AddObject : MonoBehaviour
     IEnumerator PlaceObject()
     {
         yield return new WaitForSeconds(0.55f);
+        Debug.Log("aa");
         _objectTransform.position = placePosition.transform.position;
         _objectTransform.rotation = transform.rotation;
+        _object.transform.SetParent(transform);
         if (faceOppositeDirection) _objectTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
         else if(quarterRotation) _objectTransform.Rotate(90, 90, 0);
         isActivated = true;
