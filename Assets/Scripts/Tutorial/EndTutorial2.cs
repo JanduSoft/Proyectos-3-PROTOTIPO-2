@@ -13,6 +13,7 @@ public class EndTutorial2 : MonoBehaviour
     [Header("FOR SOUNDS")]
     [SerializeField] AudioSource puzzleJingle;
     [SerializeField] AudioSource openDoor;
+    [SerializeField] AudioSource shakeSound;
     [Header("FOR CAMERA SHAKE")]
     [SerializeField] Camera myCamera;
     [SerializeField] float durationShake;
@@ -34,6 +35,7 @@ public class EndTutorial2 : MonoBehaviour
             if (!shakeActivated)
             {
                 puzzleJingle.Play();
+                shakeSound.Play();
                 openDoor.Play();
                 shakeActivated = true;
                 myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
