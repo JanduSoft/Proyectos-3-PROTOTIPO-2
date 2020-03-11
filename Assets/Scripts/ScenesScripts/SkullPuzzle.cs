@@ -14,6 +14,7 @@ public class SkullPuzzle : MonoBehaviour
     [Header("FOR CAMERA SHAKE")]
     [SerializeField] Camera myCamera;
     [SerializeField] float durationShake;
+    [SerializeField] AudioSource shakeSound;
     [SerializeField] float strength;
     [SerializeField] int vibrato;
     [SerializeField] float randomness;
@@ -45,6 +46,7 @@ public class SkullPuzzle : MonoBehaviour
                 //////CAMERA SHAKE
                 if (!shakeActivated)
                 {
+                    shakeSound.Play();
                     puzzleJingle.Play();
                     shakeActivated = true;
                     myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
