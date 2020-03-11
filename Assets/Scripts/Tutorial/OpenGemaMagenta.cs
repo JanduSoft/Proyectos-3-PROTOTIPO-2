@@ -11,6 +11,7 @@ public class OpenGemaMagenta : MonoBehaviour
     bool lever3 = false;
     [Header("FOR SOUND EFFECTS")]
     [SerializeField] AudioSource puzzleJingle;
+    [SerializeField] AudioSource shakeSound;
 
     [Header("FOR CAMERA SHAKE")]
     [SerializeField] Camera myCamera;
@@ -38,6 +39,7 @@ public class OpenGemaMagenta : MonoBehaviour
             if (!shakeActivated)
             {
                 puzzleJingle.Play();
+                shakeSound.Play();
                 shakeActivated = true;
                 myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
             }
