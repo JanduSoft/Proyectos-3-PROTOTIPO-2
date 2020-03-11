@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4684098083087241809}
   - component: {fileID: 4684098083089519683}
   - component: {fileID: 4684098083089519676}
-  - component: {fileID: 4684098083089519677}
+  - component: {fileID: 4294517604862426692}
   - component: {fileID: 6292235950479392440}
   m_Layer: 0
   m_Name: TorchLevelS2P1
@@ -111,7 +111,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.65
   m_Center: {x: 0, y: 0, z: -0.14}
---- !u!114 &4684098083089519677
+--- !u!114 &4294517604862426692
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,19 +120,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4684098083089322193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e50ee9b53a66b0b4387411ac0300ec69, type: 3}
+  m_Script: {fileID: 11500000, guid: ffae9aab7af4a0340a12a67a60820bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistanceToGrabObject: 3
-  objectIsGrabbed: 0
-  firePlace: {fileID: 0}
-  ropeToBeIgnited: {fileID: 0}
-  fireParticles: {fileID: 4685521164137504445}
-  chains: {fileID: 4684098083089322193}
-  animation: {fileID: 0}
-  nearFire: 0
-  nearRope: 0
-  torchIgnited: 0
 --- !u!114 &6292235950479392440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objects:
   - {fileID: 4685521164137504445}
-  condition: 1
+  Action: 0
   interactuable: 3
 --- !u!1001 &4684098082952934983
 PrefabInstance:
