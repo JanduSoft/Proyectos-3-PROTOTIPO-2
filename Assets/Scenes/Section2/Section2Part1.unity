@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17401871, g: 0.21760008, b: 0.29977998, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -14632,6 +14632,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.2467011
       objectReference: {fileID: 0}
+    - target: {fileID: 5389500019081915670, guid: 99189a4535fa3f641b053d51caabd76c,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4222265005434164499, guid: 99189a4535fa3f641b053d51caabd76c,
         type: 3}
       propertyPath: distanceToLever
@@ -14646,11 +14651,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Radius
       value: 2.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5389500019081915670, guid: 99189a4535fa3f641b053d51caabd76c,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99189a4535fa3f641b053d51caabd76c, type: 3}
@@ -30130,6 +30130,7 @@ MonoBehaviour:
   randomness: 541256
   objectPos: {fileID: 0}
   puzzleJingle: {fileID: 0}
+  shakeSound: {fileID: 0}
 --- !u!65 &722047874
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30166,6 +30167,7 @@ MonoBehaviour:
   randomness: 541256
   objectPos: {fileID: 0}
   puzzleJingle: {fileID: 0}
+  shakeSound: {fileID: 0}
 --- !u!1001 &722777360
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37408,6 +37410,7 @@ MonoBehaviour:
   randomness: 0
   objectPos: {fileID: 0}
   puzzleJingle: {fileID: 0}
+  shakeSound: {fileID: 0}
 --- !u!114 &906918443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45205,21 +45208,6 @@ PrefabInstance:
       propertyPath: activateObject
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 4222265005434164496, guid: 99189a4535fa3f641b053d51caabd76c,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 4222265005434164496, guid: 99189a4535fa3f641b053d51caabd76c,
-        type: 3}
-      propertyPath: m_Center.y
-      value: -0.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 4222265005434164496, guid: 99189a4535fa3f641b053d51caabd76c,
-        type: 3}
-      propertyPath: m_Center.x
-      value: -0.06
-      objectReference: {fileID: 0}
     - target: {fileID: 4222265004018155830, guid: 99189a4535fa3f641b053d51caabd76c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -45234,6 +45222,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222265005434164496, guid: 99189a4535fa3f641b053d51caabd76c,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222265005434164496, guid: 99189a4535fa3f641b053d51caabd76c,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222265005434164496, guid: 99189a4535fa3f641b053d51caabd76c,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.06
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4222265005434164498, guid: 99189a4535fa3f641b053d51caabd76c, type: 3}
@@ -85570,6 +85573,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
+    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1382943953}
+    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: spriteIndicateObject
+      value: 
+      objectReference: {fileID: 1254406340}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -85630,14 +85641,6 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1382943953}
-    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 1382943953}
-    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: spriteIndicateObject
-      value: 
-      objectReference: {fileID: 1254406340}
     - target: {fileID: 1629156140, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -88036,6 +88039,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.2467011
       objectReference: {fileID: 0}
+    - target: {fileID: 5389500019081915670, guid: 99189a4535fa3f641b053d51caabd76c,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4222265005434164499, guid: 99189a4535fa3f641b053d51caabd76c,
         type: 3}
       propertyPath: distanceToLever
@@ -88080,11 +88088,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Radius
       value: 2.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5389500019081915670, guid: 99189a4535fa3f641b053d51caabd76c,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99189a4535fa3f641b053d51caabd76c, type: 3}
