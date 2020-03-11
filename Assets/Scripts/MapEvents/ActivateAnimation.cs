@@ -29,6 +29,7 @@ public class ActivateAnimation : MonoBehaviour
     bool isOpened = false;
     [Header("FOR SOUND EFFECTS")]
     [SerializeField] AudioSource puzzleJingle;
+    [SerializeField] AudioSource shakeSound;
     #endregion
 
     #region TRIGGER ENTER
@@ -109,6 +110,7 @@ public class ActivateAnimation : MonoBehaviour
                 if (!isOpened)
                 {
                     isOpened = true;
+                    shakeSound.Play();
                     myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
                 }
             }
@@ -118,6 +120,7 @@ public class ActivateAnimation : MonoBehaviour
                 if (!isOpened)
                 {
                     isOpened = true;
+                    shakeSound.Play();
                     myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
                 }
                 Invoke("DeactivateAnimation", 2f);
@@ -136,6 +139,7 @@ public class ActivateAnimation : MonoBehaviour
     #region START SHAKE
     void StartShake()
     {
+        shakeSound.Play();
         myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
     }
     #endregion

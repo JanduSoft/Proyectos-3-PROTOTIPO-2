@@ -27,6 +27,7 @@ public class ActivateDoor : MonoBehaviour
     bool isOpened = false;
     [Header("FOR SOUND EFFECTS")]
     [SerializeField] AudioSource puzzleJingle;
+    [SerializeField] AudioSource shakeSound;
 
 
     private void OnTriggerStay(Collider other)
@@ -51,6 +52,7 @@ public class ActivateDoor : MonoBehaviour
                 {
                     puzzleJingle.Play();
                     isOpened = true;
+                    shakeSound.Play();
                     myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
                 }
             }

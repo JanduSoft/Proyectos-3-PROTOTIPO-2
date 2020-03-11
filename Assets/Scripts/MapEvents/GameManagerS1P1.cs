@@ -14,6 +14,7 @@ public class GameManagerS1P1 : MonoBehaviour
     [SerializeField] float strength;
     [SerializeField] int vibrato;
     [SerializeField] float randomness;
+    [SerializeField] AudioSource shakeSound;
 
 
 
@@ -25,6 +26,7 @@ public class GameManagerS1P1 : MonoBehaviour
             Debug.Log("Hay colocadas " + counter);
             if (counter == 3)
             {
+                shakeSound.Play();
                 doorAnimator.SetBool("Active", true);
                 myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
             }
