@@ -46,15 +46,6 @@ public class LoadScene : MonoBehaviour
     IEnumerator LoadDaScene()
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneToLoad);
-        operation.allowSceneActivation = false;
-
-        while (operation.progress<=0.8f)
-        {
-            //mantains the game stuck in the loop until the level is done loading
-            yield return null;
-        }
-
-        operation.allowSceneActivation = true;
 
         yield return null;
     }
