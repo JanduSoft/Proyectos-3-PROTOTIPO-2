@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Bush_1
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 8a0c5adb5c37119478a5ee67b67b47c9, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -75,6 +75,9 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
+    - _WindFrecuency: 1
+    - _WindGustDistance: 0.25
+    - _WindStrength: 0.3
     - _ZWrite: 1
     - _b_influence: 1
     - _branches_disp: 0.3
@@ -90,4 +93,5 @@ Material:
     - _Color: {r: 0.3196916, g: 0.4811321, b: 0.16113387, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}
+    - _WindDirection: {r: 1, g: 0, b: 1, a: 0}
     - _wind_dir: {r: 0.5, g: 0.05, b: 0.5, a: 0}

@@ -50,8 +50,6 @@ public class NewWhipJump : MonoBehaviour
         whip.SetPosition(1, player.position);
         whip.startColor = Color.blue;
         whip.endColor = Color.blue;
-        whip.startWidth = (0.5f);
-        whip.endWidth = (0.5f);
     }
 
     #region UPDATE
@@ -126,8 +124,6 @@ public class NewWhipJump : MonoBehaviour
         playerMovement.isInWhipJump = true;
         
         whip.SetPosition(1, toWhipObject.position);
-        whip.startWidth = 0.5f;
-        whip.endWidth = 0.5f;
 
         player.DOJump(destination.position, jump, 1, speed);
         Invoke("StopWhipDrawing", speed);
