@@ -634,14 +634,13 @@ MonoBehaviour:
   whip: {fileID: 1052674258}
   jumpForce: 14
   jumpSound: {fileID: 583964081}
-  minPitch: 0.8
-  maxPitch: 1.2
   gravity: 40
   fallVelocity: 0
   mainCamera: {fileID: 0}
   isInWhipJump: 0
   animatorController: {fileID: 95810304588308272}
   model: {fileID: 1669957099268278}
+  lineR: {fileID: 415923831}
 --- !u!82 &583964081
 AudioSource:
   m_ObjectHideFlags: 0
@@ -649,7 +648,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6120095539264640501}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243430210898580274, guid: 829dfea7bf13d0a4796ae2472460ce0b,
     type: 2}
@@ -861,6 +860,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6120095539264640499}
     m_Modifications:
+    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_Name
+      value: BlobShadowProjector
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.003730774
@@ -904,10 +907,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_Name
-      value: BlobShadowProjector
       objectReference: {fileID: 0}
     - target: {fileID: 11900000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_FarClipPlane
@@ -1000,15 +999,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 95810303219782666, guid: 8c84a68a6ecac2b40ace8c1e732ac78a,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 33819a894fba6eb4c8baa9c260ac4ab4, type: 2}
-    - target: {fileID: 1567018642395164, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
-      propertyPath: m_Name
-      value: Hand_R_PickUp
-      objectReference: {fileID: 0}
     - target: {fileID: 4950145943640758, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.36847413
@@ -1037,6 +1027,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.019280791
       objectReference: {fileID: 0}
+    - target: {fileID: 95810303219782666, guid: 8c84a68a6ecac2b40ace8c1e732ac78a,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 33819a894fba6eb4c8baa9c260ac4ab4, type: 2}
     - target: {fileID: 4132718694795690, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0.6640622
@@ -1577,6 +1572,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.00038136356
       objectReference: {fileID: 0}
+    - target: {fileID: 1567018642395164, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
+      propertyPath: m_Name
+      value: Hand_R_PickUp
+      objectReference: {fileID: 0}
     - target: {fileID: 4260107782921878, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.09868696
@@ -1943,6 +1942,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6120095539264640499}
     m_Modifications:
+    - target: {fileID: 6256814316364482659, guid: 267b71fc5ce67014797aa596897e70b4,
+        type: 3}
+      propertyPath: m_Name
+      value: Player walking
+      objectReference: {fileID: 0}
     - target: {fileID: 6256814316364482658, guid: 267b71fc5ce67014797aa596897e70b4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1997,11 +2001,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6256814316364482659, guid: 267b71fc5ce67014797aa596897e70b4,
-        type: 3}
-      propertyPath: m_Name
-      value: Player walking
       objectReference: {fileID: 0}
     - target: {fileID: 6256814316364482661, guid: 267b71fc5ce67014797aa596897e70b4,
         type: 3}

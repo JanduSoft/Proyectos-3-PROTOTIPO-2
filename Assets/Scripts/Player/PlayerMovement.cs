@@ -22,8 +22,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("JUMP")]
     [SerializeField] float jumpForce;
     [SerializeField] AudioSource jumpSound;
-    [SerializeField] float minPitch;
-    [SerializeField] float maxPitch;
+    float minPitch = 0.9f;
+    float maxPitch = 1.1f;
 
     [Header("GRAVITY")]
     [SerializeField] float gravity = 9.8f;

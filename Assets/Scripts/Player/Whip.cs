@@ -35,9 +35,9 @@ public class Whip : MonoBehaviour
     void Update()
     {
 
+        whip.SetPosition(0, playerTransform.position);
         #region WHIP UPDATE
         if (index > enemyList.Count - 1) index = enemyList.Count - 1;
-        whip.SetPosition(0, playerTransform.position);
         if (!whippin)
             whip.SetPosition(1, playerTransform.position);
         if (enemyList.Count == 0)

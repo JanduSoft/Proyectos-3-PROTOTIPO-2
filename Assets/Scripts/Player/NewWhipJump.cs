@@ -57,6 +57,11 @@ public class NewWhipJump : MonoBehaviour
     #region UPDATE
     private void Update()
     {
+        if(!playerMovement.isInWhipJump)
+        {
+            whip.SetPosition(0, player.position);
+            whip.SetPosition(1, player.position);
+        }
         ////CHECK INPUT
         if ((Input.GetButtonDown("Whip")) && canWhip && !playerMovement.isInWhipJump)
         {            
