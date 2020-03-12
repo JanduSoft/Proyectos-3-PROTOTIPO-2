@@ -607,7 +607,7 @@ MonoBehaviour:
   playerMovementScript: {fileID: 6120095539264640498}
   whipAttackScript: {fileID: 1052674258}
   deathPanel: {fileID: 0}
-  respawnOffset: 1
+  respawnOffset: 0.1
   objectGrabbed: {fileID: 0}
 --- !u!114 &6120095539264640498
 MonoBehaviour:
@@ -640,7 +640,7 @@ MonoBehaviour:
   isInWhipJump: 0
   animatorController: {fileID: 95810304588308272}
   model: {fileID: 1669957099268278}
-  lineR: {fileID: 415923831}
+  inRespawn: 0
 --- !u!82 &583964081
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1106,6 +1106,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4698118938113482, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
       propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 137315348514773626, guid: 8c84a68a6ecac2b40ace8c1e732ac78a,
+        type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4236206657452498, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
@@ -1659,6 +1664,21 @@ PrefabInstance:
     - target: {fileID: 4909549516838070, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.026726495
+      objectReference: {fileID: 0}
+    - target: {fileID: 23253365018900282, guid: 8c84a68a6ecac2b40ace8c1e732ac78a,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23662969508922822, guid: 8c84a68a6ecac2b40ace8c1e732ac78a,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23777209629807436, guid: 8c84a68a6ecac2b40ace8c1e732ac78a,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4037232242714860, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
       propertyPath: m_LocalRotation.x

@@ -50,9 +50,8 @@ public class playerDeath : MonoBehaviour
             deathPanel.GetComponent<Image>().color = c;
             yield return new WaitForSeconds(.01f);
         }
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex,LoadSceneMode.Single);   //reloads the same scene
-        //teleport player to previous grounded place
 
+        #region
         //This section is commented so when you die with an object, you still have that object
         //Debug.Log(objectGrabbed);
         //if (objectGrabbed!=null)
@@ -74,9 +73,12 @@ public class playerDeath : MonoBehaviour
         //    }
         //}
 
+        #endregion
+
         Vector3 offsetDir = new Vector3(lastDirection.x, -1, lastDirection.z);
         playerMovementScript.player.transform.position = lastGroundedPosition-offsetDir*respawnOffset;
-        playerMovementScript.grounded = true;
+        playerMovementScript.inRespawn = true;
+        playerMovementScript.fallVelocity = 0;
         playerMovementScript.animatorController.SetBool("Jumping", false);
         whipAttackScript.ResetAllEnemiesAround();
         isDead = false;
@@ -90,5 +92,6 @@ public class playerDeath : MonoBehaviour
         }
 
         playerMovementScript.StopMovement(false);
+        playerMovementScript.inRespawn = false;
     }
 }
