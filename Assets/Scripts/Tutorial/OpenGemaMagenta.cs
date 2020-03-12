@@ -21,13 +21,14 @@ public class OpenGemaMagenta : MonoBehaviour
     [SerializeField] float randomness;
     bool shakeActivated = false;
 
+    Vector3 startPos;
 
-    [SerializeField] List<GameObject> deactivate;
+[SerializeField] List<GameObject> deactivate;
 
 
     void Start()
     {
-        
+        startPos = deactivate[0].transform.position;
     }
 
     // Update is called once per frame
@@ -43,7 +44,7 @@ public class OpenGemaMagenta : MonoBehaviour
                 shakeActivated = true;
                 myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
             }
-            for (int i = 0; i < deactivate.Count; i++) deactivate[i].transform.DOMoveY(deactivate[i].transform.position.y + 2,2);
+            for (int i = 0; i < deactivate.Count; i++) deactivate[i].transform.DOMoveY(startPos.y + 4.5f,2);
         }
     }
     public void Solved(string name)
