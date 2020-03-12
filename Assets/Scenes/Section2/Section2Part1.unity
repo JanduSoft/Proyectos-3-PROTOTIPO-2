@@ -88481,6 +88481,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Tiles_04 (188)
       objectReference: {fileID: 0}
+    - target: {fileID: 184820, guid: 9e2131326fc97464987f58ebcb08832a, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 491958, guid: 9e2131326fc97464987f58ebcb08832a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.41
@@ -93353,6 +93357,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 418862465}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2036448270 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 184820, guid: 9e2131326fc97464987f58ebcb08832a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1942194235}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2036448271
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036448270}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 11.597516, y: 1.5113624, z: 5.53331}
+  m_Center: {x: -5.798119, y: 0.7548812, z: 2.2333426}
 --- !u!1001 &2036461915
 PrefabInstance:
   m_ObjectHideFlags: 0
