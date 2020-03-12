@@ -82,7 +82,6 @@ public class Whip : MonoBehaviour
             inputDown = false;
             whip.SetPosition(1, playerTransform.position);
             enemyList[index].SendMessage("Die");
-            attackMode = false;
         }
         else if (time >= lineDrawSpeed && ableToWhipObject)
         {
