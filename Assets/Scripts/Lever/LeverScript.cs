@@ -53,12 +53,15 @@ public class LeverScript : MonoBehaviour
                 lever.transform.localEulerAngles = new Vector3 (lever.transform.localRotation.x, lever.transform.localRotation.y, lever.transform.localEulerAngles.z - 45) ;
                 activateObject.SendMessage("ActivateObject", false, SendMessageOptions.DontRequireReceiver);
                 //////CAMERA SHAKE
-                if (!shakeActivated && needToShake )
+                if (!shakeActivated)
                 {
                     leverSound.Play();
-                    shakeActivated = true;
-                    shakeSound.Play();
-                    myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+                    if (needToShake)
+                    {
+                        shakeActivated = true;
+                        shakeSound.Play();
+                        myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+                    }
                 }
                 //We could have another object attached here, such as a GameObject MortalTrap, and that
                 //object has a function activate. That way we could easily do MortalTrap.activate(); from here.

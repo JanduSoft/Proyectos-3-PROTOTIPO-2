@@ -50,8 +50,8 @@ public class playerDeath : MonoBehaviour
             deathPanel.GetComponent<Image>().color = c;
             yield return new WaitForSeconds(.01f);
         }
-        //teleport player to previous grounded place
 
+        #region
         //This section is commented so when you die with an object, you still have that object
         #region
         //Debug.Log(objectGrabbed);
@@ -73,6 +73,8 @@ public class playerDeath : MonoBehaviour
 
         //    }
         //}
+        #endregion
+
         #endregion
 
         Vector3 offsetDir = new Vector3(lastDirection.x, -1, lastDirection.z);

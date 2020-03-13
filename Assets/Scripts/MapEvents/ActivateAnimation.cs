@@ -65,9 +65,11 @@ public class ActivateAnimation : MonoBehaviour
         else if (other.CompareTag("Place") && type == typeAnimator.BRIDGE)
         {
             myAnimator.SetBool("Active", true);
-            Invoke("StartShake", 1.25f);
+            puzzleJingle.Play();
+            shakeSound.Play();
+            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
             Destroy(this.gameObject);
-            
+
         }
 
 
@@ -110,6 +112,7 @@ public class ActivateAnimation : MonoBehaviour
                 if (!isOpened)
                 {
                     isOpened = true;
+                    puzzleJingle.Play();
                     shakeSound.Play();
                     myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
                 }
@@ -120,6 +123,7 @@ public class ActivateAnimation : MonoBehaviour
                 if (!isOpened)
                 {
                     isOpened = true;
+                    puzzleJingle.Play();
                     shakeSound.Play();
                     myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
                 }
@@ -139,6 +143,7 @@ public class ActivateAnimation : MonoBehaviour
     #region START SHAKE
     void StartShake()
     {
+        puzzleJingle.Play();
         shakeSound.Play();
         myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
     }

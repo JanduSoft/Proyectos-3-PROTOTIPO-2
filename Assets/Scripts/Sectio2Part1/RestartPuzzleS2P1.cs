@@ -40,14 +40,18 @@ public class RestartPuzzleS2P1 : MonoBehaviour
     {
         if (isInside && Input.GetButtonDown("Interact"))
         {
-            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
-
-            box1.DOMove(initialPosition1,speed);
-            box2.DOMove(initialPosition2, speed);
-            box3.DOMove(initialPosition3, speed);
-            box4.DOMove(initialPosition4, speed);
+            
 
         }
+    }
+
+    public void ActivateObject()
+    {
+        myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+        box1.DOMove(initialPosition1, speed);
+        box2.DOMove(initialPosition2, speed);
+        box3.DOMove(initialPosition3, speed);
+        box4.DOMove(initialPosition4, speed);
     }
 
     private void OnTriggerEnter(Collider other)

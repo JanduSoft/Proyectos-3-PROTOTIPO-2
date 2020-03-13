@@ -7,7 +7,7 @@ public class OnTriggerPlayAnim : MonoBehaviour
 {
     public string animationClipName;
     Animation rockAnim;
-    [SerializeField]bool deactivateRock = false;
+    [SerializeField] bool deactivateRock = false;
     [SerializeField] float timeToSound = 1.8f;
 
     private void OnTriggerEnter(Collider other)
@@ -24,9 +24,9 @@ public class OnTriggerPlayAnim : MonoBehaviour
         }
     }
 
-    
 
-    
+
+
     IEnumerator SoundTime()
     {
         yield return new WaitForSeconds(timeToSound);

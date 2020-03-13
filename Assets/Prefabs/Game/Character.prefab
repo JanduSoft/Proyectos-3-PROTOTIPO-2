@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 483807634}
   m_Layer: 10
   m_Name: GrabObjectPos
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 638439896}
   m_Layer: 10
   m_Name: WalkingParticleSpawner
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 1616399774}
   m_Layer: 10
   m_Name: Shadow
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 1629156140}
   m_Layer: 10
   m_Name: TutoSprites
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -607,7 +607,7 @@ MonoBehaviour:
   playerMovementScript: {fileID: 6120095539264640498}
   whipAttackScript: {fileID: 1052674258}
   deathPanel: {fileID: 0}
-  respawnOffset: 1
+  respawnOffset: 0.1
   objectGrabbed: {fileID: 0}
 --- !u!114 &6120095539264640498
 MonoBehaviour:
@@ -634,8 +634,6 @@ MonoBehaviour:
   whip: {fileID: 1052674258}
   jumpForce: 14
   jumpSound: {fileID: 583964081}
-  minPitch: 0.8
-  maxPitch: 1.2
   gravity: 40
   fallVelocity: 0
   mainCamera: {fileID: 0}
@@ -650,7 +648,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6120095539264640501}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243430210898580274, guid: 829dfea7bf13d0a4796ae2472460ce0b,
     type: 2}
@@ -788,7 +786,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.19444656
+        value: 0.32369995
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -865,6 +863,10 @@ PrefabInstance:
     - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_Name
       value: BlobShadowProjector
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1884,6 +1886,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8110111147615513432, guid: af89c3327fb50154981f9e00e87d5875,
         type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8110111147615513432, guid: af89c3327fb50154981f9e00e87d5875,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -1976,6 +1983,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player walking
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256814316364482659, guid: 267b71fc5ce67014797aa596897e70b4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6256814316364482658, guid: 267b71fc5ce67014797aa596897e70b4,
         type: 3}

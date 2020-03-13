@@ -10,6 +10,7 @@ public class PatrolEnemy : MonoBehaviour
 {
     [SerializeField] GameObject Player;
     [SerializeField] GameObject Skull;
+    [SerializeField] GameObject headPosition;
     [SerializeField] PatrolEnemy _this;
     [SerializeField] GameObject skullModel;
     [SerializeField] NavMeshAgent Agent;
@@ -90,7 +91,7 @@ public class PatrolEnemy : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         Skull.SetActive(true);
-        Skull.transform.localPosition = new Vector3(0, 0, 1);
+        Skull.transform.position = headPosition.transform.position;
         yield return new WaitForSeconds(4);
         Skull.SetActive(false);
         animController.SetBool("dead", false);

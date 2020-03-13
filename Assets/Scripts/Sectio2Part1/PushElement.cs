@@ -8,6 +8,7 @@ public class PushElement : MonoBehaviour
     [SerializeField] Transform box;
     [SerializeField] PushElement destinationElement;
     [SerializeField] float speed;
+    [SerializeField] AudioSource movingSound;
     [SerializeField] Transform destination;
     public bool canPush = true;
     public bool isInside = false;
@@ -19,6 +20,8 @@ public class PushElement : MonoBehaviour
         {
             box.DOMove(destination.position, speed);
             isMoving = true;
+            movingSound.Play();
+            StartCoroutine(sound());
             Invoke("RestartMoving", speed);
         }
     }
@@ -50,5 +53,10 @@ public class PushElement : MonoBehaviour
     void RestartMoving()
     {
         isMoving = false;
+    }
+    IEnumerator sound()
+    {
+        yield return new WaitForSeconds(speed);
+        movingSound.Stop();
     }
 }
