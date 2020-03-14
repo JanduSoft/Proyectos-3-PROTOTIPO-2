@@ -35,7 +35,6 @@ public class NewWhipJump : MonoBehaviour
     [Header("DRAW WHIP")]
     [SerializeField] LineRenderer whip;
     [SerializeField] PlayerMovement playerMovement;
-
     #endregion
 
     private void Start()
@@ -55,19 +54,21 @@ public class NewWhipJump : MonoBehaviour
     #region UPDATE
     private void Update()
     {
-        if(!playerMovement.isInWhipJump)
+        if (!playerMovement.isInWhipJump)
         {
             whip.SetPosition(0, player.position);
             whip.SetPosition(1, player.position);
         }
+        
+
         ////CHECK INPUT
         if ((Input.GetButtonDown("Whip")) && canWhip && !playerMovement.isInWhipJump)
-        {            
-
+        {
             Vector3 toLookAt = new Vector3(toWhipObject.position.x, player.position.y , toWhipObject.position.z);
 
             player.DOLookAt(toLookAt, timeImpulse+0.2f);
             player.DOMoveY( player.position.y+impulse ,timeImpulse);
+
 
             Invoke("WhipJump", timeImpulse);
         }
@@ -121,11 +122,11 @@ public class NewWhipJump : MonoBehaviour
     #region WHIP JUMP
     void WhipJump()
     {
-        playerMovement.isInWhipJump = true;
-        
-        whip.SetPosition(1, toWhipObject.position);
 
-        player.DOJump(destination.position, jump, 1, speed);
+        playerMovement.isInWhipJump = true;
+        whip.SetPosition(1, toWhipObject.position);
+        //player.DOJump(destination.position, jump, 1, speed);
+        player.DOMove(destination.position, speed);
         Invoke("StopWhipDrawing", speed);
     }
     #endregion
@@ -134,10 +135,11 @@ public class NewWhipJump : MonoBehaviour
     void StopWhipDrawing()
     {
         playerMovement.isInWhipJump = false;
-        whip.SetPosition(1, player.position);
+        //whip.SetPosition(1, player.position);
         whip.SetPosition(0, player.position);
     }
     #endregion
+
     #region WHIP JUMP ACTIVATE
     private void OnTriggerEnter(Collider other)
     {
