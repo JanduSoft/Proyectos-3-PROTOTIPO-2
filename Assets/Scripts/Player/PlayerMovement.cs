@@ -36,20 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     AudioSource playerSteps;
     Vector3 prevPos;
-
-    [Header("PORTALS")]
-    private Transform portal1;
-    private bool moveToPortal1 = false;
-    private Transform portal2;
-    private bool moveToPortal2 = false;
-    private Transform portal3;
-    private bool moveToPortal3 = false;
-    private Transform portal4;
-    private bool moveToPortal4 = false;
-    private Transform portal5;
-    private bool moveToPortal5 = false;
-    private Transform portal6;
-    private bool moveToPortal6 = false;
+    
     [Header("WHIP JUMP")]
     public bool isInWhipJump = false;
 
@@ -76,38 +63,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (moveToPortal1)
-        {
-            transform.position = portal1.position;
-            moveToPortal1 = false;
-        }
-        else if (moveToPortal2)
-        {
-            transform.position = portal2.position;
-            moveToPortal2 = false;
-        }
-        else if (moveToPortal3)
-        {
-            transform.position = portal3.position;
-            moveToPortal3 = false;
-        }
-        else if (moveToPortal4)
-        {
-            transform.position = portal4.position;
-            moveToPortal4 = false;
-        }
-        else if (moveToPortal5)
-        {
-            transform.position = portal5.position;
-            moveToPortal5 = false;
-        }
-        else if (moveToPortal6)
-        {
-            transform.position = portal6.position;
-            moveToPortal6 = false;
-        }
-        else
-        {
             //GET AXIS
             horizontalMove = Input.GetAxis("Horizontal");
             verticalMove = Input.GetAxis("Vertical");
@@ -150,8 +105,7 @@ public class PlayerMovement : MonoBehaviour
                 // JUMP
                 PlayerSkills();
 
-                // MOVING CHARACTER
-
+                //WALKING SOUND & PARTICLES
                 if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
                 {
                     prevPos = transform.position;
@@ -159,16 +113,22 @@ public class PlayerMovement : MonoBehaviour
                     Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position, Quaternion.identity), 0.55f);
                 }
 
+                // MOVING CHARACTER
                 if (player.isGrounded || grounded)
+                {
                     animatorController.SetBool("Jumping", false);
+                    player.Move(movePlayer * Time.deltaTime);
+
+                    Debug.Log("MovePlayer en el suelo : " + movePlayer);
+                }
                 else if (!player.isGrounded && !grounded)
+                {
+                    player.Move((movePlayer/2) * Time.deltaTime);
                     animatorController.SetBool("Jumping", true);
 
-                player.Move(movePlayer * Time.deltaTime);
-
+                Debug.Log("MovePlayer en el aire : " + movePlayer/2);
             }
-        }
-
+            }       
 
     }
     #endregion
@@ -222,37 +182,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Portal1"))
-        {
-            Debug.Log("Entrando al portal 1");
-            moveToPortal1 = true;
-        }
-        else if (other.CompareTag("Portal2"))
-        {
-            Debug.Log("Entrando al portal 2");
-            moveToPortal2 = true;
-        }
-        else if (other.CompareTag("Portal3"))
-        {
-            Debug.Log("Entrando al portal 3");
-            moveToPortal3 = true;
-        }
-        else if (other.CompareTag("Portal4"))
-        {
-            Debug.Log("Entrando al portal 4");
-            moveToPortal4 = true;
-        }
-        else if (other.CompareTag("Portal5"))
-        {
-            Debug.Log("Entrando al portal 5");
-            moveToPortal5 = true;
-        }
-        else if (other.CompareTag("Portal6"))
-        {
-            Debug.Log("Entrando al portal 6");
-            moveToPortal6 = true;
-        }
-        else if (other.CompareTag("Ground"))
+        
+        if (other.CompareTag("Ground"))
         {
             grounded = true;
         }
