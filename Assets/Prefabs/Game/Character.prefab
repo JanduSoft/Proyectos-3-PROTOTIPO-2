@@ -630,11 +630,12 @@ MonoBehaviour:
   walkinParticlesSpawner: {fileID: 638439896}
   grounded: 1
   player: {fileID: 6120095539264640500}
-  playerSpeed: 15
+  playerSpeed: 20
   whip: {fileID: 1052674258}
-  jumpForce: 14
+  jumpForce: 25
   jumpSound: {fileID: 583964081}
-  gravity: 40
+  percentRestriction: 70
+  gravity: 100
   fallVelocity: 0
   mainCamera: {fileID: 0}
   isInWhipJump: 0
@@ -785,8 +786,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.32369995
+        time: 0.009525299
+        value: 0.15294045
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1552,14 +1553,6 @@ PrefabInstance:
     - target: {fileID: 4812447589462588, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.0014362596
-      objectReference: {fileID: 0}
-    - target: {fileID: 1759828065216730, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1988222788239202, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4520178526194284, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
       propertyPath: m_LocalRotation.x

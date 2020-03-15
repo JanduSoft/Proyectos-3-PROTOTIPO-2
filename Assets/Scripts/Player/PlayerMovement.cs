@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] AudioSource jumpSound;
     float minPitch = 0.9f;
     float maxPitch = 1.1f;
+    [SerializeField] float percentRestriction;
 
     [Header("GRAVITY")]
     [SerializeField] float gravity = 9.8f;
@@ -89,14 +90,27 @@ public class PlayerMovement : MonoBehaviour
             }
             else if(!grabbedToRock && movePlayer != Vector3.zero && !stopped)
             {
-                player.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
-                model.transform.position = player.transform.position;
-                model.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
+                
+
+                // LOOK AT IF IS ON AIR OR GROUNDED
+                if (player.isGrounded || grounded)
+                {
+                    player.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
+                    model.transform.position = player.transform.position;
+                    model.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
+                }
+                else if (!player.isGrounded && !grounded)
+                {
+                    player.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
+                    model.transform.position = player.transform.position;
+                    model.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
+                }
 
                 animatorController.SetBool("walking", true);
                 timeIdle = 0;
                 animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
             }
+
             // GRAVITY
             SetGravity();
 
@@ -123,11 +137,11 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (!player.isGrounded && !grounded)
                 {
-                    player.Move((movePlayer/2) * Time.deltaTime);
+                    player.Move((movePlayer *(percentRestriction/100)) * Time.deltaTime);
                     animatorController.SetBool("Jumping", true);
 
-                Debug.Log("MovePlayer en el aire : " + movePlayer/2);
-            }
+                    Debug.Log("MovePlayer en el aire : " + movePlayer/2);
+                }
             }       
 
     }
