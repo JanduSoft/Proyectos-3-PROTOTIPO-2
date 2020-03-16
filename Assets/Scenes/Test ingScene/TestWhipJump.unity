@@ -582,7 +582,7 @@ PrefabInstance:
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.568035
+      value: -14.98
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
@@ -1225,6 +1225,8 @@ GameObject:
   - component: {fileID: 1866135965}
   - component: {fileID: 1866135964}
   - component: {fileID: 1866135963}
+  - component: {fileID: 1866135968}
+  - component: {fileID: 1866135967}
   m_Layer: 9
   m_Name: Cube
   m_TagString: Ground
@@ -1304,6 +1306,36 @@ Transform:
   m_Father: {fileID: 1202430990}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1866135967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866135962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf75101ab01b844684b45bbfd948ebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 256203551}
+  newFOV: 50
+  targetCamera: {fileID: 0}
+  newRotationTarget: {x: 0, y: -20, z: 0}
+  speedTransition: 2
+--- !u!65 &1866135968
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866135962}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 17.54602, z: 0.30719048}
+  m_Center: {x: 0, y: 8.27301, z: 0.3464049}
 --- !u!1 &1949468894
 GameObject:
   m_ObjectHideFlags: 0

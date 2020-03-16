@@ -17,11 +17,19 @@ public class FollowingCharacter : MonoBehaviour
     private Vector3 normalRotation;
     private float angleBound = 15;
     private float speedBound = 1.5f;
+    [HideInInspector]
     public Vector3 naturalPosition;
 
     ////////////////////////////
     /// /////////////////////////////------------------------------METHODS
     ////////////////////////////
+
+    /// /////////////////---- START
+    private void Start()
+    {
+        naturalPosition = this.transform.rotation.eulerAngles;
+        Debug.Log(naturalPosition);
+    }
 
     /// /////////////////---- UPDATE
     void Update()
