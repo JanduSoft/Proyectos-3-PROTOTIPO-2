@@ -34,12 +34,8 @@ public class Whip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        whip.SetPosition(0, playerTransform.position);
         #region WHIP UPDATE
-        if (index > enemyList.Count - 1) index = enemyList.Count - 1;
-        if (!whippin)
-            whip.SetPosition(1, playerTransform.position);
+        
         if (enemyList.Count == 0)
         {
             index = 0;
@@ -58,39 +54,10 @@ public class Whip : MonoBehaviour
             spriteIndicateObject.transform.position = whipableObjectTransform.position + new Vector3(0, 2.5f, 0);
             distToWhipable = Vector3.Distance(playerTransform.position, enemyList[index].position + new Vector3(0, 5, 0));
         }
-
-        if (counter < distToWhipable && inputDown && (attackMode || ableToWhipObject))
+        else
         {
-            time += Time.deltaTime;
-            counter += .1f / lineDrawSpeed;
-            float x = Mathf.Lerp(0, distToWhipable, counter);
-            Vector3 pA = playerTransform.position;
-            Vector3 pB = whipableObjectTransform.position + new Vector3(0, 2.5f, 0);
-            Vector3 pointBetweenAandB = x * Vector3.Normalize(pB - pA) + pA;
-            whip.SetPosition(1, pointBetweenAandB);
 
         }
-        #endregion
-
-        #region PLAYER WHIPATTACK & WHIPOBJECT
-
-        if (time >= lineDrawSpeed / 4 && attackMode)
-        {
-            Debug.Log("enemyDead");
-            counter = 0;
-            resetWhip = true;
-            inputDown = false;
-            spriteIndicateObject.SetActive(false);
-            attackMode = false;
-            whip.SetPosition(1, playerTransform.position);
-            enemyList[index].SendMessage("Die");
-        }
-        else if (time >= lineDrawSpeed && ableToWhipObject)
-        {
-            whipableObjectTransform.SendMessage("ChangeState");
-        }
-
-
         #endregion
 
         #region INPUT CONTROL
@@ -128,20 +95,6 @@ public class Whip : MonoBehaviour
             timeMinus -= Time.deltaTime;
             if (timeMinus < 0) timeMinus = 0.15f;
         }
-        if (ableToAttack && Input.GetButtonDown("EnterCombatMode"))
-        {
-            if (!attackMode)
-            {
-
-            }
-            else
-            {
-                spriteIndicateObject.SetActive(false);
-                whipableObjectTransform = null;
-            }
-            attackMode = !attackMode;
-        }
-
         #endregion
 
     }
