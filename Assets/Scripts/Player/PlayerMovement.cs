@@ -133,14 +133,11 @@ public class PlayerMovement : MonoBehaviour
                     animatorController.SetBool("Jumping", false);
                     player.Move(movePlayer * Time.deltaTime);
 
-                    Debug.Log("MovePlayer en el suelo : " + movePlayer);
                 }
                 else if (!player.isGrounded && !grounded)
                 {
                     player.Move((movePlayer *(percentRestriction/100)) * Time.deltaTime);
                     animatorController.SetBool("Jumping", true);
-
-                    Debug.Log("MovePlayer en el aire : " + movePlayer/2);
                 }
             }       
 

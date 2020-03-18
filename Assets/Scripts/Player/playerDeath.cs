@@ -82,7 +82,6 @@ public class playerDeath : MonoBehaviour
         playerMovementScript.inRespawn = true;
         playerMovementScript.fallVelocity = 0;
         playerMovementScript.animatorController.SetBool("Jumping", false);
-        whipAttackScript.ResetAllEnemiesAround();
         isDead = false;
 
         for (float f = 1.5f; f >= 0.0f; f -= 0.05f)

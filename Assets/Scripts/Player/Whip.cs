@@ -80,6 +80,8 @@ public class Whip : MonoBehaviour
             counter = 0;
             resetWhip = true;
             inputDown = false;
+            spriteIndicateObject.SetActive(false);
+            attackMode = false;
             whip.SetPosition(1, playerTransform.position);
             enemyList[index].SendMessage("Die");
         }
@@ -182,15 +184,4 @@ public class Whip : MonoBehaviour
         whipableObjectTransform = transform;
     }
 
-    public void ResetAllEnemiesAround()
-    {
-        foreach (var enemy in enemyList)
-        {
-            try
-            {
-                enemy.GetComponent<PatrolEnemy>().ResetEnemy();
-            }
-            catch { }
-        }
-    }
 }
