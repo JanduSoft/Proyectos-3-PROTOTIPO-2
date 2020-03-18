@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     #region VARIABLES
     [Header("MOVEMENT")]
     [SerializeField] float horizontalMove;
+    [SerializeField] float coyoteTime = 0.2f;
+    [SerializeField] float auxCoyote = 0;
     [SerializeField] float verticalMove;
     private Vector3 playerInput;
     public bool grabbedToRock = false;
@@ -52,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
     #region START
     void Start()
     {
+        auxCoyote = coyoteTime;
         player = GetComponent<CharacterController>();
         fallVelocity = -10;
         DOTween.Clear(true);
@@ -130,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
                 // MOVING CHARACTER
                 if (player.isGrounded || grounded)
                 {
+                    auxCoyote = coyoteTime;
                     animatorController.SetBool("Jumping", false);
                     player.Move(movePlayer * Time.deltaTime);
 
@@ -138,6 +142,14 @@ public class PlayerMovement : MonoBehaviour
                 {
                     player.Move((movePlayer *(percentRestriction/100)) * Time.deltaTime);
                     animatorController.SetBool("Jumping", true);
+                }
+                if(!player.isGrounded && auxCoyote > 0 && !jumpSound.isPlaying)
+                {
+                    auxCoyote -= Time.deltaTime;
+                    if (auxCoyote > 0)
+                        grounded = true;
+                    else
+                        grounded = false;
                 }
             }       
 
