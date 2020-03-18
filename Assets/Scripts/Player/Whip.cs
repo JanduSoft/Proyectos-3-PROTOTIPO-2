@@ -106,14 +106,6 @@ public class Whip : MonoBehaviour
             enemyList.Add(other.gameObject.transform);
             attackMode = true;
         }
-        else if (other.tag == "WhipObject")
-        {
-            other.SendMessage("SetPlayerTransform", playerTransform);
-            ableToWhipObject = true;
-            distToWhipable = Vector3.Distance(playerTransform.position, whipableObjectTransform.position);
-            spriteIndicateObject.SetActive(true);
-            spriteIndicateObject.transform.position = whipableObjectTransform.position;
-        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -124,17 +116,15 @@ public class Whip : MonoBehaviour
             whipableObjectTransform = null;
             attackMode = false;
         }
-        else if (other.tag == "WhipObject")
-        {
-            ableToWhipObject = false;
-            whipableObjectTransform = null;
-            spriteIndicateObject.SetActive(false);
-        }
     }
 
     public void setWhipableJumpObjectTransform(Transform transform)
     {
         whipableObjectTransform = transform;
+    }
+    public Transform getEnemy()
+    {
+        return enemyList[0];
     }
 
 }

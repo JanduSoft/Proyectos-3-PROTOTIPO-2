@@ -8,12 +8,13 @@ public class PickUpDropandThrow : PickUpandDrop
     double timeKeyDown = 0f;
     bool keyDown = false;
     int force = 10;
-    bool nearEnemy = false;
-    GameObject enemy;
+    [SerializeField] bool nearEnemy = false;
+    Transform enemy;
     [Header("OBJECT COMPONENTS")]
     [SerializeField] Rigidbody _thisRB;
     [SerializeField] SphereCollider _thisSC;
     [Header("EXTERNAL OBJECTS")]
+    [SerializeField] Whip playerWhip;
     [SerializeField] GameObject dustParticles;
     [SerializeField] GameObject objectInside;
     [SerializeField] GameObject brokenVase;
@@ -31,7 +32,10 @@ public class PickUpDropandThrow : PickUpandDrop
     // Update is called once per frame
     void Update()
     {
+        nearEnemy = playerWhip.attackMode;
         CheckVariables();
+        if (nearEnemy)
+            enemy = playerWhip.getEnemy();
         if (Input.GetButtonDown("Interact"))
         {
             keyDown = true;
@@ -63,10 +67,19 @@ public class PickUpDropandThrow : PickUpandDrop
                     StartCoroutine(DropObjectCoroutine(0.5f));
                     StartCoroutine(AnimationsCoroutine(0.65f));
                 }
-                else if (timeKeyDown > 0.3f && objectIsGrabbed)
+                else if (timeKeyDown > 0.5f && objectIsGrabbed)
                 {
+                    StartCoroutine(ResetMovement(0.7f));
                     ThrowObject();
                     useGravity = true;
+                }
+                else if (timeKeyDown > 0.5f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.position, enemy.position) < 91))
+                {
+                    player.transform.LookAt(enemy);
+                    StartCoroutine(ResetMovement(0.7f));
+                    ThrowObjectToEnemy();
+                    useGravity = true;
+                    timeKeyDown = 0;
                 }
             }
             timeKeyDown = 0;
@@ -77,12 +90,14 @@ public class PickUpDropandThrow : PickUpandDrop
             timeKeyDown += Time.deltaTime;
             if (timeKeyDown > 0.5f && objectIsGrabbed && !nearEnemy)
             {
+                StartCoroutine(ResetMovement(0.7f));
                 ThrowObject();
                 useGravity = true;
                 timeKeyDown = 0;
             }
-            else if (timeKeyDown > 0.5f && objectIsGrabbed && nearEnemy)
+            else if (timeKeyDown > 0.5f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.position, enemy.position) < 91))
             {
+                StartCoroutine(ResetMovement(0.7f));
                 ThrowObjectToEnemy();
                 useGravity = true;
                 timeKeyDown = 0;
@@ -135,25 +150,29 @@ public class PickUpDropandThrow : PickUpandDrop
     {
         playerAnimator.SetBool("Throw", true);
         player.SendMessage("StopMovement", true);
-        StartCoroutine(ThrowCoroutine(0.2f));
+        StartCoroutine(ThrowCoroutine(0.3f));
     }
     protected void ThrowObjectToEnemy()
     {
         playerAnimator.SetBool("Throw", true);
         player.SendMessage("StopMovement", true);
-        StartCoroutine(ThrowToEnemyCoroutine(0.2f));
+        StartCoroutine(ThrowToEnemyCoroutine(0.3f));
     }
     protected IEnumerator AnimationsCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
-        player.SendMessage("StopMovement", false);
         playerAnimator.SetBool("PickUp", false);
         playerAnimator.SetBool("DropObject", false);
         playerAnimator.SetBool("PlaceObject", false);
         playerAnimator.SetBool("Throw", false);
+        player.SendMessage("StopMovement", false);
 
     }
-
+    IEnumerator ResetMovement(float time)
+    {
+        yield return new WaitForSeconds(time);
+        player.SendMessage("StopMovement", false);
+    }
     protected IEnumerator PickUpCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
@@ -162,6 +181,7 @@ public class PickUpDropandThrow : PickUpandDrop
     protected IEnumerator ThrowCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
+        Debug.Log("A");
         DropObject();
         StartCoroutine(AnimationsCoroutine(0.2f));
         _thisRB.constraints = RigidbodyConstraints.FreezeRotation;
@@ -173,6 +193,7 @@ public class PickUpDropandThrow : PickUpandDrop
     protected IEnumerator ThrowToEnemyCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
+        Debug.Log("A");
         DropObject();
         StartCoroutine(AnimationsCoroutine(0.2f));
         _thisRB.constraints = RigidbodyConstraints.FreezeRotation;
@@ -180,8 +201,7 @@ public class PickUpDropandThrow : PickUpandDrop
         _thisSC.enabled = false;
         Vector3 temp = new Vector3();
         Vector3 playerToEnemy = new Vector3(enemy.transform.position.x - player.transform.position.x, enemy.transform.position.y - player.transform.position.y, enemy.transform.position.z - player.transform.position.z);
-        if (Vector3.Angle(player.transform.position, enemy.transform.position) < 91)
-             temp = playerToEnemy * (18000 * ((float)timeKeyDown / 0.5f)) + player.transform.up * 5000 * (float)timeKeyDown / 0.5f;
+        temp = playerToEnemy.normalized * (18000 * ((float)timeKeyDown / 0.5f)) + player.transform.up * 5000 * (float)timeKeyDown / 0.5f;
         _thisRB.AddForce(temp);
     }
     protected IEnumerator DropObjectCoroutine(float time)
