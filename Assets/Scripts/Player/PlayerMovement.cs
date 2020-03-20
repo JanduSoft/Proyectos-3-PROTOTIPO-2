@@ -134,9 +134,9 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (!player.isGrounded && !grounded)
                 {
-                    player.transform.DOLookAt(player.transform.position + movePlayer, 2.5f);
+                    player.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
                     model.transform.position = player.transform.position;
-                    model.transform.DOLookAt(player.transform.position + movePlayer, 2.5f);
+                    model.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
                 }
 
                 animatorController.SetBool("walking", true);
