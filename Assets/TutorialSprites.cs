@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class TutorialSprites : MonoBehaviour
 {
+    #region VARIABLES
     public enum buttonType
     {
         NONE,
@@ -16,6 +17,7 @@ public class TutorialSprites : MonoBehaviour
         PICK_UP_OBJECT
         
     };
+   
     bool isPlayerInside = false;
     bool isObjectInside = false;
     [Header("REFERENCES")]
@@ -32,9 +34,23 @@ public class TutorialSprites : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float inititalSize;
     [SerializeField] float finalSize;
+    #endregion
 
-   
+    #region UPDATE
+    private void Update()
+    {
+        if (isPlayerInside && pickUP.GetObjectIsGrabbed())
+        {
+            DeactivateSprites();
+        }
+        else if (isPlayerInside && !pickUP.GetObjectIsGrabbed() )
+        {
 
+        }
+    }
+    #endregion
+
+    #region TRIGGER ENTER
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -45,32 +61,24 @@ public class TutorialSprites : MonoBehaviour
                     break;
                 case buttonType.JUMP:
                     {
-                        jump.SetActive(true);
-                        jump.transform.localScale= new Vector3(inititalSize, inititalSize, inititalSize);
-                        jump.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                        ActivateSprite(button);
                         break;
                     }
                 case buttonType.INTERACT:
                     {
-                        interact.SetActive(true);
-                        interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                        interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                        ActivateSprite(button);
                         break;
                     }
                 case buttonType.WHIP:
                     {
-                        whip.SetActive(true);
-                        whip.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                        whip.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                        ActivateSprite(button);
                         break;
                     }
                 case buttonType.PLACE_OBJECT:
                     {
                         if (isObjectInside)
                         {
-                            interact.SetActive(true);
-                            interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                            interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                            ActivateSprite(button);
                         }                        
                         break;
                     }
@@ -78,19 +86,16 @@ public class TutorialSprites : MonoBehaviour
                     {
                         if (!dragAndDrop.objectIsGrabbed)
                         {
-                            interact.SetActive(true);
-                            interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                            interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                            ActivateSprite(button);
                         }
                         break;
                     }
                 case buttonType.PICK_UP_OBJECT:
                     {
-                        if (isObjectInside)
+                        isPlayerInside = true;
+                        if (!pickUP.GetObjectIsGrabbed())
                         {
-                            interact.SetActive(true);
-                            interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                            interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                            ActivateSprite(button);
                         }
                         break;
                     }
@@ -103,7 +108,9 @@ public class TutorialSprites : MonoBehaviour
             isObjectInside = true;           
         }
     }
+    #endregion
 
+    #region TRIGGER EXIT
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -152,7 +159,65 @@ public class TutorialSprites : MonoBehaviour
             isObjectInside = false;
         }
     }
+    #endregion
 
+    #region ACTIVATE SPRITE
+    public void ActivateSprite(buttonType button)
+    {
+        switch (button)
+        {
+            case buttonType.NONE:
+                break;
+            case buttonType.JUMP:
+                {
+                    jump.SetActive(true);
+                    jump.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                    jump.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    break;
+                }
+            case buttonType.INTERACT:
+                {
+                    interact.SetActive(true);
+                    interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                    interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    break;
+                }
+            case buttonType.WHIP:
+                {
+                    whip.SetActive(true);
+                    whip.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                    whip.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    break;
+                }
+            case buttonType.PLACE_OBJECT:
+                {
+                    interact.SetActive(true);
+                    interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                    interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    break;
+                }
+            case buttonType.DD_OBJECT:
+                {
+                    interact.SetActive(true);
+                    interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                    interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    break;
+                };
+            case buttonType.PICK_UP_OBJECT:
+                {
+                    interact.SetActive(true);
+                    interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                    interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    break;
+                }
+            default:
+                break;
+        }
+        
+    }
+    #endregion
+
+    #region DEACTIVATE SPRITES
     public void DeactivateSprites()
     {
         switch (button)
@@ -179,8 +244,20 @@ public class TutorialSprites : MonoBehaviour
                     interact.SetActive(false);
                     break;
                 }
+            case buttonType.DD_OBJECT:
+                {
+                    interact.SetActive(false);
+                    break;
+                }
+            case buttonType.PICK_UP_OBJECT:
+                {
+                    interact.SetActive(false);
+                    break;
+                }
             default:
                 break;
         }
     }
+    #endregion
+
 }
