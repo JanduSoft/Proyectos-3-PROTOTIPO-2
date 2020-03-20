@@ -31,6 +31,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("GRAVITY")]
     [SerializeField] float gravity = 9.8f;
     [SerializeField] public float fallVelocity;
+    [SerializeField] float gravityMultipliyerFalling = 2;
+    [SerializeField] float timeOnAir;
+    private bool isOnAir = true;
+    private float timer = 0.0f;
 
     [Header("CAMERA")]
     [SerializeField] Camera mainCamera;
@@ -80,11 +84,13 @@ public class PlayerMovement : MonoBehaviour
             // CALCULATING CHARACTER MOVEMENT
             movePlayer = playerInput.x * camRight + playerInput.z * camForward;
             movePlayer *= playerSpeed;
+
             if (movePlayer == Vector3.zero)
             {
                 animatorController.SetBool("walking", false);
                 timeIdle += Time.deltaTime;
                 animatorController.SetFloat("idle", timeIdle);
+
                 if (timeIdle > 4)
                 {
                     animatorController.SetInteger("randomIdle", Random.Range(0, 2));
@@ -93,8 +99,6 @@ public class PlayerMovement : MonoBehaviour
             }
             else if(!grabbedToRock && movePlayer != Vector3.zero && !stopped)
             {
-                
-
                 // LOOK AT IF IS ON AIR OR GROUNDED
                 if (player.isGrounded || grounded)
                 {
@@ -104,9 +108,9 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (!player.isGrounded && !grounded)
                 {
-                    player.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
+                    player.transform.DOLookAt(player.transform.position + movePlayer, 2.5f);
                     model.transform.position = player.transform.position;
-                    model.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
+                    model.transform.DOLookAt(player.transform.position + movePlayer, 2.5f);
                 }
 
                 animatorController.SetBool("walking", true);
@@ -195,11 +199,42 @@ public class PlayerMovement : MonoBehaviour
         {
             fallVelocity = -gravity * Time.deltaTime;
             movePlayer.y = fallVelocity;
+            isOnAir = true;
         }
         else
         {
-            fallVelocity -= gravity * Time.deltaTime;
-            movePlayer.y = fallVelocity;
+            if (fallVelocity >= 0)
+            {
+                fallVelocity -= gravity * Time.deltaTime;
+                movePlayer.y = fallVelocity;
+                isOnAir = true;
+                Debug.Log("Estoy subiendo");
+            }
+            else if (fallVelocity < 0)
+            {
+                if (isOnAir)
+                {
+                    fallVelocity = -0.01f;
+                    movePlayer.y = fallVelocity;
+
+                    //contando el tiempo en el aire
+                    timer += Time.deltaTime;
+
+                    Debug.Log("Estoy subiendo");
+                    if (timer >= timeOnAir)
+                    {
+                        timer = 0;
+                        isOnAir = false;
+                    }
+
+                }
+                else
+                {
+                    fallVelocity -= gravity * Time.deltaTime * gravityMultipliyerFalling;
+                    movePlayer.y = fallVelocity;
+                }
+                
+            }
         }
 
     }
@@ -229,6 +264,7 @@ public class PlayerMovement : MonoBehaviour
             grounded = false;
         }
     }
+
     public void StopMovement(bool _tof)
     {
         stopped = _tof;
