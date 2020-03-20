@@ -28,7 +28,6 @@ public class FollowingCharacter : MonoBehaviour
     private void Start()
     {
         naturalPosition = this.transform.rotation.eulerAngles;
-        Debug.Log(naturalPosition);
     }
 
     /// /////////////////---- UPDATE

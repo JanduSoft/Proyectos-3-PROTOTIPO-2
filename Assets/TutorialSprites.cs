@@ -10,9 +10,12 @@ public class TutorialSprites : MonoBehaviour
         NONE,
         JUMP,
         INTERACT,
-        WHIP
+        WHIP,
+        PLACE_OBJECT
         
     };
+    bool isPlayerInside = false;
+    bool isObjectInside = false;
 
     [Header("SPRITES")]
     [SerializeField] buttonType button;
@@ -24,6 +27,8 @@ public class TutorialSprites : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float inititalSize;
     [SerializeField] float finalSize;
+
+   
 
     private void OnTriggerEnter(Collider other)
     {
@@ -54,9 +59,23 @@ public class TutorialSprites : MonoBehaviour
                         whip.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                         break;
                     }
+                case buttonType.PLACE_OBJECT:
+                    {
+                        if (isObjectInside)
+                        {
+                            interact.SetActive(true);
+                            interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                            interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                        }                        
+                        break;
+                    }
                 default:
                     break;
             }
+        }
+        if ((other.CompareTag("Place") || other.CompareTag("Skull")) && button == buttonType.PLACE_OBJECT)
+        {
+            isObjectInside = true;           
         }
     }
 
@@ -64,31 +83,38 @@ public class TutorialSprites : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            isPlayerInside = false;
             switch (button)
             {
                 case buttonType.NONE:
                     break;
                 case buttonType.JUMP:
-                    {                        
-                        jump.transform.DOScale(new Vector3(inititalSize, inititalSize, inititalSize), speed);
-                        Invoke("DeactivateSprites", speed);
+                    {
+                        DeactivateSprites();
                         break;
                     }
                 case buttonType.INTERACT:
                     {
-                        interact.transform.DOScale(new Vector3(inititalSize, inititalSize, finalSize), speed);
-                        Invoke("DeactivateSprites", speed);
+                        DeactivateSprites();
                         break;
                     }
                 case buttonType.WHIP:
                     {
-                        whip.transform.DOScale(new Vector3(inititalSize, inititalSize, inititalSize), speed);
-                        Invoke("DeactivateSprites", speed);
+                        DeactivateSprites();
+                        break;
+                    }
+                case buttonType.PLACE_OBJECT:
+                    {
+                        DeactivateSprites();
                         break;
                     }
                 default:
                     break;
             }
+        }
+        if ( ( other.CompareTag("Place") || other.CompareTag("Skull") ) && button == buttonType.PLACE_OBJECT)
+        {
+            isObjectInside = false;
         }
     }
 
@@ -111,6 +137,11 @@ public class TutorialSprites : MonoBehaviour
             case buttonType.WHIP:
                 {
                     whip.SetActive(false);
+                    break;
+                }
+            case buttonType.PLACE_OBJECT:
+                {
+                    interact.SetActive(false);
                     break;
                 }
             default:
