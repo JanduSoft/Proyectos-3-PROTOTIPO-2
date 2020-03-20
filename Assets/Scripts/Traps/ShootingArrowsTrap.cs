@@ -79,6 +79,7 @@ public class ShootingArrowsTrap : MonoBehaviour
         if (other.transform.tag == "Player")
         {
             // preassuringPlate = true;
+            other.gameObject.GetComponent<PlayerMovement>().isOnPressurePlate = true;
             trapActivated = true;
         }
     }
@@ -87,6 +88,7 @@ public class ShootingArrowsTrap : MonoBehaviour
         if (other.transform.tag == "Player")
         {
             //  preassuringPlate = false;
+            other.gameObject.GetComponent<PlayerMovement>().isOnPressurePlate = false;
             trapActivated = false;
             i = 0;
         }

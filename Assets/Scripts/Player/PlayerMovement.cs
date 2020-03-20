@@ -205,6 +205,8 @@ public class PlayerMovement : MonoBehaviour
     }
     #endregion
 
+    public bool isOnPressurePlate = false;
+
     private void OnTriggerEnter(Collider other)
     {
         
