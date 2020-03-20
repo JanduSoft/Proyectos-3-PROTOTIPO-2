@@ -5,7 +5,7 @@ using UnityEngine;
 public class AddObject : MonoBehaviour
 {
     public GameObject placePosition;
-    Transform _objectTransform = null;
+    public Transform _objectTransform = null;
     bool canPlace = false;
     protected Animator playerAnimator;
     [SerializeField] GameObject targetObject = null;
@@ -67,8 +67,7 @@ public class AddObject : MonoBehaviour
     }
     IEnumerator PlaceObject()
     {
-        yield return new WaitForSeconds(0.55f);
-        Debug.Log("aa");
+        yield return new WaitForSeconds(0.55f);        
         _objectTransform.position = placePosition.transform.position;
         _objectTransform.rotation = transform.rotation;
         _object.transform.SetParent(transform);

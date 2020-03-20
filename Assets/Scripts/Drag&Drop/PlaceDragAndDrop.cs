@@ -44,7 +44,7 @@ public class PlaceDragAndDrop : MonoBehaviour
         {
             canPlace = true;
         }
-        else if (other.CompareTag("PlaceObject"))
+        else if (other.CompareTag("Place"))
         {
             skull = other.transform.gameObject;
             skullTransform = other.transform.gameObject.transform;
@@ -54,7 +54,7 @@ public class PlaceDragAndDrop : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("PlaceObject"))
+        if (other.CompareTag("Place"))
         {
             skull = other.transform.gameObject;
             skullTransform = other.transform.gameObject.transform;
@@ -68,7 +68,7 @@ public class PlaceDragAndDrop : MonoBehaviour
         {
             canPlace = false;
         }
-        else if (other.CompareTag("PlaceObject"))
+        else if (other.CompareTag("Place"))
         {
             other.gameObject.transform.GetComponent<DragAndDrop>().cancelledDrop = (false);
             skull = null;

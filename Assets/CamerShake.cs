@@ -7,7 +7,7 @@ public class CamerShake : MonoBehaviour
 {
     [Header("FOR CAMERA SHAKE")]
     [SerializeField] Camera myCamera;
-    [SerializeField] float durationShake;
+    public float durationShake;
     [SerializeField] float strength;
     [SerializeField] int vibrato;
     [SerializeField] float randomness;
