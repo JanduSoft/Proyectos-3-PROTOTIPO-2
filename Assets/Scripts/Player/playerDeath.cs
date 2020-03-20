@@ -19,7 +19,8 @@ public class playerDeath : MonoBehaviour
     [HideInInspector] public GameObject objectGrabbed;
     void Start()
     {
-
+        //will do the fade out of the black screen when this script is started
+        SpawnPlayer();
     }
 
     // Update is called once per frame
@@ -30,6 +31,27 @@ public class playerDeath : MonoBehaviour
             lastGroundedPosition = playerMovementScript.player.transform.position;
             lastDirection = playerMovementScript.player.velocity;
         }
+    }
+
+    public void SpawnPlayer()
+    {
+        StartCoroutine(SpawnPlayerCoroutine());
+    }
+
+    IEnumerator SpawnPlayerCoroutine()
+    {
+        deathPanel.GetComponent<Image>().color = Color.black;
+        playerMovementScript.StopMovement(true);
+
+        for (float f = 1.5f; f >= 0.0f; f -= 0.05f)
+        {
+            Color c = deathPanel.GetComponent<Image>().color;
+            c.a = f;
+            deathPanel.GetComponent<Image>().color = c;
+            yield return new WaitForSeconds(.01f);
+        }
+
+        playerMovementScript.StopMovement(false);
     }
 
     public void killPlayer(float _secondsToRestart = 0)
@@ -78,7 +100,7 @@ public class playerDeath : MonoBehaviour
         #endregion
 
         Vector3 offsetDir = new Vector3(lastDirection.x, -1, lastDirection.z);
-        playerMovementScript.player.transform.position = lastGroundedPosition-offsetDir*respawnOffset;
+        playerMovementScript.player.transform.position = lastGroundedPosition - offsetDir * respawnOffset;
         playerMovementScript.inRespawn = true;
         playerMovementScript.fallVelocity = 0;
         playerMovementScript.animatorController.SetBool("Jumping", false);
