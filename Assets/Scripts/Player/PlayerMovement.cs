@@ -131,25 +131,28 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 // MOVING CHARACTER
-                if (player.isGrounded || grounded)
-                {
+                if(player.isGrounded && grounded)
                     auxCoyote = coyoteTime;
-                    animatorController.SetBool("Jumping", false);
-                    player.Move(movePlayer * Time.deltaTime);
-                }
-                else if (!player.isGrounded && !grounded)
-                {
-                    player.Move((movePlayer *(percentRestriction/100)) * Time.deltaTime);
-                    animatorController.SetBool("Jumping", true);
-                }
-                if(!player.isGrounded && auxCoyote > 0 && !jumpSound.isPlaying)
-                {
-                    auxCoyote -= Time.deltaTime;
-                    if (auxCoyote > 0)
-                        grounded = true;
-                    else
-                        grounded = false;
-                }
+
+                if (player.isGrounded || grounded)
+                    {
+                        animatorController.SetBool("Jumping", false);
+                        player.Move(movePlayer * Time.deltaTime);
+
+                    }
+                    else if (!player.isGrounded && !grounded)
+                    {
+                        player.Move((movePlayer *(percentRestriction/100)) * Time.deltaTime);
+                        animatorController.SetBool("Jumping", true);
+                    }
+                    if(!player.isGrounded && auxCoyote > 0 && !jumpSound.isPlaying)
+                    {
+                        auxCoyote -= Time.deltaTime;
+                        if (auxCoyote > 0)
+                            grounded = true;
+                        else
+                            grounded = false;
+                    }
             }       
 
     }
