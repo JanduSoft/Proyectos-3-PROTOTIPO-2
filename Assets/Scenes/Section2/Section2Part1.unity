@@ -51572,8 +51572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placePosition: {fileID: 1281178452}
-  _object: {fileID: 0}
-  pu: {fileID: 0}
+  targetObject: {fileID: 5195909275308972534}
   isActivated: 0
   faceOppositeDirection: 0
   quarterRotation: 1
@@ -88675,14 +88674,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
-    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 1382943953}
-    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: spriteIndicateObject
-      value: 
-      objectReference: {fileID: 1254406340}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -88738,20 +88729,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7219794959162274814, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
-        type: 3}
-      propertyPath: deathPanel
-      value: 
-      objectReference: {fileID: 58977503}
     - target: {fileID: 6120095539264640498, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1382943953}
-    - target: {fileID: 606560527, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: m_TagString
-      value: Path
-      objectReference: {fileID: 0}
+    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1382943953}
+    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: spriteIndicateObject
+      value: 
+      objectReference: {fileID: 1254406340}
+    - target: {fileID: 7219794959162274814, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
+        type: 3}
+      propertyPath: deathPanel
+      value: 
+      objectReference: {fileID: 58977503}
     - target: {fileID: 1629156140, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -88760,6 +88755,10 @@ PrefabInstance:
       propertyPath: cameraMain
       value: 
       objectReference: {fileID: 11186512}
+    - target: {fileID: 606560527, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: m_TagString
+      value: Path
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
 --- !u!1001 &1947556653
@@ -91461,8 +91460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placePosition: {fileID: 0}
-  _object: {fileID: 0}
-  pu: {fileID: 0}
+  targetObject: {fileID: 0}
   isActivated: 0
   faceOppositeDirection: 0
   quarterRotation: 0
@@ -108388,3 +108386,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b1ded0579d46f9478900d312aab94db, type: 3}
+--- !u!1 &5195909275308972534 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4684098083089322193, guid: 8b1ded0579d46f9478900d312aab94db,
+    type: 3}
+  m_PrefabInstance: {fileID: 5195909275308972533}
+  m_PrefabAsset: {fileID: 0}
