@@ -95,7 +95,7 @@ public class PickUpDropandThrow : PickUpandDrop
                 useGravity = true;
                 timeKeyDown = 0;
             }
-            else if (timeKeyDown > 0.5f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.position, enemy.position) < 91))
+            else if (timeKeyDown > 0.5f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.position, enemy.position) < 75))
             {
                 StartCoroutine(ResetMovement(0.7f));
                 ThrowObjectToEnemy();
