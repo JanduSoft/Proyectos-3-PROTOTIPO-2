@@ -18,8 +18,11 @@ public class TutorialSprites : MonoBehaviour
         
     };
    
-    bool isPlayerInside = false;
-    bool isObjectInside = false;
+    public bool isPlayerInside = false;
+    public bool isObjectInside = false;
+
+    bool showingButton = false;
+
     [Header("REFERENCES")]
     [SerializeField] DragAndDrop dragAndDrop;
     [SerializeField] PickUpandDrop pickUP;
@@ -47,6 +50,18 @@ public class TutorialSprites : MonoBehaviour
         {
 
         }
+
+        if (button == buttonType.PLACE_OBJECT)
+        {
+            if (isPlayerInside && isObjectInside)
+            {
+                if (!showingButton)
+                {
+                    showingButton = true;
+                    ActivateSprite(button);
+                }
+            }
+        }
     }
     #endregion
 
@@ -55,6 +70,8 @@ public class TutorialSprites : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            isPlayerInside = true;
+
             switch (button)
             {
                 case buttonType.NONE:
@@ -92,7 +109,7 @@ public class TutorialSprites : MonoBehaviour
                     }
                 case buttonType.PICK_UP_OBJECT:
                     {
-                        isPlayerInside = true;
+                        
                         if (!pickUP.GetObjectIsGrabbed())
                         {
                             ActivateSprite(button);
@@ -116,6 +133,7 @@ public class TutorialSprites : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInside = false;
+
             switch (button)
             {
                 case buttonType.NONE:
@@ -137,6 +155,7 @@ public class TutorialSprites : MonoBehaviour
                     }
                 case buttonType.PLACE_OBJECT:
                     {
+                        showingButton = false;
                         DeactivateSprites();
                         break;
                     }
