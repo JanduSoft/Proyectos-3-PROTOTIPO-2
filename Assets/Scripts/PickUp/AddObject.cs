@@ -5,7 +5,7 @@ using UnityEngine;
 public class AddObject : MonoBehaviour
 {
     public GameObject placePosition;
-    Transform _objectTransform = null;
+    public Transform _objectTransform = null;
     bool canPlace = false;
     protected Animator playerAnimator;
     [SerializeField] GameObject _object = null;
@@ -29,11 +29,13 @@ public class AddObject : MonoBehaviour
                 Debug.Log(_object.name);
                 playerAnimator.SetBool("PlaceObject", true);
                 _object.GetComponent<PickUpandDrop>().DropObject();
+
+                isActivated = true;
                 StartCoroutine(PlaceObject());
                 
             }
             else if (canPlace && !_object.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && isActivated && Input.GetButtonDown("Interact"))
-            {
+            {                
                 _object.GetComponent<PickUpandDrop>().ForceGrabObject();
                 isActivated = false;
             }
@@ -67,14 +69,12 @@ public class AddObject : MonoBehaviour
     }
     IEnumerator PlaceObject()
     {
-        yield return new WaitForSeconds(0.55f);
-        Debug.Log("aa");
+        yield return new WaitForSeconds(0.55f);        
         _objectTransform.position = placePosition.transform.position;
         _objectTransform.rotation = transform.rotation;
         _object.transform.SetParent(transform);
         if (faceOppositeDirection) _objectTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
         else if(quarterRotation) _objectTransform.Rotate(90, 90, 0);
-        isActivated = true;
     }
 
     private void OnTriggerExit(Collider other)
