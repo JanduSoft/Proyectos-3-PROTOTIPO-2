@@ -8,8 +8,8 @@ public class AddObject : MonoBehaviour
     public Transform _objectTransform = null;
     bool canPlace = false;
     protected Animator playerAnimator;
-    [SerializeField] GameObject _object = null;
-    [SerializeField] PickUpandDrop pu = null;
+    [SerializeField] GameObject targetObject = null;
+    GameObject _object = null;
 
     public bool isActivated = false;
     [SerializeField] bool faceOppositeDirection = false;
@@ -75,6 +75,8 @@ public class AddObject : MonoBehaviour
         _object.transform.SetParent(transform);
         if (faceOppositeDirection) _objectTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
         else if(quarterRotation) _objectTransform.Rotate(90, 90, 0);
+        if(_object.name == targetObject.name)
+            isActivated = true;
     }
 
     private void OnTriggerExit(Collider other)
