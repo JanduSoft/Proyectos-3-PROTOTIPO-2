@@ -56,12 +56,10 @@ public class PickUpDragandDrop : PickUpandDrop
                 RaycastHit hit;
                 if (Physics.Raycast(newPlayerPos, playerRockDirection, out hit, Mathf.Infinity))
                 {
-                    
                     Debug.DrawRay(newPlayerPos, playerRockDirection * hit.distance, Color.yellow);
                     Debug.Log(hit.transform.gameObject.name);
                     if (hit.transform.gameObject == gameObject)
                     {
-                        Debug.Log("puta");
                         if (!rockGrabbed && isFacingBox && !animator.GetBool("Attached") && currentRock==null)
                         {
                             currentRock = gameObject;
@@ -90,7 +88,6 @@ public class PickUpDragandDrop : PickUpandDrop
                             float verticalMove = Input.GetAxis("Vertical");
 
                             bool inputActive = horizontalMove != 0 || verticalMove != 0;
-
                             if (closestPoint == grabPoints[0])
                             {
                                 Vector3 movingDirection = grabPoints[1] - player.transform.position;
@@ -100,7 +97,17 @@ public class PickUpDragandDrop : PickUpandDrop
                                 }
                                 else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                                 {
-                                    PullRock(movingDirection);
+
+                                    RaycastHit hito;
+                                    if (Physics.Raycast(newPlayerPos, -movingDirection.normalized, out hito, 2.0f))
+                                    {
+                                        //something is behind the player and can't pull
+                                        Debug.DrawRay(newPlayerPos, -movingDirection.normalized * hit.distance, Color.red);
+                                    }
+                                    else
+                                    {
+                                        PullRock(movingDirection);
+                                    }
                                 }
                                 else
                                 {
@@ -117,7 +124,17 @@ public class PickUpDragandDrop : PickUpandDrop
                                 }
                                 else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                                 {
-                                    PullRock(movingDirection);
+
+                                    RaycastHit hito;
+                                    if (Physics.Raycast(newPlayerPos, -movingDirection.normalized, out hito, 2.0f))
+                                    {
+                                        //something is behind the player and can't pull
+                                        Debug.DrawRay(newPlayerPos, -movingDirection.normalized * hit.distance, Color.red);
+                                    }
+                                    else
+                                    {
+                                        PullRock(movingDirection);
+                                    }
                                 }
                                 else
                                 {
@@ -134,7 +151,17 @@ public class PickUpDragandDrop : PickUpandDrop
                                 }
                                 else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                                 {
-                                    PullRock(movingDirection);
+
+                                    RaycastHit hito;
+                                    if (Physics.Raycast(newPlayerPos, -movingDirection.normalized, out hito, 2.0f))
+                                    {
+                                        //something is behind the player and can't pull
+                                        Debug.DrawRay(newPlayerPos, -movingDirection.normalized * hit.distance, Color.red);
+                                    }
+                                    else
+                                    {
+                                        PullRock(movingDirection);
+                                    }
                                 }
                                 else
                                 {
@@ -151,7 +178,17 @@ public class PickUpDragandDrop : PickUpandDrop
                                 }
                                 else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
                                 {
-                                    PullRock(movingDirection);
+
+                                    RaycastHit hito;
+                                    if (Physics.Raycast(newPlayerPos, -movingDirection.normalized, out hito, 2.0f))
+                                    {
+                                        //something is behind the player and can't pull
+                                        Debug.DrawRay(newPlayerPos, -movingDirection.normalized * hit.distance, Color.red);
+                                    }
+                                    else
+                                    {
+                                        PullRock(movingDirection);
+                                    }
                                 }
                                 else
                                 {
@@ -159,7 +196,7 @@ public class PickUpDragandDrop : PickUpandDrop
                                 }
                             }
                         }
-                        else if (!isFacingBox && currentRock == gameObject)
+                        else if (!isFacingBox && currentRock == gameObject) //if the box is grabbed but the character has turned before getting attached, let go rock
                         {
                             currentRock = null;
                             rb.isKinematic = true;
@@ -170,7 +207,7 @@ public class PickUpDragandDrop : PickUpandDrop
                             animator.SetBool("Push", false);
                             animator.SetBool("Pulling", false);
                             player.GetComponent<PlayerMovement>().StopMovement(false);
-                        }   //if the box is grabbed but the character has turned before getting attached, let go rock
+                        }  
                         
                     }
                 }
@@ -203,8 +240,6 @@ public class PickUpDragandDrop : PickUpandDrop
             animator.SetBool("Push", false);
             animator.SetBool("Pulling", false);
         }
-
-        Debug.Log(transform.name + rockGrabbed);
 
 
         //SOUNDS AND ANIMATIONS
