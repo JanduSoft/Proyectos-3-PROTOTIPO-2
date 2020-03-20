@@ -88,6 +88,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _thisRB: {fileID: 1675604119477729894}
   _thisSC: {fileID: 1675604119477729892}
+  playerWhip: {fileID: 0}
   dustParticles: {fileID: 1675604120579809916}
   objectInside: {fileID: 1675604119858808824}
   brokenVase: {fileID: 1675604120694629347}
@@ -115,7 +116,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675604119858808824}
   m_LocalRotation: {x: -0.6943593, y: -0, z: -0, w: 0.7196285}
-  m_LocalPosition: {x: -0.0000005630437, y: 0.099, z: 0.24866028}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1675604120580056842}
@@ -741,15 +742,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 460208, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.23
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 460208, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.33019972
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 460208, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.23
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 460208, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
       propertyPath: m_LocalRotation.x

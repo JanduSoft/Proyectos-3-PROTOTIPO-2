@@ -63,11 +63,8 @@ public class PatrolEnemy : MonoBehaviour
             if (Skull.activeInHierarchy)
                 if (Vector3.Distance(Skull.transform.position, Player.transform.position) < 2.5 && Input.GetButtonDown("Interact"))
                 {
-                    _this.StopAllCoroutines();
                     agent.enabled = false;
-                    skullModel.SetActive(false);
                     _this.enabled = false;
-
                 }
         }
     }
@@ -77,27 +74,8 @@ public class PatrolEnemy : MonoBehaviour
         trueDeath = true;
         animController.SetBool("dead", true);
         agent.SetDestination(agent.transform.position);
-        StartCoroutine(returnToTheLiving(2));
-    }
-
-    public void ResetEnemy()
-    {
-        transform.position = startPosition;
-        StartCoroutine(returnToTheLiving(0));
-
-    }
-
-    IEnumerator returnToTheLiving(float _s)
-    {
-        yield return new WaitForSeconds(2);
-        Skull.SetActive(true);
-        Skull.transform.position = headPosition.transform.position;
-        yield return new WaitForSeconds(4);
-        Skull.SetActive(false);
-        animController.SetBool("dead", false);
-        yield return new WaitForSeconds(2);
-        agent.SetDestination(pathPoints[index].transform.position);
-        trueDeath = false;
+        transform.tag = "Untagged";
+        StartCoroutine(fallToTheGround(2));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -107,5 +85,12 @@ public class PatrolEnemy : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player")) whipScript.enabled = false;
+    }
+
+    IEnumerator fallToTheGround(float _s)
+    {
+        yield return new WaitForSeconds(_s);
+        Skull.SetActive(true);
+        Skull.transform.position = headPosition.transform.position;
     }
 }
