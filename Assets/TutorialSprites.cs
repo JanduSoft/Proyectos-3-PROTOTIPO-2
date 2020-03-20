@@ -11,11 +11,16 @@ public class TutorialSprites : MonoBehaviour
         JUMP,
         INTERACT,
         WHIP,
-        PLACE_OBJECT
+        PLACE_OBJECT,
+        DD_OBJECT,
+        PICK_UP_OBJECT
         
     };
     bool isPlayerInside = false;
     bool isObjectInside = false;
+    [Header("REFERENCES")]
+    [SerializeField] DragAndDrop dragAndDrop;
+    [SerializeField] PickUpandDrop pickUP;
 
     [Header("SPRITES")]
     [SerializeField] buttonType button;
@@ -69,6 +74,26 @@ public class TutorialSprites : MonoBehaviour
                         }                        
                         break;
                     }
+                case buttonType.DD_OBJECT:
+                    {
+                        if (!dragAndDrop.objectIsGrabbed)
+                        {
+                            interact.SetActive(true);
+                            interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                            interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                        }
+                        break;
+                    }
+                case buttonType.PICK_UP_OBJECT:
+                    {
+                        if (isObjectInside)
+                        {
+                            interact.SetActive(true);
+                            interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                            interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                        }
+                        break;
+                    }
                 default:
                     break;
             }
@@ -104,6 +129,16 @@ public class TutorialSprites : MonoBehaviour
                         break;
                     }
                 case buttonType.PLACE_OBJECT:
+                    {
+                        DeactivateSprites();
+                        break;
+                    }
+                case buttonType.DD_OBJECT:
+                    {
+                        DeactivateSprites();
+                        break;
+                    }
+                case buttonType.PICK_UP_OBJECT:
                     {
                         DeactivateSprites();
                         break;
