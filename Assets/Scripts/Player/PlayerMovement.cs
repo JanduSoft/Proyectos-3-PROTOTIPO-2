@@ -18,9 +18,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject walkinParticles;
     [SerializeField] Transform walkinParticlesSpawner;
     public bool grounded = true;
+    [Header("ACCELERATION")]
     [SerializeField] public CharacterController player;
     [SerializeField] float playerSpeed;
+    float maxSpeed;
+    [SerializeField] float acceleration;
     [SerializeField] Whip whip;
+    float lookAtSpeed;
+    [SerializeField] float normalLookAtSpeed;
+    [SerializeField] float changingDirectionLookAtSpeed;
     [Header("JUMP")]
     [SerializeField] float jumpForce;
     [SerializeField] AudioSource jumpSound;
@@ -58,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
     #region START
     void Start()
     {
+        maxSpeed = playerSpeed;
         auxCoyote = coyoteTime;
         player = GetComponent<CharacterController>();
         fallVelocity = -10;
@@ -78,12 +85,31 @@ public class PlayerMovement : MonoBehaviour
             playerInput = new Vector3(horizontalMove, 0, verticalMove);
             playerInput = Vector3.ClampMagnitude(playerInput, 1);
 
+            //ACCELERATION
+            if (playerInput == Vector3.zero)
+            {
+                playerSpeed = 0;
+                lookAtSpeed = changingDirectionLookAtSpeed;
+            }
+            else
+            {
+                lookAtSpeed = normalLookAtSpeed;
+                playerSpeed += acceleration * Time.deltaTime;
+
+                if (playerSpeed >= maxSpeed)
+                {
+                    playerSpeed = maxSpeed;
+                }
+            }
+
             //GETTING CAMERA DIRECTION
             CamDirection();
 
             // CALCULATING CHARACTER MOVEMENT
             movePlayer = playerInput.x * camRight + playerInput.z * camForward;
             movePlayer *= playerSpeed;
+            
+
 
             if (movePlayer == Vector3.zero)
             {
@@ -102,9 +128,9 @@ public class PlayerMovement : MonoBehaviour
                 // LOOK AT IF IS ON AIR OR GROUNDED
                 if (player.isGrounded || grounded)
                 {
-                    player.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
+                    player.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
                     model.transform.position = player.transform.position;
-                    model.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
+                    model.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
                 }
                 else if (!player.isGrounded && !grounded)
                 {
@@ -139,24 +165,24 @@ public class PlayerMovement : MonoBehaviour
                     auxCoyote = coyoteTime;
 
                 if (player.isGrounded || grounded)
-                    {
-                        animatorController.SetBool("Jumping", false);
-                        player.Move(movePlayer * Time.deltaTime);
+                {
+                    animatorController.SetBool("Jumping", false);
+                    player.Move(movePlayer * Time.deltaTime);
 
-                    }
-                    else if (!player.isGrounded && !grounded)
-                    {
-                        player.Move((movePlayer *(percentRestriction/100)) * Time.deltaTime);
-                        animatorController.SetBool("Jumping", true);
-                    }
-                    if(!player.isGrounded && auxCoyote > 0 && !jumpSound.isPlaying)
-                    {
-                        auxCoyote -= Time.deltaTime;
-                        if (auxCoyote > 0)
-                            grounded = true;
-                        else
-                            grounded = false;
-                    }
+                }
+                else if (!player.isGrounded && !grounded)
+                {
+                    player.Move((movePlayer *(percentRestriction/100)) * Time.deltaTime);
+                    animatorController.SetBool("Jumping", true);
+                }
+                if(!player.isGrounded && auxCoyote > 0 && !jumpSound.isPlaying)
+                {
+                    auxCoyote -= Time.deltaTime;
+                    if (auxCoyote > 0)
+                        grounded = true;
+                    else
+                        grounded = false;
+                }
             }       
 
     }
@@ -208,7 +234,6 @@ public class PlayerMovement : MonoBehaviour
                 fallVelocity -= gravity * Time.deltaTime;
                 movePlayer.y = fallVelocity;
                 isOnAir = true;
-                Debug.Log("Estoy subiendo");
             }
             else if (fallVelocity < 0)
             {
@@ -220,7 +245,6 @@ public class PlayerMovement : MonoBehaviour
                     //contando el tiempo en el aire
                     timer += Time.deltaTime;
 
-                    Debug.Log("Estoy subiendo");
                     if (timer >= timeOnAir)
                     {
                         timer = 0;
