@@ -22,6 +22,7 @@ public class PickUpDropandThrow : PickUpandDrop
     [SerializeField] GameObject objectInside;
     [SerializeField] GameObject brokenVase;
     bool useGravity = true;
+    Vector3 playerToEnemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,8 +38,11 @@ public class PickUpDropandThrow : PickUpandDrop
     {
         CheckVariables();
         nearEnemy = playerWhip.attackMode;
-        if (nearEnemy)
+        if (nearEnemy && player != null)
+        {
             enemy = playerWhip.getEnemy();
+            playerToEnemy = new Vector3(enemy.transform.position.x - player.transform.position.x, enemy.transform.position.y - player.transform.position.y, enemy.transform.position.z - player.transform.position.z);
+        }
         if (Input.GetButtonDown("Interact"))
         {
             keyDown = true;
@@ -78,7 +82,7 @@ public class PickUpDropandThrow : PickUpandDrop
                     ThrowObject();
                     useGravity = true;
                 }
-                else if (timeKeyDown > 0.5f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, enemy.position) < 75))
+                else if (timeKeyDown > 0.5f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) < 70))
                 {
                     player.transform.LookAt(enemy);
                     ThrowObjectToEnemy();
@@ -99,14 +103,14 @@ public class PickUpDropandThrow : PickUpandDrop
                 useGravity = true;
                 timeKeyDown = 0;
             }
-            else if (timeKeyDown > 0.5f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, enemy.position) < 75))
+            else if (timeKeyDown > 0.5f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) < 70))
             {
                 player.transform.LookAt(enemy);
                 ThrowObjectToEnemy();
                 useGravity = true;
                 timeKeyDown = 0;
             }
-            else if (timeKeyDown > 0.5f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, enemy.position) > 75))
+            else if (timeKeyDown > 0.5f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) > 70))
             {
                 StartCoroutine(ResetMovement(0.7f));
                 ThrowObject();
@@ -165,7 +169,6 @@ public class PickUpDropandThrow : PickUpandDrop
     }
     protected void ThrowObjectToEnemy()
     {
-        Debug.Log("1 tHROW tO eNEMY");
         playerAnimator.SetBool("Throw", true);
         player.SendMessage("StopMovement", true);
         StartCoroutine(ThrowToEnemyCoroutine(0.3f));
@@ -193,7 +196,6 @@ public class PickUpDropandThrow : PickUpandDrop
     protected IEnumerator ThrowCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
-        Debug.Log("1");
         DropObject();
         StartCoroutine(AnimationsCoroutine(0.2f));
         _thisRB.constraints = RigidbodyConstraints.FreezeRotation;
@@ -202,13 +204,12 @@ public class PickUpDropandThrow : PickUpandDrop
         else
             transform.tag = "Place";
         _thisSC.enabled = false;
-        Vector3 temp = player.transform.forward * (18000 * ((float)timeKeyDown / 0.5f)) + player.transform.up * (5000 * ((float)timeKeyDown / 0.5f));
+        Vector3 temp = player.transform.forward * (18000 * ((float)timeKeyDown / 0.5f));
         _thisRB.AddForce(temp);
     }
     protected IEnumerator ThrowToEnemyCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
-        Debug.Log("2");
         DropObject();
         StartCoroutine(AnimationsCoroutine(0.2f));
         _thisRB.constraints = RigidbodyConstraints.FreezeRotation;
@@ -218,8 +219,8 @@ public class PickUpDropandThrow : PickUpandDrop
             transform.tag = "Place";
         _thisSC.enabled = false;
         Vector3 temp = new Vector3();
-        Vector3 playerToEnemy = new Vector3(enemy.transform.position.x - player.transform.position.x, enemy.transform.position.y - player.transform.position.y, enemy.transform.position.z - player.transform.position.z);
-        temp = playerToEnemy.normalized * (18000 * ((float)timeKeyDown / 0.5f)) + player.transform.up * 5000 * (float)timeKeyDown / 0.5f;
+        Vector3 thisToEnemy = new Vector3(enemy.transform.position.x - transform.position.x, enemy.transform.position.y - transform.position.y, enemy.transform.position.z - transform.position.z);
+        temp = playerToEnemy.normalized * (18000 * ((float)timeKeyDown / 0.5f));
         _thisRB.AddForce(temp);
     }
     protected IEnumerator DropObjectCoroutine(float time)
