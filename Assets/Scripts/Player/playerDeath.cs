@@ -26,7 +26,7 @@ public class playerDeath : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerMovementScript.player.isGrounded && !whipAttackScript.attackMode && !isDead)
+        if (playerMovementScript.player.isGrounded && !whipAttackScript.attackMode && !isDead && !playerMovementScript.isOnPressurePlate)
         {
             lastGroundedPosition = playerMovementScript.player.transform.position;
             lastDirection = playerMovementScript.player.velocity;
