@@ -16,6 +16,9 @@ public class playerDeath : MonoBehaviour
     [SerializeField] float respawnOffset;
     bool isDead = false;
 
+    public bool StaticEnemyDetected = false;
+    public GameObject spawnPoint = null;
+
     [HideInInspector] public GameObject objectGrabbed;
     void Start()
     {
@@ -26,10 +29,20 @@ public class playerDeath : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerMovementScript.player.isGrounded && !whipAttackScript.attackMode && !isDead && !playerMovementScript.isOnPressurePlate)
+        if (playerMovementScript.player.isGrounded && 
+            !whipAttackScript.attackMode && 
+            !isDead && 
+            !playerMovementScript.isOnPressurePlate && !StaticEnemyDetected)
         {
             lastGroundedPosition = playerMovementScript.player.transform.position;
             lastDirection = playerMovementScript.player.velocity;
+        }
+
+        if (StaticEnemyDetected && spawnPoint!=null)
+        {
+            lastGroundedPosition = spawnPoint.transform.position;
+            StaticEnemyDetected = false;
+            spawnPoint = null;
         }
     }
 
