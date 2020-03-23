@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("GRAVITY")]
     [SerializeField] float gravity = 9.8f;
     [SerializeField] public float fallVelocity;
+    [SerializeField] float regularGravityMultipliyer = 1f;
     [SerializeField] float gravityMultipliyerFalling = 2;
     [SerializeField] float timeOnAir;
     private bool isOnAir = true;
@@ -231,32 +232,41 @@ public class PlayerMovement : MonoBehaviour
         {
             if (fallVelocity >= 0)
             {
-                fallVelocity -= gravity * Time.deltaTime;
-                movePlayer.y = fallVelocity;
+                if (!Input.GetButton("Jump"))
+                {
+                    fallVelocity -= gravity * gravityMultipliyerFalling * Time.deltaTime;
+                    movePlayer.y = fallVelocity;
+                }
+                else
+                {
+                    fallVelocity -= gravity * Time.deltaTime;
+                    movePlayer.y = fallVelocity;
+                }
                 isOnAir = true;
             }
             else if (fallVelocity < 0)
             {
-                if (isOnAir)
-                {
-                    fallVelocity = -0.01f;
-                    movePlayer.y = fallVelocity;
+                //if (isOnAir)
+                //{
+                //    fallVelocity = -0.01f;
+                //    movePlayer.y = fallVelocity;
 
-                    //contando el tiempo en el aire
-                    timer += Time.deltaTime;
+                    
+                //    //contando el tiempo en el aire
+                //    timer += Time.deltaTime;
 
-                    if (timer >= timeOnAir)
-                    {
-                        timer = 0;
-                        isOnAir = false;
-                    }
+                //    if (timer >= timeOnAir)
+                //    {
+                //        timer = 0;
+                //        isOnAir = false;
+                //    }
 
-                }
-                else
-                {
+                //}
+                //else
+                //{
                     fallVelocity -= gravity * Time.deltaTime * gravityMultipliyerFalling;
                     movePlayer.y = fallVelocity;
-                }
+                //}
                 
             }
         }
