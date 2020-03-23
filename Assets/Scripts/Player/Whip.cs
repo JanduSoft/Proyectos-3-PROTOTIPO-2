@@ -51,30 +51,15 @@ public class Whip : MonoBehaviour
         {
             whipableObjectTransform = enemyList[index];
             spriteIndicateObject.SetActive(true);
-            spriteIndicateObject.transform.position = whipableObjectTransform.position + new Vector3(0, 2.5f, 0);
-            distToWhipable = Vector3.Distance(playerTransform.position, enemyList[index].position + new Vector3(0, 5, 0));
+            spriteIndicateObject.transform.position = whipableObjectTransform.position + new Vector3(0, 5f, 0);
         }
         else
         {
-
+            spriteIndicateObject.SetActive(false);
         }
         #endregion
 
         #region INPUT CONTROL
-        if (Input.GetButtonDown("Whip") && (ableToAttack || ableToWhipObject) && !resetWhip)
-        {
-            whippin = true;
-            inputDown = true;
-        }
-        else if (Input.GetButtonUp("Whip"))
-        {
-            whippin = false;
-            resetWhip = false;
-            inputDown = false;
-            whip.SetPosition(1, playerTransform.position);
-            counter = 0;
-            time = 0;
-        }
         if (Input.GetAxis("RightJoystickHorizontal") == 1f && attackMode)
         {
             if (timePlus == 0.15f)
@@ -103,9 +88,24 @@ public class Whip : MonoBehaviour
     {
         if (other.tag == "WhipEnemy")
         {
-            enemyList.Add(other.gameObject.transform);
+            for(int i = 0; i< enemyList.Count; i++)
+            {
+                if(enemyList[i] != other.transform)
+                {
+                    enemyList.Add(other.gameObject.transform);
+                    i = enemyList.Count;
+                }
+            }
+            if(enemyList.Count == 0)
+                enemyList.Add(other.gameObject.transform);
+
             attackMode = true;
         }
+    }
+    public void Died()
+    {
+        spriteIndicateObject.SetActive(false);
+        attackMode = false;
     }
     private void OnTriggerExit(Collider other)
     {

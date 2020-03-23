@@ -79,12 +79,14 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            //GET AXIS
-            horizontalMove = Input.GetAxis("Horizontal");
-            verticalMove = Input.GetAxis("Vertical");
+        if (player.isGrounded) grounded = true;
+        else grounded = false;
+        //GET AXIS
+        horizontalMove = Input.GetAxis("Horizontal");
+        verticalMove = Input.GetAxis("Vertical");
 
-            playerInput = new Vector3(horizontalMove, 0, verticalMove);
-            playerInput = Vector3.ClampMagnitude(playerInput, 1);
+        playerInput = new Vector3(horizontalMove, 0, verticalMove);
+        playerInput = Vector3.ClampMagnitude(playerInput, 1);
 
             //ACCELERATION
             if (playerInput == Vector3.zero)
@@ -144,47 +146,51 @@ public class PlayerMovement : MonoBehaviour
                 timeIdle = 0;
                 animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
             }
-
-            // GRAVITY
-            SetGravity();
-
-            if (!stopped)
+            else if (!player.isGrounded && !grounded)
             {
-                // JUMP
-                PlayerSkills();
+                player.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
+                model.transform.position = player.transform.position;
+                model.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
+            }
 
-                //WALKING SOUND & PARTICLES
-                if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
-                {
-                    prevPos = transform.position;
-                    playerSteps.Play();
-                    Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position, Quaternion.identity), 0.55f);
-                }
+            timeIdle = 0;
+            animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
+        
 
-                // MOVING CHARACTER
-                if(player.isGrounded && grounded)
-                    auxCoyote = coyoteTime;
+        // GRAVITY
+        SetGravity();
 
-                if (player.isGrounded || grounded)
-                {
-                    animatorController.SetBool("Jumping", false);
-                    player.Move(movePlayer * Time.deltaTime);
+        if (!stopped)
+        {
+            // JUMP
+            PlayerSkills();
 
-                }
-                else if (!player.isGrounded && !grounded)
-                {
-                    player.Move((movePlayer *(percentRestriction/100)) * Time.deltaTime);
-                    animatorController.SetBool("Jumping", true);
-                }
-                if(!player.isGrounded && auxCoyote > 0 && !jumpSound.isPlaying)
-                {
-                    auxCoyote -= Time.deltaTime;
-                    if (auxCoyote > 0)
-                        grounded = true;
-                    else
-                        grounded = false;
-                }
-            }       
+            //WALKING SOUND & PARTICLES
+            if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
+            {
+                prevPos = transform.position;
+                playerSteps.Play();
+                Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position, Quaternion.identity), 0.55f);
+            }
+
+            // MOVING CHARACTER
+
+            if (player.isGrounded || grounded)
+            {
+                animatorController.SetBool("Jumping", false);
+                player.Move(movePlayer * Time.deltaTime);
+                auxCoyote = coyoteTime;
+            }
+            else if (!player.isGrounded && !grounded)
+            {
+                player.Move((movePlayer *(percentRestriction/100)) * Time.deltaTime);
+                animatorController.SetBool("Jumping", true);
+            }
+            if((!player.isGrounded || !grounded) && auxCoyote > 0)
+            {
+                auxCoyote -= Time.deltaTime;
+            }
+        }       
 
     }
     #endregion
@@ -206,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
     #region  PLAYER SKILLS
     void PlayerSkills()
     {
-        if ((player.isGrounded || grounded) && Input.GetButtonDown("Jump"))
+        if ((player.isGrounded || grounded || auxCoyote > 0) && Input.GetButtonDown("Jump"))
         {
             grounded = false;
             animatorController.SetBool("Jumping", true);
