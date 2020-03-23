@@ -20,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     public bool grounded = true;
     [SerializeField] public CharacterController player;
     [SerializeField] float playerSpeed;
-    [SerializeField] Whip whip;
     [Header("JUMP")]
     [SerializeField] float jumpForce;
     [SerializeField] AudioSource jumpSound;
@@ -67,93 +66,89 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            //GET AXIS
-            horizontalMove = Input.GetAxis("Horizontal");
-            verticalMove = Input.GetAxis("Vertical");
+        if (player.isGrounded) grounded = true;
+        else grounded = false;
+        //GET AXIS
+        horizontalMove = Input.GetAxis("Horizontal");
+        verticalMove = Input.GetAxis("Vertical");
 
-            playerInput = new Vector3(horizontalMove, 0, verticalMove);
-            playerInput = Vector3.ClampMagnitude(playerInput, 1);
+        playerInput = new Vector3(horizontalMove, 0, verticalMove);
+        playerInput = Vector3.ClampMagnitude(playerInput, 1);
 
-            //GETTING CAMERA DIRECTION
-            CamDirection();
+        //GETTING CAMERA DIRECTION
+        CamDirection();
 
-            // CALCULATING CHARACTER MOVEMENT
-            movePlayer = playerInput.x * camRight + playerInput.z * camForward;
-            movePlayer *= playerSpeed;
-            if (movePlayer == Vector3.zero)
+        // CALCULATING CHARACTER MOVEMENT
+        movePlayer = playerInput.x * camRight + playerInput.z * camForward;
+        movePlayer *= playerSpeed;
+        if (movePlayer == Vector3.zero)
+        {
+            animatorController.SetBool("walking", false);
+            timeIdle += Time.deltaTime;
+            animatorController.SetFloat("idle", timeIdle);
+            if (timeIdle > 4)
             {
-                animatorController.SetBool("walking", false);
-                timeIdle += Time.deltaTime;
-                animatorController.SetFloat("idle", timeIdle);
-                if (timeIdle > 4)
-                {
-                    animatorController.SetInteger("randomIdle", Random.Range(0, 2));
-                    timeIdle = 0;
-                }
+                animatorController.SetInteger("randomIdle", Random.Range(0, 2));
+                timeIdle = 0;
             }
-            else if(!grabbedToRock && movePlayer != Vector3.zero && !stopped)
-            {
+        }
+        else if(!grabbedToRock && movePlayer != Vector3.zero && !stopped)
+        {
                 
 
-                // LOOK AT IF IS ON AIR OR GROUNDED
-                if (player.isGrounded || grounded)
-                {
-                    player.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
-                    model.transform.position = player.transform.position;
-                    model.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
-                }
-                else if (!player.isGrounded && !grounded)
-                {
-                    player.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
-                    model.transform.position = player.transform.position;
-                    model.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
-                }
-
-                animatorController.SetBool("walking", true);
-                timeIdle = 0;
-                animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
+            // LOOK AT IF IS ON AIR OR GROUNDED
+            if (player.isGrounded || grounded)
+            {
+                player.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
+                model.transform.position = player.transform.position;
+                model.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
+            }
+            else if (!player.isGrounded && !grounded)
+            {
+                player.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
+                model.transform.position = player.transform.position;
+                model.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
             }
 
-            // GRAVITY
-            SetGravity();
+            animatorController.SetBool("walking", true);
+            timeIdle = 0;
+            animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
+        }
 
-            if (!stopped)
+        // GRAVITY
+        SetGravity();
+
+        if (!stopped)
+        {
+            // JUMP
+            PlayerSkills();
+
+            //WALKING SOUND & PARTICLES
+            if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
             {
-                // JUMP
-                PlayerSkills();
+                prevPos = transform.position;
+                playerSteps.Play();
+                Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position, Quaternion.identity), 0.55f);
+            }
 
-                //WALKING SOUND & PARTICLES
-                if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
-                {
-                    prevPos = transform.position;
-                    playerSteps.Play();
-                    Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position, Quaternion.identity), 0.55f);
-                }
+            // MOVING CHARACTER
 
-                // MOVING CHARACTER
-                if(player.isGrounded && grounded)
-                    auxCoyote = coyoteTime;
-
-                if (player.isGrounded || grounded)
-                    {
-                        animatorController.SetBool("Jumping", false);
-                        player.Move(movePlayer * Time.deltaTime);
-
-                    }
-                    else if (!player.isGrounded && !grounded)
-                    {
-                        player.Move((movePlayer *(percentRestriction/100)) * Time.deltaTime);
-                        animatorController.SetBool("Jumping", true);
-                    }
-                    if(!player.isGrounded && auxCoyote > 0 && !jumpSound.isPlaying)
-                    {
-                        auxCoyote -= Time.deltaTime;
-                        if (auxCoyote > 0)
-                            grounded = true;
-                        else
-                            grounded = false;
-                    }
-            }       
+            if (player.isGrounded || grounded)
+            {
+                animatorController.SetBool("Jumping", false);
+                player.Move(movePlayer * Time.deltaTime);
+                auxCoyote = coyoteTime;
+            }
+            else if (!player.isGrounded && !grounded)
+            {
+                player.Move((movePlayer *(percentRestriction/100)) * Time.deltaTime);
+                animatorController.SetBool("Jumping", true);
+            }
+            if((!player.isGrounded || !grounded) && auxCoyote > 0)
+            {
+                auxCoyote -= Time.deltaTime;
+            }
+        }       
 
     }
     #endregion
@@ -175,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
     #region  PLAYER SKILLS
     void PlayerSkills()
     {
-        if ((player.isGrounded || grounded) && Input.GetButtonDown("Jump"))
+        if ((player.isGrounded || grounded || auxCoyote > 0) && Input.GetButtonDown("Jump"))
         {
             grounded = false;
             animatorController.SetBool("Jumping", true);

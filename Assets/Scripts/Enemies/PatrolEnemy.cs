@@ -78,15 +78,6 @@ public class PatrolEnemy : MonoBehaviour
         StartCoroutine(fallToTheGround(2));
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player")) whipScript.enabled = true;
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player")) whipScript.enabled = false;
-    }
-
     IEnumerator fallToTheGround(float _s)
     {
         yield return new WaitForSeconds(_s);
