@@ -18,9 +18,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject walkinParticles;
     [SerializeField] Transform walkinParticlesSpawner;
     public bool grounded = true;
+    [Header("ACCELERATION")]
     [SerializeField] public CharacterController player;
     [SerializeField] float playerSpeed;
+    float maxSpeed;
+    [SerializeField] float acceleration;
     [SerializeField] Whip whip;
+    float lookAtSpeed;
+    [SerializeField] float normalLookAtSpeed;
+    [SerializeField] float changingDirectionLookAtSpeed;
     [Header("JUMP")]
     [SerializeField] float jumpForce;
     [SerializeField] AudioSource jumpSound;
@@ -31,6 +37,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("GRAVITY")]
     [SerializeField] float gravity = 9.8f;
     [SerializeField] public float fallVelocity;
+    [SerializeField] float regularGravityMultipliyer = 1f;
+    [SerializeField] float gravityMultipliyerFalling = 2;
+    [SerializeField] float timeOnAir;
+    private bool isOnAir = true;
+    private float timer = 0.0f;
 
     [Header("CAMERA")]
     [SerializeField] Camera mainCamera;
@@ -54,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
     #region START
     void Start()
     {
+        maxSpeed = playerSpeed;
         auxCoyote = coyoteTime;
         player = GetComponent<CharacterController>();
         fallVelocity = -10;
@@ -74,17 +86,38 @@ public class PlayerMovement : MonoBehaviour
             playerInput = new Vector3(horizontalMove, 0, verticalMove);
             playerInput = Vector3.ClampMagnitude(playerInput, 1);
 
+            //ACCELERATION
+            if (playerInput == Vector3.zero)
+            {
+                playerSpeed = 0;
+                lookAtSpeed = changingDirectionLookAtSpeed;
+            }
+            else
+            {
+                lookAtSpeed = normalLookAtSpeed;
+                playerSpeed += acceleration * Time.deltaTime;
+
+                if (playerSpeed >= maxSpeed)
+                {
+                    playerSpeed = maxSpeed;
+                }
+            }
+
             //GETTING CAMERA DIRECTION
             CamDirection();
 
             // CALCULATING CHARACTER MOVEMENT
             movePlayer = playerInput.x * camRight + playerInput.z * camForward;
             movePlayer *= playerSpeed;
+            
+
+
             if (movePlayer == Vector3.zero)
             {
                 animatorController.SetBool("walking", false);
                 timeIdle += Time.deltaTime;
                 animatorController.SetFloat("idle", timeIdle);
+
                 if (timeIdle > 4)
                 {
                     animatorController.SetInteger("randomIdle", Random.Range(0, 2));
@@ -93,14 +126,12 @@ public class PlayerMovement : MonoBehaviour
             }
             else if(!grabbedToRock && movePlayer != Vector3.zero && !stopped)
             {
-                
-
                 // LOOK AT IF IS ON AIR OR GROUNDED
                 if (player.isGrounded || grounded)
                 {
-                    player.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
+                    player.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
                     model.transform.position = player.transform.position;
-                    model.transform.DOLookAt(player.transform.position + movePlayer, 0.5f);
+                    model.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
                 }
                 else if (!player.isGrounded && !grounded)
                 {
@@ -135,24 +166,24 @@ public class PlayerMovement : MonoBehaviour
                     auxCoyote = coyoteTime;
 
                 if (player.isGrounded || grounded)
-                    {
-                        animatorController.SetBool("Jumping", false);
-                        player.Move(movePlayer * Time.deltaTime);
+                {
+                    animatorController.SetBool("Jumping", false);
+                    player.Move(movePlayer * Time.deltaTime);
 
-                    }
-                    else if (!player.isGrounded && !grounded)
-                    {
-                        player.Move((movePlayer *(percentRestriction/100)) * Time.deltaTime);
-                        animatorController.SetBool("Jumping", true);
-                    }
-                    if(!player.isGrounded && auxCoyote > 0 && !jumpSound.isPlaying)
-                    {
-                        auxCoyote -= Time.deltaTime;
-                        if (auxCoyote > 0)
-                            grounded = true;
-                        else
-                            grounded = false;
-                    }
+                }
+                else if (!player.isGrounded && !grounded)
+                {
+                    player.Move((movePlayer *(percentRestriction/100)) * Time.deltaTime);
+                    animatorController.SetBool("Jumping", true);
+                }
+                if(!player.isGrounded && auxCoyote > 0 && !jumpSound.isPlaying)
+                {
+                    auxCoyote -= Time.deltaTime;
+                    if (auxCoyote > 0)
+                        grounded = true;
+                    else
+                        grounded = false;
+                }
             }       
 
     }
@@ -195,11 +226,49 @@ public class PlayerMovement : MonoBehaviour
         {
             fallVelocity = -gravity * Time.deltaTime;
             movePlayer.y = fallVelocity;
+            isOnAir = true;
         }
         else
         {
-            fallVelocity -= gravity * Time.deltaTime;
-            movePlayer.y = fallVelocity;
+            if (fallVelocity >= 0)
+            {
+                if (!Input.GetButton("Jump"))
+                {
+                    fallVelocity -= gravity * gravityMultipliyerFalling * Time.deltaTime;
+                    movePlayer.y = fallVelocity;
+                }
+                else
+                {
+                    fallVelocity -= gravity * Time.deltaTime;
+                    movePlayer.y = fallVelocity;
+                }
+                isOnAir = true;
+            }
+            else if (fallVelocity < 0)
+            {
+                //if (isOnAir)
+                //{
+                //    fallVelocity = -0.01f;
+                //    movePlayer.y = fallVelocity;
+
+                    
+                //    //contando el tiempo en el aire
+                //    timer += Time.deltaTime;
+
+                //    if (timer >= timeOnAir)
+                //    {
+                //        timer = 0;
+                //        isOnAir = false;
+                //    }
+
+                //}
+                //else
+                //{
+                    fallVelocity -= gravity * Time.deltaTime * gravityMultipliyerFalling;
+                    movePlayer.y = fallVelocity;
+                //}
+                
+            }
         }
 
     }
@@ -229,6 +298,7 @@ public class PlayerMovement : MonoBehaviour
             grounded = false;
         }
     }
+
     public void StopMovement(bool _tof)
     {
         stopped = _tof;
