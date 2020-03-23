@@ -39,8 +39,7 @@ public class PickUpDropandThrow : PickUpandDrop
     void Update()
     {
         CheckVariables();
-        nearEnemy = playerWhip.attackMode;
-        if (nearEnemy && player != null)
+        if (playerWhip.attackMode && player != null)
         {
             enemy = playerWhip.getEnemy();
             Debug.DrawRay(transform.position, enemy.position, Color.red);
@@ -166,6 +165,7 @@ public class PickUpDropandThrow : PickUpandDrop
         if(collision.transform.tag == "WhipEnemy" && (tag == "Destroyable" || tag == "Place"))
         {
             enemy.SendMessage("Die");
+            playerWhip.Died();
         }
     }
     protected void ObjectDrop()

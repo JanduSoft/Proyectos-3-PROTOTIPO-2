@@ -102,6 +102,11 @@ public class Whip : MonoBehaviour
             attackMode = true;
         }
     }
+    public void Died()
+    {
+        spriteIndicateObject.SetActive(false);
+        attackMode = false;
+    }
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "WhipEnemy")
