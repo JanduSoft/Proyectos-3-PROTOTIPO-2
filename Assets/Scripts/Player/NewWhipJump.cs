@@ -35,6 +35,8 @@ public class NewWhipJump : MonoBehaviour
     [Header("DRAW WHIP")]
     [SerializeField] LineRenderer whip;
     [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] float timerDrawLine;
+    
     #endregion
 
     private void Start()
@@ -58,6 +60,15 @@ public class NewWhipJump : MonoBehaviour
         {
             whip.SetPosition(0, player.position);
             whip.SetPosition(1, player.position);
+        }
+        else
+        {
+            timerDrawLine += Time.deltaTime;
+            if (timerDrawLine >= speed/2)
+            {
+                StopWhipDrawing();
+                timerDrawLine = 0;
+            }
         }
         
 

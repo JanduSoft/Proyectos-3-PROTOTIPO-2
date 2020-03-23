@@ -785,7 +785,7 @@ PrefabInstance:
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31.01
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
@@ -795,7 +795,7 @@ PrefabInstance:
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 59.46
+      value: -6.7
       objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
@@ -1115,7 +1115,7 @@ PrefabInstance:
     - target: {fileID: 1732243685648198930, guid: 4e873c65061ceda4f82894c893b31f7c,
         type: 3}
       propertyPath: speed
-      value: 0.45
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1732243685982638575, guid: 4e873c65061ceda4f82894c893b31f7c,
         type: 3}
@@ -1135,7 +1135,7 @@ PrefabInstance:
     - target: {fileID: 1732243685982638575, guid: 4e873c65061ceda4f82894c893b31f7c,
         type: 3}
       propertyPath: speed
-      value: 0.45
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1732243685436573855, guid: 4e873c65061ceda4f82894c893b31f7c,
         type: 3}
@@ -1359,7 +1359,6 @@ GameObject:
   - component: {fileID: 1866135964}
   - component: {fileID: 1866135963}
   - component: {fileID: 1866135968}
-  - component: {fileID: 1866135967}
   m_Layer: 9
   m_Name: Cube
   m_TagString: Ground
@@ -1439,23 +1438,6 @@ Transform:
   m_Father: {fileID: 1202430990}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1866135967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1866135962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cf75101ab01b844684b45bbfd948ebc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 256203551}
-  newFOV: 50
-  targetCamera: {fileID: 0}
-  newRotationTarget: {x: 0, y: -20, z: 0}
-  speedTransition: 2
 --- !u!65 &1866135968
 BoxCollider:
   m_ObjectHideFlags: 0
