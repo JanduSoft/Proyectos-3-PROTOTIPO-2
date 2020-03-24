@@ -19,6 +19,7 @@ namespace InControl
 
 		void OnEnable()
 		{
+			customProfiles.Add("CustomProfileExample.KeyboardAndMouseProfile");
 			if (logDebugInfo)
 			{
 				Debug.Log( "InControl (version " + InputManager.Version + ")" );

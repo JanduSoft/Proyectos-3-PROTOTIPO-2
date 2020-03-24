@@ -33,16 +33,16 @@ namespace CustomProfileExample
 			{
 				new InputControlMapping
 				{
-					Handle = "Fire - Mouse",
-					Target = InputControlType.Action1,
-					Source = MouseButton0
+					Handle = "Interact - Keyboard",
+					Target = InputControlType.Action3,
+					Source = KeyCodeButton( KeyCode.E )
 				},
 				new InputControlMapping
 				{
-					Handle = "Fire - Keyboard",
-					Target = InputControlType.Action1,
+					Handle = "Whip - Keyboard",
+					Target = InputControlType.Action4,
 					// KeyCodeButton fires when any of the provided KeyCode params are down.
-					Source = KeyCodeButton( KeyCode.F, KeyCode.Return )
+					Source = KeyCodeButton( KeyCode.C )
 				},
 				new InputControlMapping
 				{
@@ -53,13 +53,13 @@ namespace CustomProfileExample
 				new InputControlMapping
 				{
 					Handle = "Middle",
-					Target = InputControlType.Action3,
+					Target = InputControlType.Action2,
 					Source = MouseButton1
 				},
 				new InputControlMapping
 				{
 					Handle = "Jump",
-					Target = InputControlType.Action4,
+					Target = InputControlType.Action1,
 					Source = KeyCodeButton( KeyCode.Space )
 				},
 				new InputControlMapping

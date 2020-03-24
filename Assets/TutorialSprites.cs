@@ -42,14 +42,14 @@ public class TutorialSprites : MonoBehaviour
     #region UPDATE
     private void Update()
     {
-        if (isPlayerInside && pickUP.GetObjectIsGrabbed())
-        {
-            DeactivateSprites();
-        }
-        else if (isPlayerInside && !pickUP.GetObjectIsGrabbed() )
-        {
+        //if (isPlayerInside && pickUP.GetObjectIsGrabbed())
+        //{
+        //    DeactivateSprites();
+        //}
+        //else if (isPlayerInside && !pickUP.GetObjectIsGrabbed() )
+        //{
 
-        }
+        //}
 
         if (button == buttonType.PLACE_OBJECT)
         {
