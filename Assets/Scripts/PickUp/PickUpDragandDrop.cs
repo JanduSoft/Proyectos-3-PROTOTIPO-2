@@ -39,10 +39,16 @@ public class PickUpDragandDrop : PickUpandDrop
             Debug.LogWarning("Add global sounds");
         }
     }
+    private void OnDisable()
+    {
+        currentRock = null;
+    }
 
     // Update is called once per frame
     void Update()
     {
+
+        Debug.Log(currentRock);
         CheckVariables();
         if (player != null)
         {
