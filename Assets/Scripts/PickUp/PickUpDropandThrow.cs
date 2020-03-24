@@ -39,7 +39,8 @@ public class PickUpDropandThrow : PickUpandDrop
     void Update()
     {
         CheckVariables();
-        if (playerWhip.attackMode && player != null)
+        nearEnemy = playerWhip.attackMode;
+        if (nearEnemy && player != null)
         {
             enemy = playerWhip.getEnemy();
             Debug.DrawRay(transform.position, enemy.position, Color.red);
@@ -51,7 +52,7 @@ public class PickUpDropandThrow : PickUpandDrop
         }
         else if ((Input.GetButtonUp("Interact")))
         {
-            if ( !cancelledDrop )
+            if (!cancelledDrop)
             {
                 if (isFacingBox && !objectIsGrabbed && distanceSuficient)
                 {
@@ -150,7 +151,7 @@ public class PickUpDropandThrow : PickUpandDrop
     {
         if (tag == "Destroyable")
         {
-            if(hasObjectInside)
+            if (hasObjectInside)
             {
                 objectInside.SetActive(true);
                 objectInside.transform.SetParent(null);
@@ -162,10 +163,9 @@ public class PickUpDropandThrow : PickUpandDrop
             brokenVase.SetActive(true);
             gameObject.SetActive(false);
         }
-        if(collision.transform.tag == "WhipEnemy" && (tag == "Destroyable" || tag == "Place"))
+        if (collision.transform.tag == "WhipEnemy" && (tag == "Destroyable" || tag == "Place"))
         {
             enemy.SendMessage("Die");
-            playerWhip.Died();
         }
     }
     protected void ObjectDrop()
@@ -201,7 +201,7 @@ public class PickUpDropandThrow : PickUpandDrop
         yield return new WaitForSeconds(time);
         DropObject();
         _thisRB.constraints = RigidbodyConstraints.FreezeRotation;
-        if(!isImportantObject)
+        if (!isImportantObject)
             transform.tag = "Destroyable";
         else
             transform.tag = "Place";
