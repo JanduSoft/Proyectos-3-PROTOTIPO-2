@@ -52,7 +52,7 @@ public class AddObject : MonoBehaviour
             Debug.Log(other.name);
             _object = other.transform.parent.gameObject;
             _objectTransform = other.transform.parent.gameObject.transform;
-           _object.transform.parent.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
+            _object.transform.parent.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
         }
 
     }
