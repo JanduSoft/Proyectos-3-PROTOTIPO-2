@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class PickUpDropandThrow : PickUpandDrop
 {
@@ -45,11 +46,11 @@ public class PickUpDropandThrow : PickUpandDrop
             Debug.DrawRay(transform.position, enemy.position, Color.red);
             playerToEnemy = new Vector3(enemy.transform.position.x - player.transform.position.x, enemy.transform.position.y - player.transform.position.y, enemy.transform.position.z - player.transform.position.z);
         }
-        if (Input.GetButtonDown("Interact"))
+        if (InputManager.ActiveDevice.Action3.WasPressed)
         {
             keyDown = true;
         }
-        else if ((Input.GetButtonUp("Interact")))
+        else if (InputManager.ActiveDevice.Action3.WasReleased)
         {
             if ( !cancelledDrop )
             {

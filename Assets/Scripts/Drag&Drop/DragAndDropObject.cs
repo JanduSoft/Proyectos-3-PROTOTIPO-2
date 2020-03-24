@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class DragAndDropObject : MonoBehaviour
 {
@@ -61,7 +62,7 @@ public class DragAndDropObject : MonoBehaviour
 
         if (player != null)
         {
-            if (Input.GetButtonDown("Interact") && Vector3.Distance(transform.position, player.transform.position) < MinDistanceToGrabObject
+            if (InputManager.ActiveDevice.Action3.WasPressed && Vector3.Distance(transform.position, player.transform.position) < MinDistanceToGrabObject
                 && Mathf.Abs(player.transform.position.y - transform.position.y) < 1)
             {
 

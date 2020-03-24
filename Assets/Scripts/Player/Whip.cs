@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class Whip : MonoBehaviour
 {
@@ -60,7 +61,7 @@ public class Whip : MonoBehaviour
         #endregion
 
         #region INPUT CONTROL
-        if (Input.GetAxis("RightJoystickHorizontal") == 1f && attackMode)
+        if (InputManager.ActiveDevice.LeftStickX == 1f && attackMode)
         {
             if (timePlus == 0.15f)
             {
@@ -70,7 +71,7 @@ public class Whip : MonoBehaviour
             timePlus -= Time.deltaTime;
             if (timePlus < 0) timePlus = 0.15f;
         }
-        else if (Input.GetAxis("RightJoystickHorizontal") == -1f && attackMode)
+        else if (InputManager.ActiveDevice.LeftStickX == -1f && attackMode)
         {
             if (timeMinus == 0.15f)
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class PushElement : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class PushElement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Interact") && isInside && canPush && !isMoving)
+        if (InputManager.ActiveDevice.Action3.WasPressed && isInside && canPush && !isMoving)
         {
             box.DOMove(destination.position, speed);
             isMoving = true;

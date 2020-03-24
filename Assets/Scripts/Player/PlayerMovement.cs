@@ -2,9 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    InputDevice inputDevice;
+    private void Awake()
+    {
+        inputDevice = InputManager.ActiveDevice;
+    }
+
     #region VARIABLES
     [Header("MOVEMENT")]
     [SerializeField] float horizontalMove;
@@ -82,8 +90,8 @@ public class PlayerMovement : MonoBehaviour
         if (player.isGrounded) grounded = true;
         else grounded = false;
         //GET AXIS
-        horizontalMove = Input.GetAxis("Horizontal");
-        verticalMove = Input.GetAxis("Vertical");
+        horizontalMove = inputDevice.LeftStickX;
+        verticalMove = inputDevice.LeftStickY;
 
         playerInput = new Vector3(horizontalMove, 0, verticalMove);
         playerInput = Vector3.ClampMagnitude(playerInput, 1);
@@ -212,7 +220,7 @@ public class PlayerMovement : MonoBehaviour
     #region  PLAYER SKILLS
     void PlayerSkills()
     {
-        if ((player.isGrounded || grounded || auxCoyote > 0) && Input.GetButtonDown("Jump"))
+        if ((player.isGrounded || grounded || auxCoyote > 0) && inputDevice.Action1.WasPressed)
         {
             grounded = false;
             animatorController.SetBool("Jumping", true);
@@ -238,7 +246,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (fallVelocity >= 0)
             {
-                if (!Input.GetButton("Jump"))
+                if (!inputDevice.Action1.IsPressed)
                 {
                     fallVelocity -= gravity * gravityMultipliyerFalling * Time.deltaTime;
                     movePlayer.y = fallVelocity;

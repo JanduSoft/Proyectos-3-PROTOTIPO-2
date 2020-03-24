@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class UpandDownSecondPuzzle : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class UpandDownSecondPuzzle : MonoBehaviour
     {
         if (canInteract)
         {
-            if(Input.GetButtonDown("Interact"))
+            if(InputManager.ActiveDevice.Action3.WasPressed)
             {
                 leverSound.Play();
                 canInteract = false;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class DragAndDrop : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class DragAndDrop : MonoBehaviour
 
             if (dot > 0.5f) { isFacingBox = true; }
 
-            if (Input.GetButtonDown("Interact")  && !cancelledDrop)
+            if (InputManager.ActiveDevice.Action3.WasPressed && !cancelledDrop)
             {
                 if (distancePlayerObject < minDistanceToGrabObject && !objectIsGrabbed && isFacingBox)
                 {

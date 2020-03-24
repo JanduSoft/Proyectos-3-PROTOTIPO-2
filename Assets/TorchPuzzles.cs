@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using InControl;
 
 public class TorchPuzzles : MonoBehaviour
 {
@@ -37,12 +38,10 @@ public class TorchPuzzles : MonoBehaviour
             var distancePlayerObject = Vector3.Distance(player.transform.position, transform.position);
             //checks if the player is staring in the direction of the rock
             float dot = Vector3.Dot(player.transform.forward, (transform.position - player.transform.position).normalized);
-            if(Input.GetButtonDown("Interact"))
-                Debug.Log(dot);
 
             if (dot > 0.55f) { isFacingBox = true; }
 
-            if (distancePlayerObject < minDistanceToGrabObject && Input.GetButtonDown("Interact") && (!nearFire && !nearRope))
+            if (distancePlayerObject < minDistanceToGrabObject && InputManager.ActiveDevice.Action3.WasPressed && (!nearFire && !nearRope))
             {
                 if (!objectIsGrabbed && isFacingBox)
                 {
@@ -57,13 +56,13 @@ public class TorchPuzzles : MonoBehaviour
                     objectIsGrabbed = false;
                 }
             }
-            else if(nearFire && Input.GetButtonDown("Interact"))
+            else if(nearFire && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 Debug.Log("Torch Ignited");
                 fireParticles.SetActive(true);
                 torchIgnited = true;
             }
-            else if(torchIgnited && nearRope && Input.GetButtonDown("Interact"))
+            else if(torchIgnited && nearRope && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 Debug.Log("Rope Burnt");
                 chains.SetActive(false);

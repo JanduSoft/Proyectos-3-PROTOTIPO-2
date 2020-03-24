@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class isPlaced : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class isPlaced : MonoBehaviour
     bool placed = false;
     void Update()
     {
-        if (canPlace && Input.GetButtonDown("Interact"))
+        if (canPlace && InputManager.ActiveDevice.Action3.WasPressed)
         {
             lever.enabled = true;
         }

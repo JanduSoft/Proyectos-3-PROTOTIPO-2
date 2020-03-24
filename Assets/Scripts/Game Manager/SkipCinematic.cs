@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class SkipCinematic : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class SkipCinematic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (InputManager.ActiveDevice.Action1.WasPressed)
         {
             STL1Object.SetActive(true);
         }

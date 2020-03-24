@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class AddSkull : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class AddSkull : MonoBehaviour
     {
         if (skull != null)
         {
-            if (Input.GetButtonDown("Interact") && skull.GetComponent<DragAndDrop>().objectIsGrabbed)
+            if (InputManager.ActiveDevice.Action3.WasPressed && skull.GetComponent<DragAndDrop>().objectIsGrabbed)
             {
                 playeranimator.SetBool("PlaceObject", true);
                 skull.GetComponent<DragAndDrop>().publicDropObject();
@@ -32,7 +33,7 @@ public class AddSkull : MonoBehaviour
                 StartCoroutine(AnimationsCoroutine(0.5f));
             }
 
-            if (!isImportantCup && canPlace && !skull.GetComponent<DragAndDrop>().objectIsGrabbed && isActivated && Input.GetButtonDown("Interact"))
+            if (!isImportantCup && canPlace && !skull.GetComponent<DragAndDrop>().objectIsGrabbed && isActivated && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 //skull.GetComponent<DragAndDrop>().CancelledDrop(false);
                 skull.GetComponent<DragAndDrop>().publicPickUp();

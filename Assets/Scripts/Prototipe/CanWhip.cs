@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class CanWhip : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class CanWhip : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (InputManager.ActiveDevice.Action1.WasPressed)
         {
             isOnMyWhip = false;
             player.onWhip = false;

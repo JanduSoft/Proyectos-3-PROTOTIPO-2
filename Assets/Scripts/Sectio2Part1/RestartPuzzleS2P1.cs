@@ -38,11 +38,6 @@ public class RestartPuzzleS2P1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isInside && Input.GetButtonDown("Interact"))
-        {
-            
-
-        }
     }
 
     public void ActivateObject()

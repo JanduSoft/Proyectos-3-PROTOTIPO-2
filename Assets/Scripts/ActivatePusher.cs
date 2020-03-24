@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class ActivatePusher : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class ActivatePusher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Interact") && playerIsInside && !isMoving)
+        if (InputManager.ActiveDevice.Action3.WasPressed && playerIsInside && !isMoving)
         {
             isMoving = true;
             FirstRoation();

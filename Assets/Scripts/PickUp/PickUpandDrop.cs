@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class PickUpandDrop : PickUp
 {
@@ -16,7 +17,7 @@ public class PickUpandDrop : PickUp
     void Update()
     {
         CheckVariables();
-        if (Input.GetButtonDown("Interact") && !cancelledDrop )
+        if (InputManager.ActiveDevice.Action3.WasPressed && !cancelledDrop )
         {
             if (!objectIsGrabbed && distanceSuficient && isFacingBox)
             {

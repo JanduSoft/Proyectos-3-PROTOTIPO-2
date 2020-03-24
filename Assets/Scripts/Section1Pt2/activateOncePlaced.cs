@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class activateOncePlaced : MonoBehaviour
 { 
@@ -12,7 +13,7 @@ public class activateOncePlaced : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canPlace && Input.GetButtonDown("Interact")  && isObject)
+        if (canPlace && InputManager.ActiveDevice.Action3.WasPressed && isObject)
         {
             StartCoroutine(Activate());
         }
