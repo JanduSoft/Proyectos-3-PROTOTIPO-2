@@ -24,7 +24,7 @@ public class AddObject : MonoBehaviour
     {
         if (_object != null)
         {
-            if (canPlace && _object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && !isActivated && Input.GetButtonDown("Interact") && _object != null)
+            if (canPlace && _object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && !isActivated && Input.GetButtonDown("Interact"))
             {
                 Debug.Log(_object.name);
                 playerAnimator.SetBool("PlaceObject", true);
