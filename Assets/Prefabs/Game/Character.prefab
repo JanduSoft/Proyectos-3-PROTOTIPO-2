@@ -670,13 +670,18 @@ MonoBehaviour:
   walkinParticlesSpawner: {fileID: 638439896}
   grounded: 1
   player: {fileID: 6120095539264640500}
-  playerSpeed: 20
+  playerSpeed: 18
+  acceleration: 30
   whip: {fileID: 1052674258}
-  jumpForce: 25
+  normalLookAtSpeed: 0.5
+  changingDirectionLookAtSpeed: 1.5
+  jumpForce: 22
   jumpSound: {fileID: 583964081}
-  percentRestriction: 70
-  gravity: 100
+  percentRestriction: 85
+  gravity: 60
   fallVelocity: 0
+  gravityMultipliyerFalling: 3
+  timeOnAir: 0.08
   mainCamera: {fileID: 0}
   isInWhipJump: 0
   animatorController: {fileID: 95810304588308272}
@@ -689,7 +694,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6120095539264640501}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243430210898580274, guid: 829dfea7bf13d0a4796ae2472460ce0b,
     type: 2}
