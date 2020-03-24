@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class PickUpDragandDrop : PickUpandDrop
 {
@@ -53,7 +54,7 @@ public class PickUpDragandDrop : PickUpandDrop
         if (player != null)
         {
             //If the dragging button is pressed we move the rock, if not, we let go
-            bool isPressingButton = Input.GetButton("Interact");
+            bool isPressingButton = InputManager.ActiveDevice.Action3;
             if (isPressingButton)
             {
                 Vector3 newPlayerPos = player.transform.position + new Vector3(0, 2.5f, 0);

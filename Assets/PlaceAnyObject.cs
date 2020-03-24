@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class PlaceAnyObject : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class PlaceAnyObject : MonoBehaviour
     void Update()
     {
         
-        if (isPlayerInside && isPlaced && Input.GetButtonDown("Interact") )
+        if (isPlayerInside && isPlaced && InputManager.ActiveDevice.Action3.WasPressed )
         {
             switch (typeOfObject)
             {
@@ -48,7 +49,7 @@ public class PlaceAnyObject : MonoBehaviour
                     }
             }
         }
-        else if (isPlayerInside && isObjectInside && !isPlaced && Input.GetButtonDown("Interact"))
+        else if (isPlayerInside && isObjectInside && !isPlaced && InputManager.ActiveDevice.Action3.WasPressed)
         {
             switch (typeOfObject)
             {

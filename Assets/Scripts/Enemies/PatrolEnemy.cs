@@ -5,6 +5,7 @@ using UnityEngine.Animations;
 using UnityEngine.Timeline;
 using UnityEngine.Playables;
 using UnityEngine.AI;
+using InControl;
 
 public class PatrolEnemy : MonoBehaviour
 {
@@ -61,7 +62,7 @@ public class PatrolEnemy : MonoBehaviour
         else if (trueDeath)
         {
             if (Skull.activeInHierarchy)
-                if (Vector3.Distance(Skull.transform.position, Player.transform.position) < 2.5 && Input.GetButtonDown("Interact"))
+                if (Vector3.Distance(Skull.transform.position, Player.transform.position) < 2.5 && InputManager.ActiveDevice.Action3.WasPressed)
                 {
                     agent.enabled = false;
                     _this.enabled = false;

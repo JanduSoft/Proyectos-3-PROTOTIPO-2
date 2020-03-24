@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using InControl;
 
 public class PlayerController : MonoBehaviour
 {
@@ -106,7 +107,7 @@ public class PlayerController : MonoBehaviour
         #endregion
         ///Jump
         #region Jump
-        if (grounded && Input.GetButtonDown("Jump") && onLadder == false )
+        if (grounded && InputManager.ActiveDevice.Action1.WasPressed && onLadder == false )
         {
             Jump();
         }

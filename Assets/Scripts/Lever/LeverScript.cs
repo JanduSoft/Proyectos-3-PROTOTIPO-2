@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class LeverScript : MonoBehaviour
 {
@@ -46,7 +47,7 @@ public class LeverScript : MonoBehaviour
         if (player!=null)
         {
             var currentDistanceToLever = Vector3.Distance(transform.position, player.transform.position);
-            if (showCanvas && (currentDistanceToLever<distanceToLever) && (!leverPulled || canPullLeverAlways) && Input.GetButtonDown("Interact"))
+            if (showCanvas && (currentDistanceToLever<distanceToLever) && (!leverPulled || canPullLeverAlways) && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 showCanvas = false;
                 leverPulled = true;

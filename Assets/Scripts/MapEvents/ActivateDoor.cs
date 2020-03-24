@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class ActivateDoor : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class ActivateDoor : MonoBehaviour
     {
         if (other.CompareTag("Place"))
         {
-            if (Input.GetButtonDown("Interact"))
+            if (InputManager.ActiveDevice.Action3.WasPressed)
             {
                 animator.SetBool("DropObject", false);
                 animator.SetBool("PlaceObject", true);

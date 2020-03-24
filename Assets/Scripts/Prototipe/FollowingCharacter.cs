@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class FollowingCharacter : MonoBehaviour
 {
@@ -45,7 +46,7 @@ public class FollowingCharacter : MonoBehaviour
         /////GIRAR LA CAMARA UN POCO CON EL STICK IZQUIERDO
         
                 ////MOVIMIENTO EN X
-        if (Input.GetAxis("Horizontal2") == 1)
+        if (InputManager.ActiveDevice.RightStickX == 1)
         {
             transform.DORotate(new Vector3(naturalPosition.x,
                                             naturalPosition.y - angleBound,
@@ -53,7 +54,7 @@ public class FollowingCharacter : MonoBehaviour
                                             speedBound);
             return;
         }
-        else if (Input.GetAxis("Horizontal2") == -1)
+        else if (InputManager.ActiveDevice.RightStickX == -1)
         {
             transform.DORotate(new Vector3( naturalPosition.x,
                                             naturalPosition.y + angleBound,

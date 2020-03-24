@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class ActivateAnimation : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class ActivateAnimation : MonoBehaviour
     {
         if (other.CompareTag("Place") && type == typeAnimator.DOOR)
         {
-            if (other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos != null && Input.GetButtonDown("Interact"))
+            if (other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos != null && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 other.transform.parent.gameObject.transform.position = objectPos.transform.position;
                 isObjectPlaced = true;
@@ -96,13 +97,13 @@ public class ActivateAnimation : MonoBehaviour
     {
         if (other.CompareTag("Place") && type == typeAnimator.DOOR)
         {
-            if (Input.GetButtonDown("Interact"))
+            if (InputManager.ActiveDevice.Action3.WasPressed)
             {
                 playeranimator.SetBool("DropObject", false);
                 playeranimator.SetBool("PlaceObject", true);
                 StartCoroutine(AnimationsCoroutine(0.5f));
             }
-            if (other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos != null && Input.GetButtonDown("Interact"))
+            if (other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos != null && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 other.transform.parent.parent = null;
                 other.tag = "Untagged";

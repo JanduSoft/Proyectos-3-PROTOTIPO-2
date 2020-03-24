@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class PlaceObject : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class PlaceObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canPlace && Input.GetButtonDown("Interact"))
+        if (canPlace && InputManager.ActiveDevice.Action3.WasPressed)
         {
             skullTransform.position = placePosition.position;
             skullTransform.rotation = this.transform.rotation;

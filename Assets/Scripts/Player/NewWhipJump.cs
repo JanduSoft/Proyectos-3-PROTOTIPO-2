@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class NewWhipJump : MonoBehaviour
 {
@@ -62,7 +63,7 @@ public class NewWhipJump : MonoBehaviour
         
 
         ////CHECK INPUT
-        if ((Input.GetButtonDown("Whip")) && canWhip && !playerMovement.isInWhipJump)
+        if (InputManager.ActiveDevice.Action4.WasPressed && canWhip && !playerMovement.isInWhipJump)
         {
             Vector3 toLookAt = new Vector3(toWhipObject.position.x, player.position.y , toWhipObject.position.z);
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 public class openDoorTutorialpt2 : MonoBehaviour
 {
     bool canPlace = false;
@@ -22,7 +23,7 @@ public class openDoorTutorialpt2 : MonoBehaviour
     {
         if (skull != null)
         {
-            if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && Input.GetButtonDown("Interact"))
+            if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 dor.SendMessage("Solved", index);
                 isActivated = true;

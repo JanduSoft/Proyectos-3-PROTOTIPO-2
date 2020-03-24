@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class MoveBoxBridge : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class MoveBoxBridge : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Interact") && canActivate)
+        if (InputManager.ActiveDevice.Action3.WasPressed && canActivate)
         {
             if (!isMoving)
             {

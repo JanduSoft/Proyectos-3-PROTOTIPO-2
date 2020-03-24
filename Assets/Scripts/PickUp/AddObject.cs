@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class AddObject : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class AddObject : MonoBehaviour
     {
         if (_object != null)
         {
-            if (canPlace && _object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && !isActivated && Input.GetButtonDown("Interact"))
+            if (canPlace && _object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && !isActivated && InputManager.ActiveDevice.Action3.WasPressed && _object != null)
             {
                 Debug.Log(_object.name);
                 playerAnimator.SetBool("PlaceObject", true);
@@ -32,7 +33,7 @@ public class AddObject : MonoBehaviour
                 StartCoroutine(PlaceObject());
                 
             }
-            else if (canPlace && !_object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && isActivated && Input.GetButtonDown("Interact"))
+            else if (canPlace && !_object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && isActivated && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 _object.GetComponent<PickUpDropandThrow>().ForceGrabObject();
                 isActivated = false;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using InControl;
 
 public class PickUpDropandIgnite : PickUpandDrop
 {
@@ -23,7 +24,7 @@ public class PickUpDropandIgnite : PickUpandDrop
     void Update()
     {
         CheckVariables();
-        if (Input.GetButtonDown("Interact")  && !cancelledDrop && player != null)
+        if (InputManager.ActiveDevice.Action3.WasPressed && !cancelledDrop && player != null)
         {
             if (!objectIsGrabbed && distanceSuficient )
             {

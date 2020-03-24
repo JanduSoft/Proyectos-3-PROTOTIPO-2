@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class PlaceDragAndDrop : MonoBehaviour
 {
@@ -21,13 +22,13 @@ public class PlaceDragAndDrop : MonoBehaviour
     {
         if (skull != null)
         {
-            if (Input.GetButtonDown("Interact") && canPlace)
+            if (InputManager.ActiveDevice.Action3.WasPressed && canPlace)
             {
                 playeranimator.SetBool("DropObject", false);
                 playeranimator.SetBool("PlaceObject", true);
                 StartCoroutine(AnimationsCoroutine(0.5f));
             }
-            if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && Input.GetButtonDown("Interact"))
+            if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 skull.GetComponent<DragAndDrop>().DropObject();
                 skull.GetComponent<DragAndDrop>().enabled = false;

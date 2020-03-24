@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using InControl;
 
 
 public class PauseScript : MonoBehaviour
@@ -31,7 +32,7 @@ public class PauseScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Pause") && canPause && cooldownOver)
+        if (InputManager.ActiveDevice.RightTrigger && canPause && cooldownOver)
         {
             btn_Resume();
             cooldownOver = false;

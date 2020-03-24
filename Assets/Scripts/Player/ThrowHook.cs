@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class ThrowHook : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class ThrowHook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetMouseButtonDown(0) || Input.GetButtonDown("Fire4")) && canWhip)
+        if (InputManager.ActiveDevice.Action4.WasPressed && canWhip)
         {
             if(currentHook == null)
             {
@@ -40,7 +41,7 @@ public class ThrowHook : MonoBehaviour
             }
 
         }
-        else if ((Input.GetMouseButtonDown(0) || Input.GetButtonDown("Fire4")) && canWrap)
+        else if (InputManager.ActiveDevice.Action4.WasPressed && canWrap)
         {
             if (currentHook == null)
             {
