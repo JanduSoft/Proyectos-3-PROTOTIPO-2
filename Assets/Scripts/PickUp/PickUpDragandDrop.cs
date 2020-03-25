@@ -356,6 +356,7 @@ protected override void PickUpObject()
         dragSound.Stop();
         lerping = false;
         rockGrabbed = false;
+        currentRock = null;
         thisRock = false;
     }
     void DoLerp()
