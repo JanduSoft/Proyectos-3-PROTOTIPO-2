@@ -76,6 +76,7 @@ public class PatrolEnemy : MonoBehaviour
         animController.SetBool("dead", true);
         agent.SetDestination(agent.transform.position);
         transform.tag = "Untagged";
+        whipScript.Died(this.gameObject);
         StartCoroutine(fallToTheGround(2));
     }
 

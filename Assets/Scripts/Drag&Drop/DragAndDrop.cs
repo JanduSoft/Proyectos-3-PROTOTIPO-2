@@ -7,7 +7,7 @@ public class DragAndDrop : MonoBehaviour
 {
     Animator playerAnimator;
     [HideInInspector] public GameObject player = null;
-    GameObject grabPlace = null;
+    Transform grabPlace = null;
     GameObject distanceChecker;
     public float minDistanceToGrabObject = 1.5f;
     [HideInInspector] public bool objectIsGrabbed = false;
@@ -18,7 +18,6 @@ public class DragAndDrop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        grabPlace = GameObject.Find("Hand_R_PickUp");
         startPosition = transform.position;
     }
 
@@ -87,6 +86,7 @@ public class DragAndDrop : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
+            grabPlace = player.transform.GetChild(2);
             playerAnimator = player.GetComponentInChildren<Animator>();
         }
     }

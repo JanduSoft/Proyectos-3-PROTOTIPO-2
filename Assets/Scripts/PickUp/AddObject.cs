@@ -68,7 +68,8 @@ public class AddObject : MonoBehaviour
     }
     IEnumerator PlaceObject()
     {
-        yield return new WaitForSeconds(0.55f);        
+        yield return new WaitForSeconds(0.3f);  
+        playerAnimator.SetBool("PlaceObject", false);
         _objectTransform.position = placePosition.transform.position;
         _objectTransform.rotation = transform.rotation;
         _object.transform.SetParent(transform);

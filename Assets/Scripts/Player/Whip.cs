@@ -103,8 +103,9 @@ public class Whip : MonoBehaviour
             attackMode = true;
         }
     }
-    public void Died()
+    public void Died(GameObject _this)
     {
+        enemyList.Remove(_this.transform);
         spriteIndicateObject.SetActive(false);
         attackMode = false;
     }

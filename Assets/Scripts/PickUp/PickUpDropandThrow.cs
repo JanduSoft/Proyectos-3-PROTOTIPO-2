@@ -32,12 +32,17 @@ public class PickUpDropandThrow : PickUpandDrop
         _thisRB.useGravity = false;
         useGravity = false;
         startingPosition = transform.position;
-        _thisRB.constraints = RigidbodyConstraints.FreezePosition;
+        _thisRB.constraints = RigidbodyConstraints.FreezeAll;
         grabPlace = GameObject.Find("GrabObjectPos");
     }
 
     // Update is called once per frame
     void Update()
+    {
+       
+
+    }
+    private void FixedUpdate()
     {
         CheckVariables();
         nearEnemy = playerWhip.attackMode;
@@ -62,13 +67,13 @@ public class PickUpDropandThrow : PickUpandDrop
                     player.SendMessage("StopMovement", true);
                     if (Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)) < 0.6)
                     {
-                        _thisRB.constraints = RigidbodyConstraints.FreezePosition;
+                        _thisRB.constraints = RigidbodyConstraints.FreezeAll;
                         StartCoroutine(PickUpCoroutine(0.4f));
                         StartCoroutine(AnimationsCoroutine(0.5f));
                     }
                     else
                     {
-                        _thisRB.constraints = RigidbodyConstraints.FreezePosition;
+                        _thisRB.constraints = RigidbodyConstraints.FreezeAll;
                         StartCoroutine(PickUpCoroutine(0.4f));
                         StartCoroutine(AnimationsCoroutine(0.5f));
                     }
@@ -76,9 +81,11 @@ public class PickUpDropandThrow : PickUpandDrop
                 else if (timeKeyDown > 0f && timeKeyDown < 0.3f && objectIsGrabbed)
                 {
                     playerAnimator.SetBool("DropObject", true);
-                    player.SendMessage("StopMovement", true);
-                    StartCoroutine(DropObjectCoroutine(0.5f));
-                    StartCoroutine(AnimationsCoroutine(0.65f));
+                    _thisRB.constraints = RigidbodyConstraints.FreezeRotation;
+                    useGravity = true;
+                    StartCoroutine(DropObjectCoroutine(0f));
+                    StartCoroutine(AnimationsCoroutine(0.1f));
+
                 }
                 else if (timeKeyDown > 0.5f && objectIsGrabbed)
                 {
@@ -124,10 +131,6 @@ public class PickUpDropandThrow : PickUpandDrop
                 timeKeyDown = 0;
             }
         }
-
-    }
-    private void FixedUpdate()
-    {
         if (useGravity) _thisRB.AddForce(Physics.gravity * (_thisRB.mass * _thisRB.mass));
     }
 
@@ -171,7 +174,10 @@ public class PickUpDropandThrow : PickUpandDrop
     }
     protected void ObjectDrop()
     {
+        Vector3 temp = player.transform.forward * (2500 * (0.5f));
+        temp.y = 750;
         transform.SetParent(null);
+        _thisRB.AddForce(temp);
         objectIsGrabbed = false;
     }
 
@@ -207,7 +213,7 @@ public class PickUpDropandThrow : PickUpandDrop
         else
             transform.tag = "Place";
         _thisSC.enabled = false;
-        Vector3 temp = player.transform.forward * (18000 * ((float)timeKeyDown / 0.5f));
+        Vector3 temp = player.transform.forward * (15000 * ((float)timeKeyDown / 1f));
         _thisRB.AddForce(temp);
         playerAnimator.SetBool("PickUp", false);
         playerAnimator.SetBool("DropObject", false);
@@ -227,7 +233,7 @@ public class PickUpDropandThrow : PickUpandDrop
         _thisSC.enabled = false;
         Vector3 temp = new Vector3();
         Vector3 thisToEnemy = new Vector3(enemy.transform.position.x - transform.position.x, enemy.transform.position.y + 1.5f - transform.position.y, enemy.transform.position.z - transform.position.z);
-        temp = thisToEnemy.normalized * (18000 * ((float)timeKeyDown / 0.5f));
+        temp = thisToEnemy.normalized * (18000 * ((float)timeKeyDown / 1f));
         _thisRB.AddForce(temp);
         playerAnimator.SetBool("PickUp", false);
         playerAnimator.SetBool("DropObject", false);
