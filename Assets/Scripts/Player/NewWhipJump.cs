@@ -36,6 +36,8 @@ public class NewWhipJump : MonoBehaviour
     [Header("DRAW WHIP")]
     [SerializeField] LineRenderer whip;
     [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] Transform hookSpawner;
+    bool startWhip = false;
     #endregion
 
     private void Start()
@@ -55,22 +57,38 @@ public class NewWhipJump : MonoBehaviour
     #region UPDATE
     private void Update()
     {
+        ///////controlling line renderer
         if (!playerMovement.isInWhipJump)
         {
             whip.SetPosition(0, player.position);
             whip.SetPosition(1, player.position);
+        }
+        else if (startWhip)
+        {
+            whip.SetPosition(0, player.position);
+            whip.SetPosition(1, hookSpawner.position);
+        }
+
+        ///UPDATE HOOKSPAWNER POSITION
+        if (isPlayerInside && !startWhip)
+        {
+            hookSpawner.position = new Vector3(player.position.x, player.position.y + 2f, player.position.z);
         }
         
 
         ////CHECK INPUT
         if (InputManager.ActiveDevice.Action4.WasPressed && canWhip && !playerMovement.isInWhipJump)
         {
-            Vector3 toLookAt = new Vector3(toWhipObject.position.x, player.position.y , toWhipObject.position.z);
+            Vector3 toLookAt = new Vector3(toWhipObject.position.x, player.position.y, toWhipObject.position.z);
 
-            player.DOLookAt(toLookAt, timeImpulse+0.2f);
-            player.DOMoveY( player.position.y+impulse ,timeImpulse);
+            player.DOLookAt(toLookAt, timeImpulse + 0.2f);
+            player.DOMoveY(player.position.y + impulse, timeImpulse);
 
+            //mover el hookSpawner
+            startWhip = true;
+            hookSpawner.DOMove(toWhipObject.position, timeImpulse);
 
+            playerMovement.isInWhipJump = true;
             Invoke("WhipJump", timeImpulse);
         }
 
@@ -80,7 +98,7 @@ public class NewWhipJump : MonoBehaviour
             Vector3 aux = new Vector3(player.position.x, player.position.y + 3f, player.position.z);
             whip.SetPosition(0, aux);
         }
-        
+
 
 
         //////CHECK IF YOU CAN WHIP
@@ -116,19 +134,25 @@ public class NewWhipJump : MonoBehaviour
             markSprite.color = crosshairColor;
             spriteIndicateObject.transform.localScale = originalScale;
         }
-        
+
     }
     #endregion
 
     #region WHIP JUMP
     void WhipJump()
-    {
-
-        playerMovement.isInWhipJump = true;
+    {        
         whip.SetPosition(1, toWhipObject.position);
         //player.DOJump(destination.position, jump, 1, speed);
         player.DOMove(destination.position, speed);
-        Invoke("StopWhipDrawing", speed);
+        
+        Invoke("StopWhipDrawing", speed / 2);
+    }
+    #endregion
+
+    #region RESET TIME SACALE
+    void ResetTimeSacale()
+    {
+        Time.timeScale = 1f;
     }
     #endregion
 
@@ -136,6 +160,7 @@ public class NewWhipJump : MonoBehaviour
     void StopWhipDrawing()
     {
         playerMovement.isInWhipJump = false;
+        startWhip = false;
         //whip.SetPosition(1, player.position);
         whip.SetPosition(0, player.position);
     }
@@ -163,10 +188,11 @@ public class NewWhipJump : MonoBehaviour
             spriteIndicateObject.SetActive(false);
             canWhip = false;
             startedAnimation = false;
+
+            //RESTART HOOKSPAWNER POSITION
         }
     }
     #endregion
-
     
     #region INCREASE ANIMATION CROSSHAIR
     void IncreasetAnimationCrosshair()
