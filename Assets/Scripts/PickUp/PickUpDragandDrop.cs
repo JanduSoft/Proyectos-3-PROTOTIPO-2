@@ -48,8 +48,7 @@ public class PickUpDragandDrop : PickUpandDrop
     // Update is called once per frame
     void Update()
     {
-
-        Debug.Log(currentRock);
+        
         CheckVariables();
         if (player != null)
         {

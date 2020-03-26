@@ -14,24 +14,28 @@ public class TutorialSprites : MonoBehaviour
         WHIP,
         PLACE_OBJECT,
         DD_OBJECT,
-        PICK_UP_OBJECT
+        PICK_UP_OBJECT,
+        THROW
         
     };
    
-    public bool isPlayerInside = false;
-    public bool isObjectInside = false;
+    bool isPlayerInside = false;
+    bool isObjectInside = false;
+
 
     bool showingButton = false;
+    public bool needShowTrhowButton = false;
 
     [Header("REFERENCES")]
     [SerializeField] DragAndDrop dragAndDrop;
-    [SerializeField] PickUpandDrop pickUP;
+    [SerializeField] PickUpDropandThrow pickUpThrow;
 
     [Header("SPRITES")]
     [SerializeField] buttonType button;
     [SerializeField] GameObject jump;
     [SerializeField] GameObject interact;
     [SerializeField] GameObject whip;
+    [SerializeField] GameObject pickThrow;
 
     [Header("TRANSITION")]
     [SerializeField] float speed;
@@ -41,8 +45,8 @@ public class TutorialSprites : MonoBehaviour
 
     #region UPDATE
     private void Update()
-    {
-        
+    {        
+
 
         if (button == buttonType.PLACE_OBJECT)
         {
@@ -57,15 +61,41 @@ public class TutorialSprites : MonoBehaviour
         }
         else if(button == buttonType.PLACE_OBJECT)
         {
-            if (isPlayerInside && pickUP.GetObjectIsGrabbed())
+            if (isPlayerInside && pickUpThrow.GetObjectIsGrabbed())
             {
                 DeactivateSprites();
             }
-            else if (isPlayerInside && !pickUP.GetObjectIsGrabbed())
+            else if (isPlayerInside && !pickUpThrow.GetObjectIsGrabbed())
             {
 
             }
         }
+        else if (button == buttonType.THROW)
+        {
+            if (isPlayerInside && pickUpThrow.GetObjectIsGrabbed())
+            {
+                if (needShowTrhowButton)
+                {
+                    interact.SetActive(false);
+                    pickThrow.SetActive(true);
+                }
+
+
+            }
+            else if (isPlayerInside && !pickUpThrow.GetObjectIsGrabbed())
+            {
+                pickThrow.SetActive(false);
+                interact.SetActive(true);
+            }
+            else
+            {
+                DeactivateSprites();
+            }
+
+        }
+
+
+
     }
     #endregion
 
@@ -114,10 +144,15 @@ public class TutorialSprites : MonoBehaviour
                 case buttonType.PICK_UP_OBJECT:
                     {
                         
-                        if (!pickUP.GetObjectIsGrabbed())
+                        if (!pickUpThrow.GetObjectIsGrabbed())
                         {
                             ActivateSprite(button);
                         }
+                        break;
+                    }
+                case buttonType.THROW:
+                    {
+                        ActivateSprite(buttonType.INTERACT);
                         break;
                     }
                 default:
@@ -136,6 +171,7 @@ public class TutorialSprites : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("El player sale");
             isPlayerInside = false;
 
             switch (button)
@@ -173,6 +209,11 @@ public class TutorialSprites : MonoBehaviour
                         DeactivateSprites();
                         break;
                     }
+                case buttonType.THROW:
+                    {
+                        DeactivateSprites();
+                        break;
+                    }
                 default:
                     break;
             }
@@ -185,7 +226,7 @@ public class TutorialSprites : MonoBehaviour
     #endregion
 
     #region ACTIVATE SPRITE
-    public void ActivateSprite(buttonType button)
+    public void ActivateSprite(buttonType _button)
     {
         switch (button)
         {
@@ -233,6 +274,13 @@ public class TutorialSprites : MonoBehaviour
                     interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                     break;
                 }
+            case buttonType.THROW:
+                {
+                    pickThrow.SetActive(true);
+                    pickThrow.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                    pickThrow.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    break;
+                }
             default:
                 break;
         }
@@ -274,6 +322,12 @@ public class TutorialSprites : MonoBehaviour
                 }
             case buttonType.PICK_UP_OBJECT:
                 {
+                    interact.SetActive(false);
+                    break;
+                }
+            case buttonType.THROW:
+                {
+                    pickThrow.SetActive(false);
                     interact.SetActive(false);
                     break;
                 }

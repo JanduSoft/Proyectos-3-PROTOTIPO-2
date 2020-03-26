@@ -39,7 +39,7 @@ public class PickUpDropandThrow : PickUpandDrop
     // Update is called once per frame
     void Update()
     {
-       
+        
 
     }
     private void FixedUpdate()
@@ -252,7 +252,7 @@ public class PickUpDropandThrow : PickUpandDrop
     }
     public bool GetObjectIsGrabbed()
     {
-        Debug.Log(transform.name + " " + objectIsGrabbed);
+        //Debug.Log(transform.name + " " + objectIsGrabbed);
         return objectIsGrabbed;
     }
 }
