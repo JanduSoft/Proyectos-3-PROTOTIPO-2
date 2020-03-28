@@ -398,14 +398,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4caab5fbf27c1847a0b0004f48fb8cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayerInside: 0
-  isObjectInside: 0
+  needShowTrhowButton: 0
   dragAndDrop: {fileID: 0}
-  pickUP: {fileID: 327012209}
+  pickUpThrow: {fileID: 0}
   button: 6
   jump: {fileID: 487983892}
   interact: {fileID: 1921398292}
   whip: {fileID: 1423071336}
+  pickThrow: {fileID: 0}
   speed: 0.2
   inititalSize: 0
   finalSize: 0.5
@@ -851,24 +851,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
-    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 256203551}
-    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
-      propertyPath: spriteIndicateObject
-      value: 
-      objectReference: {fileID: 487983892}
-    - target: {fileID: 7219794959162274814, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
-        type: 3}
-      propertyPath: deathPanel
-      value: 
-      objectReference: {fileID: 1821105411}
-    - target: {fileID: 7219794959162274814, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640499, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -924,6 +906,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7219794959162274814, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
+        type: 3}
+      propertyPath: deathPanel
+      value: 
+      objectReference: {fileID: 1821105411}
+    - target: {fileID: 7219794959162274814, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6120095539264640498, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa,
         type: 3}
       propertyPath: mainCamera
@@ -934,6 +926,14 @@ PrefabInstance:
       propertyPath: gravityMultipliyerFalling
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 256203551}
+    - target: {fileID: 1052674258, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
+      propertyPath: spriteIndicateObject
+      value: 
+      objectReference: {fileID: 487983892}
     - target: {fileID: 1629156140, guid: fa0d2bf37bdffb745a1c3dfe7b1a8bfa, type: 3}
       propertyPath: cameraMain
       value: 
@@ -1214,41 +1214,11 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 958756303}
-    - target: {fileID: 1732243685648198933, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 11.170202
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732243685648198933, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: m_Center.y
-      value: 1.9635472
-      objectReference: {fileID: 0}
     - target: {fileID: 1732243684536192601, guid: 4e873c65061ceda4f82894c893b31f7c,
         type: 3}
       propertyPath: cameraMain
       value: 
       objectReference: {fileID: 256203547}
-    - target: {fileID: 1732243685982638574, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 12.226456
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732243685982638574, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: m_Center.y
-      value: 3.1287003
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732243685982638574, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 37.475574
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732243685982638574, guid: 4e873c65061ceda4f82894c893b31f7c,
-        type: 3}
-      propertyPath: m_Center.z
-      value: 11.1515255
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e873c65061ceda4f82894c893b31f7c, type: 3}
 --- !u!1 &1423071336 stripped

@@ -142,8 +142,8 @@ public class NewWhipJump : MonoBehaviour
     void WhipJump()
     {        
         whip.SetPosition(1, toWhipObject.position);
-        //player.DOJump(destination.position, jump, 1, speed);
-        player.DOMove(destination.position, speed);
+        player.DOJump(destination.position, jump, 1, speed);
+        //player.DOMove(destination.position, speed);
         
         Invoke("StopWhipDrawing", speed / 2);
     }
