@@ -67,7 +67,7 @@ public class PickUpDragandDrop : PickUpandDrop
                     if (hit.transform.gameObject == gameObject)
                     {
                         if (currentRock != null)
-                            player.transform.LookAt(new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z));
+                            player.transform.DOLookAt(new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z),0.25F);
                         if (!rockGrabbed && isFacingBox && !animator.GetBool("Attached") && currentRock==null)
                         {
                             playerMovement.grabbedToRock = true;
@@ -83,11 +83,11 @@ public class PickUpDragandDrop : PickUpandDrop
                                 );
                             animator.SetBool("Attached", true);
                             Vector3 targetPostition = new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z);
-                            player.transform.LookAt(targetPostition);
+                            player.transform.DOLookAt(targetPostition, 0.25F);
                         }
                         if (rockGrabbed && isFacingBox && currentRock == gameObject)
                         {
-                            player.transform.LookAt(new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z));
+                            player.transform.DOLookAt(new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z), 0.25F);
                             closestPoint = FindClosestPoint();
                             player.transform.position = closestPoint;
 
