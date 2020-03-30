@@ -59,7 +59,7 @@ public class PickUpDropandThrow : PickUpandDrop
         {
             keyDown = true;
         }
-        else if (InputManager.ActiveDevice.Action3.WasReleased)
+        else if (InputManager.ActiveDevice.Action3.WasReleased && player != null)
         {
             if (!cancelledDrop)
             {

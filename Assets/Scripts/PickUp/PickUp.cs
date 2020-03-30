@@ -10,7 +10,7 @@ public class PickUp : MonoBehaviour
     protected float minDistanceToGrabObject = 2.5f;
     protected bool objectIsGrabbed;
     protected bool distanceSuficient = false;
-    protected bool isFacingBox = false;
+    [SerializeField] protected bool isFacingBox = false;
     protected bool cancelledDrop = false;
     protected float distancePlayerObject;
     protected float minDot = 0.5f;

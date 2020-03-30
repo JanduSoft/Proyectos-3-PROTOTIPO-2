@@ -149,16 +149,9 @@ public class PlayerMovement : MonoBehaviour
                     model.transform.position = player.transform.position;
                     model.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
                 }
-
                 animatorController.SetBool("walking", true);
                 timeIdle = 0;
                 animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
-            }
-            else if (!player.isGrounded && !grounded)
-            {
-                player.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
-                model.transform.position = player.transform.position;
-                model.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
             }
 
             timeIdle = 0;
