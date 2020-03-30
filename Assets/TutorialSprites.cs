@@ -89,7 +89,7 @@ public class TutorialSprites : MonoBehaviour
             }
             else
             {
-                DeactivateSprites();
+                //DeactivateSprites();
             }
 
         }
@@ -173,6 +173,7 @@ public class TutorialSprites : MonoBehaviour
         {
             Debug.Log("El player sale");
             isPlayerInside = false;
+            DeactivateSprites();
 
             switch (button)
             {
