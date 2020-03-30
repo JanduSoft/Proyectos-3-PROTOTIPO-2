@@ -66,20 +66,10 @@ public class PickUpDropandThrow : PickUpandDrop
                 if (isFacingBox && !objectIsGrabbed && distanceSuficient)
                 {
                     playerAnimator.SetBool("PickUp", true);
-                    playerAnimator.SetFloat("Distance", Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)));
                     player.SendMessage("StopMovement", true);
-                    if (Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)) < 0.6)
-                    {
-                        _thisRB.constraints = RigidbodyConstraints.FreezeAll;
-                        StartCoroutine(PickUpCoroutine(0.4f));
-                        StartCoroutine(AnimationsCoroutine(0.5f));
-                    }
-                    else
-                    {
-                        _thisRB.constraints = RigidbodyConstraints.FreezeAll;
-                        StartCoroutine(PickUpCoroutine(0.4f));
-                        StartCoroutine(AnimationsCoroutine(0.5f));
-                    }
+                    _thisRB.constraints = RigidbodyConstraints.FreezeAll;
+                    StartCoroutine(PickUpCoroutine(0f));
+                    StartCoroutine(AnimationsCoroutine(0.05f));
                 }
                 else if (timeKeyDown > 0f && timeKeyDown < 0.3f && objectIsGrabbed)
                 {
