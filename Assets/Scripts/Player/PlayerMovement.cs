@@ -285,7 +285,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
         if (other.CompareTag("Ground"))
         {
             grounded = true;
@@ -307,7 +306,15 @@ public class PlayerMovement : MonoBehaviour
             grounded = false;
         }
     }
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.GetComponent<Renderer>().material.color.a == 0)
+        {
+            iTween.FadeTo(hit.gameObject, 0.5f, 1f);
+        }
+    }
 
+    
     public void StopMovement(bool _tof)
     {
         stopped = _tof;
