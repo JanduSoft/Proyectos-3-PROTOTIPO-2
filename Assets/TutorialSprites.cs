@@ -171,7 +171,6 @@ public class TutorialSprites : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("El player sale");
             isPlayerInside = false;
             DeactivateSprites();
 
