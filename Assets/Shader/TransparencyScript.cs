@@ -5,6 +5,8 @@ using UnityEngine;
 public class TransparencyScript : MonoBehaviour
 {
     [SerializeField] List<GameObject> go = new List<GameObject>();
+    [SerializeField] float fadeTransparecyTime = 0.2f;
+    [SerializeField] float fadeOpaqueTime = 1f;
     void OnTriggerEnter(Collider collider)
     {
         if (collider.CompareTag("Player"))
@@ -12,7 +14,7 @@ public class TransparencyScript : MonoBehaviour
             foreach( GameObject _go in go)
             {
                 SetMaterialTransparent(_go);
-                iTween.FadeTo(_go, 0, 0.2f);
+                iTween.FadeTo(_go, 0, fadeTransparecyTime);
             }
         }
     }
@@ -53,8 +55,8 @@ public class TransparencyScript : MonoBehaviour
             foreach (GameObject _go in go)
             {
                 // Set material to opaque
-                iTween.FadeTo(_go, 1, 1f);
-                StartCoroutine(setOpaqueInSeconds(1, _go));
+                iTween.FadeTo(_go, 1, fadeOpaqueTime);
+                StartCoroutine(setOpaqueInSeconds(fadeOpaqueTime, _go));
             }
         }
     }
