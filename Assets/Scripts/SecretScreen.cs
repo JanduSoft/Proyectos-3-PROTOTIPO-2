@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using InControl;
 
 public class SecretScreen : MonoBehaviour
 {
@@ -20,7 +21,25 @@ public class SecretScreen : MonoBehaviour
         public GameObject model;
     };
     public Item[] secrets;
+    [Header("Sounds")]
+    [SerializeField] AudioSource openSound;
+    [SerializeField] AudioSource closeSound;
+    [SerializeField] AudioSource moveSound;
 
+    ///FOR CONTROLLER
+    InputDevice inputDevice;
+    private void Awake()
+    {
+        inputDevice = InputManager.ActiveDevice;
+    }
+    float horizontalMove;
+    float verticalMove;
+    bool upPressed = false;
+    bool rightPressed = false;
+    bool downPressed = false;
+    bool leftPressed = false;
+
+    ///LOS ELEMENTOS DEL MENU
     #region ELEMENTO 1
     [Header("ELEMENTO 1")]
     [SerializeField] bool isDiscovered1;
@@ -374,62 +393,11 @@ public class SecretScreen : MonoBehaviour
     {
         if (isOpened)
         {
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                secrets[currentSelected - 1].mark.SetActive(false);
-                if (currentSelected < 4)
-                {
-                    currentSelected += 3;
-                }
-                else
-                {
-                    currentSelected -= 3;
-                }
+            horizontalMove = inputDevice.LeftStickX;
+            verticalMove = inputDevice.LeftStickY;
 
-                SelectNewItem(currentSelected);
-            }
-            else if (Input.GetKeyDown(KeyCode.A))
-            {
-                secrets[currentSelected - 1].mark.SetActive(false);
-
-                if (currentSelected == 1 || currentSelected == 4)
-                {
-                    currentSelected += 2;
-                }
-                else
-                {
-                    currentSelected -= 1;
-                }
-                SelectNewItem(currentSelected);
-            }
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                secrets[currentSelected - 1].mark.SetActive(false);
-                if (currentSelected < 4)
-                {
-                    currentSelected += 3;
-                }
-                else
-                {
-                    currentSelected -= 3;
-                }
-
-                SelectNewItem(currentSelected);
-            }
-            else if (Input.GetKeyDown(KeyCode.D))
-            {
-                secrets[currentSelected - 1].mark.SetActive(false);
-
-                if (currentSelected == 3 || currentSelected == 6)
-                {
-                    currentSelected -= 2;
-                }
-                else
-                {
-                    currentSelected += 1;
-                }
-                SelectNewItem(currentSelected);
-            }
+            MenuNavigationController();
+            MenuNavigationKeyboard();
         }
 
         ///DETECTAR SI ABRES EL MENU, EL BOTON ES TEMPORAL
@@ -440,12 +408,18 @@ public class SecretScreen : MonoBehaviour
                 isOpened = false;
                 menu.SetActive(false);
                 Time.timeScale = 1;
+
+                //UI Sound
+                closeSound.Play();
             }
             else
             {
                 isOpened = true;
                 menu.SetActive(true);
                 Time.timeScale = 0;
+
+                //UI Sound
+                openSound.Play();
             }
         }
 
@@ -639,6 +613,188 @@ public class SecretScreen : MonoBehaviour
     }
     #endregion
 
+    #region MENU NAVIGATION WITH CONTROLLER
+    void MenuNavigationController()
+    {
+        #region UP CONTROL
+        if (verticalMove >= 0.95f)
+        {
+            if (!upPressed)
+            {
+                upPressed = true;
+                //Camiamos el objecto seleccionado
+                MoveUp();
+            }
+        }
+        else
+        {
+            upPressed = false;
+        }
+        #endregion
+
+        #region RIGHT CONTROL
+        if (horizontalMove >= 0.95f)
+        {
+            if (!rightPressed)
+            {
+                rightPressed = true;
+
+                //Camiamos el objecto seleccionado
+                MoveRight();
+            }
+        }
+        else
+        {
+            rightPressed = false;
+        }
+        #endregion
+
+        #region DOWN CONTROL
+        if (verticalMove <= -0.95f)
+        {
+            if (!downPressed)
+            {
+                downPressed = true;
+                //Camiamos el objecto seleccionado
+                MoveDown();
+            }
+        }
+        else
+        {
+            downPressed = false;
+        }
+        #endregion
+
+        #region LEFT CONTROL
+        if (horizontalMove <= -0.95f)
+        {
+            if (!leftPressed)
+            {
+                leftPressed = true;
+
+                //Camiamos el objecto seleccionado
+                MoveLeft();
+            }
+        }
+        else
+        {
+            leftPressed = false;
+        }
+        #endregion
+    }
+    #endregion
+
+    #region MENU NAVIGATION WITH KEYBOARD
+    void MenuNavigationKeyboard()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            MoveUp();
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            secrets[currentSelected - 1].mark.SetActive(false);
+
+            if (currentSelected == 1 || currentSelected == 4)
+            {
+                currentSelected += 2;
+            }
+            else
+            {
+                currentSelected -= 1;
+            }
+            SelectNewItem(currentSelected);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            MoveDown();
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            secrets[currentSelected - 1].mark.SetActive(false);
+
+            if (currentSelected == 3 || currentSelected == 6)
+            {
+                currentSelected -= 2;
+            }
+            else
+            {
+                currentSelected += 1;
+            }
+            SelectNewItem(currentSelected);
+        }
+    }
+    #endregion
+
+    #region MOVE UP
+    void MoveUp()
+    {
+        secrets[currentSelected - 1].mark.SetActive(false);
+        if (currentSelected < 4)
+        {
+            currentSelected += 3;
+        }
+        else
+        {
+            currentSelected -= 3;
+        }
+
+        SelectNewItem(currentSelected);
+        
+    }
+    #endregion
+
+    #region MOVE RIGHT
+    void MoveRight()
+    {
+        secrets[currentSelected - 1].mark.SetActive(false);
+
+        if (currentSelected == 3 || currentSelected == 6)
+        {
+            currentSelected -= 2;
+        }
+        else
+        {
+            currentSelected += 1;
+        }
+        SelectNewItem(currentSelected);
+    }
+    #endregion
+
+    #region MOVE DOWN
+    void MoveDown()
+    {
+        secrets[currentSelected - 1].mark.SetActive(false);
+        if (currentSelected < 4)
+        {
+            currentSelected += 3;
+        }
+        else
+        {
+            currentSelected -= 3;
+        }
+
+        SelectNewItem(currentSelected);
+    }
+    #endregion
+
+    #region MOVE LEFT
+    void MoveLeft()
+    {
+        secrets[currentSelected - 1].mark.SetActive(false);
+
+        if (currentSelected == 1 || currentSelected == 4)
+        {
+            currentSelected += 2;
+        }
+        else
+        {
+            currentSelected -= 1;
+        }
+        SelectNewItem(currentSelected);
+    }
+    #endregion
+
     #region SELECT NEW ITEM
     void SelectNewItem(int _newSelection)
     {
@@ -656,6 +812,9 @@ public class SecretScreen : MonoBehaviour
             nameText.text = "?????????????";
             descriptionText.text = "";
         }
+
+        //UI Sound
+        moveSound.Play();
     }
     #endregion
 
