@@ -28,6 +28,7 @@ public class SecretObject : MonoBehaviour
     [Header("FOR ANIMATION")]
     [SerializeField] GameObject secretObject;
     [SerializeField] Transform spawnPosition;
+    [SerializeField] GameObject background;
     GameObject objectInstantiate;
     #endregion
 
@@ -48,6 +49,7 @@ public class SecretObject : MonoBehaviour
             secretScreen.DiscoverNewObject((int)_object);
 
             //ANIMACION DEL OBJETO
+            background.SetActive(true);
             StartAnimationObject();
             return;
         }
@@ -55,6 +57,8 @@ public class SecretObject : MonoBehaviour
         {
             isShowingObject = false;
             playerMove.canMove = true;
+
+            background.SetActive(false);
 
             Destroy(objectInstantiate);
 
