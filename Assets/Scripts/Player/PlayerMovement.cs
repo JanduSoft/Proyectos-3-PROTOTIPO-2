@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region VARIABLES
     [Header("MOVEMENT")]
+    public bool canMove = true;
     [SerializeField] float horizontalMove;
     [SerializeField] float coyoteTime = 0.2f;
     [SerializeField] float auxCoyote = 0;
@@ -87,14 +88,16 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.isGrounded) grounded = true;
-        else grounded = false;
-        //GET AXIS
-        horizontalMove = inputDevice.LeftStickX;
-        verticalMove = inputDevice.LeftStickY;
+        if (canMove)
+        {
+            if (player.isGrounded) grounded = true;
+            else grounded = false;
+            //GET AXIS
+            horizontalMove = inputDevice.LeftStickX;
+            verticalMove = inputDevice.LeftStickY;
 
-        playerInput = new Vector3(horizontalMove, 0, verticalMove);
-        playerInput = Vector3.ClampMagnitude(playerInput, 1);
+            playerInput = new Vector3(horizontalMove, 0, verticalMove);
+            playerInput = Vector3.ClampMagnitude(playerInput, 1);
 
             //ACCELERATION
             if (playerInput == Vector3.zero)
@@ -119,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
             // CALCULATING CHARACTER MOVEMENT
             movePlayer = playerInput.x * camRight + playerInput.z * camForward;
             movePlayer *= playerSpeed;
-            
+
 
 
             if (movePlayer == Vector3.zero)
@@ -134,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
                     timeIdle = 0;
                 }
             }
-            else if(!grabbedToRock && movePlayer != Vector3.zero && !stopped)
+            else if (!grabbedToRock && movePlayer != Vector3.zero && !stopped)
             {
                 // LOOK AT IF IS ON AIR OR GROUNDED
                 if (player.isGrounded || grounded)
@@ -156,42 +159,44 @@ public class PlayerMovement : MonoBehaviour
 
             timeIdle = 0;
             animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
-        
 
-        // GRAVITY
-        SetGravity();
 
-        if (!stopped)
-        {
-            // JUMP
-            PlayerSkills();
+            // GRAVITY
+            SetGravity();
 
-            //WALKING SOUND & PARTICLES
-            if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
+            if (!stopped)
             {
-                prevPos = transform.position;
-                playerSteps.Play();
-                Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position, Quaternion.identity), 0.55f);
-            }
+                // JUMP
+                PlayerSkills();
 
-            // MOVING CHARACTER
+                //WALKING SOUND & PARTICLES
+                if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
+                {
+                    prevPos = transform.position;
+                    playerSteps.Play();
+                    Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position, Quaternion.identity), 0.55f);
+                }
 
-            if (player.isGrounded || grounded)
-            {
-                animatorController.SetBool("Jumping", false);
-                player.Move(movePlayer * Time.deltaTime);
-                auxCoyote = coyoteTime;
+                // MOVING CHARACTER
+
+                if (player.isGrounded || grounded)
+                {
+                    animatorController.SetBool("Jumping", false);
+                    player.Move(movePlayer * Time.deltaTime);
+                    auxCoyote = coyoteTime;
+                }
+                else if (!player.isGrounded && !grounded)
+                {
+                    player.Move((movePlayer * (percentRestriction / 100)) * Time.deltaTime);
+                    animatorController.SetBool("Jumping", true);
+                }
+                if ((!player.isGrounded || !grounded) && auxCoyote > 0)
+                {
+                    auxCoyote -= Time.deltaTime;
+                }
             }
-            else if (!player.isGrounded && !grounded)
-            {
-                player.Move((movePlayer *(percentRestriction/100)) * Time.deltaTime);
-                animatorController.SetBool("Jumping", true);
-            }
-            if((!player.isGrounded || !grounded) && auxCoyote > 0)
-            {
-                auxCoyote -= Time.deltaTime;
-            }
-        }       
+        }
+           
 
     }
     #endregion
