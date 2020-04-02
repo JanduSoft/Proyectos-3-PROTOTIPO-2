@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using InControl;
 
 public class SecretScreen : MonoBehaviour
 {
@@ -20,89 +21,111 @@ public class SecretScreen : MonoBehaviour
         public GameObject model;
     };
     public Item[] secrets;
+    [Header("Sounds")]
+    [SerializeField] AudioSource openSound;
+    [SerializeField] AudioSource closeSound;
+    [SerializeField] AudioSource moveSound;
 
+    ///FOR CONTROLLER
+    InputDevice inputDevice;
+    private void Awake()
+    {
+        inputDevice = InputManager.ActiveDevice;
+    }
+    float horizontalMove;
+    float verticalMove;
+    bool upPressed = false;
+    bool rightPressed = false;
+    bool downPressed = false;
+    bool leftPressed = false;
+
+    ///LOS ELEMENTOS DEL MENU
     #region ELEMENTO 1
-    [Header("ELEMENTO 1")]    
-        [SerializeField] bool isDiscovered1;
-        [SerializeField] bool isSelected1;
-        [SerializeField] string nameObject1;
-        [SerializeField] string description1;
-        [SerializeField] Transform position1;
-        [SerializeField] GameObject mark1;
-        [SerializeField] public GameObject interrogante1;
-        [SerializeField] public GameObject itemImage1;
-        [SerializeField] public GameObject model1;
+    [Header("ELEMENTO 1")]
+    [SerializeField] bool isDiscovered1;
+    [SerializeField] bool isSelected1;
+    [SerializeField] string nameObject1;
+    [SerializeField] string description1;
+    [SerializeField] Transform position1;
+    [SerializeField] GameObject mark1;
+    [SerializeField] public GameObject interrogante1;
+    [SerializeField] public GameObject itemImage1;
+    [SerializeField] public GameObject model1;
     #endregion
 
     #region ELEMENTO 2
     [Header("ELEMENTO 2")]
-        [SerializeField] bool isDiscovered2;
-        [SerializeField] bool isSelected2;
-        [SerializeField] string nameObject2;
-        [SerializeField] string description2;
-        [SerializeField] Transform position2;
-        [SerializeField] GameObject mark2;
-        [SerializeField] public GameObject interrogante2;
-        [SerializeField] public GameObject itemImage2;
-        [SerializeField] public GameObject model2;
+    [SerializeField] bool isDiscovered2;
+    [SerializeField] bool isSelected2;
+    [SerializeField] string nameObject2;
+    [SerializeField] string description2;
+    [SerializeField] Transform position2;
+    [SerializeField] GameObject mark2;
+    [SerializeField] public GameObject interrogante2;
+    [SerializeField] public GameObject itemImage2;
+    [SerializeField] public GameObject model2;
     #endregion
 
     #region ELEMENTO 3
     [Header("ELEMENTO 3")]
-        [SerializeField] bool isDiscovered3;
-        [SerializeField] bool isSelected3;
-        [SerializeField] Transform position3;
-        [SerializeField] string nameObject3;
-        [SerializeField] string description3;
-        [SerializeField] GameObject mark3;
-        [SerializeField] public GameObject interrogante3;
-        [SerializeField] public GameObject itemImage3;
-        [SerializeField] public GameObject model3;
+    [SerializeField] bool isDiscovered3;
+    [SerializeField] bool isSelected3;
+    [SerializeField] Transform position3;
+    [SerializeField] string nameObject3;
+    [SerializeField] string description3;
+    [SerializeField] GameObject mark3;
+    [SerializeField] public GameObject interrogante3;
+    [SerializeField] public GameObject itemImage3;
+    [SerializeField] public GameObject model3;
     #endregion
 
     #region ELEMENTO 4
     [Header("ELEMENTO 4")]
-        [SerializeField] bool isDiscovered4;
-        [SerializeField] bool isSelected4;
-        [SerializeField] string nameObject4;
-        [SerializeField] string description4;
-        [SerializeField] Transform position4;
-        [SerializeField] GameObject mark4;
-        [SerializeField] public GameObject interrogante4;
-        [SerializeField] public GameObject itemImage4;
-        [SerializeField] public GameObject model4;
+    [SerializeField] bool isDiscovered4;
+    [SerializeField] bool isSelected4;
+    [SerializeField] string nameObject4;
+    [SerializeField] string description4;
+    [SerializeField] Transform position4;
+    [SerializeField] GameObject mark4;
+    [SerializeField] public GameObject interrogante4;
+    [SerializeField] public GameObject itemImage4;
+    [SerializeField] public GameObject model4;
     #endregion
 
     #region ELEMENTO 5
     [Header("ELEMENTO 5")]
-        [SerializeField] bool isDiscovered5;
-        [SerializeField] bool isSelected5;
-        [SerializeField] string nameObject5;
-        [SerializeField] string description5;
-        [SerializeField] Transform position5;
-        [SerializeField] GameObject mark5;
-        [SerializeField] public GameObject interrogante5;
-        [SerializeField] public GameObject itemImage5;
-        [SerializeField] public GameObject model5;
+    [SerializeField] bool isDiscovered5;
+    [SerializeField] bool isSelected5;
+    [SerializeField] string nameObject5;
+    [SerializeField] string description5;
+    [SerializeField] Transform position5;
+    [SerializeField] GameObject mark5;
+    [SerializeField] public GameObject interrogante5;
+    [SerializeField] public GameObject itemImage5;
+    [SerializeField] public GameObject model5;
     #endregion
 
     #region ELEMENTO 6
     [Header("ELEMENTO 6")]
-        [SerializeField] bool isDiscovered6;
-        [SerializeField] bool isSelected6;
-        [SerializeField] string nameObject6;
-        [SerializeField] string description6;
-        [SerializeField] Transform position6;
-        [SerializeField] GameObject mark6;
-        [SerializeField] public GameObject interrogante6;
-        [SerializeField] public GameObject itemImage6;
-        [SerializeField] public GameObject model6;
+    [SerializeField] bool isDiscovered6;
+    [SerializeField] bool isSelected6;
+    [SerializeField] string nameObject6;
+    [SerializeField] string description6;
+    [SerializeField] Transform position6;
+    [SerializeField] GameObject mark6;
+    [SerializeField] public GameObject interrogante6;
+    [SerializeField] public GameObject itemImage6;
+    [SerializeField] public GameObject model6;
     #endregion
 
     [Header("NOMBRE Y DESCRIPCION")]
-        [SerializeField] Text nameText;
-        [SerializeField] Text descriptionText;
-        int currentSelected;
+    [SerializeField] Text nameText;
+    [SerializeField] Text descriptionText;
+    int currentSelected;
+
+    [Header("CONTROL DEL MENU")]
+    [SerializeField] GameObject menu;
+    private bool isOpened = false;
 
     #endregion
 
@@ -121,7 +144,18 @@ public class SecretScreen : MonoBehaviour
                 case 0:
                     {
                         secrets[i].ID = i;
-                        secrets[i].isDiscovered = isDiscovered1;
+
+                        //Leemos del player Prefs
+                        int discover = PlayerPrefs.GetInt("Secret1");
+                        if (discover == 0)
+                        {
+                            secrets[i].isDiscovered = false;
+                        }
+                        else if (discover == 1)
+                        {
+                            secrets[i].isDiscovered = true; 
+                        }
+
                         secrets[i].isSelected = isSelected1;
                         secrets[i].name = nameObject1;
                         secrets[i].description = description1;
@@ -130,7 +164,7 @@ public class SecretScreen : MonoBehaviour
                         secrets[i].interrogante = interrogante1;
                         secrets[i].itemImage = itemImage1;
                         secrets[i].model = model1;
-                        
+
                         ///comprobar si esta descubierto el objeto
                         if (secrets[i].isDiscovered)
                         {
@@ -156,7 +190,18 @@ public class SecretScreen : MonoBehaviour
                 case 1:
                     {
                         secrets[i].ID = i;
-                        secrets[i].isDiscovered = isDiscovered2;
+
+                        //Leemos del player Prefs
+                        int discover = PlayerPrefs.GetInt("Secret2");
+                        if (discover == 0)
+                        {
+                            secrets[i].isDiscovered = false;
+                        }
+                        else if (discover == 1)
+                        {
+                            secrets[i].isDiscovered = true; ;
+                        }
+
                         secrets[i].isSelected = isSelected2;
                         secrets[i].name = nameObject2;
                         secrets[i].description = description2;
@@ -185,7 +230,18 @@ public class SecretScreen : MonoBehaviour
                 case 2:
                     {
                         secrets[i].ID = i;
-                        secrets[i].isDiscovered = isDiscovered3;
+
+                        //Leemos del player Prefs
+                        int discover = PlayerPrefs.GetInt("Secret3");
+                        if (discover == 0)
+                        {
+                            secrets[i].isDiscovered = false;
+                        }
+                        else if (discover == 1)
+                        {
+                            secrets[i].isDiscovered = true; ;
+                        }
+
                         secrets[i].isSelected = isSelected3;
                         secrets[i].name = nameObject3;
                         secrets[i].description = description3;
@@ -212,7 +268,18 @@ public class SecretScreen : MonoBehaviour
                 case 3:
                     {
                         secrets[i].ID = i;
-                        secrets[i].isDiscovered = isDiscovered4;
+
+                        //Leemos del player Prefs
+                        int discover = PlayerPrefs.GetInt("Secret4");
+                        if (discover == 0)
+                        {
+                            secrets[i].isDiscovered = false;
+                        }
+                        else if (discover == 1)
+                        {
+                            secrets[i].isDiscovered = true; ;
+                        }
+
                         secrets[i].isSelected = isSelected4;
                         secrets[i].name = nameObject4;
                         secrets[i].description = description4;
@@ -240,7 +307,18 @@ public class SecretScreen : MonoBehaviour
                 case 4:
                     {
                         secrets[i].ID = i;
-                        secrets[i].isDiscovered = isDiscovered5;
+
+                        //Leemos del player Prefs
+                        int discover = PlayerPrefs.GetInt("Secret5");
+                        if (discover == 0)
+                        {
+                            secrets[i].isDiscovered = false;
+                        }
+                        else if (discover == 1)
+                        {
+                            secrets[i].isDiscovered = true; ;
+                        }
+
                         secrets[i].isSelected = isSelected5;
                         secrets[i].name = nameObject5;
                         secrets[i].description = description5;
@@ -268,7 +346,18 @@ public class SecretScreen : MonoBehaviour
                 case 5:
                     {
                         secrets[i].ID = i;
-                        secrets[i].isDiscovered = isDiscovered6;
+
+                        //Leemos del player Prefs
+                        int discover = PlayerPrefs.GetInt("Secret6");
+                        if (discover == 0)
+                        {
+                            secrets[i].isDiscovered = false;
+                        }
+                        else if (discover == 1)
+                        {
+                            secrets[i].isDiscovered = true; ;
+                        }
+
                         secrets[i].isSelected = isSelected6;
                         secrets[i].name = nameObject6;
                         secrets[i].description = description6;
@@ -302,61 +391,36 @@ public class SecretScreen : MonoBehaviour
     #region UPDATE
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (isOpened)
         {
-            secrets[currentSelected - 1].mark.SetActive(false);
-            if (currentSelected < 4)
-            {
-                currentSelected += 3; 
-            }
-            else
-            {
-                currentSelected -= 3;
-            }
+            horizontalMove = inputDevice.LeftStickX;
+            verticalMove = inputDevice.LeftStickY;
 
-            SelectNewItem(currentSelected);
+            MenuNavigationController();
+            MenuNavigationKeyboard();
         }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            secrets[currentSelected - 1].mark.SetActive(false);
 
-            if (currentSelected == 1 || currentSelected == 4)
+        ///DETECTAR SI ABRES EL MENU, EL BOTON ES TEMPORAL
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (isOpened)
             {
-                currentSelected += 2;
+                isOpened = false;
+                menu.SetActive(false);
+                Time.timeScale = 1;
+
+                //UI Sound
+                closeSound.Play();
             }
             else
             {
-                currentSelected -= 1;
-            }
-            SelectNewItem(currentSelected);
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            secrets[currentSelected - 1].mark.SetActive(false);
-            if (currentSelected < 4)
-            {
-                currentSelected += 3;
-            }
-            else
-            {
-                currentSelected -= 3;
-            }
+                isOpened = true;
+                menu.SetActive(true);
+                Time.timeScale = 0;
 
-            SelectNewItem(currentSelected);
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            secrets[currentSelected - 1].mark.SetActive(false);
-
-            if (currentSelected == 3 || currentSelected == 6)
-            {
-                currentSelected -= 2;
+                //UI Sound
+                openSound.Play();
             }
-            else
-            {
-                currentSelected += 1;
-            }
-            SelectNewItem(currentSelected);
         }
 
         #region  PRIMERA LOGICA CONTROLAR EL MENU
@@ -549,6 +613,188 @@ public class SecretScreen : MonoBehaviour
     }
     #endregion
 
+    #region MENU NAVIGATION WITH CONTROLLER
+    void MenuNavigationController()
+    {
+        #region UP CONTROL
+        if (verticalMove >= 0.95f)
+        {
+            if (!upPressed)
+            {
+                upPressed = true;
+                //Camiamos el objecto seleccionado
+                MoveUp();
+            }
+        }
+        else
+        {
+            upPressed = false;
+        }
+        #endregion
+
+        #region RIGHT CONTROL
+        if (horizontalMove >= 0.95f)
+        {
+            if (!rightPressed)
+            {
+                rightPressed = true;
+
+                //Camiamos el objecto seleccionado
+                MoveRight();
+            }
+        }
+        else
+        {
+            rightPressed = false;
+        }
+        #endregion
+
+        #region DOWN CONTROL
+        if (verticalMove <= -0.95f)
+        {
+            if (!downPressed)
+            {
+                downPressed = true;
+                //Camiamos el objecto seleccionado
+                MoveDown();
+            }
+        }
+        else
+        {
+            downPressed = false;
+        }
+        #endregion
+
+        #region LEFT CONTROL
+        if (horizontalMove <= -0.95f)
+        {
+            if (!leftPressed)
+            {
+                leftPressed = true;
+
+                //Camiamos el objecto seleccionado
+                MoveLeft();
+            }
+        }
+        else
+        {
+            leftPressed = false;
+        }
+        #endregion
+    }
+    #endregion
+
+    #region MENU NAVIGATION WITH KEYBOARD
+    void MenuNavigationKeyboard()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            MoveUp();
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            secrets[currentSelected - 1].mark.SetActive(false);
+
+            if (currentSelected == 1 || currentSelected == 4)
+            {
+                currentSelected += 2;
+            }
+            else
+            {
+                currentSelected -= 1;
+            }
+            SelectNewItem(currentSelected);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            MoveDown();
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            secrets[currentSelected - 1].mark.SetActive(false);
+
+            if (currentSelected == 3 || currentSelected == 6)
+            {
+                currentSelected -= 2;
+            }
+            else
+            {
+                currentSelected += 1;
+            }
+            SelectNewItem(currentSelected);
+        }
+    }
+    #endregion
+
+    #region MOVE UP
+    void MoveUp()
+    {
+        secrets[currentSelected - 1].mark.SetActive(false);
+        if (currentSelected < 4)
+        {
+            currentSelected += 3;
+        }
+        else
+        {
+            currentSelected -= 3;
+        }
+
+        SelectNewItem(currentSelected);
+        
+    }
+    #endregion
+
+    #region MOVE RIGHT
+    void MoveRight()
+    {
+        secrets[currentSelected - 1].mark.SetActive(false);
+
+        if (currentSelected == 3 || currentSelected == 6)
+        {
+            currentSelected -= 2;
+        }
+        else
+        {
+            currentSelected += 1;
+        }
+        SelectNewItem(currentSelected);
+    }
+    #endregion
+
+    #region MOVE DOWN
+    void MoveDown()
+    {
+        secrets[currentSelected - 1].mark.SetActive(false);
+        if (currentSelected < 4)
+        {
+            currentSelected += 3;
+        }
+        else
+        {
+            currentSelected -= 3;
+        }
+
+        SelectNewItem(currentSelected);
+    }
+    #endregion
+
+    #region MOVE LEFT
+    void MoveLeft()
+    {
+        secrets[currentSelected - 1].mark.SetActive(false);
+
+        if (currentSelected == 1 || currentSelected == 4)
+        {
+            currentSelected += 2;
+        }
+        else
+        {
+            currentSelected -= 1;
+        }
+        SelectNewItem(currentSelected);
+    }
+    #endregion
+
     #region SELECT NEW ITEM
     void SelectNewItem(int _newSelection)
     {
@@ -566,6 +812,19 @@ public class SecretScreen : MonoBehaviour
             nameText.text = "?????????????";
             descriptionText.text = "";
         }
+
+        //UI Sound
+        moveSound.Play();
+    }
+    #endregion
+
+    #region DISCOVER NEW OBJECT
+    public void DiscoverNewObject(int _object)
+    {
+        secrets[ _object -1 ].isDiscovered = true;
+
+        secrets[ _object - 1 ].interrogante.SetActive(false);
+        secrets[ _object - 1 ].itemImage.SetActive(true);                    
     }
     #endregion
 }

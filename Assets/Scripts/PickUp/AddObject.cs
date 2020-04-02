@@ -68,8 +68,6 @@ public class AddObject : MonoBehaviour
     }
     IEnumerator PlaceObject()
     {
-        yield return new WaitForSeconds(0.3f);  
-        playerAnimator.SetBool("PlaceObject", false);
         _objectTransform.position = placePosition.transform.position;
         _objectTransform.rotation = transform.rotation;
         _object.transform.SetParent(transform);
@@ -77,6 +75,8 @@ public class AddObject : MonoBehaviour
         else if(quarterRotation) _objectTransform.Rotate(90, 90, 0);
         if(_object.name == targetObject.name)
             isActivated = true;
+        yield return new WaitForSeconds(0.3f);  
+        playerAnimator.SetBool("PlaceObject", false);
     }
 
     private void OnTriggerExit(Collider other)

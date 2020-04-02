@@ -89,7 +89,7 @@ public class TutorialSprites : MonoBehaviour
             }
             else
             {
-                DeactivateSprites();
+                //DeactivateSprites();
             }
 
         }
@@ -171,8 +171,8 @@ public class TutorialSprites : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("El player sale");
             isPlayerInside = false;
+            DeactivateSprites();
 
             switch (button)
             {

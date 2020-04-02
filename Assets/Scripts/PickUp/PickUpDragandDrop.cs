@@ -66,26 +66,28 @@ public class PickUpDragandDrop : PickUpandDrop
                     Debug.Log(hit.transform.gameObject.name);
                     if (hit.transform.gameObject == gameObject)
                     {
+                        if (currentRock != null)
+                            player.transform.DOLookAt(new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z),0.25F);
                         if (!rockGrabbed && isFacingBox && !animator.GetBool("Attached") && currentRock==null)
                         {
+                            playerMovement.grabbedToRock = true;
                             currentRock = gameObject;
                             rb.isKinematic = false;
-                            player.GetComponent<PlayerMovement>().StopMovement(true);
-                            Vector3 targetPostition = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
-                            player.transform.DOLookAt(targetPostition, 0.25f);
+                            playerMovement.StopMovement(true);
                             player.transform.DOMove(FindClosestPoint(), 0.5f, false).OnComplete
                                 (
                                 () => {
-                                    playerMovement.grabbedToRock = true;
                                     player.transform.position = FindClosestPoint();
-                                    animator.SetBool("Attached", false);
                                     rockGrabbed = true;
                                 }
                                 );
                             animator.SetBool("Attached", true);
+                            Vector3 targetPostition = new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z);
+                            player.transform.DOLookAt(targetPostition, 0.25F);
                         }
                         if (rockGrabbed && isFacingBox && currentRock == gameObject)
                         {
+                            player.transform.DOLookAt(new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z), 0.25F);
                             closestPoint = FindClosestPoint();
                             player.transform.position = closestPoint;
 
@@ -97,11 +99,11 @@ public class PickUpDragandDrop : PickUpandDrop
                             if (closestPoint == grabPoints[0])
                             {
                                 Vector3 movingDirection = grabPoints[1] - player.transform.position;
-                                if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
+                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= 30 && inputActive)
                                 {
                                     PushRock(movingDirection);
                                 }
-                                else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
+                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < 30 && inputActive)
                                 {
 
                                     RaycastHit hito;
@@ -124,11 +126,11 @@ public class PickUpDragandDrop : PickUpandDrop
                             {
                                 Vector3 movingDirection = grabPoints[0] - player.transform.position;
 
-                                if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
+                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= 30 && inputActive)
                                 {
                                     PushRock(movingDirection);
                                 }
-                                else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
+                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < 30 && inputActive)
                                 {
 
                                     RaycastHit hito;
@@ -151,11 +153,11 @@ public class PickUpDragandDrop : PickUpandDrop
                             {
                                 Vector3 movingDirection = grabPoints[3] - player.transform.position;
 
-                                if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
+                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= 30 && inputActive)
                                 {
                                     PushRock(movingDirection);
                                 }
-                                else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
+                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < 30 && inputActive)
                                 {
 
                                     RaycastHit hito;
@@ -178,11 +180,11 @@ public class PickUpDragandDrop : PickUpandDrop
                             {
                                 Vector3 movingDirection = grabPoints[2] - player.transform.position;
 
-                                if (Vector3.Angle(movingDirection, player.GetComponent<PlayerMovement>().movePlayer) <= 30 && inputActive)
+                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= 30 && inputActive)
                                 {
                                     PushRock(movingDirection);
                                 }
-                                else if (Vector3.Angle(-movingDirection, player.GetComponent<PlayerMovement>().movePlayer) < 30 && inputActive)
+                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < 30 && inputActive)
                                 {
 
                                     RaycastHit hito;
@@ -202,18 +204,7 @@ public class PickUpDragandDrop : PickUpandDrop
                                 }
                             }
                         }
-                        else if (!isFacingBox && currentRock == gameObject) //if the box is grabbed but the character has turned before getting attached, let go rock
-                        {
-                            currentRock = null;
-                            rb.isKinematic = true;
-                            thisRock = false;
-                            rockGrabbed = false;
-                            playerMovement.grabbedToRock = false;
-                            animator.SetBool("Attached", false);
-                            animator.SetBool("Push", false);
-                            animator.SetBool("Pulling", false);
-                            player.GetComponent<PlayerMovement>().StopMovement(false);
-                        }  
+                        
                         
                     }
                 }
@@ -229,7 +220,7 @@ public class PickUpDragandDrop : PickUpandDrop
                 animator.SetBool("Attached", false);
                 animator.SetBool("Push", false);
                 animator.SetBool("Pulling", false);
-                player.GetComponent<PlayerMovement>().StopMovement(false);
+                playerMovement.StopMovement(false);
             }
 
         }
@@ -289,7 +280,7 @@ protected override void PickUpObject()
         else
         {
             //Let go of rock
-            player.GetComponent<PlayerMovement>().StopMovement(false);
+            playerMovement.StopMovement(false);
             lerping = false;
             rockGrabbed = false;
             playSound = false;
@@ -362,12 +353,10 @@ protected override void PickUpObject()
     {
         if (player != null)
         {
-            player.GetComponent<PlayerMovement>().StopMovement(true);
+            playerMovement.StopMovement(true);
             //lerp player towards closest point
             //player.transform.position = Vector3.Lerp(player.transform.position, closestPoint, 0.1f);
             //lerp rotation to face object
-            Vector3 targetPostition = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
-            player.transform.DOLookAt(targetPostition, 0.25f);
             if (Vector3.Distance(player.transform.position, closestPoint) < 0.1f)
             {
                 //stop lerping and look at object
