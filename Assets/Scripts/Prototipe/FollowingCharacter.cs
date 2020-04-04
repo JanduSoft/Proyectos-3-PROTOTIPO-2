@@ -44,9 +44,14 @@ public class FollowingCharacter : MonoBehaviour
         }
 
         /////GIRAR LA CAMARA UN POCO CON EL STICK IZQUIERDO
-        
-                ////MOVIMIENTO EN X
-        if (InputManager.ActiveDevice.RightStickX == 1)
+
+        //MOVIMIENTO EN LA X
+        float rightStickAxis = InputManager.ActiveDevice.RightStickX;
+        if (InputManager.ActiveDevice.RightStickX > 0.9f) rightStickAxis = 0.9f;
+        else if (InputManager.ActiveDevice.RightStickX < -0.9f) rightStickAxis = -0.9f;
+
+
+        if (rightStickAxis == 0.9f)
         {
             transform.DORotate(new Vector3(naturalPosition.x,
                                             naturalPosition.y - angleBound,
@@ -54,9 +59,9 @@ public class FollowingCharacter : MonoBehaviour
                                             speedBound);
             return;
         }
-        else if (InputManager.ActiveDevice.RightStickX == -1)
+        else if (rightStickAxis == -0.9f)
         {
-            transform.DORotate(new Vector3( naturalPosition.x,
+            transform.DORotate(new Vector3(naturalPosition.x,
                                             naturalPosition.y + angleBound,
                                             naturalPosition.z),
                                             speedBound);
