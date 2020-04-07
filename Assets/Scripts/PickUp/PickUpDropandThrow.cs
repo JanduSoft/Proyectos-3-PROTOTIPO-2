@@ -29,6 +29,8 @@ public class PickUpDropandThrow : PickUpandDrop
     bool useGravity = true;
     bool thrown = false;
     Vector3 playerToEnemy;
+    [SerializeField] TutorialSprites tutoSprites;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -186,12 +188,24 @@ public class PickUpDropandThrow : PickUpandDrop
 
     protected void ThrowObject()
     {
+        if (tutoSprites != null)
+        {
+            tutoSprites.isPlayerInside = false;
+            tutoSprites.DeactivateSprites();
+        }
+
         playerAnimator.SetBool("Throw", true);
         player.SendMessage("StopMovement", true);
         StartCoroutine(ThrowCoroutine(0.4f));
     }
     protected void ThrowObjectToEnemy()
     {
+        if (tutoSprites != null)
+        {
+            tutoSprites.isPlayerInside = false;
+            tutoSprites.DeactivateSprites();
+        }
+
         playerAnimator.SetBool("Throw", true);
         player.SendMessage("StopMovement", true);
         StartCoroutine(ThrowToEnemyCoroutine(0.4f));
