@@ -27,16 +27,17 @@ public class AddObject : MonoBehaviour
         {
             if (canPlace && _object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && !isActivated && InputManager.ActiveDevice.Action3.WasPressed && _object != null)
             {
-                Debug.Log(_object.name);
+                Debug.Log("object placed:"+_object.name);
                 playerAnimator.SetBool("PlaceObject", true);
                 _object.GetComponent<PickUpDropandThrow>().DropObject();
                 StartCoroutine(PlaceObject());
                 
             }
-            else if (canPlace && !_object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && isActivated && InputManager.ActiveDevice.Action3.WasPressed)
+            else if (canPlace && !_object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && InputManager.ActiveDevice.Action3.WasPressed)
             {
+                Debug.Log("heyo");
                 _object.GetComponent<PickUpDropandThrow>().ForceGrabObject();
-                isActivated = false;
+                if (isActivated)isActivated = false;
             }
         }
     }
@@ -50,10 +51,15 @@ public class AddObject : MonoBehaviour
         }
         else if (other.CompareTag("Place"))
         {
-            Debug.Log(other.name);
             _object = other.transform.parent.gameObject;
             _objectTransform = other.transform.parent.gameObject.transform;
             _object.transform.parent.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
+        }
+        else if (other.CompareTag("PlaceChild"))
+        {
+            _object = other.transform.gameObject;
+            _objectTransform = other.transform.gameObject.transform;
+            _object.transform.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
         }
 
     }
@@ -63,6 +69,12 @@ public class AddObject : MonoBehaviour
         {
             _object = other.transform.parent.gameObject;
             _objectTransform = other.transform.parent.gameObject.transform;
+        }
+        else if (other.CompareTag("PlaceChild"))
+        {
+            _object = other.transform.gameObject;
+            _objectTransform = other.transform.gameObject.transform;
+            _object.transform.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
         }
 
     }
@@ -88,6 +100,12 @@ public class AddObject : MonoBehaviour
         else if (other.CompareTag("Place"))
         {
             other.gameObject.transform.parent.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
+            _object = null;
+            _objectTransform = null;
+        }
+        else if (other.CompareTag("PlaceChild"))
+        {
+            other.transform.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
             _object = null;
             _objectTransform = null;
         }
