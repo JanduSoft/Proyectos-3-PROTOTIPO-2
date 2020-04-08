@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class TutorialSprites : MonoBehaviour
 {
@@ -15,12 +16,13 @@ public class TutorialSprites : MonoBehaviour
         PLACE_OBJECT,
         DD_OBJECT,
         PICK_UP_OBJECT,
-        THROW
+        THROW,
+        MOVE_ROCK
         
     };
-   
-    bool isPlayerInside = false;
-    bool isObjectInside = false;
+
+    public bool isPlayerInside = false;
+    public bool isObjectInside = false;
 
 
     bool showingButton = false;
@@ -93,6 +95,21 @@ public class TutorialSprites : MonoBehaviour
             }
 
         }
+        else if (button == buttonType.MOVE_ROCK)
+        {
+            if (isPlayerInside)
+            {
+                bool isPressingButton = InputManager.ActiveDevice.Action3;
+                if (isPressingButton)
+                {
+                    DeactivateSprites();
+                }
+                else
+                {
+                    ActivateSprite(buttonType.INTERACT);
+                }
+            }
+        }
 
 
 
@@ -155,13 +172,19 @@ public class TutorialSprites : MonoBehaviour
                         ActivateSprite(buttonType.INTERACT);
                         break;
                     }
+                case buttonType.MOVE_ROCK:
+                    {
+                        ActivateSprite(buttonType.INTERACT);
+                        break;
+                    }
                 default:
                     break;
             }
         }
         if ((other.CompareTag("Place") || other.CompareTag("Skull")) && button == buttonType.PLACE_OBJECT)
         {
-            isObjectInside = true;           
+            isObjectInside = true;
+            pickUpThrow = other.GetComponent<PickUpDropandThrow>();
         }
     }
     #endregion
@@ -171,6 +194,7 @@ public class TutorialSprites : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Player sale");
             isPlayerInside = false;
             DeactivateSprites();
 
@@ -281,6 +305,13 @@ public class TutorialSprites : MonoBehaviour
                     pickThrow.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                     break;
                 }
+            case buttonType.MOVE_ROCK:
+                {
+                    interact.SetActive(true);
+                    interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                    interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    break;
+                }
             default:
                 break;
         }
@@ -328,6 +359,11 @@ public class TutorialSprites : MonoBehaviour
             case buttonType.THROW:
                 {
                     pickThrow.SetActive(false);
+                    interact.SetActive(false);
+                    break;
+                }
+            case buttonType.MOVE_ROCK:
+                {
                     interact.SetActive(false);
                     break;
                 }

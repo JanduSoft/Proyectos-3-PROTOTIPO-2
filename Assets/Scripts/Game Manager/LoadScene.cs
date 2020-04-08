@@ -34,6 +34,7 @@ public class LoadScene : MonoBehaviour
 
     IEnumerator ShowLoadingScreen()
     {
+       
         animationToPlay.clip = animationsToPlay[0];
         animationToPlay.Play();
         yield return new WaitForSeconds(0.5f);
