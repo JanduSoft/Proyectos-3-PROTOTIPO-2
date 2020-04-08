@@ -35,7 +35,6 @@ public class AddObject : MonoBehaviour
             }
             else if (canPlace && !_object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && InputManager.ActiveDevice.Action3.WasPressed)
             {
-                Debug.Log("heyo");
                 _object.GetComponent<PickUpDropandThrow>().ForceGrabObject();
                 if (isActivated)isActivated = false;
             }
