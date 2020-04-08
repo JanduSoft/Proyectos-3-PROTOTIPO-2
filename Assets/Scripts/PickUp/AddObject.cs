@@ -23,7 +23,7 @@ public class AddObject : MonoBehaviour
 
     void LateUpdate()
     {
-        if (_object != null)
+        if (_object != null && (_object.CompareTag("Place")|| _object.CompareTag("PlaceChild")))
         {
             if (canPlace && _object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && !isActivated && InputManager.ActiveDevice.Action3.WasPressed && _object != null)
             {

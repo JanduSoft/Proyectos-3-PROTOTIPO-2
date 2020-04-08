@@ -11,6 +11,7 @@ public class PedestalsPuzzle : MonoBehaviour
     public GameObject[] lights = new GameObject[2];
     bool [] pedestalsActivated= new bool [2];
     public GameObject leftLight;
+    bool isPuzzleDone = false;
     //0 - red
     //1 - purple
 
@@ -49,10 +50,11 @@ public class PedestalsPuzzle : MonoBehaviour
         }
 
         //if both pedestals are activated, puzzle is done
-        if (pedestalsActivated[0] && pedestalsActivated[1])
+        if (pedestalsActivated[0] && pedestalsActivated[1] && !isPuzzleDone)
         {
             Debug.Log("PUZZLE DONE!");
-            //deactivate grabbing the objects again
+            isPuzzleDone = true;
+            //deactivate grabbing the objects again 
             objectsToPut[0].GetComponent<PickUpDropandThrow>().enabled = false;
             objectsToPut[1].GetComponent<PickUpDropandThrow>().enabled = false;
             leftLight.GetComponent<Light>().DOIntensity(5, 1);
