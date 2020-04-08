@@ -316,6 +316,7 @@ public class PlayerMovement : MonoBehaviour
         if (hit.gameObject.GetComponent<Renderer>().material.color.a == 0)
         {
             iTween.FadeTo(hit.gameObject, 0.5f, 1f);
+            StartCoroutine(fadeBack(hit.gameObject));
         }
     }
 
@@ -328,5 +329,12 @@ public class PlayerMovement : MonoBehaviour
     public void Whip(Transform destination)
     {
         transform.DOJump(destination.position, -0.5f, 1, 0.5f);
+    }
+
+    IEnumerator fadeBack(GameObject gameObject)
+    {
+        yield return new WaitForSeconds(2f);
+        iTween.FadeTo(gameObject, 0f, 1f);
+
     }
 }
