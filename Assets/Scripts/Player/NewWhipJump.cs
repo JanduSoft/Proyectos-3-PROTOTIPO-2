@@ -38,6 +38,14 @@ public class NewWhipJump : MonoBehaviour
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] Transform hookSpawner;
     bool startWhip = false;
+
+    [Header("PARABOLA")]
+    [SerializeField] Transform startPosition;
+    [SerializeField] Transform midlePosition;
+    [SerializeField] Transform endPosition;
+    [SerializeField] Transform sphere;
+    [SerializeField] ParabolaController objetToDoParabola;
+
     #endregion
 
     private void Start()
@@ -52,6 +60,9 @@ public class NewWhipJump : MonoBehaviour
         whip.SetPosition(1, player.position);
         whip.startColor = Color.blue;
         whip.endColor = Color.blue;
+
+        //PARABOLA
+        endPosition.position = destination.position;
     }
 
     #region UPDATE
@@ -62,11 +73,21 @@ public class NewWhipJump : MonoBehaviour
         {
             whip.SetPosition(0, player.position);
             whip.SetPosition(1, player.position);
+
+            startPosition.position = player.position;
+
+            float xDiference =  startPosition.position.x - endPosition.position.x;
+           
+            midlePosition.position = new Vector3(startPosition.position.x  - xDiference/2,
+                                                 startPosition.position.y + 2.5f, 
+                                                 toWhipObject.transform.position.z);
+
         }
         else if (startWhip)
         {
             whip.SetPosition(0, player.position);
             whip.SetPosition(1, hookSpawner.position);
+            player.position = sphere.transform.position;
         }
 
         ///UPDATE HOOKSPAWNER POSITION
@@ -140,12 +161,14 @@ public class NewWhipJump : MonoBehaviour
 
     #region WHIP JUMP
     void WhipJump()
-    {        
+    {
+        objetToDoParabola.FollowParabola();
+
         whip.SetPosition(1, toWhipObject.position);
-        player.DOJump(destination.position, jump, 1, speed);
+        //player.DOJump(destination.position, jump, 1, speed);
         //player.DOMove(destination.position, speed);
         
-        Invoke("StopWhipDrawing", speed / 2);
+        //Invoke("StopWhipDrawing", speed / 2);
     }
     #endregion
 
