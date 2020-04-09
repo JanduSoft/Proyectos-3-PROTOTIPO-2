@@ -11,8 +11,10 @@ public class PickUpDropandIgnite : PickUpandDrop
     [SerializeField] GameObject consequence;
     [SerializeField] bool nearFire = false;
     [SerializeField] bool nearRope = false;
-    [SerializeField] bool torchIgnited = false;
+    [SerializeField] public bool torchIgnited = false;
     [SerializeField] CamerShake shaking;
+    GameObject nearFireObject;
+    [SerializeField] public GameObject currentFireObject;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +56,7 @@ public class PickUpDropandIgnite : PickUpandDrop
                 Debug.Log("Torch Ignited");
                 fireParticles.SetActive(true);
                 torchIgnited = true;
+                currentFireObject = nearFireObject;
             }
             else if (torchIgnited && nearRope)
             {
@@ -76,6 +79,7 @@ public class PickUpDropandIgnite : PickUpandDrop
         {
             Debug.Log("Near Fire");
             nearFire = true;
+            nearFireObject = other.gameObject;
         }
         else if (other.tag == "Rope")
         {
