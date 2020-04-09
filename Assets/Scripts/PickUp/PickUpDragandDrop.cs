@@ -20,7 +20,7 @@ public class PickUpDragandDrop : PickUpandDrop
     [SerializeField] bool lerping = false;
     [SerializeField] bool rockGrabbed = false;
     bool thisRock = false;
-    [HideInInspector] public AudioSource dragSound;
+    [SerializeField] public AudioSource dragSound;
     static GameObject currentRock;
     float distToGround;
     
@@ -213,7 +213,7 @@ public class PickUpDragandDrop : PickUpandDrop
             else if (!isPressingButton && currentRock == gameObject)
             {
                 currentRock = null;
-                rb.isKinematic = true;
+                //rb.isKinematic = true;
                 thisRock = false;
                 rockGrabbed = false;
                 playerMovement.grabbedToRock = false;
@@ -415,5 +415,10 @@ protected override void PickUpObject()
 
         Gizmos.color = Color.black;
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * 10);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.name);
     }
 }
