@@ -38,6 +38,7 @@ public class NewWhipJump : MonoBehaviour
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] Transform hookSpawner;
     bool startWhip = false;
+    bool isRelatedToThis = false;
 
     [Header("PARABOLA")]
     [SerializeField] Transform startPosition;
@@ -48,6 +49,7 @@ public class NewWhipJump : MonoBehaviour
 
     #endregion
 
+    #region START
     private void Start()
     {
         //////CROSSHAIR
@@ -64,29 +66,36 @@ public class NewWhipJump : MonoBehaviour
         //PARABOLA
         endPosition.position = destination.position;
     }
+    #endregion
 
     #region UPDATE
     private void Update()
     {
         ///////controlling line renderer
-        if (!playerMovement.isInWhipJump)
+        if (!playerMovement.isInWhipJump && isPlayerInside)
         {
             whip.SetPosition(0, player.position);
             whip.SetPosition(1, player.position);
 
             startPosition.position = player.position;
+            sphere.position = player.position;
 
             float xDiference =  startPosition.position.x - endPosition.position.x;
            
             midlePosition.position = new Vector3(startPosition.position.x  - xDiference/2,
-                                                 startPosition.position.y + 2.5f, 
+                                                 startPosition.position.y + 1.5f, 
                                                  toWhipObject.transform.position.z);
 
         }
         else if (startWhip)
         {
             whip.SetPosition(0, player.position);
-            whip.SetPosition(1, hookSpawner.position);
+            whip.SetPosition(1, hookSpawner.position);           
+            
+        }
+
+        if (playerMovement.isInWhipJump && isRelatedToThis)
+        {
             player.position = sphere.transform.position;
         }
 
@@ -109,11 +118,11 @@ public class NewWhipJump : MonoBehaviour
             startWhip = true;
             hookSpawner.DOMove(toWhipObject.position, timeImpulse);
 
-            playerMovement.isInWhipJump = true;
+            //playerMovement.isInWhipJump = true;
             Invoke("WhipJump", timeImpulse);
         }
 
-        /////CHECKING IF IS IN WHIP JUP FOR DE LINE RENDERER
+        /////CHECKING IF IS IN WHIP JUMP FOR DE LINE RENDERER
         if (playerMovement.isInWhipJump)
         {
             Vector3 aux = new Vector3(player.position.x, player.position.y + 3f, player.position.z);
@@ -156,19 +165,29 @@ public class NewWhipJump : MonoBehaviour
             spriteIndicateObject.transform.localScale = originalScale;
         }
 
+        //CHECKING SOTP TO DRAW WHIP
+        if (playerMovement.isInWhipJump && !startWhip && isRelatedToThis)
+        {
+            whip.SetPosition(1, player.position);
+            whip.SetPosition(0, player.position);
+        }
+
     }
     #endregion
 
     #region WHIP JUMP
     void WhipJump()
     {
+        playerMovement.isInWhipJump = true;
+        //Start Movement
         objetToDoParabola.FollowParabola();
 
         whip.SetPosition(1, toWhipObject.position);
         //player.DOJump(destination.position, jump, 1, speed);
         //player.DOMove(destination.position, speed);
         
-        //Invoke("StopWhipDrawing", speed / 2);
+        Invoke("StopWhipDrawing", speed / 2);
+        Invoke("RestartVariables", speed);
     }
     #endregion
 
@@ -182,14 +201,30 @@ public class NewWhipJump : MonoBehaviour
     #region STOP WHIP DRAWING
     void StopWhipDrawing()
     {
-        playerMovement.isInWhipJump = false;
+        //playerMovement.isInWhipJump = false;
         startWhip = false;
-        //whip.SetPosition(1, player.position);
+        whip.SetPosition(1, player.position);
         whip.SetPosition(0, player.position);
     }
     #endregion
 
-    #region WHIP JUMP ACTIVATE
+    #region RELATING SPHERE
+    void RelatingSphere()
+    {
+        isRelatedToThis = true;
+    }
+    #endregion
+
+    #region RESTART VARIABLES
+    void RestartVariables()
+    {
+        startWhip = false;
+        playerMovement.isInWhipJump = false;
+        isRelatedToThis = false;
+    }
+    #endregion
+
+    #region TRIGGER ENTER
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -198,11 +233,20 @@ public class NewWhipJump : MonoBehaviour
             //spriteIndicateObject.transform.position = whipableObject.position;
             spriteIndicateObject.SetActive(true);
             //canWhip = true;
+
+            if (!playerMovement.isInWhipJump)
+            {
+                isRelatedToThis = true;
+            }
+            else if (playerMovement.isInWhipJump)
+            {
+                Invoke("RelatingSphere", speed/2);
+            }
         }
     }
     #endregion
 
-    #region WHIP JUMP DEACTIVATE
+    #region TRIGGER EXIT
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -213,6 +257,13 @@ public class NewWhipJump : MonoBehaviour
             startedAnimation = false;
 
             //RESTART HOOKSPAWNER POSITION
+            whip.SetPosition(1, player.position);
+            whip.SetPosition(0, player.position);
+
+            if (!playerMovement.isInWhipJump)
+            {
+                isRelatedToThis = false;
+            }
         }
     }
     #endregion
