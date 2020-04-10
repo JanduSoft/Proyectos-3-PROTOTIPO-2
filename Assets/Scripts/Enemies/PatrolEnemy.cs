@@ -57,7 +57,11 @@ public class PatrolEnemy : MonoBehaviour
                 }
             }
 
-            if (Vector3.Distance(transform.position, Player.transform.position) < 2.5) kill.killPlayer(0f);
+            if (Vector3.Distance(transform.position, Player.transform.position) < 2.5)
+            {
+                kill.killPlayer(0f);
+                ResetEnemy();
+            }
         }
         else if (trueDeath)
         {
@@ -78,6 +82,12 @@ public class PatrolEnemy : MonoBehaviour
         transform.tag = "Untagged";
         whipScript.Died(this.gameObject);
         StartCoroutine(fallToTheGround(2));
+    }
+
+    public void ResetEnemy()
+    {
+        transform.position = startPosition;
+        index = 1;
     }
 
     IEnumerator fallToTheGround(float _s)
