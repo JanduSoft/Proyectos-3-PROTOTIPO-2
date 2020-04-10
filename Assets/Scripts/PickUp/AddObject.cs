@@ -8,6 +8,7 @@ public class AddObject : MonoBehaviour
     public GameObject placePosition;
     public Transform _objectTransform = null;
     bool canPlace = false;
+    bool objectIsGrabbed = false;
     protected Animator playerAnimator;
     [SerializeField] GameObject targetObject = null;
     GameObject _object = null;
@@ -23,9 +24,9 @@ public class AddObject : MonoBehaviour
 
     void LateUpdate()
     {
-        if (_object != null && (_object.CompareTag("Place")|| _object.CompareTag("PlaceChild")))
+        if (_object != null )
         {
-            if (canPlace && _object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && !isActivated && InputManager.ActiveDevice.Action3.WasPressed && _object != null)
+            if (canPlace && objectIsGrabbed && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 Debug.Log("object placed:"+_object.name);
                 playerAnimator.SetBool("PlaceObject", true);
@@ -52,13 +53,15 @@ public class AddObject : MonoBehaviour
         {
             _object = other.transform.parent.gameObject;
             _objectTransform = other.transform.parent.gameObject.transform;
-            _object.transform.parent.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
+            objectIsGrabbed = _object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed();
+            _object.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
+
         }
         else if (other.CompareTag("PlaceChild"))
         {
             _object = other.transform.gameObject;
             _objectTransform = other.transform.gameObject.transform;
-            _object.transform.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
+            _object.transform.parent.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
         }
 
     }
@@ -73,12 +76,12 @@ public class AddObject : MonoBehaviour
         {
             _object = other.transform.gameObject;
             _objectTransform = other.transform.gameObject.transform;
-            _object.transform.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
         }
 
     }
     IEnumerator PlaceObject()
     {
+        yield return new WaitForSeconds(0.3f);
         _objectTransform.position = placePosition.transform.position;
         _objectTransform.rotation = transform.rotation;
         _object.transform.SetParent(transform);
@@ -86,7 +89,6 @@ public class AddObject : MonoBehaviour
         else if(quarterRotation) _objectTransform.Rotate(90, 90, 0);
         if(_object.name == targetObject.name)
             isActivated = true;
-        yield return new WaitForSeconds(0.3f);  
         playerAnimator.SetBool("PlaceObject", false);
     }
 
@@ -98,13 +100,14 @@ public class AddObject : MonoBehaviour
         }
         else if (other.CompareTag("Place"))
         {
+            other.GetComponent<PickUp>().SetCancelledDrop(false);
             other.gameObject.transform.parent.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
             _object = null;
             _objectTransform = null;
         }
         else if (other.CompareTag("PlaceChild"))
         {
-            other.transform.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
+            other.gameObject.transform.parent.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
             _object = null;
             _objectTransform = null;
         }

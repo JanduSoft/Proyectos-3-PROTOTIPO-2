@@ -26,22 +26,23 @@ public class PickUpDropandIgnite : PickUpandDrop
     void Update()
     {
         CheckVariables();
+        if(objectIsGrabbed)
+        {
+            Debug.Log("Hola");
+            transform.localEulerAngles = new Vector3(180f, 0f, 0f);
+        }
         if (InputManager.ActiveDevice.Action3.WasPressed && !cancelledDrop && player != null)
         {
             if (!objectIsGrabbed && distanceSuficient )
             {
-                playerAnimator.SetBool("PickUp", true);
                 playerAnimator.SetFloat("Distance", Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)));
-                player.SendMessage("StopMovement", true);
                 if (Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)) < 0.6)
                 {
-                    StartCoroutine(PickUpCoroutine(0.35f));
-                    StartCoroutine(AnimationsCoroutine(0.5f));
+                    StartCoroutine(PickUpCoroutine(0f));
                 }
                 else
                 {
-                    StartCoroutine(PickUpCoroutine(0.5f));
-                    StartCoroutine(AnimationsCoroutine(0.65f));
+                    StartCoroutine(PickUpCoroutine(0f));
                 }
             }
             else if (!nearFire && !nearRope)
@@ -77,13 +78,11 @@ public class PickUpDropandIgnite : PickUpandDrop
         }
         else if (other.tag == "Fire")
         {
-            Debug.Log("Near Fire");
             nearFire = true;
             nearFireObject = other.gameObject;
         }
         else if (other.tag == "Rope")
         {
-            Debug.Log("Near Rope");
             nearRope = true;
         }
     }
@@ -110,7 +109,6 @@ public class PickUpDropandIgnite : PickUpandDrop
         if (other.CompareTag("Player"))
         {
             player = null;
-            grabPlace = null;
         }
         else if (other.tag == "Fire")
         {
