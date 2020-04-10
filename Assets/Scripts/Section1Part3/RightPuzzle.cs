@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Playables;
 
 public class RightPuzzle : MonoBehaviour
 {
@@ -9,7 +10,9 @@ public class RightPuzzle : MonoBehaviour
     [SerializeField] GameObject goldenPedestal;
     [SerializeField] GameObject rightLight;
     [SerializeField] GameObject goldenSkull;
-    bool hasCompletedPuzzle = false;
+    public bool hasCompletedPuzzle = false;
+    [SerializeField] GameObject cinematicObject;
+
     void Start()
     {
         
@@ -22,7 +25,18 @@ public class RightPuzzle : MonoBehaviour
         {
             hasCompletedPuzzle = true;
             goldenSkull.GetComponent<PickUpDropandThrow>().enabled = false;
-            rightLight.GetComponent<Light>().DOIntensity(5, 1);
+            rightLight.GetComponent<Light>().DOIntensity(6,3f);
+            StartCoroutine(DoCinematic());
         }
+    }
+
+    IEnumerator DoCinematic()
+    {
+        yield return new WaitForSeconds(0.5f);
+        cinematicObject.SetActive(true);
+        cinematicObject.GetComponent<PlayableDirector>().Play();
+        yield return new WaitForSeconds((float)cinematicObject.GetComponent<PlayableDirector>().duration);
+        cinematicObject.SetActive(false);
+
     }
 }

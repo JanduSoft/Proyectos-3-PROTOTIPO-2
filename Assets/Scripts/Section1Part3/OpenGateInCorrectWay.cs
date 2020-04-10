@@ -18,6 +18,13 @@ public class OpenGateInCorrectWay : MonoBehaviour
     public GameObject gate;
     public GameObject pedestal;
 
+
+    [Space(15)]
+    [Header("SOUND")]
+    [SerializeField] AudioSource audios;
+    [SerializeField] AudioClip openGateAudio;
+    [SerializeField] AudioClip pedestalMovingAudio;
+
     public enum LeverColors { BLUE, RED, PURPLE};
     public List<LeverColors> actualColors = new List<LeverColors>();
     private List<LeverColors> winningCombo = new List<LeverColors>();
@@ -64,9 +71,13 @@ public class OpenGateInCorrectWay : MonoBehaviour
     {
         Camera.main.DOShakePosition(3, 3, 5, 30, true);
         gate.transform.DOLocalMoveZ(105.30f, 3, false);
+        audios.clip = openGateAudio;
+        audios.Play();
         yield return new WaitForSeconds(2f);
         Camera.main.DOShakePosition(5, 3, 7, 50, true);
         pedestal.transform.DOLocalMoveY(5.60f, 5, false);
+        audios.clip = pedestalMovingAudio;
+        audios.Play();
     }
 
     bool checkCombination(List<LeverColors> a, List<LeverColors>b)

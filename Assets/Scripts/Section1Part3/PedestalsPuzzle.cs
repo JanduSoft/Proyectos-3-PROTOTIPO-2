@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Playables;
 
 public class PedestalsPuzzle : MonoBehaviour
 {
@@ -9,9 +10,10 @@ public class PedestalsPuzzle : MonoBehaviour
     public GameObject[] pedestals = new GameObject[2];
     public GameObject[] objectsToPut = new GameObject[2];
     public GameObject[] lights = new GameObject[2];
-    bool [] pedestalsActivated= new bool [2];
+    bool[] pedestalsActivated = new bool[2];
     public GameObject leftLight;
-    bool isPuzzleDone = false;
+    [SerializeField] public bool isPuzzleDone = false;
+    [SerializeField] GameObject cinematicObject;
     //0 - red
     //1 - purple
 
@@ -27,7 +29,7 @@ public class PedestalsPuzzle : MonoBehaviour
         //if it's not activated, turn light off
         if (pedestals[0].GetComponent<AddObject>().isActivated)
         {
-            lights[0].GetComponent<Light>().DOIntensity(2, 1);
+            lights[0].GetComponent<Light>().DOIntensity(3.5f, 1);
             pedestalsActivated[0] = true;
         }
         else if (!pedestals[0].GetComponent<AddObject>().isActivated)
@@ -40,7 +42,7 @@ public class PedestalsPuzzle : MonoBehaviour
         //if it's not activated, turn light off
         if (pedestals[1].GetComponent<AddObject>().isActivated)
         {
-            lights[1].GetComponent<Light>().DOIntensity(2, 1);
+            lights[1].GetComponent<Light>().DOIntensity(2.5f, 1);
             pedestalsActivated[1] = true;
         }
         else if (!pedestals[1].GetComponent<AddObject>().isActivated)
@@ -57,8 +59,20 @@ public class PedestalsPuzzle : MonoBehaviour
             //deactivate grabbing the objects again 
             objectsToPut[0].GetComponent<PickUpDropandThrow>().enabled = false;
             objectsToPut[1].GetComponent<PickUpDropandThrow>().enabled = false;
-            leftLight.GetComponent<Light>().DOIntensity(5, 1);
+            leftLight.GetComponent<Light>().DOIntensity(6, 3f);
+            Debug.Log("hello2");
 
+            StartCoroutine(DoCinematic());
         }
+    }
+
+    IEnumerator DoCinematic()
+    {
+        yield return new WaitForSeconds(0.5f);
+        cinematicObject.SetActive(true);
+        cinematicObject.GetComponent<PlayableDirector>().Play();
+        yield return new WaitForSecondsRealtime((float)cinematicObject.GetComponent<PlayableDirector>().duration);
+        cinematicObject.SetActive(false);
+
     }
 }
