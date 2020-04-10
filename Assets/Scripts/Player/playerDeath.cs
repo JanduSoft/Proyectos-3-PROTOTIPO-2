@@ -8,42 +8,19 @@ using UnityEngine.UI;
 public class playerDeath : MonoBehaviour
 {
     // Start is called before the first frame update
-    Vector3 lastGroundedPosition;
-    Vector3 lastDirection;
     [SerializeField] PlayerMovement playerMovementScript;
     [SerializeField] Whip whipAttackScript;
     [SerializeField] GameObject deathPanel;
-    [SerializeField] float respawnOffset;
     bool isDead = false;
 
-    public bool StaticEnemyDetected = false;
-    public GameObject spawnPoint = null;
+    public Vector3 lastSpawnPointTouched;
 
     [HideInInspector] public GameObject objectGrabbed;
     void Start()
     {
+        lastSpawnPointTouched = transform.position;
         //will do the fade out of the black screen when this script is started
         SpawnPlayer();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (playerMovementScript.player.isGrounded && 
-            !whipAttackScript.attackMode && 
-            !isDead && 
-            !playerMovementScript.isOnPressurePlate && !StaticEnemyDetected)
-        {
-            lastGroundedPosition = playerMovementScript.player.transform.position;
-            lastDirection = playerMovementScript.player.velocity;
-        }
-
-        if (StaticEnemyDetected && spawnPoint!=null)
-        {
-            lastGroundedPosition = spawnPoint.transform.position;
-            StaticEnemyDetected = false;
-            spawnPoint = null;
-        }
     }
 
     public void SpawnPlayer()
@@ -85,35 +62,7 @@ public class playerDeath : MonoBehaviour
             deathPanel.GetComponent<Image>().color = c;
             yield return new WaitForSeconds(.01f);
         }
-
-        #region
-        //This section is commented so when you die with an object, you still have that object
-        #region
-        //Debug.Log(objectGrabbed);
-        //if (objectGrabbed!=null)
-        //{
-        //    DragAndDrop DADScript = objectGrabbed.GetComponent<DragAndDrop>();
-        //    if (DADScript!=null)
-        //    {
-        //        //do for objects with draganddrop
-        //        objectGrabbed.GetComponent<DragAndDrop>().ResetObject();
-        //        objectGrabbed.GetComponent<DragAndDrop>().DropObject();
-
-        //    }
-        //    else
-        //    {
-        //        //do for objects with PickUp
-        //        objectGrabbed.GetComponent<PickUp>().ResetPosition();
-        //        objectGrabbed.GetComponent<PickUpandDrop>().DropObject();
-
-        //    }
-        //}
-        #endregion
-
-        #endregion
-
-        Vector3 offsetDir = new Vector3(lastDirection.x, -1, lastDirection.z);
-        playerMovementScript.player.transform.position = lastGroundedPosition - offsetDir * respawnOffset;
+        playerMovementScript.player.transform.position = lastSpawnPointTouched;
         playerMovementScript.inRespawn = true;
         playerMovementScript.fallVelocity = 0;
         playerMovementScript.animatorController.SetBool("Jumping", false);

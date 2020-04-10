@@ -29,8 +29,7 @@ public class StaticEnemy : MonoBehaviour
         time += Time.deltaTime;
         if (angleBetweenEnemyandPlayer < viewingAngle)
         {
-            Player.GetComponent<playerDeath>().spawnPoint = SpawnPoint;
-            Player.GetComponent<playerDeath>().StaticEnemyDetected = true;
+            //Player.GetComponent<playerDeath>().StaticEnemyDetected = true;
             Quaternion finalRot = Quaternion.LookRotation(new Vector3(Player.transform.position.x, transform.position.y, Player.transform.position.z) - transform.position);
             //Vector3 newRotV3 = Vector3.Lerp(transform.rotation, new Vector3(Player.transform.position.x, transform.position.y, Player.transform.position.z) - transform.position, 0.5f);
             transform.DOLookAt(Player.transform.position, 0.5f);
