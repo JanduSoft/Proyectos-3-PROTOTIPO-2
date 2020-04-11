@@ -9,6 +9,7 @@ public class PlatformSink : MonoBehaviour
     [SerializeField] float goingDownSpeed = 2f;
     [SerializeField] Vector3 maxGoingDownPos;
     [SerializeField] float timeBeforeGoingUpAgain = 1f;
+    GameObject player;
 
     bool startGoingDown = false;
     bool startGoingUp = false;
@@ -43,6 +44,12 @@ public class PlatformSink : MonoBehaviour
         {
             startGoingUp = false;
         }
+
+        if (player!=null &&  Vector3.Distance(transform.position,player.transform.position) > 3.0f)
+        {
+            player.transform.SetParent(null);
+            player = null;
+        }
     }
     
     IEnumerator WaitAndGoUp()
@@ -57,6 +64,7 @@ public class PlatformSink : MonoBehaviour
         {
             //when you touch the platform, start going down
             other.gameObject.transform.SetParent(transform);
+            player = other.gameObject;
             startGoingDown = true;
         }
     }
