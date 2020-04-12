@@ -91,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
         if (canMove)
         {
             if (player.isGrounded) grounded = true;
-            else grounded = false;
+
             //GET AXIS
             horizontalMove = inputDevice.LeftStickX;
             verticalMove = inputDevice.LeftStickY;
@@ -218,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
     #region  PLAYER SKILLS
     void PlayerSkills()
     {
-        if ((player.isGrounded || grounded || auxCoyote > 0) && inputDevice.Action1.WasPressed)
+        if ((player.isGrounded || auxCoyote > 0) && inputDevice.Action1.WasPressed && !jumpSound.isPlaying)
         {
             grounded = false;
             animatorController.SetBool("Jumping", true);
