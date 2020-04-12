@@ -401,7 +401,7 @@ public class SecretScreen : MonoBehaviour
         }
 
         ///DETECTAR SI ABRES EL MENU, EL BOTON ES TEMPORAL
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) || InputManager.ActiveDevice.RightBumper.WasReleased)
         {
             if (isOpened)
             {
