@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using InControl;
 
 public class LeverMinecartW : MonoBehaviour
 {
     // Variables
     [SerializeField] GameObject activateObject;
     [SerializeField] GameObject lever;
-
+    public bool straight = true;
+    public bool connected = false;
     bool showCanvas = false;
     public float distanceToLever = 3f;
     GameObject player = null;
@@ -26,19 +28,21 @@ public class LeverMinecartW : MonoBehaviour
         if (player != null)
         {
             var currentDistanceToLever = Vector3.Distance(transform.position, player.transform.position);
-            if (showCanvas && (currentDistanceToLever < distanceToLever) && (!leverPulled || canPullLeverAlways) && Input.GetButtonDown("Interact"))
+            if (showCanvas && (currentDistanceToLever < distanceToLever) && (!leverPulled || canPullLeverAlways) && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 showCanvas = false;
                 leverPulled = !leverPulled;
                 if (leverPulled)
                 {
                     lever.transform.localEulerAngles = new Vector3(lever.transform.localRotation.x, lever.transform.localRotation.y, lever.transform.localEulerAngles.z - 45);
-                    activateObject.transform.DORotate(new Vector3(activateObject.transform.rotation.x, activateObject.transform.rotation.y + 90, activateObject.transform.rotation.z), 2);
+                    connected = true;
+                    activateObject.transform.DORotate(new Vector3(activateObject.transform.rotation.x, activateObject.transform.rotation.y + 45, activateObject.transform.rotation.z), 2);
                 }
                 else
                 {
+                    connected = false;
                     lever.transform.localEulerAngles = new Vector3(lever.transform.localRotation.x, lever.transform.localRotation.y, lever.transform.localEulerAngles.z + 90);
-                    activateObject.transform.DORotate(new Vector3(activateObject.transform.rotation.x, activateObject.transform.rotation.y - 90, activateObject.transform.rotation.z ), 2);
+                    activateObject.transform.DORotate(new Vector3(activateObject.transform.rotation.x, activateObject.transform.rotation.y - 45, activateObject.transform.rotation.z ), 2);
                 }
                 minecartAction = !minecartAction;
                 //We could have another object attached here, such as a GameObject MortalTrap, and that

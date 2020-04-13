@@ -11,7 +11,7 @@ public class AddObject : MonoBehaviour
     bool objectIsGrabbed = false;
     protected Animator playerAnimator;
     [SerializeField] GameObject targetObject = null;
-    GameObject _object = null;
+    [SerializeField] GameObject _object = null;
 
     public bool isActivated = false;
     [SerializeField] bool faceOppositeDirection = false;
@@ -57,12 +57,6 @@ public class AddObject : MonoBehaviour
             _object.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
 
         }
-        else if (other.CompareTag("PlaceChild"))
-        {
-            _object = other.transform.gameObject;
-            _objectTransform = other.transform.gameObject.transform;
-            _object.transform.parent.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
-        }
 
     }
     private void OnTriggerStay(Collider other)
@@ -71,11 +65,6 @@ public class AddObject : MonoBehaviour
         {
             _object = other.transform.parent.gameObject;
             _objectTransform = other.transform.parent.gameObject.transform;
-        }
-        else if (other.CompareTag("PlaceChild"))
-        {
-            _object = other.transform.gameObject;
-            _objectTransform = other.transform.gameObject.transform;
         }
 
     }
@@ -101,12 +90,6 @@ public class AddObject : MonoBehaviour
         else if (other.CompareTag("Place"))
         {
             other.GetComponent<PickUp>().SetCancelledDrop(false);
-            other.gameObject.transform.parent.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
-            _object = null;
-            _objectTransform = null;
-        }
-        else if (other.CompareTag("PlaceChild"))
-        {
             other.gameObject.transform.parent.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
             _object = null;
             _objectTransform = null;

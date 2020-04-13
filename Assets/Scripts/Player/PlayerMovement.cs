@@ -90,8 +90,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canMove)
         {
-            if (player.isGrounded) grounded = true;
-            else grounded = false;
+            if (player.isGrounded)
+            {
+                grounded = true;
+
+            }
+            if (isInWhipJump)
+                grounded = false;
             //GET AXIS
             horizontalMove = inputDevice.LeftStickX;
             verticalMove = inputDevice.LeftStickY;
@@ -218,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
     #region  PLAYER SKILLS
     void PlayerSkills()
     {
-        if ((player.isGrounded || grounded || auxCoyote > 0) && inputDevice.Action1.WasPressed)
+        if ((player.isGrounded || auxCoyote > 0) && inputDevice.Action1.WasPressed && !jumpSound.isPlaying)
         {
             grounded = false;
             animatorController.SetBool("Jumping", true);
@@ -292,6 +297,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Ground"))
         {
+            Debug.Log("Entro !");
             grounded = true;
         }
     }
@@ -300,6 +306,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Ground"))
         {
+            Debug.Log("Estic !");
             grounded = true;
         }
     }
