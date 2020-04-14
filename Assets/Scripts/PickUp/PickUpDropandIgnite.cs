@@ -28,7 +28,6 @@ public class PickUpDropandIgnite : PickUpandDrop
         CheckVariables();
         if(objectIsGrabbed)
         {
-            Debug.Log("Hola");
             transform.localEulerAngles = new Vector3(180f, 0f, 0f);
         }
         if (InputManager.ActiveDevice.Action3.WasPressed && !cancelledDrop && player != null)

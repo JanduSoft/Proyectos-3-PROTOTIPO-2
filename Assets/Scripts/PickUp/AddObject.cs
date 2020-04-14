@@ -89,7 +89,6 @@ public class AddObject : MonoBehaviour
         }
         else if (other.CompareTag("Place"))
         {
-            other.GetComponent<PickUp>().SetCancelledDrop(false);
             other.gameObject.transform.parent.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
             _object = null;
             _objectTransform = null;
