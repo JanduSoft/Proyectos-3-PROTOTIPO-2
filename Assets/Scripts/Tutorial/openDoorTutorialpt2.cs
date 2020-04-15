@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using InControl;
+using UnityEngine.Playables;
 public class openDoorTutorialpt2 : MonoBehaviour
 {
     bool canPlace = false;
@@ -12,6 +13,8 @@ public class openDoorTutorialpt2 : MonoBehaviour
     GameObject skull = null;
 
     public bool isActivated = false;
+    [SerializeField] GameObject GemLight;
+    [SerializeField] GameObject cinematicObject;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,9 +30,29 @@ public class openDoorTutorialpt2 : MonoBehaviour
             {
                 dor.SendMessage("Solved", index);
                 isActivated = true;
+                try
+                {
+                    GemLight.GetComponent<Light>().DOIntensity(4, 3);
+                    StartCoroutine(DoCinematic());
+
+                }
+                catch
+                {
+                    Debug.LogWarning("You need to attach 'Purple Light' or 'Red Light' to openDoorTutorialpt2.cs");
+                }
             }
         }
 
+
+    }
+
+    IEnumerator DoCinematic()
+    {
+        yield return new WaitForSeconds(0.5f);
+        cinematicObject.SetActive(true);
+        cinematicObject.GetComponent<PlayableDirector>().Play();
+        yield return new WaitForSecondsRealtime((float)cinematicObject.GetComponent<PlayableDirector>().duration);
+        cinematicObject.SetActive(false);
 
     }
     private void OnTriggerEnter(Collider other)
