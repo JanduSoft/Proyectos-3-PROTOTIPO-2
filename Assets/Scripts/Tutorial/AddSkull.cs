@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using InControl;
+using DG.Tweening;
 
 public class AddSkull : MonoBehaviour
 {
@@ -16,9 +17,14 @@ public class AddSkull : MonoBehaviour
     public bool isActivated = false;
     [SerializeField] bool faceOppositeDirection = false;
 
-    private void Start()
-    {
-    }
+    bool goneDown = false;
+    [Header("Only if isImportantCup")]
+    [SerializeField] GameObject[] effects = new GameObject[4];
+    //1 and 2 are the fire eyes
+    //3 is dirt
+    //4 is white smoke
+    [Space(10)]
+    [SerializeField] AudioSource shakeSound;
 
 
     void LateUpdate()
@@ -45,6 +51,29 @@ public class AddSkull : MonoBehaviour
                 skullTransform.rotation = transform.rotation;
                 if (faceOppositeDirection) skullTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
                 isActivated = true;
+            }
+        }
+
+        if (isActivated && isImportantCup && !goneDown)
+        {
+            goneDown = true;
+            Camera.main.DOShakePosition(1, 3, 10, 90, true);
+            transform.DOMoveY(transform.position.y - 1f, 5f)
+                .OnComplete(() => { 
+                    effects[2].GetComponent<ParticleSystem>().Stop(); 
+                    effects[3].GetComponent<ParticleSystem>().Stop(); 
+                });
+            shakeSound.Play();
+            try
+            {
+                effects[0].gameObject.SetActive(true);
+                effects[1].gameObject.SetActive(true);
+                effects[2].gameObject.SetActive(true);
+                effects[3].gameObject.SetActive(true);
+            }
+            catch
+            {
+                Debug.LogWarning("Tried to access eyeFires in AddSkull.cs but there's no attached Game Object");
             }
         }
     }
