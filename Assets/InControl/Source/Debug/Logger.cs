@@ -27,11 +27,15 @@ namespace InControl
 
 		public static void LogInfo( string text )
 		{
-			if (OnLogMessage != null)
-			{
-				var logMessage = new LogMessage() { text = text, type = LogMessageType.Info };
-				OnLogMessage( logMessage );
-			}
+            if (OnLogMessage != null)
+            {
+                var logMessage = new LogMessage() { text = text, type = LogMessageType.Info };
+                OnLogMessage(logMessage);
+            }
+            else
+            {
+                Debug.Log("TECLADO");
+            }
 		}
 
 
@@ -42,6 +46,7 @@ namespace InControl
 				var logMessage = new LogMessage() { text = text, type = LogMessageType.Warning };
 				OnLogMessage( logMessage );
 			}
+            
 		}
 
 
