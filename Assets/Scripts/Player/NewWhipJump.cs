@@ -44,6 +44,7 @@ public class NewWhipJump : MonoBehaviour
 
     private void Start()
     {
+        DOTween.SetTweensCapacity(500, 500);
         //////CROSSHAIR
         player = GameObject.Find("Character").gameObject.transform;
         crosshairColor = markSprite.color;
