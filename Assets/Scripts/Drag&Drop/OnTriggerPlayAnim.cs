@@ -14,12 +14,12 @@ public class OnTriggerPlayAnim : MonoBehaviour
     {
         if (other.CompareTag("Stone") && !other.isTrigger)
         {
+            transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().LetGoRock();
             StartCoroutine(SoundTime());
             rockAnim = transform.parent.GetChild(0).GetComponent<Animation>();
             rockAnim.Play(animationClipName);
             GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
             transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().dragSound.Stop();
-            transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().LetGoRock();
             StartCoroutine(startMovingAgain(rockAnim.GetClip(animationClipName).length));
         }
     }
