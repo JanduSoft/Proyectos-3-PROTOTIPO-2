@@ -26,7 +26,7 @@ public class AddObject : MonoBehaviour
     {
         if (_object != null )
         {
-            if (canPlace && objectIsGrabbed && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
+            if (canPlace && (objectIsGrabbed) && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 Debug.Log("object placed:"+_object.name);
                 playerAnimator.SetBool("PlaceObject", true);
@@ -34,7 +34,7 @@ public class AddObject : MonoBehaviour
                 StartCoroutine(PlaceObject());
                 
             }
-            else if (canPlace && !_object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && InputManager.ActiveDevice.Action3.WasPressed)
+            else if (canPlace && !objectIsGrabbed && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 _object.GetComponent<PickUpDropandThrow>().ForceGrabObject();
                 if (isActivated)isActivated = false;
@@ -70,7 +70,7 @@ public class AddObject : MonoBehaviour
     }
     IEnumerator PlaceObject()
     {
-        yield return new WaitForSeconds(0.3f);
+        objectIsGrabbed = false;
         _objectTransform.position = placePosition.transform.position;
         _objectTransform.rotation = transform.rotation;
         _object.transform.SetParent(transform);
@@ -78,6 +78,7 @@ public class AddObject : MonoBehaviour
         else if(quarterRotation) _objectTransform.Rotate(90, 90, 0);
         if(_object.name == targetObject.name)
             isActivated = true;
+        yield return new WaitForSeconds(0.3f);
         playerAnimator.SetBool("PlaceObject", false);
     }
 
