@@ -159,8 +159,11 @@ public class PickUpDropandThrow : PickUpandDrop
             dustParticles.transform.SetParent(null);
             brokenVase.transform.SetParent(null);
             RaycastHit ray;
-            if(Physics.Raycast(transform.position, -transform.up, out ray, Mathf.Infinity))
+            if(Physics.Raycast(transform.position, -transform.up, out ray, 2))
+            {
                 brokenVase.transform.position = ray.point;
+                objectInside.transform.position = ray.point;
+            }
             brokenVase.SetActive(true);
             brokenSound.Play();
             gameObject.SetActive(false);
@@ -171,7 +174,7 @@ public class PickUpDropandThrow : PickUpandDrop
                 hitSound.Play();
             thrown = false;
         }
-        if (collision.transform.tag == "WhipEnemy" && (tag == "Destroyable" || tag == "Place"))
+        if (collision.transform.tag == "WhipEnemy" && (tag == "Destroyable" || transform.GetChild(0).tag == "Place"))
         {
             enemy.SendMessage("Die");
         }
@@ -247,7 +250,7 @@ public class PickUpDropandThrow : PickUpandDrop
         if (!isImportantObject)
             transform.tag = "Destroyable";
         else
-            transform.tag = "Place";
+            transform.GetChild(0).tag = "Place";
         _thisSC.enabled = false;
         thrown = true;
         Vector3 temp = new Vector3();
