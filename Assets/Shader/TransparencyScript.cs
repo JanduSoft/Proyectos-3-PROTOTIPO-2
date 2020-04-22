@@ -11,7 +11,7 @@ public class TransparencyScript : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
-            foreach( GameObject _go in go)
+            foreach ( GameObject _go in go)
             {
                 SetMaterialTransparent(_go);
                 iTween.FadeTo(_go, 0, fadeTransparecyTime);

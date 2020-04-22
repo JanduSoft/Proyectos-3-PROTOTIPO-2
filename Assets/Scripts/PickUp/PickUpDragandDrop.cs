@@ -14,6 +14,7 @@ public class PickUpDragandDrop : PickUpandDrop
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] Quaternion rotation;
     Vector3[] grabPoints = new Vector3[4];
+    [SerializeField] float grabPointsDistance = 4.2f;
     Vector3 closestPoint;
     int minPoint = -1;
     [HideInInspector] public Rigidbody rb;
@@ -23,7 +24,8 @@ public class PickUpDragandDrop : PickUpandDrop
     [SerializeField] public AudioSource dragSound;
     static GameObject currentRock;
     float distToGround;
-    
+    bool canPressAgain = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -54,18 +56,24 @@ public class PickUpDragandDrop : PickUpandDrop
         {
             //If the dragging button is pressed we move the rock, if not, we let go
             bool isPressingButton = InputManager.ActiveDevice.Action3;
-            if (isPressingButton)
+            if (isPressingButton && canPressAgain)
             {
+                Debug.Log("hola");
+
                 Vector3 newPlayerPos = player.transform.position + new Vector3(0, 2.5f, 0);
                 //We check with a raycast if there's anything between the player and the rock we wanna push
                 Vector3 playerRockDirection = (transform.position - newPlayerPos).normalized;
                 RaycastHit hit;
                 if (Physics.Raycast(newPlayerPos, playerRockDirection, out hit, Mathf.Infinity))
                 {
+                    Debug.Log("hola2");
+
                     Debug.DrawRay(newPlayerPos, playerRockDirection * hit.distance, Color.yellow);
                     Debug.Log(hit.transform.gameObject.name);
                     if (hit.transform.gameObject == gameObject)
                     {
+                        Debug.Log("hola3");
+
                         if (currentRock != null)
                             player.transform.DOLookAt(new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z),0.25F);
                         if (!rockGrabbed && isFacingBox && !animator.GetBool("Attached") && currentRock==null)
@@ -257,7 +265,11 @@ public class PickUpDragandDrop : PickUpandDrop
             lerping = false;
             rockGrabbed = false;
             thisRock = false;
+            currentRock = null;
+            canPressAgain = false;
         }
+        else
+            canPressAgain = true;
     }
 
     bool IsGrounded()
@@ -308,10 +320,10 @@ protected override void PickUpObject()
     protected override void CheckVariables()
     {
         //calculate the grab points every frame in case the rock moves
-        grabPoints[0] = transform.position + transform.forward * 3.5f;
-        grabPoints[1] = transform.position - transform.forward * 3.5f;
-        grabPoints[2] = transform.position + transform.right * 3.5f;
-        grabPoints[3] = transform.position - transform.right * 3.5f;
+        grabPoints[0] = transform.position + transform.forward * grabPointsDistance;
+        grabPoints[1] = transform.position - transform.forward * grabPointsDistance;
+        grabPoints[2] = transform.position + transform.right * grabPointsDistance;
+        grabPoints[3] = transform.position - transform.right * grabPointsDistance;
 
         //put the points in the desired height
         grabPoints[0].y = transform.position.y - grabPointHeight;
