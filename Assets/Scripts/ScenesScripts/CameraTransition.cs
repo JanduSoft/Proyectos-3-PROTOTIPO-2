@@ -8,6 +8,7 @@ public class CameraTransition : MonoBehaviour
     #region VARIABLES
     [Header("CAMERA")]
     [SerializeField] Camera mainCamera;
+    [SerializeField] Camera onboardingCamera;
     [SerializeField] int newFOV;
 
     [Header("TARGET CAMERA")]
@@ -32,6 +33,7 @@ public class CameraTransition : MonoBehaviour
             //transformCamera.DOMove(newTransformCamera.position, 4f);
             targetCamera.DORotate(newRotationTarget, speedTransition);
             mainCamera.DOFieldOfView(newFOV, speedTransition);
+            onboardingCamera.DOFieldOfView(newFOV, speedTransition);
 
             myTargetCamera.naturalPosition = newRotationTarget;
             //mainCamera.DOShakePosition(1f,2f,10);

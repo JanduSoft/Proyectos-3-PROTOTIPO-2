@@ -34,15 +34,38 @@ public class TutorialSprites : MonoBehaviour
 
     [Header("SPRITES")]
     [SerializeField] buttonType button;
+
+    [Header("KEYBOARD")]
     [SerializeField] GameObject jump;
     [SerializeField] GameObject interact;
     [SerializeField] GameObject whip;
     [SerializeField] GameObject pickThrow;
+    [Header("PS4")]
+    [SerializeField] GameObject jumpPS4;
+    [SerializeField] GameObject interactPS4;
+    [SerializeField] GameObject whipPS4;
+    [SerializeField] GameObject pickThrowPS4;
+    [Header("XBOX")]
+    [SerializeField] GameObject jumpXBOX;
+    [SerializeField] GameObject interactXBOX;
+    [SerializeField] GameObject whipXBOX;
+    [SerializeField] GameObject pickThrowXBOX;
 
     [Header("TRANSITION")]
     [SerializeField] float speed;
     [SerializeField] float inititalSize;
     [SerializeField] float finalSize;
+
+    InControlManager inputController;
+    InControlManager.ControllerType currentController = InControlManager.ControllerType.KEYBOARD;
+    #endregion
+
+    #region START
+    private void Start()
+    {
+        inputController = GameObject.Find("ControlPrefab").GetComponent<InControlManager>();
+        Invoke("CheckController", 1);
+    }
     #endregion
 
     #region UPDATE
@@ -78,16 +101,60 @@ public class TutorialSprites : MonoBehaviour
             {
                 if (needShowTrhowButton)
                 {
-                    interact.SetActive(false);
-                    pickThrow.SetActive(true);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                interact.SetActive(false);
+                                pickThrow.SetActive(true);
+                                break;
+                            }                            
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                interactPS4.SetActive(false);
+                                pickThrowPS4.SetActive(true);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                interactXBOX.SetActive(false);
+                                pickThrowXBOX.SetActive(true);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
+                    
                 }
 
 
             }
             else if (isPlayerInside && !pickUpThrow.GetObjectIsGrabbed())
             {
-                pickThrow.SetActive(false);
-                interact.SetActive(true);
+                switch (currentController)
+                {
+                    case InControlManager.ControllerType.KEYBOARD:
+                        {
+                            pickThrow.SetActive(false);
+                            interact.SetActive(true);
+                            break;
+                        }
+                    case InControlManager.ControllerType.PS4:
+                        {
+                            pickThrowPS4.SetActive(false);
+                            interactPS4.SetActive(true);
+                            break;
+                        }
+                    case InControlManager.ControllerType.XBOX:
+                        {
+                            pickThrowXBOX.SetActive(false);
+                            interactXBOX.SetActive(true);
+                            break;
+                        }
+                    default:
+                        break;
+                }
+                
             }
             else
             {
@@ -194,7 +261,6 @@ public class TutorialSprites : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player sale");
             isPlayerInside = false;
             DeactivateSprites();
 
@@ -258,58 +324,243 @@ public class TutorialSprites : MonoBehaviour
                 break;
             case buttonType.JUMP:
                 {
-                    jump.SetActive(true);
-                    jump.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                    jump.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                jump.SetActive(true);
+                                jump.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                jump.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                jumpPS4.SetActive(true);
+                                jumpPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                jumpPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                jumpXBOX.SetActive(true);
+                                jumpXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                jumpXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                     break;
                 }
             case buttonType.INTERACT:
                 {
-                    interact.SetActive(true);
-                    interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                    interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                interact.SetActive(true);
+                                interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                interactPS4.SetActive(true);
+                                interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                interactXBOX.SetActive(true);
+                                interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
+                    
                     break;
                 }
             case buttonType.WHIP:
                 {
-                    whip.SetActive(true);
-                    whip.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                    whip.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                whip.SetActive(true);
+                                whip.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                whip.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                whipPS4.SetActive(true);
+                                whipPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                whipPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                whipXBOX.SetActive(true);
+                                whipXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                whipXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                     break;
                 }
             case buttonType.PLACE_OBJECT:
                 {
-                    interact.SetActive(true);
-                    interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                    interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                interact.SetActive(true);
+                                interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                interactPS4.SetActive(true);
+                                interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                interactXBOX.SetActive(true);
+                                interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                     break;
                 }
             case buttonType.DD_OBJECT:
                 {
-                    interact.SetActive(true);
-                    interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                    interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                interact.SetActive(true);
+                                interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                interactPS4.SetActive(true);
+                                interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                interactXBOX.SetActive(true);
+                                interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                     break;
                 };
             case buttonType.PICK_UP_OBJECT:
                 {
-                    interact.SetActive(true);
-                    interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                    interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                interact.SetActive(true);
+                                interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                interactPS4.SetActive(true);
+                                interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                interactXBOX.SetActive(true);
+                                interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                     break;
                 }
             case buttonType.THROW:
                 {
-                    pickThrow.SetActive(true);
-                    pickThrow.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                    pickThrow.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                pickThrow.SetActive(true);
+                                pickThrow.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                pickThrow.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                pickThrowPS4.SetActive(true);
+                                pickThrowPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                pickThrowPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                pickThrowXBOX.SetActive(true);
+                                pickThrowXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                pickThrowXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                     break;
                 }
             case buttonType.MOVE_ROCK:
                 {
-                    interact.SetActive(true);
-                    interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                    interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                interact.SetActive(true);
+                                interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                interactPS4.SetActive(true);
+                                interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                interactXBOX.SetActive(true);
+                                interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                     break;
                 }
             default:
@@ -328,43 +579,197 @@ public class TutorialSprites : MonoBehaviour
                 break;
             case buttonType.JUMP:
                 {
-                    jump.SetActive(false);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                jump.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                jumpPS4.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                jumpXBOX.SetActive(false);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                     break;
                 }
             case buttonType.INTERACT:
                 {
-                    interact.SetActive(false);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                interact.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                interactPS4.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                interactXBOX.SetActive(false);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                     break;
                 }
             case buttonType.WHIP:
                 {
-                    whip.SetActive(false);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                whip.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                whipPS4.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                whipXBOX.SetActive(false);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                     break;
                 }
             case buttonType.PLACE_OBJECT:
                 {
-                    interact.SetActive(false);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                interact.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                interactPS4.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                interactXBOX.SetActive(false);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                     break;
                 }
             case buttonType.DD_OBJECT:
                 {
-                    interact.SetActive(false);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                interact.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                interactPS4.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                interactXBOX.SetActive(false);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                     break;
                 }
             case buttonType.PICK_UP_OBJECT:
                 {
-                    interact.SetActive(false);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                interact.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                interactPS4.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                interactXBOX.SetActive(false);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                     break;
                 }
             case buttonType.THROW:
                 {
-                    pickThrow.SetActive(false);
-                    interact.SetActive(false);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                interact.SetActive(false);
+                                pickThrow.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                interactPS4.SetActive(false);
+                                pickThrowPS4.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                interactXBOX.SetActive(false);
+                                pickThrowXBOX.SetActive(false);
+                                break;
+                            }
+                        default:
+                            break;
+                    }                    
                     break;
                 }
             case buttonType.MOVE_ROCK:
                 {
-                    interact.SetActive(false);
+                    switch (currentController)
+                    {
+                        case InControlManager.ControllerType.KEYBOARD:
+                            {
+                                interact.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.PS4:
+                            {
+                                interactPS4.SetActive(false);
+                                break;
+                            }
+                        case InControlManager.ControllerType.XBOX:
+                            {
+                                interactXBOX.SetActive(false);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                     break;
                 }
             default:
@@ -373,4 +778,28 @@ public class TutorialSprites : MonoBehaviour
     }
     #endregion
 
+    #region CHECK CONTROLLER
+    void CheckController()
+    {
+        switch (inputController.controller)
+        {
+            case InControlManager.ControllerType.NONE:
+                break;
+            case InControlManager.ControllerType.KEYBOARD:
+                Debug.Log("PLAYING WITH KEYBOARD");
+                currentController = InControlManager.ControllerType.KEYBOARD;
+                break;
+            case InControlManager.ControllerType.PS4:
+                Debug.Log("PLAYING WITH PS4 CONTROLLER");
+                currentController = InControlManager.ControllerType.PS4;
+                break;
+            case InControlManager.ControllerType.XBOX:
+                Debug.Log("PLAYING WITH XBOX CONTROLLER");
+                currentController = InControlManager.ControllerType.XBOX;
+                break;
+            default:
+                break;
+        }
+    }
+    #endregion
 }

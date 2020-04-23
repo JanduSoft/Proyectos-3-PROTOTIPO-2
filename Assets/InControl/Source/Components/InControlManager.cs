@@ -7,9 +7,20 @@ using UnityEngine;
 
 namespace InControl
 {
-	public class InControlManager : MonoBehaviour
+    public class InControlManager : MonoBehaviour
 	{
-		public bool logDebugInfo = false;
+
+        public enum ControllerType
+        {
+            NONE,
+            KEYBOARD,
+            PS4,
+            XBOX
+        };
+
+        public ControllerType controller = ControllerType.KEYBOARD;
+
+        public bool logDebugInfo = false;
 		public bool invertYAxis = false;
 		public bool enableXInput = false;
 		public bool useFixedUpdate = false;
@@ -41,6 +52,7 @@ namespace InControl
 				{
 					var customProfileInstance = Activator.CreateInstance( classType ) as UnityInputDeviceProfile;
 					InputManager.AttachDevice( new UnityInputDevice( customProfileInstance ) );
+                    Debug.Log(InputManager.Devices);
 				}
 			}
 
@@ -118,7 +130,20 @@ namespace InControl
 			{
 				case LogMessageType.Info:
 					Debug.Log( logMessage.text );
-					break;
+                    string[] message = logMessage.text.Split('(');
+
+                    if (message[1] == "PlayStation 4 Controller)")
+                    {
+                        controller = ControllerType.PS4;
+                        //Debug.Log("MANDO PS4 CONECTADO");
+                    }
+                    else
+                    {
+                        controller = ControllerType.XBOX;
+                        //Debug.Log("MANDO XBOX CONECTADO");
+                    }
+
+                    break;
 				case LogMessageType.Warning:
 					Debug.LogWarning( logMessage.text );
 					break;
