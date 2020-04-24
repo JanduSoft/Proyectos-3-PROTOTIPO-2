@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using InControl;
+using DG.Tweening;
 
 public class UpandDownSecondPuzzle : MonoBehaviour
 {
@@ -36,15 +37,18 @@ public class UpandDownSecondPuzzle : MonoBehaviour
                 switch(index)
                 {
                     case 0:
-                        target.position = positions[1].position;
+                        //target.position = positions[1].position;
+                        target.DOMove(positions[1].position,1);
                         index++;
                         break;
                     case 1:
-                        target.position = positions[2].position;
+                        //target.position = positions[2].position;
+                        target.DOMove(positions[2].position, 1);
                         index++;
                         break;
                     case 2:
-                        target.position = positions[0].position;
+                        //target.position = positions[0].position;
+                        target.DOMove(positions[0].position, 1);
                         index = 0;
                         break;
                     default:
