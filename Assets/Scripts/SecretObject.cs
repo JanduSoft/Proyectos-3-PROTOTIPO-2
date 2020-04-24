@@ -32,14 +32,14 @@ public class SecretObject : MonoBehaviour
     GameObject objectInstantiate;
     #endregion
 
-
     #region UPDATE
     void Update()
     {
         if ( isPlayerInside && InputManager.ActiveDevice.Action3.WasPressed && !isShowingObject)
         {
             isShowingObject = true;
-            playerMove.canMove = false;
+            //playerMove.canMove = false;
+            playerMove.StopMovement(true);
 
             tutoSprites.DeactivateSprites();
             //ACTUALIZAMOS LOS PLAYER PREFS;
@@ -56,7 +56,9 @@ public class SecretObject : MonoBehaviour
         else if (isShowingObject && InputManager.ActiveDevice.Action3.WasPressed)
         {
             isShowingObject = false;
-            playerMove.canMove = true;
+
+            //playerMove.canMove = true;
+            playerMove.StopMovement(false);
 
             background.SetActive(false);
 
