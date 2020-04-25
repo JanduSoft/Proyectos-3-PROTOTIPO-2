@@ -58,7 +58,6 @@ public class PickUpDragandDrop : PickUpandDrop
             bool isPressingButton = InputManager.ActiveDevice.Action3;
             if (isPressingButton && canPressAgain)
             {
-                Debug.Log("hola");
 
                 Vector3 newPlayerPos = player.transform.position + new Vector3(0, 2.5f, 0);
                 //We check with a raycast if there's anything between the player and the rock we wanna push
@@ -66,13 +65,11 @@ public class PickUpDragandDrop : PickUpandDrop
                 RaycastHit hit;
                 if (Physics.Raycast(newPlayerPos, playerRockDirection, out hit, Mathf.Infinity))
                 {
-                    Debug.Log("hola2");
 
                     Debug.DrawRay(newPlayerPos, playerRockDirection * hit.distance, Color.yellow);
                     Debug.Log(hit.transform.gameObject.name);
                     if (hit.transform.gameObject == gameObject)
                     {
-                        Debug.Log("hola3");
 
                         if (currentRock != null)
                             player.transform.DOLookAt(new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z),0.25F);
@@ -385,10 +382,20 @@ protected override void PickUpObject()
         for (int i = 0; i < 4; i++)
         {
             float dist = Vector3.Distance(player.transform.position, grabPoints[i]);
-            if (minDistance == -1 || dist < minDistance)
+
+            Vector3 newPlayerPos = player.transform.position + new Vector3(0, 2.5f, 0);
+            Vector3 pointToPlayerDir = (newPlayerPos - grabPoints[i]).normalized;
+            RaycastHit hit;
+            if(Physics.Raycast(grabPoints[i], pointToPlayerDir, out hit, Mathf.Infinity))
             {
-                minPoint = i;
-                minDistance = dist;
+                if (hit.transform.tag=="Player")
+                {
+                    if (minDistance == -1 || dist < minDistance)
+                    {
+                        minPoint = i;
+                        minDistance = dist;
+                    }
+                }
             }
         }
 
