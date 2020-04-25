@@ -33,7 +33,6 @@ public class SettingsMenuScript : MonoBehaviour
         resDrop.value = currResInd;
         resDrop.RefreshShownValue();
 
-        EventSystem.current.SetSelectedGameObject(resDrop.gameObject);
     }
 
 

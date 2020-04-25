@@ -1,60 +1,94 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
-
-
 namespace InControl
 {
-    public class InControlManager : MonoBehaviour
+	using System;
+	using System.Collections.Generic;
+	using UnityEngine;
+#if NETFX_CORE
+	using System.Reflection;
+#endif
+#if UNITY_5_4_OR_NEWER
+	using UnityEngine.SceneManagement;
+
+
+#endif
+
+
+	public enum InControlUpdateMode
 	{
+		Default,
+		FixedUpdate,
+		Manual
+	}
 
-        public enum ControllerType
-        {
-            NONE,
-            KEYBOARD,
-            PS4,
-            XBOX
-        };
 
-        public ControllerType controller = ControllerType.KEYBOARD;
-
-        public bool logDebugInfo = false;
+	public class InControlManager : SingletonMonoBehavior<InControlManager>
+	{
+		public bool logDebugInfo = true;
 		public bool invertYAxis = false;
+
+		// ReSharper disable once NotAccessedField.Local
+#pragma warning disable 414
+		[SerializeField]
+		bool useFixedUpdate = false; // This is now deprecated and replaced by updateMode
+#pragma warning restore 414
+
+		public bool dontDestroyOnLoad = true;
+		public bool suspendInBackground = false;
+		public InControlUpdateMode updateMode;
+
+		public bool enableICade = false;
+
 		public bool enableXInput = false;
-		public bool useFixedUpdate = false;
-		public bool dontDestroyOnLoad = false;
-		public List<string> customProfiles = new List<string>();
+		public bool xInputOverrideUpdateRate = false;
+		public int xInputUpdateRate = 0;
+		public bool xInputOverrideBufferSize = false;
+		public int xInputBufferSize = 0;
+
+		public bool enableNativeInput = true;
+		public bool nativeInputEnableXInput = true;
+		public bool nativeInputEnableMFi = false;
+		public bool nativeInputPreventSleep = false;
+		public bool nativeInputOverrideUpdateRate = false;
+		public int nativeInputUpdateRate = 0;
+
+		bool applicationHasQuit = false;
 
 
 		void OnEnable()
 		{
-			customProfiles.Add("CustomProfileExample.KeyboardAndMouseProfile");
-			if (logDebugInfo)
+			if (EnforceSingleton)
 			{
-				Debug.Log( "InControl (version " + InputManager.Version + ")" );
-				Logger.OnLogMessage += HandleOnLogMessage;
+				return;
 			}
 
 			InputManager.InvertYAxis = invertYAxis;
-			InputManager.EnableXInput = enableXInput;
-			InputManager.SetupInternal();
+			InputManager.SuspendInBackground = suspendInBackground;
+			InputManager.EnableICade = enableICade;
 
-			foreach (var className in customProfiles)
+			InputManager.EnableXInput = enableXInput;
+			InputManager.XInputUpdateRate = (uint) Mathf.Max( xInputUpdateRate, 0 );
+			InputManager.XInputBufferSize = (uint) Mathf.Max( xInputBufferSize, 0 );
+
+			InputManager.EnableNativeInput = enableNativeInput;
+			InputManager.NativeInputEnableXInput = nativeInputEnableXInput;
+			InputManager.NativeInputEnableMFi = nativeInputEnableMFi;
+			InputManager.NativeInputUpdateRate = (uint) Mathf.Max( nativeInputUpdateRate, 0 );
+			InputManager.NativeInputPreventSleep = nativeInputPreventSleep;
+
+			if (InputManager.SetupInternal())
 			{
-				var classType = Type.GetType( className );
-				if (classType == null)
+				if (logDebugInfo)
 				{
-					Debug.LogError( "Cannot find class for custom profile: " + className );
-				}
-				else
-				{
-					var customProfileInstance = Activator.CreateInstance( classType ) as UnityInputDeviceProfile;
-					InputManager.AttachDevice( new UnityInputDevice( customProfileInstance ) );
-                    Debug.Log(InputManager.Devices);
+					Debug.Log( "InControl (version " + InputManager.Version + ")" );
+					Logger.OnLogMessage -= LogMessage;
+					Logger.OnLogMessage += LogMessage;
 				}
 			}
+
+#if UNITY_5_4_OR_NEWER
+			SceneManager.sceneLoaded -= OnSceneWasLoaded;
+			SceneManager.sceneLoaded += OnSceneWasLoaded;
+#endif
 
 			if (dontDestroyOnLoad)
 			{
@@ -65,32 +99,43 @@ namespace InControl
 
 		void OnDisable()
 		{
+			if (IsNotTheSingleton) return;
+#if UNITY_5_4_OR_NEWER
+			SceneManager.sceneLoaded -= OnSceneWasLoaded;
+#endif
 			InputManager.ResetInternal();
 		}
 
 
-		#if UNITY_ANDROID && INCONTROL_OUYA && !UNITY_EDITOR
+#if UNITY_ANDROID && INCONTROL_OUYA && !UNITY_EDITOR
 		void Start()
 		{
+			if (IsNotTheSingleton) return;
 			StartCoroutine( CheckForOuyaEverywhereSupport() );
 		}
 
 
 		IEnumerator CheckForOuyaEverywhereSupport()
 		{
+			Debug.Log( "[InControl] Checking for OUYA Everywhere support..." );
+
 			while (!OuyaSDK.isIAPInitComplete())
 			{
 				yield return null;
 			}
 
+			Debug.Log( "[InControl] OUYA SDK IAP initialization has completed." );
+
 			OuyaEverywhereDeviceManager.Enable();
 		}
-		#endif
+#endif
 
 
 		void Update()
 		{
-			if (!useFixedUpdate || Mathf.Approximately( Time.timeScale, 0.0f ))
+			if (IsNotTheSingleton) return;
+			if (applicationHasQuit) return;
+			if (updateMode == InControlUpdateMode.Default || (updateMode == InControlUpdateMode.FixedUpdate && Utility.IsZero( Time.timeScale )))
 			{
 				InputManager.UpdateInternal();
 			}
@@ -99,7 +144,9 @@ namespace InControl
 
 		void FixedUpdate()
 		{
-			if (useFixedUpdate)
+			if (IsNotTheSingleton) return;
+			if (applicationHasQuit) return;
+			if (updateMode == InControlUpdateMode.FixedUpdate)
 			{
 				InputManager.UpdateInternal();
 			}
@@ -108,50 +155,60 @@ namespace InControl
 
 		void OnApplicationFocus( bool focusState )
 		{
+			if (IsNotTheSingleton) return;
 			InputManager.OnApplicationFocus( focusState );
 		}
 
 
 		void OnApplicationPause( bool pauseState )
 		{
+			if (IsNotTheSingleton) return;
 			InputManager.OnApplicationPause( pauseState );
 		}
 
 
 		void OnApplicationQuit()
 		{
+			if (IsNotTheSingleton) return;
 			InputManager.OnApplicationQuit();
+			applicationHasQuit = true;
 		}
 
 
-		void HandleOnLogMessage( LogMessage logMessage )
+#if UNITY_5_4_OR_NEWER
+		void OnSceneWasLoaded( Scene scene, LoadSceneMode loadSceneMode )
+		{
+			if (IsNotTheSingleton) return;
+			if (loadSceneMode == LoadSceneMode.Single)
+			{
+				InputManager.OnLevelWasLoaded();
+			}
+		}
+#else
+		void OnLevelWasLoaded( int level )
+		{
+			if (IsNotTheSingleton) return;
+			InputManager.OnLevelWasLoaded();
+		}
+#endif
+
+
+		static void LogMessage( LogMessage logMessage )
 		{
 			switch (logMessage.type)
 			{
 				case LogMessageType.Info:
 					Debug.Log( logMessage.text );
-                    string[] message = logMessage.text.Split('(');
-
-                    if (message[1] == "PlayStation 4 Controller)")
-                    {
-                        controller = ControllerType.PS4;
-                        //Debug.Log("MANDO PS4 CONECTADO");
-                    }
-                    else
-                    {
-                        controller = ControllerType.XBOX;
-                        //Debug.Log("MANDO XBOX CONECTADO");
-                    }
-
-                    break;
+					break;
 				case LogMessageType.Warning:
 					Debug.LogWarning( logMessage.text );
 					break;
 				case LogMessageType.Error:
 					Debug.LogError( logMessage.text );
 					break;
+				default:
+					break;
 			}
 		}
 	}
 }
-

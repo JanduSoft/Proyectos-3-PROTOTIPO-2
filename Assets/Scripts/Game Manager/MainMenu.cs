@@ -24,25 +24,22 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.HasKey("hasDoneMain"))
-        {
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            PlayerPrefs.SetInt("hasDoneMain", 1);   //1 = true
-            mainCamera.SetActive(false);
-            GameObject.Find("Game Manager").GetComponent<PauseScript>().canPause = false;
-            EventSystem.current.SetSelectedGameObject(playButton);
-        }
-        
+        PlayerPrefs.SetInt("hasDoneMain", 1);   //1 = true
+        mainCamera.SetActive(false);
+        //GameObject.Find("Game Manager").GetComponent<PauseScript>().canPause = false;
+        EventSystem.current.SetSelectedGameObject(playButton);
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
-        if (EventSystem.current.currentSelectedGameObject == null) EventSystem.current.SetSelectedGameObject(playButton);
+        Debug.Log(EventSystem.current.currentSelectedGameObject.name);
+        //GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            Debug.Log("hehe");
+            EventSystem.current.SetSelectedGameObject(playButton);
+        }
         if (EventSystem.current != null)
         {
             if (playButton.name == EventSystem.current.currentSelectedGameObject.name && !isPlayed)

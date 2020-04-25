@@ -431,6 +431,6 @@ protected override void PickUpObject()
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
+
     }
 }

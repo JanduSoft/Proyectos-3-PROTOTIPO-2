@@ -1,15 +1,13 @@
 #if UNITY_EDITOR
-using System;
-using UnityEditor;
-using UnityEngine;
-using System.Collections.Generic;
-
-
 namespace InControl
 {
-	internal class InControlBuilder
+	using UnityEditor;
+	using UnityEngine;
+
+
+	static class InControlBuilder
 	{
-		[MenuItem("GameObject/Create Other/InControl/Manager", false, 1)]
+		[MenuItem( "GameObject/InControl/Manager", false, 100 )]
 		static void CreateInputManager()
 		{
 			MonoBehaviour component;
@@ -21,7 +19,7 @@ namespace InControl
 				return;
 			}
 
-			GameObject gameObject = GameObject.Find( "InControl" ) ?? new GameObject( "InControl" );
+			var gameObject = GameObject.Find( "InControl" ) ?? new GameObject( "InControl" );
 			gameObject.AddComponent<InControlManager>();
 			Selection.activeGameObject = gameObject;
 
@@ -30,4 +28,3 @@ namespace InControl
 	}
 }
 #endif
-

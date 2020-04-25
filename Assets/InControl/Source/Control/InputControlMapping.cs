@@ -1,91 +1,106 @@
-using System;
-using UnityEngine;
-
-
+// ReSharper disable FieldCanBeMadeReadOnly.Global
+// ReSharper disable ConvertToConstant.Global
+// ReSharper disable RedundantDefaultMemberInitializer
 namespace InControl
 {
+	using System;
+	using UnityEngine;
+
+
+	[Serializable]
 	public class InputControlMapping
 	{
-		public class Range
-		{
-			public static Range Complete = new Range { Minimum = -1.0f, Maximum = 1.0f };
-			public static Range Positive = new Range { Minimum =  0.0f, Maximum = 1.0f };
-			public static Range Negative = new Range { Minimum = -1.0f, Maximum = 0.0f };
+		#region Fields
 
-			public float Minimum;
-			public float Maximum;
-		}
+		[SerializeField]
+		string name = "";
 
-
-		public InputControlSource Source;
-		public InputControlType Target;
-
+		// TODO: It seems like this can just be replaced with an inverted target range.
 		// Invert the final mapped value.
-		public bool Invert;
+		[SerializeField]
+		bool invert = false;
 
 		// Analog values will be multiplied by this number before processing.
-		public float Scale = 1.0f;
+		[SerializeField]
+		float scale = 1.0f;
 
-		// Raw inputs won't be processed except for scaling (mice and trackpads).
-		public bool Raw;
+		// Raw inputs won't be processed except for scaling.
+		[SerializeField]
+		bool raw = false;
 
-		// This is primarily to fix a bug with the wired Xbox controller on Mac.
-		public bool IgnoreInitialZeroValue;
+		// Changes won't trigger changes in active device or update tick.
+		[SerializeField]
+		bool passive = false;
 
-		public Range SourceRange = Range.Complete;
-		public Range TargetRange = Range.Complete;
+		// This is primarily to fix an issue with the wired Xbox controller on Mac.
+		[SerializeField]
+		bool ignoreInitialZeroValue = false;
 
-		string handle;
+		[SerializeField]
+		float sensitivity = 1.0f;
+
+		[SerializeField]
+		float lowerDeadZone = 0.0f;
+
+		[SerializeField]
+		float upperDeadZone = 1.0f;
+
+		[SerializeField]
+		InputControlSource source;
+
+		[SerializeField]
+		InputControlType target = InputControlType.None;
+
+		[SerializeField]
+		InputRangeType sourceRange = InputRangeType.MinusOneToOne;
+
+		[SerializeField]
+		InputRangeType targetRange = InputRangeType.MinusOneToOne;
+
+		#endregion
 
 
-		public float MapValue( float value )
+		#region Properties
+
+		public string Name { get { return string.IsNullOrEmpty( name ) ? Target.ToString() : name; } set { name = value; } }
+		public bool Invert { get { return invert; } set { invert = value; } }
+		public float Scale { get { return scale; } set { scale = value; } }
+		public bool Raw { get { return raw; } set { raw = value; } }
+		public bool Passive { get { return passive; } set { passive = value; } }
+		public bool IgnoreInitialZeroValue { get { return ignoreInitialZeroValue; } set { ignoreInitialZeroValue = value; } }
+		public float Sensitivity { get { return sensitivity; } set { sensitivity = Mathf.Clamp01( value ); } }
+		public float LowerDeadZone { get { return lowerDeadZone; } set { lowerDeadZone = Mathf.Clamp01( value ); } }
+		public float UpperDeadZone { get { return upperDeadZone; } set { upperDeadZone = Mathf.Clamp01( value ); } }
+		public InputControlSource Source { get { return source; } set { source = value; } }
+		public InputControlType Target { get { return target; } set { target = value; } }
+		public InputRangeType SourceRange { get { return sourceRange; } set { sourceRange = value; } }
+		public InputRangeType TargetRange { get { return targetRange; } set { targetRange = value; } }
+
+		#endregion
+
+
+		public float ApplyToValue( float value )
 		{
-			float sourceValue;
-			float targetValue;
-
 			if (Raw)
 			{
-				targetValue = value * Scale;
+				value *= Scale;
+				value = InputRange.Excludes( sourceRange, value ) ? 0.0f : value;
 			}
 			else
 			{
 				// Scale value and clamp to a legal range.
 				value = Mathf.Clamp( value * Scale, -1.0f, 1.0f );
 
-				// Values outside of source range are invalid and return zero.
-				if (value < SourceRange.Minimum || value > SourceRange.Maximum)
-				{
-					return 0.0f;
-				}
-
 				// Remap from source range to target range.
-				sourceValue = Mathf.InverseLerp( SourceRange.Minimum, SourceRange.Maximum, value );
-				targetValue = Mathf.Lerp( TargetRange.Minimum, TargetRange.Maximum, sourceValue );
+				value = InputRange.Remap( value, sourceRange, targetRange );
 			}
 
-			if (Invert ^ (IsYAxis && InputManager.InvertYAxis))
+			if (Invert)
 			{
-				targetValue = -targetValue;
+				value = -value;
 			}
 
-			return targetValue;
-		}
-
-
-		public string Handle
-		{
-			get { return (string.IsNullOrEmpty( handle )) ? Target.ToString() : handle; }
-			set { handle = value; }
-		}
-
-
-		bool IsYAxis
-		{
-			get
-			{
-				return Target == InputControlType.LeftStickY   ||
-					   Target == InputControlType.RightStickY;
-			}
+			return value;
 		}
 	}
 }

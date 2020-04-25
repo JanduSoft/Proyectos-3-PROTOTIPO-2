@@ -1,40 +1,67 @@
 #if UNITY_EDITOR
-using System.IO;
 using UnityEditor;
-using UnityEngine;
-using InControl.ReorderableList;
 
 
 namespace InControl
 {
+	using System;
+	using UnityEngine;
+	using Internal;
+
+
 	[CustomEditor( typeof(InControlManager) )]
 	public class InControlManagerEditor : Editor
 	{
 		SerializedProperty logDebugInfo;
 		SerializedProperty invertYAxis;
-		SerializedProperty enableXInput;
 		SerializedProperty useFixedUpdate;
 		SerializedProperty dontDestroyOnLoad;
-		SerializedProperty customProfiles;
+		SerializedProperty suspendInBackground;
+		SerializedProperty updateMode;
+
+		SerializedProperty enableICade;
+
+		SerializedProperty enableXInput;
+		SerializedProperty xInputOverrideUpdateRate;
+		SerializedProperty xInputUpdateRate;
+		SerializedProperty xInputOverrideBufferSize;
+		SerializedProperty xInputBufferSize;
+
+		SerializedProperty enableNativeInput;
+		SerializedProperty nativeInputEnableXInput;
+		SerializedProperty nativeInputEnableMFi;
+		SerializedProperty nativeInputPreventSleep;
+		SerializedProperty nativeInputOverrideUpdateRate;
+		SerializedProperty nativeInputUpdateRate;
+
 		Texture headerTexture;
-		
+
 
 		void OnEnable()
 		{
-			try
-			{
-				logDebugInfo = serializedObject.FindProperty( "logDebugInfo" );
-				invertYAxis = serializedObject.FindProperty( "invertYAxis" );
-				enableXInput = serializedObject.FindProperty( "enableXInput" );
-				useFixedUpdate = serializedObject.FindProperty( "useFixedUpdate" );
-				dontDestroyOnLoad = serializedObject.FindProperty( "dontDestroyOnLoad" );
-				customProfiles = serializedObject.FindProperty( "customProfiles" );
+			logDebugInfo = serializedObject.FindProperty( "logDebugInfo" );
+			invertYAxis = serializedObject.FindProperty( "invertYAxis" );
+			useFixedUpdate = serializedObject.FindProperty( "useFixedUpdate" );
+			dontDestroyOnLoad = serializedObject.FindProperty( "dontDestroyOnLoad" );
+			suspendInBackground = serializedObject.FindProperty( "suspendInBackground" );
+			updateMode = serializedObject.FindProperty( "updateMode" );
 
-			}
-			catch { }
+			enableICade = serializedObject.FindProperty( "enableICade" );
 
-			var path = AssetDatabase.GetAssetPath( MonoScript.FromScriptableObject( this ) );
-			headerTexture = AssetDatabase.LoadAssetAtPath<Texture>(Path.GetDirectoryName(path) + "/Images/InControlHeader.png");
+			enableXInput = serializedObject.FindProperty( "enableXInput" );
+			xInputOverrideUpdateRate = serializedObject.FindProperty( "xInputOverrideUpdateRate" );
+			xInputUpdateRate = serializedObject.FindProperty( "xInputUpdateRate" );
+			xInputOverrideBufferSize = serializedObject.FindProperty( "xInputOverrideBufferSize" );
+			xInputBufferSize = serializedObject.FindProperty( "xInputBufferSize" );
+
+			enableNativeInput = serializedObject.FindProperty( "enableNativeInput" );
+			nativeInputEnableXInput = serializedObject.FindProperty( "nativeInputEnableXInput" );
+			nativeInputEnableMFi = serializedObject.FindProperty( "nativeInputEnableMFi" );
+			nativeInputPreventSleep = serializedObject.FindProperty( "nativeInputPreventSleep" );
+			nativeInputOverrideUpdateRate = serializedObject.FindProperty( "nativeInputOverrideUpdateRate" );
+			nativeInputUpdateRate = serializedObject.FindProperty( "nativeInputUpdateRate" );
+
+			headerTexture = EditorTextures.InControlHeader;
 		}
 
 
@@ -45,22 +72,102 @@ namespace InControl
 			GUILayout.Space( 5.0f );
 
 			var headerRect = GUILayoutUtility.GetRect( 0.0f, 5.0f );
-			headerRect.width = headerTexture.width;
-			headerRect.height = headerTexture.height;
+			headerRect.width = headerTexture.width / 2;
+			headerRect.height = headerTexture.height / 2;
 			GUILayout.Space( headerRect.height );
 			GUI.DrawTexture( headerRect, headerTexture );
 
-			logDebugInfo.boolValue = EditorGUILayout.ToggleLeft( "Log Debug Info", logDebugInfo.boolValue );
-			invertYAxis.boolValue = EditorGUILayout.ToggleLeft( "Invert Y Axis", invertYAxis.boolValue );
-			enableXInput.boolValue = EditorGUILayout.ToggleLeft( "Enable XInput (Windows)", enableXInput.boolValue );
-			useFixedUpdate.boolValue = EditorGUILayout.ToggleLeft( "Use Fixed Update", useFixedUpdate.boolValue );
-			dontDestroyOnLoad.boolValue = EditorGUILayout.ToggleLeft( "Don't Destroy On Load", dontDestroyOnLoad.boolValue );
+			EditorUtility.SetTintColor();
+			var versionStyle = new GUIStyle( EditorUtility.wellStyle );
+			versionStyle.alignment = TextAnchor.MiddleCenter;
+			GUILayout.Box( "Version " + InputManager.Version, versionStyle, GUILayout.ExpandWidth( true ) );
+			EditorUtility.PopTintColor();
 
-			ReorderableListGUI.Title( "Custom Profiles" );
-			ReorderableListGUI.ListField( customProfiles );
+			EditorUtility.BeginGroup( "General Settings" );
 
-			GUILayout.Space( 3.0f );
-			
+			logDebugInfo.boolValue = EditorGUILayout.ToggleLeft( "Log Debug Info", logDebugInfo.boolValue, EditorUtility.labelStyle );
+			invertYAxis.boolValue = EditorGUILayout.ToggleLeft( "Invert Y Axis", invertYAxis.boolValue, EditorUtility.labelStyle );
+
+			// This is deprecated and replaced by updateMode
+			// useFixedUpdate.boolValue = EditorGUILayout.ToggleLeft( "Use Fixed Update", useFixedUpdate.boolValue, EditorUtility.labelStyle );
+
+			dontDestroyOnLoad.boolValue = EditorGUILayout.ToggleLeft( "Don't Destroy On Load", dontDestroyOnLoad.boolValue, EditorUtility.labelStyle );
+			suspendInBackground.boolValue = EditorGUILayout.ToggleLeft( "Suspend In Background", suspendInBackground.boolValue, EditorUtility.labelStyle );
+
+			GUILayout.Space( 5.0f );
+			var rect = EditorGUILayout.GetControlRect( false, 1 );
+			rect.height = 1;
+			EditorGUI.DrawRect( rect, EditorGUIUtility.isProSkin ? new Color( 1, 1, 1, 0.2f ) : new Color( 0, 0, 0, 0.2f ) );
+			GUILayout.Space( 5.0f );
+
+			var selectedUpdateMode = (InControlUpdateMode) Enum.GetValues( typeof(InControlUpdateMode) ).GetValue( updateMode.enumValueIndex );
+			if (useFixedUpdate.boolValue)
+			{
+				selectedUpdateMode = InControlUpdateMode.FixedUpdate;
+				useFixedUpdate.boolValue = false;
+			}
+
+			updateMode.enumValueIndex = (int) (InControlUpdateMode) EditorGUILayout.EnumPopup( "Update Mode", selectedUpdateMode );
+			// EditorGUILayout.PropertyField( updateMode );
+
+			EditorUtility.EndGroup();
+
+
+			EditorUtility.GroupTitle( "Enable ICade (iOS/tvOS only)", enableICade );
+
+
+			EditorUtility.GroupTitle( "Enable XInput (Windows only)", enableXInput );
+			if (enableXInput.boolValue)
+			{
+				EditorUtility.BeginGroup();
+
+				//var text = "" +
+				//		   "<b>Warning: <color=#cc0000>Advanced Settings</color></b>\n" +
+				//		   "Do not modify these unless you perfectly understand what effect they will have. " +
+				//		   "Set to zero to automatically use sensible defaults.";
+				//GUILayout.Box( text, EditorUtility.wellStyle, GUILayout.ExpandWidth( true ) );
+
+				xInputOverrideUpdateRate.boolValue = EditorGUILayout.ToggleLeft( "Override Update Rate <color=#777>(Not Recommended)</color>", xInputOverrideUpdateRate.boolValue, EditorUtility.labelStyle );
+				xInputUpdateRate.intValue = xInputOverrideUpdateRate.boolValue ? Mathf.Max( EditorGUILayout.IntField( "Update Rate (Hz)", xInputUpdateRate.intValue ), 0 ) : 0;
+
+				xInputOverrideBufferSize.boolValue = EditorGUILayout.ToggleLeft( "Override Buffer Size <color=#777>(Not Recommended)</color>", xInputOverrideBufferSize.boolValue, EditorUtility.labelStyle );
+				xInputBufferSize.intValue = xInputOverrideBufferSize.boolValue ? Mathf.Max( xInputBufferSize.intValue, EditorGUILayout.IntField( "Buffer Size", xInputBufferSize.intValue ), 0 ) : 0;
+
+				EditorUtility.EndGroup();
+			}
+
+
+			EditorUtility.GroupTitle( "Enable Native Input (Windows/macOS/iOS/tvOS only)", enableNativeInput );
+			if (enableNativeInput.boolValue)
+			{
+				EditorUtility.BeginGroup();
+
+				var text1 = "" +
+				            //							"<b>Warning: <color=#cc0000>This feature is in BETA!</color></b>\n" +
+				            "Enabling native input will disable using Unity input internally, " +
+				            "but should provide more efficient and robust input support.";
+				EditorUtility.SetTintColor();
+				GUILayout.Box( text1, EditorUtility.wellStyle, GUILayout.ExpandWidth( true ) );
+				EditorUtility.PopTintColor();
+
+				nativeInputEnableXInput.boolValue = EditorGUILayout.ToggleLeft( "Enable XInput Support <color=#777>(Windows Only)</color>", nativeInputEnableXInput.boolValue, EditorUtility.labelStyle );
+				nativeInputEnableMFi.boolValue = EditorGUILayout.ToggleLeft( "Enable MFi Support On macOS <color=#cc5500>(BETA)</color>", nativeInputEnableMFi.boolValue, EditorUtility.labelStyle );
+				nativeInputPreventSleep.boolValue = EditorGUILayout.ToggleLeft( "Prevent Screensaver / Sleep", nativeInputPreventSleep.boolValue, EditorUtility.labelStyle );
+
+				//var text2 = "" +
+				//			"<b>Warning: <color=#cc0000>Advanced Settings</color></b>\n" +
+				//			"Do not modify these unless you perfectly understand what effect they will have. " +
+				//			"Set to zero to automatically use sensible defaults.";
+				//GUILayout.Box( text2, EditorUtility.wellStyle, GUILayout.ExpandWidth( true ) );
+
+				nativeInputOverrideUpdateRate.boolValue = EditorGUILayout.ToggleLeft( "Override Update Rate <color=#777>(Not Recommended)</color>", nativeInputOverrideUpdateRate.boolValue, EditorUtility.labelStyle );
+				nativeInputUpdateRate.intValue = nativeInputOverrideUpdateRate.boolValue ? Mathf.Max( nativeInputUpdateRate.intValue, EditorGUILayout.IntField( "Update Rate (Hz)", nativeInputUpdateRate.intValue ), 0 ) : 0;
+
+				EditorUtility.EndGroup();
+			}
+
+			GUILayout.Space( 10.0f );
+
 			serializedObject.ApplyModifiedProperties();
 		}
 	}
