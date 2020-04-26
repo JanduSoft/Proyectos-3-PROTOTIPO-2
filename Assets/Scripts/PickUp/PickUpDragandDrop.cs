@@ -56,7 +56,7 @@ public class PickUpDragandDrop : PickUpandDrop
         {
             //If the dragging button is pressed we move the rock, if not, we let go
             bool isPressingButton = InputManager.ActiveDevice.Action3;
-            if (isPressingButton && canPressAgain)
+            if (isPressingButton && canPressAgain) 
             {
 
                 Vector3 newPlayerPos = player.transform.position + new Vector3(0, 2.5f, 0);
@@ -67,7 +67,6 @@ public class PickUpDragandDrop : PickUpandDrop
                 {
 
                     Debug.DrawRay(newPlayerPos, playerRockDirection * hit.distance, Color.yellow);
-                    Debug.Log(hit.transform.gameObject.name);
                     if (hit.transform.gameObject == gameObject)
                     {
 
@@ -93,7 +92,6 @@ public class PickUpDragandDrop : PickUpandDrop
                         if (rockGrabbed && isFacingBox && currentRock == gameObject)
                         {
                             player.transform.DOLookAt(new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z), 0.25F);
-                            closestPoint = FindClosestPoint();
                             player.transform.position = closestPoint;
 
                             thisRock = true;
@@ -256,17 +254,21 @@ public class PickUpDragandDrop : PickUpandDrop
 
         if (GetComponent<Animation>().isPlaying)
         {
+            Debug.Log("AnimationPlaying");
             //player.GetComponent<PlayerMovement>().StopMovement(false);
+            canPressAgain = false;
             playSound = false;
             dragSound.Stop();
             lerping = false;
             rockGrabbed = false;
             thisRock = false;
             currentRock = null;
-            canPressAgain = false;
         }
         else
+        {
             canPressAgain = true;
+            Debug.Log("not playing");
+        }
     }
 
     bool IsGrounded()
@@ -438,6 +440,6 @@ protected override void PickUpObject()
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
+        //Debug.Log(collision.gameObject.name);
     }
 }
