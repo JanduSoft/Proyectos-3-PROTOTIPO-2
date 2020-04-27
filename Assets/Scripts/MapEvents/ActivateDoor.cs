@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using InControl;
+using UnityEngine.Playables;
 
 public class ActivateDoor : MonoBehaviour
 {
@@ -29,6 +30,9 @@ public class ActivateDoor : MonoBehaviour
     [Header("FOR SOUND EFFECTS")]
     [SerializeField] AudioSource puzzleJingle;
     [SerializeField] AudioSource shakeSound;
+    [Header("FOR CINEMATIC")]
+    [SerializeField] GameObject cinematic;
+
 
 
     private void OnTriggerStay(Collider other)
@@ -43,7 +47,7 @@ public class ActivateDoor : MonoBehaviour
             }
             if (!other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed())
             {
-                objectoToMove.DOMove(finalPosition.position, speed);
+                objectoToMove.DOMoveY(finalPosition.position.y, speed);
                 other.tag = "Untagged";
                 other.transform.parent.gameObject.transform.position = skullPlace.position;
                 other.transform.parent.gameObject.transform.rotation = skullPlace.rotation;
@@ -55,9 +59,23 @@ public class ActivateDoor : MonoBehaviour
                     isOpened = true;
                     shakeSound.Play();
                     myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+                    StartCoroutine(doCinematic());
+
+                    
                 }
             }
         }
+    }
+
+    IEnumerator doCinematic()
+    {
+        yield return new WaitForSeconds(1);
+        cinematic.SetActive(true);
+        cinematic.GetComponent<PlayableDirector>().Play();
+        yield return new WaitForSeconds((float)cinematic.GetComponent<PlayableDirector>().playableAsset.duration);
+        cinematic.SetActive(false);
+        yield return null;
+
     }
     IEnumerator AnimationsCoroutine(float time)
     {
