@@ -102,6 +102,18 @@ public class PauseMenuBehavior : MonoBehaviour
     #region START
     private void Start()
     {
+        ///comprobar si está en full screen
+        if (Screen.fullScreen)
+        {
+            checkedFullScreen = true;
+            fullScreenCheck.SetActive(true);
+        }
+        else if (!Screen.fullScreen)
+        {
+            checkedFullScreen = false;
+            fullScreenCheck.SetActive(false);
+        }
+
         player = GameObject.Find("Character").GetComponent<PlayerMovement>();
         //Nos guardamos el nombre de la escena actual
         currentScene = SceneManager.GetActiveScene().name;
