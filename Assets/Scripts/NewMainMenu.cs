@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using InControl;
+using UnityEngine.UI;
 
 public class NewMainMenu : MonoBehaviour
 {
@@ -12,13 +13,40 @@ public class NewMainMenu : MonoBehaviour
         NONE,
         CONTINUE,
         NEW_GAME,
-        QUIT
+        SETTINGS,
+        CREDITS,
+        QUIT,
+        FULLSCREEN,
+        FULLSCREEN_CHECK,
+        MUTE,
+        BACK
     };
+
+    public enum MenuType
+    {
+        NONE,
+        MAIN_MENU,
+        SETTINGS,
+        CREDITS
+    }
 
     [Header("BUTTONS")]
     [SerializeField] GameObject continueButton;
     [SerializeField] GameObject newGameButton;
+    [SerializeField] GameObject settingButton;
+    [SerializeField] GameObject creditsButton;
     [SerializeField] GameObject quitButton;
+    
+    [SerializeField] Image fullscreenButton;
+    [SerializeField] GameObject fullscreenchecK;
+    [SerializeField] Image muteButton;
+    [SerializeField] GameObject muteCheck;
+    [SerializeField] GameObject backButton;
+    [Header("MENUS")]
+    [SerializeField] GameObject mainMenu;
+    [SerializeField] GameObject creditsMenu;
+    [SerializeField] GameObject settingsMenu;
+    [Header("SOUNDS")]
     [SerializeField] AudioSource soundNavigation;
     [SerializeField] AudioSource soundAccept;
     [SerializeField] AudioSource soundDenied;
@@ -28,9 +56,10 @@ public class NewMainMenu : MonoBehaviour
 
     bool upPressed = false;
     bool downPressed = false;
-
+    bool isMuted = false;
+    bool isFullscreen = true;
     ButtonType currentButton = ButtonType.CONTINUE;
-
+    MenuType currentMenu = MenuType.MAIN_MENU;
     ///Inpud device
     InputDevice inputDevice;
     #endregion
@@ -38,6 +67,7 @@ public class NewMainMenu : MonoBehaviour
     #region START
     private void Start()
     {
+        isFullscreen = Screen.fullScreen;
         //Seteamso el Inpud Device
         inputDevice = InputManager.ActiveDevice;
         continueButton.SetActive(true);
@@ -119,15 +149,93 @@ public class NewMainMenu : MonoBehaviour
                         RestartSecrets();
                         break;
                     }
+                case ButtonType.SETTINGS:
+                    {
+                        currentButton = ButtonType.FULLSCREEN_CHECK;
+                        currentMenu = MenuType.SETTINGS;
+                        settingButton.SetActive(false);
+                        continueButton.SetActive(true);
+                        mainMenu.SetActive(false);
+                        settingsMenu.SetActive(true);
+                        break;
+                    }
+                case ButtonType.CREDITS:
+                    {
+                        currentButton = ButtonType.BACK;
+                        currentMenu = MenuType.CREDITS;
+                        creditsButton.SetActive(false);
+                        continueButton.SetActive(true);
+                        mainMenu.SetActive(false);
+                        creditsMenu.SetActive(true);
+                        break;
+                    }
                 case ButtonType.QUIT:
                     {
                         Application.Quit();
                         break;
                     }
-                default:
+                case ButtonType.BACK:
                     {
+                        backButton.SetActive(false);
+                        fullscreenButton.color = Color.yellow;
+
+                        currentButton = ButtonType.CONTINUE;
+                        currentMenu = MenuType.MAIN_MENU;
+                        creditsMenu.SetActive(false);
+                        settingsMenu.SetActive(false);
+                        mainMenu.SetActive(true);
                         break;
                     }
+                case ButtonType.FULLSCREEN_CHECK:
+                    {
+                        if (isFullscreen)
+                        {
+                            isFullscreen = false;
+                            Screen.fullScreen = false;
+                            fullscreenchecK.SetActive(false);
+                        }
+                        else if (!isFullscreen)
+                        {
+                            isFullscreen = true;
+                            Screen.fullScreen = true;
+                            fullscreenchecK.SetActive(true);
+                        }
+                        break;
+                    }
+                case ButtonType.MUTE:
+                    {
+                        if (isMuted)
+                        {
+                            muteCheck.SetActive(false);
+
+                            isMuted = false;
+
+                            AudioSource[] sources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+                            for (int index = 0; index < sources.Length; ++index)
+                            {
+                                sources[index].mute = false;
+                            }
+
+                        }
+                        else
+                        {
+                            muteCheck.SetActive(true);
+                            isMuted = true;
+
+                            AudioSource[] sources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+                            for (int index = 0; index < sources.Length; ++index)
+                            {
+                                sources[index].mute = true;
+                            }
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        Screen.fullScreen = false;
+                        break;
+                    }
+                
             }
         }
 
@@ -156,11 +264,46 @@ public class NewMainMenu : MonoBehaviour
                         continueButton.SetActive(true);
                         break;
                     }
+                case ButtonType.SETTINGS:
+                    {
+                        settingButton.SetActive(false);
+                        currentButton = ButtonType.NEW_GAME;
+                        newGameButton.SetActive(true);
+                        break;
+                    }
+                case ButtonType.CREDITS:
+                    {
+                        creditsButton.SetActive(false);
+                        currentButton = ButtonType.SETTINGS;
+                        settingButton.SetActive(true);
+                        break;
+                    }
                 case ButtonType.QUIT:
                     {
                         quitButton.SetActive(false);
-                        currentButton = ButtonType.NEW_GAME;
-                        newGameButton.SetActive(true);
+                        currentButton = ButtonType.CREDITS;
+                        creditsButton.SetActive(true);
+                        break;
+                    }
+                case ButtonType.FULLSCREEN_CHECK:
+                    {
+                        fullscreenButton.color = Color.white;
+                        currentButton = ButtonType.BACK;
+                        backButton.SetActive(true);
+                        break;
+                    }
+                case ButtonType.MUTE:
+                    {
+                        muteButton.color = Color.white;
+                        currentButton = ButtonType.FULLSCREEN_CHECK;
+                        fullscreenButton.color = Color.yellow;
+                        break;
+                    }
+                case ButtonType.BACK:
+                    {
+                        backButton.SetActive(false);
+                        currentButton = ButtonType.MUTE;
+                        muteButton.color = Color.yellow;
                         break;
                     }
                 default:
@@ -184,6 +327,20 @@ public class NewMainMenu : MonoBehaviour
                 case ButtonType.NEW_GAME:
                     {
                         newGameButton.SetActive(false);
+                        currentButton = ButtonType.SETTINGS;
+                        settingButton.SetActive(true);
+                        break;
+                    }
+                case ButtonType.SETTINGS:
+                    {
+                        settingButton.SetActive(false);
+                        currentButton = ButtonType.CREDITS;
+                        creditsButton.SetActive(true);
+                        break;
+                    }
+                case ButtonType.CREDITS:
+                    {
+                        creditsButton.SetActive(false);
                         currentButton = ButtonType.QUIT;
                         quitButton.SetActive(true);
                         break;
@@ -193,6 +350,27 @@ public class NewMainMenu : MonoBehaviour
                         quitButton.SetActive(false);
                         currentButton = ButtonType.CONTINUE;
                         continueButton.SetActive(true);
+                        break;
+                    }
+                case ButtonType.FULLSCREEN_CHECK:
+                    {
+                        fullscreenButton.color = Color.white;
+                        currentButton = ButtonType.MUTE;
+                        muteButton.color = Color.yellow;
+                        break;
+                    }
+                case ButtonType.MUTE:
+                    {
+                        muteButton.color = Color.white;
+                        currentButton = ButtonType.BACK;
+                        backButton.SetActive(true);
+                        break;
+                    }
+                case ButtonType.BACK:
+                    {
+                        backButton.SetActive(false);
+                        currentButton = ButtonType.FULLSCREEN_CHECK;
+                        fullscreenButton.color = Color.yellow;
                         break;
                     }
                 default:
@@ -231,11 +409,46 @@ public class NewMainMenu : MonoBehaviour
                             continueButton.SetActive(true);
                             break;
                         }
+                    case ButtonType.SETTINGS:
+                        {
+                            settingButton.SetActive(false);
+                            currentButton = ButtonType.NEW_GAME;
+                            newGameButton.SetActive(true);
+                            break;
+                        }
+                    case ButtonType.CREDITS:
+                        {
+                            creditsButton.SetActive(false);
+                            currentButton = ButtonType.SETTINGS;
+                            settingButton.SetActive(true);
+                            break;
+                        }
                     case ButtonType.QUIT:
                         {
                             quitButton.SetActive(false);
-                            currentButton = ButtonType.NEW_GAME;
-                            newGameButton.SetActive(true);
+                            currentButton = ButtonType.CREDITS;
+                            creditsButton.SetActive(true);
+                            break;
+                        }
+                    case ButtonType.FULLSCREEN_CHECK:
+                        {
+                            fullscreenButton.color = Color.white;
+                            currentButton = ButtonType.BACK;
+                            backButton.SetActive(true);
+                            break;
+                        }
+                    case ButtonType.MUTE:
+                        {
+                            muteButton.color = Color.white;
+                            currentButton = ButtonType.FULLSCREEN_CHECK;
+                            fullscreenButton.color = Color.yellow;
+                            break;
+                        }
+                    case ButtonType.BACK:
+                        {
+                            backButton.SetActive(false);
+                            currentButton = ButtonType.MUTE;
+                            muteButton.color = Color.yellow;
                             break;
                         }
                     default:
@@ -243,7 +456,6 @@ public class NewMainMenu : MonoBehaviour
                             break;
                         }
                 }
-
                 soundNavigation.Play();
             }
         }
@@ -270,6 +482,20 @@ public class NewMainMenu : MonoBehaviour
                     case ButtonType.NEW_GAME:
                         {
                             newGameButton.SetActive(false);
+                            currentButton = ButtonType.SETTINGS;
+                            settingButton.SetActive(true);
+                            break;
+                        }
+                    case ButtonType.SETTINGS:
+                        {
+                            settingButton.SetActive(false);
+                            currentButton = ButtonType.CREDITS;
+                            creditsButton.SetActive(true);
+                            break;
+                        }
+                    case ButtonType.CREDITS:
+                        {
+                            creditsButton.SetActive(false);
                             currentButton = ButtonType.QUIT;
                             quitButton.SetActive(true);
                             break;
@@ -279,6 +505,27 @@ public class NewMainMenu : MonoBehaviour
                             quitButton.SetActive(false);
                             currentButton = ButtonType.CONTINUE;
                             continueButton.SetActive(true);
+                            break;
+                        }
+                    case ButtonType.FULLSCREEN_CHECK:
+                        {
+                            fullscreenButton.color = Color.white;
+                            currentButton = ButtonType.MUTE;
+                            muteButton.color = Color.yellow;
+                            break;
+                        }
+                    case ButtonType.MUTE:
+                        {
+                            muteButton.color = Color.white;
+                            currentButton = ButtonType.BACK;
+                            backButton.SetActive(true);
+                            break;
+                        }
+                    case ButtonType.BACK:
+                        {
+                            backButton.SetActive(false);
+                            currentButton = ButtonType.FULLSCREEN_CHECK;
+                            fullscreenButton.color = Color.yellow;
                             break;
                         }
                     default:
