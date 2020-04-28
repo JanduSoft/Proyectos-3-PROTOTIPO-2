@@ -32,7 +32,7 @@ public class PauseScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (InputManager.ActiveDevice.RightTrigger && canPause && cooldownOver)
+        if (InputManager.ActiveDevice.MenuWasPressed && canPause && cooldownOver)
         {
             btn_Resume();
             cooldownOver = false;
