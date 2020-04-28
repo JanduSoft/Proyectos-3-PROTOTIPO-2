@@ -14,11 +14,16 @@ public class playerDeath : MonoBehaviour
     bool isDead = false;
 
     public Vector3 lastSpawnPointTouched;
+    public Vector3 lastCameraRotation;
+    public Vector3 currentCameraRotation;
+    public float lastFov;
 
     [HideInInspector] public GameObject objectGrabbed;
     void Start()
     {
         lastSpawnPointTouched = transform.position;
+        lastCameraRotation = currentCameraRotation;
+        lastFov = Camera.main.fieldOfView;
         //will do the fade out of the black screen when this script is started
         SpawnPlayer();
     }
@@ -63,6 +68,12 @@ public class playerDeath : MonoBehaviour
             yield return new WaitForSeconds(.01f);
         }
         playerMovementScript.player.transform.position = lastSpawnPointTouched;
+        Camera.main.transform.parent.transform.DOKill();
+        Camera.main.transform.parent.transform.DORotate(lastCameraRotation,0.05f);
+        GameObject.Find("TargetMainScene").GetComponent<FollowingCharacter>().naturalPosition = lastCameraRotation;
+        currentCameraRotation = lastCameraRotation;
+        Camera.main.fieldOfView = lastFov;
+
         playerMovementScript.inRespawn = true;
         playerMovementScript.fallVelocity = 0;
         playerMovementScript.animatorController.SetBool("Jumping", false);
