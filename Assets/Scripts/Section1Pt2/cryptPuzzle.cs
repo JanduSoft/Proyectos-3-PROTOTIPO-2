@@ -12,6 +12,10 @@ public class cryptPuzzle : MonoBehaviour
     [SerializeField] Transform destination;
     bool notMoved = true;
     [SerializeField] CamerShake shaking;
+    [SerializeField] Animator CoffinAnimator;
+    [SerializeField] Light CoffinLight;
+    [SerializeField] AudioSource ShakeSound;
+    [SerializeField] AudioSource SolvePuzzleSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,9 +27,14 @@ public class cryptPuzzle : MonoBehaviour
     {
         if(fire1.activeInHierarchy && fire2.activeInHierarchy && notMoved)
         {
-            horn.transform.DOMove(destination.position, 1);
+            //horn.transform.DOMove(destination.position, 1);
+            SolvePuzzleSound.Play();
+            horn.SetActive(true);
+            CoffinAnimator.enabled = true;
+            ShakeSound.Play();
             notMoved = false;
             shaking.StartShake(1.5f);
+            CoffinLight.enabled = true;
         }
     }
 }
