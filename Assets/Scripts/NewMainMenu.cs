@@ -19,7 +19,8 @@ public class NewMainMenu : MonoBehaviour
         FULLSCREEN,
         FULLSCREEN_CHECK,
         MUTE,
-        BACK
+        BACK,
+        BACK_CREDITS
     };
 
     public enum MenuType
@@ -157,11 +158,12 @@ public class NewMainMenu : MonoBehaviour
                         continueButton.SetActive(true);
                         mainMenu.SetActive(false);
                         settingsMenu.SetActive(true);
+                        fullscreenButton.color = Color.yellow;
                         break;
                     }
                 case ButtonType.CREDITS:
                     {
-                        currentButton = ButtonType.BACK;
+                        currentButton = ButtonType.BACK_CREDITS;
                         currentMenu = MenuType.CREDITS;
                         creditsButton.SetActive(false);
                         continueButton.SetActive(true);
@@ -228,6 +230,16 @@ public class NewMainMenu : MonoBehaviour
                                 sources[index].mute = true;
                             }
                         }
+                        break;
+                    }
+                case ButtonType.BACK_CREDITS:
+                    {
+
+                        currentButton = ButtonType.CONTINUE;
+                        currentMenu = MenuType.MAIN_MENU;
+                        creditsMenu.SetActive(false);
+                        settingsMenu.SetActive(false);
+                        mainMenu.SetActive(true);
                         break;
                     }
                 default:
