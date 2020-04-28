@@ -16,6 +16,7 @@ public class PatrolEnemy : MonoBehaviour
     [SerializeField] GameObject skullModel;
     [SerializeField] NavMeshAgent Agent;
     [SerializeField] float viewingAngle;
+    [SerializeField] bool spawnSkull = true;
     [SerializeField] Animator animController;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] float viewingDistance;
@@ -93,7 +94,11 @@ public class PatrolEnemy : MonoBehaviour
     IEnumerator fallToTheGround(float _s)
     {
         yield return new WaitForSeconds(_s);
-        Skull.SetActive(true);
-        Skull.transform.position = headPosition.transform.position;
+        if(spawnSkull)
+        {
+            Skull.SetActive(true);
+            Skull.transform.position = headPosition.transform.position;
+        }
+
     }
 }

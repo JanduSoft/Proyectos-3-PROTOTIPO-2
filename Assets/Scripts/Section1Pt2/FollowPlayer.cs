@@ -24,7 +24,10 @@ public class FollowPlayer : MonoBehaviour
         if (other.CompareTag("Player"))
             StartCoroutine(DestroyAllGO());
         else if (!other.CompareTag("Path"))
+        {
             StartCoroutine(DestroyGO());
+            Debug.Log(other.name);
+        }
     }
     IEnumerator DestroyGO()
     {
