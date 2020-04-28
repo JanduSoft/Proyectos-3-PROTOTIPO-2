@@ -71,7 +71,7 @@ public class PauseMenuBehavior : MonoBehaviour
     Image currentButton;
 
     //para la nacegacion
-    bool isPaused = false;
+    [HideInInspector]public bool isPaused = false;
     MenuType currentMenu = MenuType.PAUSE;
     ButtonType currentButtonSelected = ButtonType.RESUME;
     float horizontalMove;
@@ -97,11 +97,16 @@ public class PauseMenuBehavior : MonoBehaviour
     //player
     PlayerMovement player;
     bool canPressButtons = true;
+
+    //Secret Menu
+    SecretScreen secretMenu;
     #endregion
 
     #region START
     private void Start()
     {
+        secretMenu = GameObject.Find("CanvasSecretScreen").GetComponent<SecretScreen>();
+
         ///comprobar si está en full screen
         if (Screen.fullScreen)
         {
@@ -139,46 +144,48 @@ public class PauseMenuBehavior : MonoBehaviour
     #region UPDATE
     void Update()
     {
-        //Comprovamos si se abre el menu o se cierra con el boton options
-        if (Input.GetKeyDown(KeyCode.Escape) || inputDevice.MenuWasPressed)
+        if (!secretMenu.isOpened)
         {
-            if (isPaused)
+            //Comprovamos si se abre el menu o se cierra con el boton options
+            if (Input.GetKeyDown(KeyCode.Escape) || inputDevice.MenuWasPressed)
             {
-                if (canPressButtons)
+                if (isPaused)
                 {
-                    ResumeGame();
-                }                
-            }
-            else
-            {
-                PauseMenu();
-            }
-        }
-
-        //Comprovamos los eventos si esta el menu abierto
-        if (isPaused)
-        {
-            horizontalMove = inputDevice.LeftStickX;
-            verticalMove = inputDevice.LeftStickY;
-
-
-            if (canPressButtons)
-            {
-                //comprobamos si en el mando se ha dado la redonda o a la B
-                if (inputDevice.Action2.WasPressed)
-                {
-                    if (currentMenu == MenuType.PAUSE)
+                    if (canPressButtons)
                     {
                         ResumeGame();
                     }
-                    else if (currentMenu == MenuType.SETTINGS)
-                    {
-                        TransitionToPauseMenu();
-                    }
                 }
-                //Comprobamos la seleccion de los botones
-                if (inputDevice.Action1.WasPressed || Input.GetKeyDown(KeyCode.Space))
+                else
                 {
+                    PauseMenu();
+                }
+            }
+
+            //Comprovamos los eventos si esta el menu abierto
+            if (isPaused)
+            {
+                horizontalMove = inputDevice.LeftStickX;
+                verticalMove = inputDevice.LeftStickY;
+
+
+                if (canPressButtons)
+                {
+                    //comprobamos si en el mando se ha dado la redonda o a la B
+                    if (inputDevice.Action2.WasPressed)
+                    {
+                        if (currentMenu == MenuType.PAUSE)
+                        {
+                            ResumeGame();
+                        }
+                        else if (currentMenu == MenuType.SETTINGS)
+                        {
+                            TransitionToPauseMenu();
+                        }
+                    }
+                    //Comprobamos la seleccion de los botones
+                    if (inputDevice.Action1.WasPressed || Input.GetKeyDown(KeyCode.Space))
+                    {
                         switch (currentButtonSelected)
                         {
                             case ButtonType.RESUME:
@@ -207,62 +214,64 @@ public class PauseMenuBehavior : MonoBehaviour
                                     break;
                                 }
                             case ButtonType.FULLSCREEN:
-                            {
-                                if (checkedFullScreen)
                                 {
-                                    Screen.fullScreen = false;
-                                    checkedFullScreen = false;
-                                    fullScreenCheck.SetActive(false);
-                                }
-                                else
-                                {
-                                    Screen.fullScreen = true;
-                                    checkedFullScreen = true;
-                                    fullScreenCheck.SetActive(true);
-                                }
-                                break;
-                            }
-                        case ButtonType.MUSIC:
-                            {
-                                if (isMuted)
-                                {
-                                    musicCheck.SetActive(false);
-
-                                    isMuted = false;
-                                    
-                                    AudioSource[] sources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
-                                    for (int index = 0; index < sources.Length; ++index)
+                                    if (checkedFullScreen)
                                     {
-                                        sources[index].mute = false;
+                                        Screen.fullScreen = false;
+                                        checkedFullScreen = false;
+                                        fullScreenCheck.SetActive(false);
                                     }
-                                    
-                                }
-                                else
-                                {
-                                    musicCheck.SetActive(true);
-                                    isMuted = true;
-
-                                    AudioSource[] sources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
-                                    for (int index = 0; index < sources.Length; ++index)
+                                    else
                                     {
-                                        sources[index].mute = true;
+                                        Screen.fullScreen = true;
+                                        checkedFullScreen = true;
+                                        fullScreenCheck.SetActive(true);
                                     }
+                                    break;
                                 }
+                            case ButtonType.MUSIC:
+                                {
+                                    if (isMuted)
+                                    {
+                                        musicCheck.SetActive(false);
+
+                                        isMuted = false;
+
+                                        AudioSource[] sources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+                                        for (int index = 0; index < sources.Length; ++index)
+                                        {
+                                            sources[index].mute = false;
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        musicCheck.SetActive(true);
+                                        isMuted = true;
+
+                                        AudioSource[] sources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+                                        for (int index = 0; index < sources.Length; ++index)
+                                        {
+                                            sources[index].mute = true;
+                                        }
+                                    }
+                                    break;
+                                }
+                            default:
                                 break;
-                            }
-                        default:
-                                break;
-                        }                        
-                    
+                        }
+
+                    }
+
+
+                    //////////////////////////////////////////////////////////////////////////// NAVEGACION CON MANDO
+                    //comprobamos la navegación por el menu
+                    GamepadNavigation();
+                    KeyboardNavigation();
                 }
-
-
-                //////////////////////////////////////////////////////////////////////////// NAVEGACION CON MANDO
-                //comprobamos la navegación por el menu
-                GamepadNavigation();
-                KeyboardNavigation();
             }
         }
+        
     }
     #endregion
 

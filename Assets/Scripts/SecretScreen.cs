@@ -39,6 +39,8 @@ public class SecretScreen : MonoBehaviour
     bool downPressed = false;
     bool leftPressed = false;
 
+    PauseMenuBehavior pauseMenu;
+
     ///LOS ELEMENTOS DEL MENU
     #region ELEMENTO 1
     [Header("ELEMENTO 1")]
@@ -51,6 +53,7 @@ public class SecretScreen : MonoBehaviour
     [SerializeField] public GameObject interrogante1;
     [SerializeField] public GameObject itemImage1;
     [SerializeField] public GameObject model1;
+
     #endregion
 
     #region ELEMENTO 2
@@ -125,13 +128,15 @@ public class SecretScreen : MonoBehaviour
 
     [Header("CONTROL DEL MENU")]
     [SerializeField] GameObject menu;
-    private bool isOpened = false;
+    [HideInInspector] public bool isOpened = false;
 
     #endregion
 
     #region START
     void Start()
     {
+        pauseMenu = GameObject.Find("PauseMenuCanvas").GetComponent<PauseMenuBehavior>();
+
         currentSelected = 1;
 
         secrets = new Item[6];
@@ -403,24 +408,28 @@ public class SecretScreen : MonoBehaviour
         ///DETECTAR SI ABRES EL MENU, EL BOTON ES TEMPORAL
         if (Input.GetKeyDown(KeyCode.I) || InputManager.ActiveDevice.RightBumper.WasReleased)
         {
-            if (isOpened)
+            if (!pauseMenu.isPaused)
             {
-                isOpened = false;
-                menu.SetActive(false);
-                Time.timeScale = 1;
+                if (isOpened)
+                {
+                    isOpened = false;
+                    menu.SetActive(false);
+                    Time.timeScale = 1;
 
-                //UI Sound
-                closeSound.Play();
-            }
-            else
-            {
-                isOpened = true;
-                menu.SetActive(true);
-                Time.timeScale = 0;
+                    //UI Sound
+                    closeSound.Play();
+                }
+                else
+                {
+                    isOpened = true;
+                    menu.SetActive(true);
+                    Time.timeScale = 0;
 
-                //UI Sound
-                openSound.Play();
+                    //UI Sound
+                    openSound.Play();
+                }
             }
+            
         }
 
         #region  PRIMERA LOGICA CONTROLAR EL MENU
