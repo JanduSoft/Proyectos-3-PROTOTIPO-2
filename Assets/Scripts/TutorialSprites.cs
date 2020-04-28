@@ -135,19 +135,19 @@ public class TutorialSprites : MonoBehaviour
                 {
                     case InControlManager.ControllerType.KEYBOARD:
                         {
-                            pickThrow.SetActive(false);
+                            whip.SetActive(false);
                             interact.SetActive(true);
                             break;
                         }
                     case InControlManager.ControllerType.PS4:
                         {
-                            pickThrowPS4.SetActive(false);
+                            whipPS4.SetActive(false);
                             interactPS4.SetActive(true);
                             break;
                         }
                     case InControlManager.ControllerType.XBOX:
                         {
-                            pickThrowXBOX.SetActive(false);
+                            whipXBOX.SetActive(false);
                             interactXBOX.SetActive(true);
                             break;
                         }
