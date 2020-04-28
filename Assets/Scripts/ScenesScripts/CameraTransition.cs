@@ -32,6 +32,7 @@ public class CameraTransition : MonoBehaviour
         {
             //transformCamera.DOMove(newTransformCamera.position, 4f);
             targetCamera.DORotate(newRotationTarget, speedTransition);
+            other.gameObject.GetComponent<playerDeath>().currentCameraRotation = newRotationTarget;
             mainCamera.DOFieldOfView(newFOV, speedTransition);
             onboardingCamera.DOFieldOfView(newFOV, speedTransition);
 

@@ -20,7 +20,7 @@ public class PickUpDragandDrop : PickUpandDrop
     [HideInInspector] public Rigidbody rb;
     [SerializeField] bool lerping = false;
     [SerializeField] bool rockGrabbed = false;
-    bool thisRock = false;
+    public bool thisRock = false;
     [SerializeField] public AudioSource dragSound;
     static GameObject currentRock;
     float distToGround;
@@ -239,6 +239,8 @@ public class PickUpDragandDrop : PickUpandDrop
             animator.SetBool("Attached", false);
             animator.SetBool("Push", false);
             animator.SetBool("Pulling", false);
+            dragSound.Stop();
+
         }
 
 

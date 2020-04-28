@@ -27,6 +27,8 @@ public class RespawnPointScript : MonoBehaviour
             checkpointImage.DOKill();
             StartCoroutine(ImageShow());
             other.gameObject.GetComponent<playerDeath>().lastSpawnPointTouched = other.gameObject.transform.position;
+            other.gameObject.GetComponent<playerDeath>().lastCameraRotation = other.gameObject.GetComponent<playerDeath>().currentCameraRotation;
+            other.gameObject.GetComponent<playerDeath>().lastFov = Camera.main.fieldOfView;
         }
     }
 
