@@ -30,8 +30,9 @@ public class cryptPuzzle : MonoBehaviour
             //horn.transform.DOMove(destination.position, 1);
             SolvePuzzleSound.Play();
             horn.SetActive(true);
-            CoffinAnimator.enabled = true;
             ShakeSound.Play();
+            ShakeSound.DOFade(0, 4f);
+            CoffinAnimator.enabled = true;
             notMoved = false;
             shaking.StartShake(1.5f);
             CoffinLight.enabled = true;

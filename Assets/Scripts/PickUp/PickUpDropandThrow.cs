@@ -17,10 +17,14 @@ public class PickUpDropandThrow : PickUpandDrop
     [Header("OBJECT COMPONENTS")]
     [SerializeField] Rigidbody _thisRB;
     [SerializeField] SphereCollider _thisSC;
+
     [Header("EXTERNAL OBJECTS")]
     [Header("ALWAYS NEEDED")]
     [SerializeField] Whip playerWhip;
     [SerializeField] AudioSource hitSound;
+    [Header("IF IS SPECIAL OBJECT")]
+    [SerializeField] bool isSpecialObject;
+    [SerializeField] AudioSource grabSoundeffect;
     [Header("ONLY IF NOT IMPORTANT OBJECT")]
     [SerializeField] GameObject dustParticles;
     [SerializeField] GameObject brokenVase;
@@ -75,6 +79,9 @@ public class PickUpDropandThrow : PickUpandDrop
                     playerAnimator.SetBool("PickUp", true);
                     player.SendMessage("StopMovement", true);
                     _thisRB.constraints = RigidbodyConstraints.FreezeAll;
+
+                    if (isSpecialObject)
+                        grabSoundeffect.Play();
                     StartCoroutine(PickUpCoroutine(0f));
                     StartCoroutine(AnimationsCoroutine(0.05f));
                 }
