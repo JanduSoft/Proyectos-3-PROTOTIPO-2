@@ -106,19 +106,19 @@ public class TutorialSprites : MonoBehaviour
                         case InControlManager.ControllerType.KEYBOARD:
                             {
                                 interact.SetActive(false);
-                                pickThrow.SetActive(true);
+                                whip.SetActive(true);
                                 break;
                             }                            
                         case InControlManager.ControllerType.PS4:
                             {
                                 interactPS4.SetActive(false);
-                                pickThrowPS4.SetActive(true);
+                                whipPS4.SetActive(true);
                                 break;
                             }
                         case InControlManager.ControllerType.XBOX:
                             {
                                 interactXBOX.SetActive(false);
-                                pickThrowXBOX.SetActive(true);
+                                whipPS4.SetActive(true);
                                 break;
                             }
                         default:
@@ -509,23 +509,23 @@ public class TutorialSprites : MonoBehaviour
                     {
                         case InControlManager.ControllerType.KEYBOARD:
                             {
-                                pickThrow.SetActive(true);
-                                pickThrow.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                                pickThrow.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                whip.SetActive(true);
+                                whip.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                whip.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
                         case InControlManager.ControllerType.PS4:
                             {
-                                pickThrowPS4.SetActive(true);
-                                pickThrowPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                                pickThrowPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                whipPS4.SetActive(true);
+                                whipPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                whipPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
                         case InControlManager.ControllerType.XBOX:
                             {
-                                pickThrowXBOX.SetActive(true);
-                                pickThrowXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
-                                pickThrowXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                whipXBOX.SetActive(true);
+                                whipXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                whipXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
                         default:
@@ -728,19 +728,19 @@ public class TutorialSprites : MonoBehaviour
                         case InControlManager.ControllerType.KEYBOARD:
                             {
                                 interact.SetActive(false);
-                                pickThrow.SetActive(false);
+                                whip.SetActive(false);
                                 break;
                             }
                         case InControlManager.ControllerType.PS4:
                             {
                                 interactPS4.SetActive(false);
-                                pickThrowPS4.SetActive(false);
+                                whipPS4.SetActive(false);
                                 break;
                             }
                         case InControlManager.ControllerType.XBOX:
                             {
                                 interactXBOX.SetActive(false);
-                                pickThrowXBOX.SetActive(false);
+                                whipXBOX.SetActive(false);
                                 break;
                             }
                         default:
