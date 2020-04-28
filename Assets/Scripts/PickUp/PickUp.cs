@@ -45,6 +45,7 @@ public class PickUp : MonoBehaviour
         transform.localPosition = new Vector3(0,0,0);
         transform.localRotation = new Quaternion(0, 0, 0, 1);
         objectIsGrabbed = true;
+
     }
     virtual protected void ForcePickUpObject()
     {
