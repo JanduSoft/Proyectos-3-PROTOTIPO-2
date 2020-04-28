@@ -118,7 +118,7 @@ public class TutorialSprites : MonoBehaviour
                         case InControlManager.ControllerType.XBOX:
                             {
                                 interactXBOX.SetActive(false);
-                                whipPS4.SetActive(true);
+                                whipXBOX.SetActive(true);
                                 break;
                             }
                         default:
