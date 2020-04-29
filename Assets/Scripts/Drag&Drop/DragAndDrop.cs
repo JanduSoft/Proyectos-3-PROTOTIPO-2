@@ -69,8 +69,8 @@ public class DragAndDrop : MonoBehaviour
                     playerAnimator.SetBool("DropObject", true);
                     player.SendMessage("StopMovement", true);
                     playerMovement.ableToWhip = true;
-                    StartCoroutine(DropObjectCoroutine(0.5f));
-                    StartCoroutine(AnimationsCoroutine(0.65f));
+                    StartCoroutine(DropObjectCoroutine(0f));
+                    StartCoroutine(AnimationsCoroutine(0.15f));
                 }
             }
         }
@@ -117,15 +117,15 @@ public class DragAndDrop : MonoBehaviour
     {
         playerMovement.ableToWhip = true;
         player.SendMessage("StopMovement", true);
-        StartCoroutine(DropObjectCoroutine(0.5f));
-        StartCoroutine(AnimationsCoroutine(0.5f));
+        StartCoroutine(DropObjectCoroutine(0f));
+        StartCoroutine(AnimationsCoroutine(0.15f));
     }
     public void publicPickUp()
     {
         playerMovement.ableToWhip = false;
         player.SendMessage("StopMovement", true);
-        StartCoroutine(PickUpCoroutine(0.35f));
-        StartCoroutine(AnimationsCoroutine(0.5f));
+        StartCoroutine(PickUpCoroutine(0f));
+        StartCoroutine(AnimationsCoroutine(0.15f));
     }
     public void ResetObject()
     {

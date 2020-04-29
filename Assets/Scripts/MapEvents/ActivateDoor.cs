@@ -32,8 +32,12 @@ public class ActivateDoor : MonoBehaviour
     [SerializeField] AudioSource shakeSound;
     [Header("FOR CINEMATIC")]
     [SerializeField] GameObject cinematic;
+    [SerializeField] PlayerMovement playerMovement;
 
-
+    private void Start()
+    {
+        playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -47,6 +51,7 @@ public class ActivateDoor : MonoBehaviour
             }
             if (!other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed())
             {
+                playerMovement.ableToWhip = true;
                 objectoToMove.DOMoveY(finalPosition.position.y, speed);
                 other.tag = "Untagged";
                 other.transform.parent.gameObject.transform.position = skullPlace.position;
