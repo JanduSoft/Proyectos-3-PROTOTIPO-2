@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class PushToAnimation : MonoBehaviour
 {
+    [SerializeField] AudioSource hittingSound;
     [Header("FOR CAMERA SHAKE")]
     [SerializeField] Camera myCamera;
     [SerializeField] float durationShake;
@@ -16,10 +17,30 @@ public class PushToAnimation : MonoBehaviour
     {
         if (other.CompareTag("ToPush"))
         {
-            Animator anim = other.GetComponent<Animator>();
 
-            anim.SetBool("Active", true);
-            Invoke("StartShake", 3f);
+            Animator anim = other.GetComponent<Animator>();
+            hittingSound.Play();
+            float time = 0;
+            //anim.SetBool("Active", true);
+            if (other.name=="Pilar1")
+            {
+                anim.Play("Pilar1Animation");
+                time =2.09f;
+            }
+            else if (other.name=="Pilar2")
+            {
+                anim.Play("Pilar2Animation");
+                time =2.09f;
+
+            }
+            else if (other.name == "Statues")
+            {
+                anim.Play("StatuesAnimation");
+                time =2.0f;
+            }
+
+            Invoke("StartShake", time);
+
         }
     }
 

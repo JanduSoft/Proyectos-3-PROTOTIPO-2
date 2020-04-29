@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using InControl;
+using UnityEngine.Playables;
 
 public class ActivatePusher : MonoBehaviour
 {
@@ -19,13 +20,19 @@ public class ActivatePusher : MonoBehaviour
     bool playerIsInside = false;
     bool isMoving = false;
 
+    [SerializeField] PlayableDirector PlayableToRotate;
+
     // Update is called once per frame
     void Update()
     {
         if (InputManager.ActiveDevice.Action3.WasPressed && playerIsInside && !isMoving)
         {
             isMoving = true;
-            FirstRoation();
+            //FirstRoation();
+            PlayableToRotate.Play();
+            Invoke("RestartMovement", (float)PlayableToRotate.playableAsset.duration);
+
+
         }
     }
 
