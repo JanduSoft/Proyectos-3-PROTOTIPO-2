@@ -18,6 +18,9 @@ public class ActivateAnimation : MonoBehaviour
     [SerializeField] typeAnimator type;
     [SerializeField] GameObject objectToBePlaced;
     [SerializeField] Animator playeranimator;
+    [Header("ONLY FOR S1P1 DOOR")]
+    [SerializeField] bool checkIsActivated = false;
+    [SerializeField] GameObject partToActivate;
 
     [Header("FOR CAMERA SHAKE")]
     [SerializeField] Camera myCamera;
@@ -97,6 +100,35 @@ public class ActivateAnimation : MonoBehaviour
     {
         if (other.CompareTag("Place") && type == typeAnimator.DOOR)
         {
+
+            if (checkIsActivated)
+            {
+                try
+                {
+                    if (GetComponent<AddObject>().isActivated && !isOpened)
+                    {
+                        other.transform.parent.parent = null;
+                        other.tag = "Untagged";
+                        other.transform.parent.gameObject.transform.position = objectPos.position;
+                        other.transform.parent.gameObject.transform.rotation = objectPos.rotation;
+                        isObjectPlaced = true;
+                        if (!isOpened)
+                        {
+                            isOpened = true;
+                            puzzleJingle.Play();
+                            shakeSound.Play();
+                            myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
+                        }
+                        GetComponent<AddObject>().enabled = false;
+                        partToActivate.SetActive(true);
+                    }
+                }
+                catch
+                {
+                    Debug.LogWarning("Error opening door");
+                }
+            }
+
             if (InputManager.ActiveDevice.Action3.WasPressed)
             {
                 playeranimator.SetBool("DropObject", false);
