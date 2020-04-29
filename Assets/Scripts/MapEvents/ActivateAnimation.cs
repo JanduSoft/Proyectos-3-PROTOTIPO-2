@@ -18,6 +18,7 @@ public class ActivateAnimation : MonoBehaviour
     [SerializeField] typeAnimator type;
     [SerializeField] GameObject objectToBePlaced;
     [SerializeField] Animator playeranimator;
+    [SerializeField] PlayerMovement playerMovement;
     [Header("ONLY FOR S1P1 DOOR")]
     [SerializeField] bool checkIsActivated = false;
     [SerializeField] GameObject partToActivate;
@@ -36,6 +37,11 @@ public class ActivateAnimation : MonoBehaviour
     [SerializeField] AudioSource shakeSound;
     #endregion
 
+    private void Start()
+    {
+        playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
+
+    }
     #region TRIGGER ENTER
     private void OnTriggerEnter(Collider other)
     {
@@ -43,11 +49,13 @@ public class ActivateAnimation : MonoBehaviour
         {
             if (other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos != null && InputManager.ActiveDevice.Action3.WasPressed)
             {
+                playerMovement.ableToWhip = true;
                 other.transform.parent.gameObject.transform.position = objectPos.transform.position;
                 isObjectPlaced = true;
             }
             if (isObjectPlaced && other.transform.parent.name == objectToBePlaced.name)
             {
+                playerMovement.ableToWhip = true;
                 puzzleJingle.Play();
                 myAnimator.SetBool("Active", true);
                 Invoke("DeactivateAnimation", 2f);
@@ -68,6 +76,7 @@ public class ActivateAnimation : MonoBehaviour
         }
         else if (other.CompareTag("Place") && type == typeAnimator.BRIDGE)
         {
+            playerMovement.ableToWhip = true;
             myAnimator.SetBool("Active", true);
             puzzleJingle.Play();
             shakeSound.Play();
@@ -132,11 +141,13 @@ public class ActivateAnimation : MonoBehaviour
             if (InputManager.ActiveDevice.Action3.WasPressed)
             {
                 playeranimator.SetBool("DropObject", false);
+                playerMovement.ableToWhip = true;
                 playeranimator.SetBool("PlaceObject", true);
                 StartCoroutine(AnimationsCoroutine(0.5f));
             }
             if (other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed() && objectPos != null && InputManager.ActiveDevice.Action3.WasPressed)
             {
+                playerMovement.ableToWhip = true;
                 other.transform.parent.parent = null;
                 other.tag = "Untagged";
                 other.transform.parent.gameObject.transform.position = objectPos.position;
@@ -152,6 +163,7 @@ public class ActivateAnimation : MonoBehaviour
             }
             if (isObjectPlaced && other.transform.parent.name == objectToBePlaced.name)
             {
+                playerMovement.ableToWhip = true;
                 myAnimator.SetBool("Active", true);
                 if (!isOpened)
                 {
