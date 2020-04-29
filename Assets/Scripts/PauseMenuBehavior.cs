@@ -84,6 +84,9 @@ public class PauseMenuBehavior : MonoBehaviour
     bool checkedFullScreen = true;
     bool isMuted = false;
 
+    bool isUpPressed = false;
+    bool isDownPressed = false;
+
 
     Vector3 initaialPausePosition;
     Vector3 initaialSettingsPosition;
@@ -100,11 +103,15 @@ public class PauseMenuBehavior : MonoBehaviour
 
     //Secret Menu
     SecretScreen secretMenu;
+
+    InControlManager inputController;
     #endregion
 
     #region START
     private void Start()
     {
+        inputController = GameObject.Find("ControlPrefab").GetComponent<InControlManager>();
+
         secretMenu = GameObject.Find("CanvasSecretScreen").GetComponent<SecretScreen>();
 
         ///comprobar si está en full screen
@@ -165,8 +172,21 @@ public class PauseMenuBehavior : MonoBehaviour
             //Comprovamos los eventos si esta el menu abierto
             if (isPaused)
             {
-                horizontalMove = inputDevice.LeftStickX;
-                verticalMove = inputDevice.LeftStickY;
+
+                switch (inputController.controller)
+                {                    
+                    case InControlManager.ControllerType.PS4:
+                        horizontalMove = inputDevice.LeftStickX;
+                        verticalMove = inputDevice.LeftStickY;
+                        break;
+                    case InControlManager.ControllerType.XBOX:
+                        horizontalMove = inputDevice.LeftStickX;
+                        verticalMove = inputDevice.LeftStickY;
+                        break;
+                    default:
+                        break;
+                }
+                
 
 
                 if (canPressButtons)
@@ -693,11 +713,27 @@ public class PauseMenuBehavior : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            MoveSelection(Movement.UP);
+            if (!isUpPressed)
+            {
+                isUpPressed = true;
+                MoveSelection(Movement.UP);
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.W))
+        {
+            isUpPressed = false;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            MoveSelection(Movement.DOWN);
+            if (!isDownPressed)
+            {
+                isDownPressed = true;
+                MoveSelection(Movement.DOWN);
+            }            
+        }
+        else if (Input.GetKeyUp(KeyCode.S))
+        {
+            isDownPressed = false;
         }
     }
     #endregion
