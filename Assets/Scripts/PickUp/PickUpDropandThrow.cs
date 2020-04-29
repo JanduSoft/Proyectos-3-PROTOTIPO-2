@@ -244,7 +244,7 @@ public class PickUpDropandThrow : PickUpandDrop
         if (!isImportantObject)
             transform.tag = "Destroyable";
         else
-            transform.tag = "Place";
+            transform.GetChild(0).tag = "Place";
         _thisSC.enabled = false;
         thrown = true;
         Vector3 temp = player.transform.forward * (15000 * 0.3f);
