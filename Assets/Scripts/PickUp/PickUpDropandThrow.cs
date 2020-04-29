@@ -43,6 +43,7 @@ public class PickUpDropandThrow : PickUpandDrop
         useGravity = false;
         startingPosition = transform.position;
         _thisRB.constraints = RigidbodyConstraints.FreezeAll;
+        _thisSC.radius = minDot;
         grabPlace = GameObject.Find("GrabObjectPos");
     }
 
@@ -70,6 +71,9 @@ public class PickUpDropandThrow : PickUpandDrop
         {
             timeKeyDownY = true;
         }
+        if (!timeKeyDownX) timeKeyDown = 0f;
+        if (!timeKeyDownY) timeKeyDown = 0f;
+
         else if ((InputManager.ActiveDevice.Action3.WasReleased || InputManager.ActiveDevice.Action4.WasReleased) && player != null)
         {
             if (!cancelledDrop)
@@ -112,9 +116,6 @@ public class PickUpDropandThrow : PickUpandDrop
                 StartCoroutine(ResetMovement(0.7f));
                 ThrowObject();
                 useGravity = true;
-                timeKeyDown = 0;
-                timeKeyDownX = false;
-                timeKeyDownY = false;
             }
             else if (timeKeyDown > 0f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) < 70))
             {
@@ -122,19 +123,16 @@ public class PickUpDropandThrow : PickUpandDrop
                 player.transform.LookAt(enemy);
                 ThrowObjectToEnemy();
                 useGravity = true;
-                timeKeyDown = 0;
-                timeKeyDownX = false;
-                timeKeyDownY = false;
             }
             else if (timeKeyDown > 0f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) > 70))
             {
                 StartCoroutine(ResetMovement(0.7f));
                 ThrowObject();
                 useGravity = true;
-                timeKeyDown = 0;
-                timeKeyDownX = false;
-                timeKeyDownY = false;
             }
+            timeKeyDown = 0;
+            timeKeyDownX = false;
+            timeKeyDownY = false;
         }
         if (useGravity) _thisRB.AddForce(Physics.gravity * (_thisRB.mass * _thisRB.mass));
     }
