@@ -107,6 +107,7 @@ public class DragAndDrop : MonoBehaviour
     }
     public void DropObject()
     {
+        playerMovement.ableToWhip = true;
         player.GetComponent<playerDeath>().objectGrabbed = null;
         transform.SetParent(null);
         objectIsGrabbed = false;
