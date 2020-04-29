@@ -11,7 +11,6 @@ public class PickUpDragandDrop : PickUpandDrop
     [SerializeField] Animator animator;
     [HideInInspector] public bool playSound = false;
     [SerializeField] CharacterController playerController;
-    [SerializeField] PlayerMovement playerMovement;
     [SerializeField] Quaternion rotation;
     Vector3[] grabPoints = new Vector3[4];
     [SerializeField] float grabPointsDistance = 4.2f;
@@ -30,6 +29,7 @@ public class PickUpDragandDrop : PickUpandDrop
     // Start is called before the first frame update
     void Start()
     {
+        playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
         distToGround = transform.GetChild(0).GetComponent<Collider>().bounds.extents.y;
         startingPosition = transform.position;
