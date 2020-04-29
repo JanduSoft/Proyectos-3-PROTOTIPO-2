@@ -45,7 +45,7 @@ public class PickUpDropandThrow : PickUpandDrop
         useGravity = false;
         startingPosition = transform.position;
         _thisRB.constraints = RigidbodyConstraints.FreezeAll;
-        _thisSC.radius = minDot;
+        _thisSC.radius = 0.7f;
         grabPlace = GameObject.Find("GrabObjectPos");
     }
 
