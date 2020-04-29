@@ -9,6 +9,7 @@ public class PickUpDropandThrow : PickUpandDrop
     [SerializeField] double timeKeyDown = 0f;
     [SerializeField] bool timeKeyDownX = false;
     [SerializeField] bool timeKeyDownY = false;
+    [SerializeField] bool changeSC = true;
     int force = 10;
     bool nearEnemy = false;
     [SerializeField] bool isImportantObject = false;
@@ -44,7 +45,9 @@ public class PickUpDropandThrow : PickUpandDrop
         useGravity = false;
         startingPosition = transform.position;
         _thisRB.constraints = RigidbodyConstraints.FreezeAll;
-        _thisSC.radius = 0.7f;
+        if(changeSC)
+            _thisSC.radius = 0.7f;
+
         grabPlace = GameObject.Find("GrabObjectPos");
     }
 

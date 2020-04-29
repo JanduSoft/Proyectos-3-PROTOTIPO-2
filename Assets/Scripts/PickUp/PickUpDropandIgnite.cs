@@ -18,6 +18,7 @@ public class PickUpDropandIgnite : PickUpandDrop
     // Start is called before the first frame update
     void Start()
     {
+        playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         startingPosition = transform.position;
         grabPlace = GameObject.Find("Hand_R_PickUp");
     }
