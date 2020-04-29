@@ -35,7 +35,6 @@ public class PickUpDropandThrow : PickUpandDrop
     bool thrown = false;
     Vector3 playerToEnemy;
     [SerializeField] TutorialSprites tutoSprites;
-    [SerializeField] PlayerMovement playerMovement;
 
     // Start is called before the first frame update
     void Start()
