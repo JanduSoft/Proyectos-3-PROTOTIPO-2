@@ -73,6 +73,9 @@ public class playerDeath : MonoBehaviour
         GameObject.Find("TargetMainScene").GetComponent<FollowingCharacter>().naturalPosition = lastCameraRotation;
         currentCameraRotation = lastCameraRotation;
         Camera.main.fieldOfView = lastFov;
+        GameObject auxPlayer = GameObject.Find("Character_Explorer_Male_01");
+        Vector3 auxRotation = new Vector3(0, auxPlayer.transform.localRotation.y, 0);
+        auxPlayer.transform.localRotation = Quaternion.Euler(auxRotation);
 
         playerMovementScript.inRespawn = true;
         playerMovementScript.fallVelocity = 0;

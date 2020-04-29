@@ -15,6 +15,9 @@ public class DragAndDrop : MonoBehaviour
     public bool cancelledDrop = false;
     Vector3 startPosition;
     [SerializeField] PlayerMovement playerMovement;
+    [Header("ONLY IF IS SPECIAL OBJECT")]
+    [SerializeField] bool isSpecialObject = false;
+    [SerializeField] AudioSource specialSound;
 
     // Start is called before the first frame update
     void Start()
@@ -130,6 +133,10 @@ public class DragAndDrop : MonoBehaviour
 
     public void GrabObject()
     {
+        if (isSpecialObject)
+        {
+            specialSound.Play();
+        }
         playerMovement.ableToWhip = false;
         player.GetComponent<playerDeath>().objectGrabbed = gameObject;
         transform.SetParent(grabPlace.transform);
