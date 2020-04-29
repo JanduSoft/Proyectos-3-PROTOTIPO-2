@@ -24,6 +24,7 @@ public class PickUpDragandDrop : PickUpandDrop
     static GameObject currentRock;
     float distToGround;
     bool canPressAgain = true;
+    float sensitivityAngle = 50;
 
 
     // Start is called before the first frame update
@@ -102,11 +103,11 @@ public class PickUpDragandDrop : PickUpandDrop
                             if (closestPoint == grabPoints[0])
                             {
                                 Vector3 movingDirection = grabPoints[1] - player.transform.position;
-                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= 30 && inputActive)
+                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= sensitivityAngle && inputActive)
                                 {
                                     PushRock(movingDirection);
                                 }
-                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < 30 && inputActive)
+                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < sensitivityAngle && inputActive)
                                 {
 
                                     RaycastHit hito;
@@ -129,11 +130,11 @@ public class PickUpDragandDrop : PickUpandDrop
                             {
                                 Vector3 movingDirection = grabPoints[0] - player.transform.position;
 
-                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= 30 && inputActive)
+                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= sensitivityAngle && inputActive)
                                 {
                                     PushRock(movingDirection);
                                 }
-                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < 30 && inputActive)
+                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < sensitivityAngle && inputActive)
                                 {
 
                                     RaycastHit hito;
@@ -156,11 +157,11 @@ public class PickUpDragandDrop : PickUpandDrop
                             {
                                 Vector3 movingDirection = grabPoints[3] - player.transform.position;
 
-                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= 30 && inputActive)
+                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= sensitivityAngle && inputActive)
                                 {
                                     PushRock(movingDirection);
                                 }
-                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < 30 && inputActive)
+                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < sensitivityAngle && inputActive)
                                 {
 
                                     RaycastHit hito;
@@ -183,11 +184,11 @@ public class PickUpDragandDrop : PickUpandDrop
                             {
                                 Vector3 movingDirection = grabPoints[2] - player.transform.position;
 
-                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= 30 && inputActive)
+                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= sensitivityAngle && inputActive)
                                 {
                                     PushRock(movingDirection);
                                 }
-                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < 30 && inputActive)
+                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < sensitivityAngle && inputActive)
                                 {
 
                                     RaycastHit hito;

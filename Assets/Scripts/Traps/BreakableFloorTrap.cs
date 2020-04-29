@@ -5,6 +5,7 @@ using UnityEngine;
 public class BreakableFloorTrap : MonoBehaviour
 {
     [SerializeField] GameObject destroyableObj;
+    [SerializeField] AudioSource sound;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,10 @@ public class BreakableFloorTrap : MonoBehaviour
         {
             if (destroyableObj.activeInHierarchy == false)
             {
+                if (sound!=null)
+                {
+                    sound.Play();
+                }
                 destroyableObj.SetActive(true);
                 transform.parent.gameObject.SetActive(false);
             }
