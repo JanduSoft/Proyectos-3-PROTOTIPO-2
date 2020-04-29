@@ -9,9 +9,10 @@ public class PickUpandDrop : PickUp
     // Start is called before the first frame update
     void Start()
     {
+        playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         objectIsGrabbed = false;
         grabPlace = GameObject.Find("Hand_R_PickUp");
-    }
+    } 
 
     // Update is called once per frame
     void Update()
@@ -64,11 +65,13 @@ public class PickUpandDrop : PickUp
     }
     protected void ObjectDrop()
     {
+        playerMovement.ableToWhip = true;
         transform.SetParent(null);
         objectIsGrabbed = false;
     }
     public void DropObject()
     {
+        playerMovement.ableToWhip = true;
         player.SendMessage("StopMovement", true);
         StartCoroutine(DropObjectCoroutine(0.5f));
         StartCoroutine(AnimationsCoroutine(0.5f));
@@ -91,11 +94,13 @@ public class PickUpandDrop : PickUp
     protected IEnumerator PickUpCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
+        playerMovement.ableToWhip = false;
         PickUpObject();
     }
     protected IEnumerator DropObjectCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
+        playerMovement.ableToWhip = true;
         ObjectDrop();
     }
 }

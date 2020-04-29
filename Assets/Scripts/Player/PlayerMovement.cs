@@ -6,6 +6,7 @@ using InControl;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] public bool ableToWhip = true;
 
     InputDevice inputDevice;
     private void Awake()

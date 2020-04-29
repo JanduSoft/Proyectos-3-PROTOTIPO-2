@@ -77,26 +77,27 @@ public class NewWhipJump : MonoBehaviour
         {
             hookSpawner.position = new Vector3(player.position.x, player.position.y + 2f, player.position.z);
         }
-        
+
 
         ////CHECK INPUT
-        if (InputManager.ActiveDevice.Action4.WasPressed && canWhip && !playerMovement.isInWhipJump)
-        {
-            Vector3 toLookAt = new Vector3(toWhipObject.position.x, player.position.y, toWhipObject.position.z);
+        if(playerMovement.ableToWhip)
+            if (InputManager.ActiveDevice.Action4.WasPressed && canWhip && !playerMovement.isInWhipJump)
+            {
+                Vector3 toLookAt = new Vector3(toWhipObject.position.x, player.position.y, toWhipObject.position.z);
 
-            player.DOLookAt(toLookAt, timeImpulse + 0.2f);
-            player.DOMoveY(player.position.y + impulse, timeImpulse);
+                player.DOLookAt(toLookAt, timeImpulse + 0.2f);
+                player.DOMoveY(player.position.y + impulse, timeImpulse);
 
-            //mover el hookSpawner
-            startWhip = true;
-            hookSpawner.DOMove(toWhipObject.position, timeImpulse);
+                //mover el hookSpawner
+                startWhip = true;
+                hookSpawner.DOMove(toWhipObject.position, timeImpulse);
 
-            playerMovement.isInWhipJump = true;
-            animator.SetBool("Whip", true);
-            animator.SetBool("Jumping", true);
-            playerMovement.grounded = false;
-            Invoke("WhipJump", timeImpulse);
-        }
+                playerMovement.isInWhipJump = true;
+                animator.SetBool("Whip", true);
+                animator.SetBool("Jumping", true);
+                playerMovement.grounded = false;
+                Invoke("WhipJump", timeImpulse);
+            }
 
         /////CHECKING IF IS IN WHIP JUP FOR DE LINE RENDERER
         if (playerMovement.isInWhipJump)
@@ -108,7 +109,7 @@ public class NewWhipJump : MonoBehaviour
 
 
         //////CHECK IF YOU CAN WHIP
-        if (Vector3.Distance(player.position, toWhipObject.position) <= maxDistance && isPlayerInside)
+        if (Vector3.Distance(player.position, toWhipObject.position) <= maxDistance && isPlayerInside && playerMovement.ableToWhip)
         {
             spriteIndicateObject.SetActive(true);
             canWhip = true;

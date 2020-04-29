@@ -15,6 +15,7 @@ public class PickUp : MonoBehaviour
     protected float distancePlayerObject;
     protected float minDot = 0.5f;
     protected Vector3 startingPosition;
+    [SerializeField] protected PlayerMovement playerMovement;
 
     public virtual void ResetPosition()
     {
@@ -59,10 +60,12 @@ public class PickUp : MonoBehaviour
     }
     public void GrabObject()
     {
+        playerMovement.ableToWhip = false;
         PickUpObject();
     }
     public void ForceGrabObject()
     {
+        playerMovement.ableToWhip = false;
         ForcePickUpObject();
     }
     public void SetCancelledDrop(bool status)

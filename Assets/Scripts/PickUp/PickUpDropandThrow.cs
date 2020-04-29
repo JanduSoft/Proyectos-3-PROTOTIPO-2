@@ -35,10 +35,12 @@ public class PickUpDropandThrow : PickUpandDrop
     bool thrown = false;
     Vector3 playerToEnemy;
     [SerializeField] TutorialSprites tutoSprites;
+    [SerializeField] PlayerMovement playerMovement;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         _thisRB.useGravity = false;
         useGravity = false;
         startingPosition = transform.position;
@@ -57,6 +59,7 @@ public class PickUpDropandThrow : PickUpandDrop
     {
         CheckVariables();
         nearEnemy = playerWhip.attackMode;
+        if (!timeKeyDownX && !timeKeyDownY) timeKeyDown = 0f;
         if (nearEnemy && player != null)
         {
             enemy = playerWhip.getEnemy();
@@ -71,8 +74,6 @@ public class PickUpDropandThrow : PickUpandDrop
         {
             timeKeyDownY = true;
         }
-        if (!timeKeyDownX) timeKeyDown = 0f;
-        if (!timeKeyDownY) timeKeyDown = 0f;
 
         else if ((InputManager.ActiveDevice.Action3.WasReleased || InputManager.ActiveDevice.Action4.WasReleased) && player != null)
         {
@@ -87,6 +88,7 @@ public class PickUpDropandThrow : PickUpandDrop
                     if (isSpecialObject)
                         grabSoundeffect.Play();
                     StartCoroutine(PickUpCoroutine(0f));
+                    playerMovement.ableToWhip = false;
                     StartCoroutine(AnimationsCoroutine(0.05f));
                 }
                 else if (timeKeyDown > 0f && objectIsGrabbed)
@@ -95,6 +97,7 @@ public class PickUpDropandThrow : PickUpandDrop
                     _thisRB.constraints = RigidbodyConstraints.FreezeRotation;
                     useGravity = true;
                     StartCoroutine(DropObjectCoroutine(0f));
+                    playerMovement.ableToWhip = true;
                     StartCoroutine(AnimationsCoroutine(0.1f));
 
                 }
@@ -115,6 +118,7 @@ public class PickUpDropandThrow : PickUpandDrop
             {
                 StartCoroutine(ResetMovement(0.7f));
                 ThrowObject();
+                playerMovement.ableToWhip = true;
                 useGravity = true;
             }
             else if (timeKeyDown > 0f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) < 70))
@@ -122,12 +126,14 @@ public class PickUpDropandThrow : PickUpandDrop
                 StartCoroutine(ResetMovement(0.7f));
                 player.transform.LookAt(enemy);
                 ThrowObjectToEnemy();
+                playerMovement.ableToWhip = true;
                 useGravity = true;
             }
             else if (timeKeyDown > 0f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) > 70))
             {
                 StartCoroutine(ResetMovement(0.7f));
                 ThrowObject();
+                playerMovement.ableToWhip = true;
                 useGravity = true;
             }
             timeKeyDown = 0;

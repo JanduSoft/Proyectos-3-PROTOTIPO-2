@@ -14,10 +14,12 @@ public class DragAndDrop : MonoBehaviour
     bool isFacingBox = false;
     public bool cancelledDrop = false;
     Vector3 startPosition;
+    [SerializeField] PlayerMovement playerMovement;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         startPosition = transform.position;
     }
 
@@ -48,19 +50,22 @@ public class DragAndDrop : MonoBehaviour
                     player.SendMessage("StopMovement", true);
                     if (Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)) < 0.6)
                     {
-                        StartCoroutine(PickUpCoroutine(0.35f));
-                        StartCoroutine(AnimationsCoroutine(0.5f));
+                        playerMovement.ableToWhip = false;
+                        StartCoroutine(PickUpCoroutine(0f));
+                        StartCoroutine(AnimationsCoroutine(0.15f));
                     }
                     else
                     {
-                        StartCoroutine(PickUpCoroutine(0.5f));
-                        StartCoroutine(AnimationsCoroutine(0.65f));
+                        playerMovement.ableToWhip = false;
+                        StartCoroutine(PickUpCoroutine(0f));
+                        StartCoroutine(AnimationsCoroutine(0.15f));
                     }
                 }
                 else if (objectIsGrabbed)
                 {
                     playerAnimator.SetBool("DropObject", true);
                     player.SendMessage("StopMovement", true);
+                    playerMovement.ableToWhip = true;
                     StartCoroutine(DropObjectCoroutine(0.5f));
                     StartCoroutine(AnimationsCoroutine(0.65f));
                 }
@@ -106,12 +111,14 @@ public class DragAndDrop : MonoBehaviour
 
     public void publicDropObject()
     {
+        playerMovement.ableToWhip = true;
         player.SendMessage("StopMovement", true);
         StartCoroutine(DropObjectCoroutine(0.5f));
         StartCoroutine(AnimationsCoroutine(0.5f));
     }
     public void publicPickUp()
     {
+        playerMovement.ableToWhip = false;
         player.SendMessage("StopMovement", true);
         StartCoroutine(PickUpCoroutine(0.35f));
         StartCoroutine(AnimationsCoroutine(0.5f));
@@ -123,6 +130,7 @@ public class DragAndDrop : MonoBehaviour
 
     public void GrabObject()
     {
+        playerMovement.ableToWhip = false;
         player.GetComponent<playerDeath>().objectGrabbed = gameObject;
         transform.SetParent(grabPlace.transform);
         transform.position = grabPlace.transform.position;
