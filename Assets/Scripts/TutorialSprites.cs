@@ -583,6 +583,7 @@ public class TutorialSprites : MonoBehaviour
     #region DEACTIVATE SPRITES
     public void DeactivateSprites()
     {
+        #region OLD LOGIC DEACTIVATE TUTOSPRITE
         //switch (button)
         //{
         //    case buttonType.NONE:
@@ -785,6 +786,7 @@ public class TutorialSprites : MonoBehaviour
         //    default:
         //        break;
         //}
+        #endregion
 
         jump.SetActive(false);
         interact.SetActive(false);

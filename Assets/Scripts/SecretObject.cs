@@ -29,6 +29,7 @@ public class SecretObject : MonoBehaviour
     [SerializeField] GameObject secretObject;
     [SerializeField] Transform spawnPosition;
     [SerializeField] GameObject background;
+    [SerializeField] TutorialSprites tuto;
     GameObject objectInstantiate;
     #endregion
 
@@ -113,7 +114,7 @@ public class SecretObject : MonoBehaviour
     #region ANIMATION  OBJECT
     private void StartAnimationObject()
     {
-        
+        tuto.DeactivateSprites();
         //TO DO: ANIMATION  OBJECT
         objectInstantiate =  Instantiate(secretObject, spawnPosition.position, spawnPosition.rotation) as GameObject;
         objectInstantiate.transform.SetParent(spawnPosition);
