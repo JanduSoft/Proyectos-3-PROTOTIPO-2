@@ -298,7 +298,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Ground"))
         {
-            Debug.Log("Entro !");
+            //Debug.Log("Entro !");
             grounded = true;
         }
     }
@@ -307,7 +307,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Ground"))
         {
-            Debug.Log("Estic !");
+            //Debug.Log("Estic !");
             grounded = true;
         }
     }
