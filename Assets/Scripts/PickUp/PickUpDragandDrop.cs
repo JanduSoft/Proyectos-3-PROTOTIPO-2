@@ -270,7 +270,7 @@ public class PickUpDragandDrop : PickUpandDrop
         else
         {
             canPressAgain = true;
-            Debug.Log("not playing");
+            //Debug.Log("not playing");
         }
     }
 

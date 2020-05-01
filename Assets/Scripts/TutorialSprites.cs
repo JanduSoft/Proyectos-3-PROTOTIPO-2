@@ -57,7 +57,7 @@ public class TutorialSprites : MonoBehaviour
     [SerializeField] float finalSize;
 
     InControlManager inputController;
-    InControlManager.ControllerType currentController = InControlManager.ControllerType.KEYBOARD;
+    InControlManager.ControllerType currentController;
     #endregion
 
     #region START
@@ -70,8 +70,8 @@ public class TutorialSprites : MonoBehaviour
 
     #region UPDATE
     private void Update()
-    {        
-
+    {
+        CheckController();
 
         if (button == buttonType.PLACE_OBJECT)
         {
@@ -356,8 +356,14 @@ public class TutorialSprites : MonoBehaviour
                 {
                     switch (currentController)
                     {
+
                         case InControlManager.ControllerType.KEYBOARD:
                             {
+                                Debug.Log("NO DEBERIA ENTRAR AQUI");
+                                //Desctivamos las otras
+                                interactXBOX.SetActive(false);
+                                interactPS4.SetActive(false);
+
                                 interact.SetActive(true);
                                 interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
@@ -365,6 +371,10 @@ public class TutorialSprites : MonoBehaviour
                             }
                         case InControlManager.ControllerType.PS4:
                             {
+                                //Desctivamos las otras
+                                interact.SetActive(false);
+                                interactXBOX.SetActive(false);
+
                                 interactPS4.SetActive(true);
                                 interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
@@ -573,209 +583,224 @@ public class TutorialSprites : MonoBehaviour
     #region DEACTIVATE SPRITES
     public void DeactivateSprites()
     {
-        switch (button)
-        {
-            case buttonType.NONE:
-                break;
-            case buttonType.JUMP:
-                {
-                    switch (currentController)
-                    {
-                        case InControlManager.ControllerType.KEYBOARD:
-                            {
-                                jump.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.PS4:
-                            {
-                                jumpPS4.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.XBOX:
-                            {
-                                jumpXBOX.SetActive(false);
-                                break;
-                            }
-                        default:
-                            break;
-                    }
-                    break;
-                }
-            case buttonType.INTERACT:
-                {
-                    switch (currentController)
-                    {
-                        case InControlManager.ControllerType.KEYBOARD:
-                            {
-                                interact.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.PS4:
-                            {
-                                interactPS4.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.XBOX:
-                            {
-                                interactXBOX.SetActive(false);
-                                break;
-                            }
-                        default:
-                            break;
-                    }
-                    break;
-                }
-            case buttonType.WHIP:
-                {
-                    switch (currentController)
-                    {
-                        case InControlManager.ControllerType.KEYBOARD:
-                            {
-                                whip.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.PS4:
-                            {
-                                whipPS4.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.XBOX:
-                            {
-                                whipXBOX.SetActive(false);
-                                break;
-                            }
-                        default:
-                            break;
-                    }
-                    break;
-                }
-            case buttonType.PLACE_OBJECT:
-                {
-                    switch (currentController)
-                    {
-                        case InControlManager.ControllerType.KEYBOARD:
-                            {
-                                interact.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.PS4:
-                            {
-                                interactPS4.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.XBOX:
-                            {
-                                interactXBOX.SetActive(false);
-                                break;
-                            }
-                        default:
-                            break;
-                    }
-                    break;
-                }
-            case buttonType.DD_OBJECT:
-                {
-                    switch (currentController)
-                    {
-                        case InControlManager.ControllerType.KEYBOARD:
-                            {
-                                interact.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.PS4:
-                            {
-                                interactPS4.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.XBOX:
-                            {
-                                interactXBOX.SetActive(false);
-                                break;
-                            }
-                        default:
-                            break;
-                    }
-                    break;
-                }
-            case buttonType.PICK_UP_OBJECT:
-                {
-                    switch (currentController)
-                    {
-                        case InControlManager.ControllerType.KEYBOARD:
-                            {
-                                interact.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.PS4:
-                            {
-                                interactPS4.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.XBOX:
-                            {
-                                interactXBOX.SetActive(false);
-                                break;
-                            }
-                        default:
-                            break;
-                    }
-                    break;
-                }
-            case buttonType.THROW:
-                {
-                    switch (currentController)
-                    {
-                        case InControlManager.ControllerType.KEYBOARD:
-                            {
-                                interact.SetActive(false);
-                                whip.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.PS4:
-                            {
-                                interactPS4.SetActive(false);
-                                whipPS4.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.XBOX:
-                            {
-                                interactXBOX.SetActive(false);
-                                whipXBOX.SetActive(false);
-                                break;
-                            }
-                        default:
-                            break;
-                    }                    
-                    break;
-                }
-            case buttonType.MOVE_ROCK:
-                {
-                    switch (currentController)
-                    {
-                        case InControlManager.ControllerType.KEYBOARD:
-                            {
-                                interact.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.PS4:
-                            {
-                                interactPS4.SetActive(false);
-                                break;
-                            }
-                        case InControlManager.ControllerType.XBOX:
-                            {
-                                interactXBOX.SetActive(false);
-                                break;
-                            }
-                        default:
-                            break;
-                    }
-                    break;
-                }
-            default:
-                break;
-        }
-    }
+        //switch (button)
+        //{
+        //    case buttonType.NONE:
+        //        break;
+        //    case buttonType.JUMP:
+        //        {
+        //            switch (currentController)
+        //            {
+        //                case InControlManager.ControllerType.KEYBOARD:
+        //                    {
+        //                        jump.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.PS4:
+        //                    {
+        //                        jumpPS4.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.XBOX:
+        //                    {
+        //                        jumpXBOX.SetActive(false);
+        //                        break;
+        //                    }
+        //                default:
+        //                    break;
+        //            }
+        //            break;
+        //        }
+        //    case buttonType.INTERACT:
+        //        {
+        //            switch (currentController)
+        //            {
+        //                case InControlManager.ControllerType.KEYBOARD:
+        //                    {
+        //                        interact.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.PS4:
+        //                    {
+        //                        interactPS4.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.XBOX:
+        //                    {
+        //                        interactXBOX.SetActive(false);
+        //                        break;
+        //                    }
+        //                default:
+        //                    break;
+        //            }
+        //            break;
+        //        }
+        //    case buttonType.WHIP:
+        //        {
+        //            switch (currentController)
+        //            {
+        //                case InControlManager.ControllerType.KEYBOARD:
+        //                    {
+        //                        whip.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.PS4:
+        //                    {
+        //                        whipPS4.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.XBOX:
+        //                    {
+        //                        whipXBOX.SetActive(false);
+        //                        break;
+        //                    }
+        //                default:
+        //                    break;
+        //            }
+        //            break;
+        //        }
+        //    case buttonType.PLACE_OBJECT:
+        //        {
+        //            switch (currentController)
+        //            {
+        //                case InControlManager.ControllerType.KEYBOARD:
+        //                    {
+        //                        interact.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.PS4:
+        //                    {
+        //                        interactPS4.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.XBOX:
+        //                    {
+        //                        interactXBOX.SetActive(false);
+        //                        break;
+        //                    }
+        //                default:
+        //                    break;
+        //            }
+        //            break;
+        //        }
+        //    case buttonType.DD_OBJECT:
+        //        {
+        //            switch (currentController)
+        //            {
+        //                case InControlManager.ControllerType.KEYBOARD:
+        //                    {
+        //                        interact.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.PS4:
+        //                    {
+        //                        interactPS4.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.XBOX:
+        //                    {
+        //                        interactXBOX.SetActive(false);
+        //                        break;
+        //                    }
+        //                default:
+        //                    break;
+        //            }
+        //            break;
+        //        }
+        //    case buttonType.PICK_UP_OBJECT:
+        //        {
+        //            switch (currentController)
+        //            {
+        //                case InControlManager.ControllerType.KEYBOARD:
+        //                    {
+        //                        interact.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.PS4:
+        //                    {
+        //                        interactPS4.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.XBOX:
+        //                    {
+        //                        interactXBOX.SetActive(false);
+        //                        break;
+        //                    }
+        //                default:
+        //                    break;
+        //            }
+        //            break;
+        //        }
+        //    case buttonType.THROW:
+        //        {
+        //            switch (currentController)
+        //            {
+        //                case InControlManager.ControllerType.KEYBOARD:
+        //                    {
+        //                        interact.SetActive(false);
+        //                        whip.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.PS4:
+        //                    {
+        //                        interactPS4.SetActive(false);
+        //                        whipPS4.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.XBOX:
+        //                    {
+        //                        interactXBOX.SetActive(false);
+        //                        whipXBOX.SetActive(false);
+        //                        break;
+        //                    }
+        //                default:
+        //                    break;
+        //            }                    
+        //            break;
+        //        }
+        //    case buttonType.MOVE_ROCK:
+        //        {
+        //            switch (currentController)
+        //            {
+        //                case InControlManager.ControllerType.KEYBOARD:
+        //                    {
+        //                        interact.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.PS4:
+        //                    {
+        //                        interactPS4.SetActive(false);
+        //                        break;
+        //                    }
+        //                case InControlManager.ControllerType.XBOX:
+        //                    {
+        //                        interactXBOX.SetActive(false);
+        //                        break;
+        //                    }
+        //                default:
+        //                    break;
+        //            }
+        //            break;
+        //        }
+        //    default:
+        //        break;
+        //}
+
+        jump.SetActive(false);
+        interact.SetActive(false);
+        whip.SetActive(false);
+        pickThrow.SetActive(false);
+        
+        jumpPS4.SetActive(false);
+        interactPS4.SetActive(false);
+        whipPS4.SetActive(false);
+        pickThrowPS4.SetActive(false);
+        
+        jumpXBOX.SetActive(false);
+        interactXBOX.SetActive(false);
+        whipXBOX.SetActive(false);
+        pickThrowXBOX.SetActive(false);
+}
     #endregion
 
     #region CHECK CONTROLLER
