@@ -288,7 +288,7 @@ public class NewMainMenu : MonoBehaviour
     #region KEYBOARD NAVIGATION
     void KeyboardNavigation()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (!isUpPressed)
             {
@@ -297,12 +297,12 @@ public class NewMainMenu : MonoBehaviour
                 soundNavigation.Play();
             }
         }
-        else if (Input.GetKeyUp(KeyCode.W))
+        else if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))
         {
             isUpPressed = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (!isDownPressed)
             {
@@ -311,7 +311,7 @@ public class NewMainMenu : MonoBehaviour
                 soundNavigation.Play();
             }
         }
-        else if (Input.GetKeyUp(KeyCode.S))
+        else if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow))
         {
             isDownPressed = false;
         }
