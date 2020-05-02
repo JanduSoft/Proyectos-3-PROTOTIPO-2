@@ -35,12 +35,12 @@ public class PlatformSink : MonoBehaviour
         }
 
         //check if the platform has reached the position
-        if (transform.position==maxGoingDownPos || Vector3.Distance(transform.position,maxGoingDownPos)<0.5)
+        if (transform.position.y==maxGoingDownPos.y || Mathf.Abs(maxGoingDownPos.y-transform.position.y) <0.5)
         {
             startGoingDown = false;
             StartCoroutine(WaitAndGoUp());  //used to wait some seconds before the platform comes back up
         }
-        else if (transform.position == initialPosition || Vector3.Distance(transform.position, initialPosition) < 0.5)
+        else if (transform.position.y == initialPosition.y || Mathf.Abs(initialPosition.y - transform.position.y) < 0.5)
         {
             startGoingUp = false;
         }
