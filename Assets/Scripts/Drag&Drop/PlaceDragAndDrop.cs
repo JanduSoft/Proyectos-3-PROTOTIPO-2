@@ -28,10 +28,10 @@ public class PlaceDragAndDrop : MonoBehaviour
                 playeranimator.SetBool("PlaceObject", true);
                 StartCoroutine(AnimationsCoroutine(0.5f));
             }
-            if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
+            if (canPlace && skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
             {
-                skull.GetComponent<DragAndDrop>().DropObject();
-                skull.GetComponent<DragAndDrop>().enabled = false;
+                skull.GetComponent<PickUpDropandThrow>().DropObject();
+                skull.GetComponent<PickUpDropandThrow>().enabled = false;
                 skullTransform.position = placePosition.transform.position;
                 skullTransform.rotation = transform.rotation;
                 isActivated = true;
@@ -49,7 +49,7 @@ public class PlaceDragAndDrop : MonoBehaviour
         {
             skull = other.transform.gameObject;
             skullTransform = other.transform.gameObject.transform;
-            skull.GetComponent<DragAndDrop>().cancelledDrop = (true);
+            skull.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
         }
 
     }
@@ -71,7 +71,7 @@ public class PlaceDragAndDrop : MonoBehaviour
         }
         else if (other.CompareTag("Place"))
         {
-            other.gameObject.transform.GetComponent<DragAndDrop>().cancelledDrop = (false);
+            other.gameObject.transform.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
             skull = null;
             skullTransform = null;
         }

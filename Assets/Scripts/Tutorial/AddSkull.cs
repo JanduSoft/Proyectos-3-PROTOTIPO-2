@@ -31,21 +31,21 @@ public class AddSkull : MonoBehaviour
     {
         if (skull != null)
         {
-            if (InputManager.ActiveDevice.Action3.WasPressed && skull.GetComponent<DragAndDrop>().objectIsGrabbed)
+            if (InputManager.ActiveDevice.Action3.WasPressed && skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed())
             {
                 playeranimator.SetBool("PlaceObject", true);
-                skull.GetComponent<DragAndDrop>().publicDropObject();
+                skull.GetComponent<PickUpDropandThrow>().DropObject();
                 playeranimator.SetBool("DropObject", false);
                 StartCoroutine(AnimationsCoroutine(0.5f));
             }
 
-            if (!isImportantCup && canPlace && !skull.GetComponent<DragAndDrop>().objectIsGrabbed && isActivated && InputManager.ActiveDevice.Action3.WasPressed)
+            if (!isImportantCup && canPlace && !skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && isActivated && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 //skull.GetComponent<DragAndDrop>().CancelledDrop(false);
-                skull.GetComponent<DragAndDrop>().publicPickUp();
+                skull.GetComponent<PickUpDropandThrow>().GrabObject();
                 isActivated = false;
             }
-            if(!skull.GetComponent<DragAndDrop>().objectIsGrabbed)
+            if(!skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed())
             {
                 skullTransform.position = placePosition.transform.position;
                 skullTransform.rotation = transform.rotation;
@@ -75,6 +75,7 @@ public class AddSkull : MonoBehaviour
             {
                 Debug.LogWarning("Tried to access eyeFires in AddSkull.cs but there's no attached Game Object");
             }
+            this.enabled = false;
         }
     }
 
@@ -84,19 +85,19 @@ public class AddSkull : MonoBehaviour
         {
             canPlace = true;
         }
-        else if (other.CompareTag("Skull"))
+        else if (other.CompareTag("Skull") || other.CompareTag("Place"))
         {
             skull = other.transform.parent.gameObject;
             skullTransform = other.transform.parent.gameObject.transform;
-            skull.GetComponent<DragAndDrop>().CancelledDrop(true);
+            skull.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
         }
 
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Skull"))
+        if (other.CompareTag("Skull") || other.CompareTag("Place"))
         {
-            Debug.Log("detects skull");
+            Debug.Log("detects skull with name "+ other.name);
             skull = other.transform.parent.gameObject;
             skullTransform = other.transform.parent.gameObject.transform;
         }
@@ -111,7 +112,7 @@ public class AddSkull : MonoBehaviour
         }
         else if (other.CompareTag("Skull"))
         {
-            other.gameObject.transform.parent.GetComponent<DragAndDrop>().CancelledDrop(false);
+            other.gameObject.transform.parent.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
             skull = null;
             skullTransform = null;
         }

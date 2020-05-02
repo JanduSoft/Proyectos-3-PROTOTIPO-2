@@ -32,7 +32,7 @@ public class PickUpDropandThrow : PickUpandDrop
     [SerializeField] AudioSource brokenSound;
     [Header("ONLY IF HAS OBJECT INSIDE")]
     [SerializeField] GameObject objectInside;
-    bool useGravity = true;
+    [SerializeField] bool useGravity = true;
     bool thrown = false;
     Vector3 playerToEnemy;
     [SerializeField] TutorialSprites tutoSprites;
@@ -83,6 +83,8 @@ public class PickUpDropandThrow : PickUpandDrop
             {
                 if (isFacingBox && !objectIsGrabbed && distanceSuficient)
                 {
+                    Debug.Log("Cojiendo");
+                    useGravity = false;
                     playerAnimator.SetBool("PickUp", true);
                     player.SendMessage("StopMovement", true);
                     _thisRB.constraints = RigidbodyConstraints.FreezeAll;
@@ -95,6 +97,7 @@ public class PickUpDropandThrow : PickUpandDrop
                 }
                 else if (timeKeyDown > 0f && objectIsGrabbed)
                 {
+                    Debug.Log("Linea 99");
                     playerAnimator.SetBool("DropObject", true);
                     _thisRB.constraints = RigidbodyConstraints.FreezeRotation;
                     useGravity = true;
@@ -197,6 +200,7 @@ public class PickUpDropandThrow : PickUpandDrop
     }
     protected void ObjectDrop()
     {
+        playerMovement.ableToWhip = true;
         thrown = true;
         Vector3 temp = player.transform.forward * (2500 * (0.5f));
         temp.y = 750;
@@ -257,6 +261,7 @@ public class PickUpDropandThrow : PickUpandDrop
         playerAnimator.SetBool("PlaceObject", false);
         playerAnimator.SetBool("Throw", false);
         player.SendMessage("StopMovement", false);
+        objectIsGrabbed = false;
     }
     protected IEnumerator ThrowToEnemyCoroutine(float time)
     {
@@ -278,6 +283,7 @@ public class PickUpDropandThrow : PickUpandDrop
         playerAnimator.SetBool("PlaceObject", false);
         playerAnimator.SetBool("Throw", false);
         player.SendMessage("StopMovement", false);
+        objectIsGrabbed = false;
     }
     protected IEnumerator DropObjectCoroutine(float time)
     {
@@ -297,6 +303,8 @@ public class PickUpDropandThrow : PickUpandDrop
     {
         if (!objectIsGrabbed)
         {
+            _thisRB.constraints = RigidbodyConstraints.FreezeAll;
+            useGravity = false;
             playerAnimator.SetBool("PickUp", true);
             transform.SetParent(grabPlace.transform);
             transform.localPosition = Vector3.zero;

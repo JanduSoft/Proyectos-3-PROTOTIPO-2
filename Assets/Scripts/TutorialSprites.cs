@@ -813,15 +813,13 @@ public class TutorialSprites : MonoBehaviour
             case InControlManager.ControllerType.NONE:
                 break;
             case InControlManager.ControllerType.KEYBOARD:
-                Debug.Log("PLAYING WITH KEYBOARD");
+
                 currentController = InControlManager.ControllerType.KEYBOARD;
                 break;
             case InControlManager.ControllerType.PS4:
-                Debug.Log("PLAYING WITH PS4 CONTROLLER");
                 currentController = InControlManager.ControllerType.PS4;
                 break;
             case InControlManager.ControllerType.XBOX:
-                Debug.Log("PLAYING WITH XBOX CONTROLLER");
                 currentController = InControlManager.ControllerType.XBOX;
                 break;
             default:

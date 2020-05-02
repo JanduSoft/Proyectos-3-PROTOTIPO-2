@@ -321,10 +321,14 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.GetComponent<Renderer>().material.color.a == 0)
+        Renderer renderer = hit.gameObject.GetComponent<Renderer>();
+        if (renderer != null)
         {
-            iTween.FadeTo(hit.gameObject, 0.5f, 1f);
-            StartCoroutine(fadeBack(hit.gameObject));
+            if (renderer.material.color.a == 0)
+            {
+                iTween.FadeTo(hit.gameObject, 0.5f, 1f);
+                StartCoroutine(fadeBack(hit.gameObject));
+            }
         }
     }
 

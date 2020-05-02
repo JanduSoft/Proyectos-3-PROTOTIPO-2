@@ -204,7 +204,7 @@ public class PauseMenuBehavior : MonoBehaviour
                         }
                     }
                     //Comprobamos la seleccion de los botones
-                    if (inputDevice.Action1.WasPressed || Input.GetKeyDown(KeyCode.Space))
+                    if (inputDevice.Action1.WasPressed || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
                     {
                         switch (currentButtonSelected)
                         {
@@ -711,7 +711,7 @@ public class PauseMenuBehavior : MonoBehaviour
     #region KEYBOARD NAVIGATIO
     void KeyboardNavigation()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (!isUpPressed)
             {
@@ -719,11 +719,11 @@ public class PauseMenuBehavior : MonoBehaviour
                 MoveSelection(Movement.UP);
             }
         }
-        else if (Input.GetKeyUp(KeyCode.W))
+        else if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))
         {
             isUpPressed = false;
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (!isDownPressed)
             {
@@ -731,7 +731,7 @@ public class PauseMenuBehavior : MonoBehaviour
                 MoveSelection(Movement.DOWN);
             }            
         }
-        else if (Input.GetKeyUp(KeyCode.S))
+        else if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow))
         {
             isDownPressed = false;
         }

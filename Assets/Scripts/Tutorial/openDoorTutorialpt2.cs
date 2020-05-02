@@ -26,7 +26,7 @@ public class openDoorTutorialpt2 : MonoBehaviour
     {
         if (skull != null)
         {
-            if (canPlace && skull.GetComponent<DragAndDrop>().objectIsGrabbed && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
+            if (canPlace && skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 dor.SendMessage("Solved", index);
                 isActivated = true;
@@ -85,7 +85,7 @@ public class openDoorTutorialpt2 : MonoBehaviour
         }
         else if (other.CompareTag("Place"))
         {
-            other.gameObject.transform.GetComponent<DragAndDrop>().cancelledDrop = (false);
+            other.gameObject.transform.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
             skull = null;
         }
 

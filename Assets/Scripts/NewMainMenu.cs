@@ -117,7 +117,7 @@ public class NewMainMenu : MonoBehaviour
         GamepadNavigation();
 
         //Checking Input
-        if (inputDevice.Action1.WasPressed || Input.GetKeyDown(KeyCode.Space))
+        if (inputDevice.Action1.WasPressed || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {
             switch (currentButton)
             {

@@ -52,6 +52,7 @@ public class AddObject : MonoBehaviour
         else if (other.CompareTag("Place"))
         {
             _object = other.transform.parent.gameObject;
+            Debug.Log(_object.name);
             _objectTransform = other.transform.parent.gameObject.transform;
             objectIsGrabbed = _object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed();
             _object.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);
@@ -65,6 +66,7 @@ public class AddObject : MonoBehaviour
         {
             _object = other.transform.parent.gameObject;
             _objectTransform = other.transform.parent.gameObject.transform;
+            objectIsGrabbed = _object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed();
         }
 
     }

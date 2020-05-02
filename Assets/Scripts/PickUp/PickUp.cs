@@ -60,6 +60,7 @@ public class PickUp : MonoBehaviour
     }
     public void GrabObject()
     {
+        Debug.Log("GrabObject");
         playerMovement.ableToWhip = false;
         PickUpObject();
     }
