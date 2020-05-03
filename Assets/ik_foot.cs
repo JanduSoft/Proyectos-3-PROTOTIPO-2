@@ -7,18 +7,34 @@ public class ik_foot : MonoBehaviour
     // Start is called before the first frame update
     [Header("ACTIVATION")]
     [SerializeField] bool activatedIK = true;
-
     [Space(15)]
+
     [Header("Variables")]
+    [SerializeField] CharacterController cc;
     [SerializeField] Animator anim;
 
     [Range(0, 1)]
     [SerializeField] float DistanceToGround;
     [SerializeField] LayerMask layermask;
 
+    private void Start()
+    {
+        if (activatedIK)
+        {
+            cc.height = 3.33f;
+            cc.center = new Vector3(0, 1.84f, 0);
+        }
+        else
+        {
+            cc.height = 3.62f;
+            cc.center = new Vector3(0, 1.8f, 0);
+        }
+    }
+
     private void OnAnimatorIK(int layerIndex)
     {
-        if(anim && activatedIK)
+
+        if (anim && activatedIK)
         {
             Debug.Log("ANIMATOR FOUND");
             anim.SetIKPositionWeight(AvatarIKGoal.LeftFoot, anim.GetFloat("ik_leftFootWeight"));
