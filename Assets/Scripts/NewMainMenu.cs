@@ -75,6 +75,8 @@ public class NewMainMenu : MonoBehaviour
     #region START
     private void Start()
     {
+        PlayerPrefs.SetInt("Muted", 0);
+
         if (PlayerPrefs.GetInt("LevelSaved") == 0)
         {
             continueFullAlpha.SetActive(false);
@@ -237,8 +239,9 @@ public class NewMainMenu : MonoBehaviour
                     }
                 case ButtonType.MUTE:
                     {
-                        if (isMuted)
+                        if (PlayerPrefs.GetInt("Muted") == 1)
                         {
+                            PlayerPrefs.SetInt("Muted", 0);
                             muteCheck.SetActive(false);
 
                             isMuted = false;
@@ -252,6 +255,7 @@ public class NewMainMenu : MonoBehaviour
                         }
                         else
                         {
+                            PlayerPrefs.SetInt("Muted", 1);
                             muteCheck.SetActive(true);
                             isMuted = true;
 
