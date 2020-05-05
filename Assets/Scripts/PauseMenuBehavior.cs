@@ -24,6 +24,7 @@ public class PauseMenuBehavior : MonoBehaviour
         NONE,
         PAUSE,
         SETTINGS
+
     };
 
     public enum ButtonType
@@ -38,7 +39,13 @@ public class PauseMenuBehavior : MonoBehaviour
         FULLSCREEN,
         MUSIC,
         SOUNDS,
-        BACK
+        BACK,
+        LEFT_RESOLUTION,
+        MIDLE_RESOLUTION,
+        RIGHT_RESOLUTION,
+        LOW,
+        MEDIUM,
+        HIGH
     };
 
     [Header("BACKGROUND")]
@@ -54,6 +61,7 @@ public class PauseMenuBehavior : MonoBehaviour
     [SerializeField] Image restartBtn;
     [SerializeField] Image settingsBtn;
     [SerializeField] Image quitBtn;
+
     [Header("SETTINGS BUTTONS")]
     [SerializeField] Image resolutionBtn;
     [SerializeField] Image graphicsBtn;
@@ -63,6 +71,30 @@ public class PauseMenuBehavior : MonoBehaviour
     [SerializeField] GameObject musicCheck;
     [SerializeField] Image soundsBtn;
     [SerializeField] Image backBtn;
+
+        [Header("RESOLUTION")]
+        [SerializeField] Text leftResolutionText;
+        [SerializeField] Text midleResolutionText;
+        [SerializeField] Text rightResolutionText;
+
+        [SerializeField] Image leftResolutionBtn;
+        [SerializeField] GameObject leftResolutionCheck;
+        [SerializeField] Image midleResolutionBtn;
+        [SerializeField] GameObject midleResolutionCheck;
+        [SerializeField] Image rightResolutionBtn;
+        [SerializeField] GameObject rightResolutionCheck;
+
+        [Header("GRAPHICS")]
+        [SerializeField] Image lowBtn;
+        [SerializeField] GameObject lowCheck;
+        [SerializeField] Image mediumBtn;
+        [SerializeField] GameObject mediumCheck;
+        [SerializeField] Image highBtn;
+        [SerializeField] GameObject highCheck;
+        int indexLow = 0;
+        int indexMedium = 2;
+        int indexHigh = 5;
+
     [Header("SOUNDS")]
     [SerializeField] AudioSource openSound;
     [SerializeField] AudioSource closeSound;
@@ -105,11 +137,63 @@ public class PauseMenuBehavior : MonoBehaviour
     SecretScreen secretMenu;
 
     InControlManager inputController;
+
+    Resolution[] resolutions;
     #endregion
 
     #region START
     private void Start()
     {
+        resolutions = Screen.resolutions;
+        
+
+        leftResolutionText.text = resolutions[0].width + " x " + resolutions[0].height;
+        midleResolutionText.text = resolutions[resolutions.Length / 2].width + " x " + resolutions[resolutions.Length / 2].height;
+        rightResolutionText.text = resolutions[resolutions.Length - 1].width + " x " + resolutions[resolutions.Length-1].height;
+
+
+        #region CHECKING IS MUTED
+        ///////CHECK IF IS MUTED
+        if (PlayerPrefs.GetInt("Muted") == 0)
+        {
+            isMuted = false;
+            UnMute();
+        }
+        else
+        {
+            isMuted = true;
+            Mute();
+        }
+        #endregion
+
+        #region CHECKING QUALITY SETTINGS
+        ///////CHECK QUALITY SETTINGS
+        //LOW
+        if (QualitySettings.GetQualityLevel() == 0 || QualitySettings.GetQualityLevel() == 1)
+        {
+            lowCheck.SetActive(true);
+
+            mediumCheck.SetActive(false);
+            highCheck.SetActive(false);
+        }
+            //MEDIUM
+        else if (QualitySettings.GetQualityLevel() == 2 || QualitySettings.GetQualityLevel() == 3)
+        {
+            mediumCheck.SetActive(true);
+
+            lowCheck.SetActive(false);
+            highCheck.SetActive(false);
+        }
+            //HIGH
+        else if (QualitySettings.GetQualityLevel() == 4 || QualitySettings.GetQualityLevel() == 5)
+        {
+            highCheck.SetActive(true);
+
+            lowCheck.SetActive(false);
+            mediumCheck.SetActive(false);
+        }
+        #endregion
+
         inputController = GameObject.Find("ControlPrefab").GetComponent<InControlManager>();
 
         secretMenu = GameObject.Find("CanvasSecretScreen").GetComponent<SecretScreen>();
@@ -172,7 +256,7 @@ public class PauseMenuBehavior : MonoBehaviour
             //Comprovamos los eventos si esta el menu abierto
             if (isPaused)
             {
-
+                ///Guardamos el axis solo si hay un mando
                 switch (inputController.controller)
                 {                    
                     case InControlManager.ControllerType.PS4:
@@ -233,6 +317,70 @@ public class PauseMenuBehavior : MonoBehaviour
                                     TransitionToPauseMenu();
                                     break;
                                 }
+                            case ButtonType.LEFT_RESOLUTION:
+                                {
+                                    Screen.SetResolution(resolutions[0].width, resolutions[0].height, Screen.fullScreen);
+                                    closeSound.Play();
+                                    leftResolutionCheck.SetActive(true);
+
+                                    midleResolutionCheck.SetActive(false);
+                                    rightResolutionCheck.SetActive(false);
+                                    break;
+                                }
+                            case ButtonType.MIDLE_RESOLUTION:
+                                {
+                                    Screen.SetResolution(   resolutions[resolutions.Length / 2].width,
+                                                            resolutions[resolutions.Length / 2].height, 
+                                                            Screen.fullScreen);
+                                    closeSound.Play();
+                                    midleResolutionCheck.SetActive(true);
+
+                                    leftResolutionCheck.SetActive(false);
+                                    rightResolutionCheck.SetActive(false);
+                                    break;
+                                }
+                            case ButtonType.RIGHT_RESOLUTION:
+                                {
+                                    Screen.SetResolution(resolutions[resolutions.Length - 1].width,
+                                                            resolutions[resolutions.Length - 1].height,
+                                                            Screen.fullScreen);
+                                    closeSound.Play();
+                                    rightResolutionCheck.SetActive(true);
+
+                                    midleResolutionCheck.SetActive(false);
+                                    leftResolutionCheck.SetActive(false);
+                                    break;
+                                }
+                            case ButtonType.LOW:
+                                {
+                                    QualitySettings.SetQualityLevel(indexLow);
+                                    closeSound.Play();
+                                    lowCheck.SetActive(true);
+
+                                    mediumCheck.SetActive(false);
+                                    highCheck.SetActive(false);
+                                    break;
+                                }
+                            case ButtonType.MEDIUM:
+                                {
+                                    QualitySettings.SetQualityLevel(indexMedium);
+                                    closeSound.Play();
+                                    mediumCheck.SetActive(true);
+
+                                    lowCheck.SetActive(false);
+                                    highCheck.SetActive(false);
+                                    break;
+                                }
+                            case ButtonType.HIGH:
+                                {
+                                    QualitySettings.SetQualityLevel(indexHigh);
+                                    closeSound.Play();
+                                    highCheck.SetActive(true);
+
+                                    lowCheck.SetActive(false);
+                                    mediumCheck.SetActive(false);
+                                    break;
+                                }
                             case ButtonType.FULLSCREEN:
                                 {
                                     if (checkedFullScreen)
@@ -253,27 +401,11 @@ public class PauseMenuBehavior : MonoBehaviour
                                 {
                                     if (isMuted)
                                     {
-                                        musicCheck.SetActive(false);
-
-                                        isMuted = false;
-
-                                        AudioSource[] sources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
-                                        for (int index = 0; index < sources.Length; ++index)
-                                        {
-                                            sources[index].mute = false;
-                                        }
-
+                                        UnMute();
                                     }
                                     else
                                     {
-                                        musicCheck.SetActive(true);
-                                        isMuted = true;
-
-                                        AudioSource[] sources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
-                                        for (int index = 0; index < sources.Length; ++index)
-                                        {
-                                            sources[index].mute = true;
-                                        }
+                                        Mute();
                                     }
                                     break;
                                 }
@@ -313,8 +445,8 @@ public class PauseMenuBehavior : MonoBehaviour
 
         currentButton.color = Color.white;
         currentMenu = MenuType.SETTINGS;
-        currentButtonSelected = ButtonType.RESOLUTION;
-        currentButton = resolutionBtn;
+        currentButtonSelected = ButtonType.LEFT_RESOLUTION;
+        currentButton = leftResolutionBtn;
         currentButton.color = Color.yellow;
     }
     #endregion
@@ -429,6 +561,35 @@ public class PauseMenuBehavior : MonoBehaviour
     }
     #endregion
 
+    #region MUTE
+    void Mute()
+    {
+        musicCheck.SetActive(true);
+        isMuted = true;
+
+        AudioSource[] sources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        for (int index = 0; index < sources.Length; ++index)
+        {
+            sources[index].mute = true;
+        }
+    }
+    #endregion
+
+    #region UNMUTE
+    void UnMute()
+    {
+        musicCheck.SetActive(false);
+
+        isMuted = false;
+
+        AudioSource[] sources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        for (int index = 0; index < sources.Length; ++index)
+        {
+            sources[index].mute = false;
+        }
+    }
+    #endregion
+
     #region SELCET BUTTON
     void SelectButton(ButtonType newButton)
     {
@@ -479,6 +640,54 @@ public class PauseMenuBehavior : MonoBehaviour
                     currentButton.color = Color.white;
                     currentButtonSelected = ButtonType.GRAPHICS;
                     currentButton = graphicsBtn;
+                    currentButton.color = Color.yellow;
+                    break;
+                }
+            case ButtonType.LEFT_RESOLUTION:
+                {
+                    currentButton.color = Color.white;
+                    currentButtonSelected = ButtonType.LEFT_RESOLUTION;
+                    currentButton = leftResolutionBtn;
+                    currentButton.color = Color.yellow;
+                    break;
+                }
+            case ButtonType.MIDLE_RESOLUTION:
+                {
+                    currentButton.color = Color.white;
+                    currentButtonSelected = ButtonType.MIDLE_RESOLUTION;
+                    currentButton = midleResolutionBtn;
+                    currentButton.color = Color.yellow;
+                    break;
+                }
+            case ButtonType.RIGHT_RESOLUTION:
+                {
+                    currentButton.color = Color.white;
+                    currentButtonSelected = ButtonType.RIGHT_RESOLUTION;
+                    currentButton = rightResolutionBtn;
+                    currentButton.color = Color.yellow;
+                    break;
+                }
+            case ButtonType.LOW:
+                {
+                    currentButton.color = Color.white;
+                    currentButtonSelected = ButtonType.LOW;
+                    currentButton = lowBtn;
+                    currentButton.color = Color.yellow;
+                    break;
+                }
+            case ButtonType.MEDIUM:
+                {
+                    currentButton.color = Color.white;
+                    currentButtonSelected = ButtonType.MEDIUM;
+                    currentButton = mediumBtn;
+                    currentButton.color = Color.yellow;
+                    break;
+                }
+            case ButtonType.HIGH:
+                {
+                    currentButton.color = Color.white;
+                    currentButtonSelected = ButtonType.HIGH;
+                    currentButton = highBtn;
                     currentButton.color = Color.yellow;
                     break;
                 }
@@ -589,7 +798,7 @@ public class PauseMenuBehavior : MonoBehaviour
         {
             switch (currentButtonSelected)
             {
-                case ButtonType.RESOLUTION:
+                case ButtonType.LEFT_RESOLUTION:
                     {
                         if (newMovement == Movement.UP)
                         {
@@ -597,7 +806,120 @@ public class PauseMenuBehavior : MonoBehaviour
                         }
                         else if (newMovement == Movement.DOWN)
                         {
-                            SelectButton(ButtonType.GRAPHICS);
+                            SelectButton(ButtonType.LOW);
+                        }
+                        else if (newMovement == Movement.LEFT)
+                        {
+                            SelectButton(ButtonType.RIGHT_RESOLUTION);
+                        }
+                        else if (newMovement == Movement.RIGHT)
+                        {
+                            SelectButton(ButtonType.MIDLE_RESOLUTION);
+                        }
+
+                        break;
+                    }
+                case ButtonType.MIDLE_RESOLUTION:
+                    {
+                        if (newMovement == Movement.UP)
+                        {
+                            SelectButton(ButtonType.BACK);
+                        }
+                        else if (newMovement == Movement.DOWN)
+                        {
+                            SelectButton(ButtonType.MEDIUM);
+                        }
+                        else if (newMovement == Movement.LEFT)
+                        {
+                            SelectButton(ButtonType.LEFT_RESOLUTION);
+                        }
+                        else if (newMovement == Movement.RIGHT)
+                        {
+                            SelectButton(ButtonType.RIGHT_RESOLUTION);
+                        }
+
+                        break;
+                    }
+                case ButtonType.RIGHT_RESOLUTION:
+                    {
+                        if (newMovement == Movement.UP)
+                        {
+                            SelectButton(ButtonType.BACK);
+                        }
+                        else if (newMovement == Movement.DOWN)
+                        {
+                            SelectButton(ButtonType.HIGH);
+                        }
+                        else if (newMovement == Movement.LEFT)
+                        {
+                            SelectButton(ButtonType.MIDLE_RESOLUTION);
+                        }
+                        else if (newMovement == Movement.RIGHT)
+                        {
+                            SelectButton(ButtonType.LEFT_RESOLUTION);
+                        }
+
+                        break;
+                    }
+                case ButtonType.LOW:
+                    {
+                        if (newMovement == Movement.UP)
+                        {
+                            SelectButton(ButtonType.LEFT_RESOLUTION);
+                        }
+                        else if (newMovement == Movement.DOWN)
+                        {
+                            SelectButton(ButtonType.FULLSCREEN);
+                        }
+                        else if (newMovement == Movement.LEFT)
+                        {
+                            SelectButton(ButtonType.HIGH);
+                        }
+                        else if (newMovement == Movement.RIGHT)
+                        {
+                            SelectButton(ButtonType.MEDIUM);
+                        }
+
+                        break;
+                    }
+                case ButtonType.MEDIUM:
+                    {
+                        if (newMovement == Movement.UP)
+                        {
+                            SelectButton(ButtonType.MIDLE_RESOLUTION);
+                        }
+                        else if (newMovement == Movement.DOWN)
+                        {
+                            SelectButton(ButtonType.FULLSCREEN);
+                        }
+                        else if (newMovement == Movement.LEFT)
+                        {
+                            SelectButton(ButtonType.LOW);
+                        }
+                        else if (newMovement == Movement.RIGHT)
+                        {
+                            SelectButton(ButtonType.HIGH);
+                        }
+
+                        break;
+                    }
+                case ButtonType.HIGH:
+                    {
+                        if (newMovement == Movement.UP)
+                        {
+                            SelectButton(ButtonType.RIGHT_RESOLUTION);
+                        }
+                        else if (newMovement == Movement.DOWN)
+                        {
+                            SelectButton(ButtonType.FULLSCREEN);
+                        }
+                        else if (newMovement == Movement.LEFT)
+                        {
+                            SelectButton(ButtonType.MEDIUM);
+                        }
+                        else if (newMovement == Movement.RIGHT)
+                        {
+                            SelectButton(ButtonType.LOW);
                         }
 
                         break;
@@ -612,6 +934,14 @@ public class PauseMenuBehavior : MonoBehaviour
                         {
                             SelectButton(ButtonType.FULLSCREEN);
                         }
+                        else if (newMovement == Movement.LEFT)
+                        {
+                            SelectButton(ButtonType.MEDIUM);
+                        }
+                        else if (newMovement == Movement.RIGHT)
+                        {
+                            SelectButton(ButtonType.LOW);
+                        }
 
                         break;
                     }
@@ -619,7 +949,7 @@ public class PauseMenuBehavior : MonoBehaviour
                     {
                         if (newMovement == Movement.UP)
                         {
-                            SelectButton(ButtonType.GRAPHICS);
+                            SelectButton(ButtonType.LOW);
                         }
                         else if (newMovement == Movement.DOWN)
                         {
@@ -677,7 +1007,7 @@ public class PauseMenuBehavior : MonoBehaviour
     #region GAMEPAD NAVIGATION
     void GamepadNavigation()
     {
-        ///MIRAMOS SI APRETA ARRIBA
+        ///MIRAMOS SI APRETA ARRIBA O ABAJO
         if (verticalMove >= 0.95f)
         {
             if (!upPressed)
@@ -705,12 +1035,41 @@ public class PauseMenuBehavior : MonoBehaviour
         {
             downPressed = false;
         }
+
+        ///MIRAMOS SI APRETA IZQUIERDA O DERECHA
+        if (horizontalMove >= 0.95f)
+        {
+            if (!rightPressed)
+            {
+                rightPressed = true;
+                //Camiamos el objecto seleccionado
+                MoveSelection(Movement.RIGHT);
+            }
+        }
+        else
+        {
+            rightPressed = false;
+        }
+        if (horizontalMove <= -0.95f)
+        {
+            if (!leftPressed)
+            {
+                leftPressed = true;
+                //Camiamos el objecto seleccionado
+                MoveSelection(Movement.LEFT);
+            }
+        }
+        else
+        {
+            leftPressed = false;
+        }
     }
     #endregion
 
     #region KEYBOARD NAVIGATIO
     void KeyboardNavigation()
     {
+        ////ARRIBA
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (!isUpPressed)
@@ -723,6 +1082,7 @@ public class PauseMenuBehavior : MonoBehaviour
         {
             isUpPressed = false;
         }
+        ////ABAJO
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (!isDownPressed)
@@ -734,6 +1094,32 @@ public class PauseMenuBehavior : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow))
         {
             isDownPressed = false;
+        }
+        ////IZQUIERDA
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (!leftPressed)
+            {
+                leftPressed = true;
+                MoveSelection(Movement.LEFT);
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            leftPressed = false;
+        }
+        ////DERECHA
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (!rightPressed)
+            {
+                rightPressed = true;
+                MoveSelection(Movement.RIGHT);
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            rightPressed = false;
         }
     }
     #endregion
