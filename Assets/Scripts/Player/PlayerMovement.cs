@@ -135,11 +135,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 animatorController.SetBool("walking", false);
                 timeIdle += Time.deltaTime;
-                animatorController.SetFloat("idle", timeIdle);
+                //animatorController.SetFloat("idle", timeIdle);
 
                 if (timeIdle > 4)
                 {
-                    animatorController.SetInteger("randomIdle", Random.Range(0, 2));
+                    animatorController.SetFloat("randomIdle", Random.Range(0, 2));
                     timeIdle = 0;
                 }
             }
@@ -159,12 +159,10 @@ public class PlayerMovement : MonoBehaviour
                     model.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
                 }
                 animatorController.SetBool("walking", true);
-                timeIdle = 0;
-                animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
+                animatorController.SetFloat("velocity", (Vector3.Dot(new Vector3(Mathf.Abs(movePlayer.x) , Mathf.Abs(movePlayer.y), Mathf.Abs(movePlayer.z)), Vector3.one)));
             }
 
-            timeIdle = 0;
-            animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
+            animatorController.SetFloat("velocity", (Vector3.Dot(new Vector3(Mathf.Abs(movePlayer.x), Mathf.Abs(movePlayer.y), Mathf.Abs(movePlayer.z)), Vector3.one)));
 
 
             // GRAVITY
