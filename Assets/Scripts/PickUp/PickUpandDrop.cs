@@ -9,6 +9,10 @@ public class PickUpandDrop : PickUp
     // Start is called before the first frame update
     void Start()
     {
+        startingPosition = transform.position;
+        startingRotation = transform.localRotation;
+
+
         playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         objectIsGrabbed = false;
         grabPlace = GameObject.Find("Hand_R_PickUp");
@@ -61,6 +65,10 @@ public class PickUpandDrop : PickUp
         {
             player = other.gameObject;
             playerAnimator = player.GetComponentInChildren<Animator>();
+        }
+        if (other.CompareTag("Death"))
+        {
+            ResetPosition();
         }
     }
     protected void ObjectDrop()
