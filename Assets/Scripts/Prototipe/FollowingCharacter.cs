@@ -12,7 +12,13 @@ public class FollowingCharacter : MonoBehaviour
 
     [SerializeField] Transform player;
     [SerializeField] float cameraSpeed;
+
+    [SerializeField] float maxDistance=2;
+    float distanceToCharacter;
+
+    [HideInInspector]
     public bool staticTarget = false;
+
     public Vector3 target;
 
     private Vector3 normalRotation;
@@ -36,7 +42,12 @@ public class FollowingCharacter : MonoBehaviour
     {
         if (!staticTarget)
         {
-            transform.DOMove(player.position, cameraSpeed);
+            distanceToCharacter = Vector3.Distance(this.transform.position, player.position);
+
+            if (distanceToCharacter >= maxDistance)
+            {
+                transform.DOMove(player.position, cameraSpeed);
+            }
         }
         else
         {
@@ -78,5 +89,12 @@ public class FollowingCharacter : MonoBehaviour
 
     }
 
-    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(this.transform.position, maxDistance);
+
+    }
+
+
 }
