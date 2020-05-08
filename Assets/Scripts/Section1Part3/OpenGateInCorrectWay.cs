@@ -18,6 +18,7 @@ public class OpenGateInCorrectWay : MonoBehaviour
     public GameObject gate;
     public GameObject pedestal;
 
+    [SerializeField] PickUpDropandThrow swordPickUp;
 
     [Space(15)]
     [Header("SOUND")]
@@ -31,6 +32,7 @@ public class OpenGateInCorrectWay : MonoBehaviour
 
     void Start()
     {
+        swordPickUp.enabled = false;
         actualColors.Clear();
         winningCombo.Add(LeverColors.PURPLE);
         winningCombo.Add(LeverColors.BLUE);
@@ -77,6 +79,7 @@ public class OpenGateInCorrectWay : MonoBehaviour
         Camera.main.DOShakePosition(5, 3, 7, 50, true);
         pedestal.transform.DOLocalMoveY(5.60f, 5, false);
         audios.clip = pedestalMovingAudio;
+        swordPickUp.enabled = true;
         audios.Play();
     }
 

@@ -9,7 +9,7 @@ public class deathTrigger : MonoBehaviour
     public deathType DeathType;
     void Start()
     {
-        
+        transform.tag = "Death";
     }
 
     // Update is called once per frame
@@ -39,5 +39,27 @@ public class deathTrigger : MonoBehaviour
             other.GetComponent<playerDeath>().killPlayer(0.1f);
 
         }
+
+        //try
+        //{
+        //    if (other.CompareTag("Torch"))
+        //    {
+        //        other.gameObject.GetComponent<PickUp>().ResetPosition();
+        //        Debug.Log("Torch position reset!");
+        //    }
+
+        //    if (other.CompareTag("Place"))
+        //    {
+        //        other.gameObject.transform.parent.GetComponent<PickUp>().ResetPosition();
+        //        Debug.Log("Place position reset!");
+
+        //    }
+
+        //}
+        //catch
+        //{
+        //    Debug.Log("Object " + other.gameObject.name +" couldn't be respawned");
+        //}
+
     }
 }

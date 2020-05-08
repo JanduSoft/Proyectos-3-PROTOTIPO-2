@@ -30,6 +30,10 @@ public class PickUpDragandDrop : PickUpandDrop
     // Start is called before the first frame update
     void Start()
     {
+        startingPosition = transform.position;
+        startingRotation = transform.localRotation;
+
+
         playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
         distToGround = transform.GetChild(0).GetComponent<Collider>().bounds.extents.y;
@@ -413,6 +417,10 @@ protected override void PickUpObject()
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
+        }
+        if (other.CompareTag("Death"))
+        {
+            ResetPosition();
         }
     }
 

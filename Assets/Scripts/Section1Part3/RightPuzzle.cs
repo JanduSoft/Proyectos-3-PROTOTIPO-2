@@ -23,10 +23,13 @@ public class RightPuzzle : MonoBehaviour
     {
         if (goldenPedestal.GetComponent<AddObject>().isActivated && !hasCompletedPuzzle)
         {
+
             hasCompletedPuzzle = true;
-            goldenSkull.GetComponent<PickUpDropandThrow>().enabled = false;
             rightLight.GetComponent<Light>().DOIntensity(6,3f);
             StartCoroutine(DoCinematic());
+            goldenSkull.GetComponent<PickUpDropandThrow>().enabled = false;
+            goldenPedestal.GetComponent<AddObject>().enabled = false;
+
         }
     }
 

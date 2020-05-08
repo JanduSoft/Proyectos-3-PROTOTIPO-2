@@ -28,7 +28,6 @@ public class AddObject : MonoBehaviour
         {
             if (canPlace && (objectIsGrabbed) && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
             {
-                Debug.Log("object placed:"+_object.name);
                 playerAnimator.SetBool("PlaceObject", true);
                 _object.GetComponent<PickUpDropandThrow>().DropObject();
                 StartCoroutine(PlaceObject());
@@ -52,7 +51,6 @@ public class AddObject : MonoBehaviour
         else if (other.CompareTag("Place"))
         {
             _object = other.transform.parent.gameObject;
-            Debug.Log(_object.name);
             _objectTransform = other.transform.parent.gameObject.transform;
             objectIsGrabbed = _object.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed();
             _object.GetComponent<PickUpDropandThrow>().SetCancelledDrop(true);

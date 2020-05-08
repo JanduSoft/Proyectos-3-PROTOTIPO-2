@@ -38,8 +38,34 @@ public class PickUpDropandThrow : PickUpandDrop
     [SerializeField] TutorialSprites tutoSprites;
 
     // Start is called before the first frame update
+
+    override public void ResetPosition()
+    {
+        if (!objectIsGrabbed)
+        {
+            try
+            {
+                transform.position = startingPosition;
+                transform.localRotation = startingRotation;
+
+                if (transform.CompareTag("Destroyable"))
+                {
+                    transform.tag = "Place";
+                }
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+            }
+            catch
+            {
+                Debug.Log("Can't respawn object");
+            }
+        }
+    }
     void Start()
     {
+        startingPosition = transform.position;
+        startingRotation = transform.localRotation;
+
         playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         _thisRB.useGravity = false;
         useGravity = false;
@@ -155,6 +181,11 @@ public class PickUpDropandThrow : PickUpandDrop
             distanceChecker = player.transform.GetChild(1).gameObject;
             player = other.gameObject;
         }
+        if (other.CompareTag("Death"))
+        {
+            ResetPosition();
+        }
+
     }
     private void OnTriggerEnter(Collider other)
     {

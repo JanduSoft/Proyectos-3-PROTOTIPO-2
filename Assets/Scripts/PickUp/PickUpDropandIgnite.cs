@@ -18,6 +18,9 @@ public class PickUpDropandIgnite : PickUpandDrop
     // Start is called before the first frame update
     void Start()
     {
+        startingPosition = transform.position;
+        startingRotation = transform.localRotation;
+
         playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         startingPosition = transform.position;
         grabPlace = GameObject.Find("Hand_R_PickUp");
@@ -84,6 +87,10 @@ public class PickUpDropandIgnite : PickUpandDrop
         else if (other.tag == "Rope")
         {
             nearRope = true;
+        }
+        if (other.CompareTag("Death"))
+        {
+            ResetPosition();
         }
     }
     private void OnTriggerEnter(Collider other)

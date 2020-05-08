@@ -15,12 +15,25 @@ public class PickUp : MonoBehaviour
     protected float distancePlayerObject;
     protected float minDot = 0.5f;
     protected Vector3 startingPosition;
+    protected Quaternion startingRotation;
     [SerializeField] protected PlayerMovement playerMovement;
 
     public virtual void ResetPosition()
     {
-        Debug.Log(startingPosition);
-        transform.position = startingPosition;
+        Debug.Log("Position reset");
+        if (!objectIsGrabbed)
+        {
+            try
+            {
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                transform.position = startingPosition;
+                transform.localRotation = startingRotation;
+            }
+            catch
+            {
+                Debug.Log("Can't respawn object");
+            }
+        }
     }
 
     // Start is called before the first frame update
@@ -42,6 +55,8 @@ public class PickUp : MonoBehaviour
     }
     protected virtual void PickUpObject()
     {
+        GetComponent<Rigidbody>().isKinematic = false;
+
         transform.SetParent(grabPlace.transform);
         transform.localPosition = new Vector3(0,0,0);
         transform.localRotation = new Quaternion(0, 0, 0, 1);
