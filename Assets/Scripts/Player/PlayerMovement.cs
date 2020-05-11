@@ -177,7 +177,7 @@ public class PlayerMovement : MonoBehaviour
                 movePlayer = lastPlayerInput.x * camRight + lastPlayerInput.z * camForward;
                 movePlayer *= playerSpeed;
             }
-            if (movePlayer == Vector3.zero)
+            if (playerInput == Vector3.zero)
             {
                 animatorController.SetBool("walking", false);
                 timeIdle += Time.deltaTime;
@@ -189,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
                     timeIdle = 0;
                 }
             }
-            else if (!grabbedToRock && movePlayer != Vector3.zero && !stopped)
+            else if (!grabbedToRock && playerInput != Vector3.zero && !stopped)
             {
                 // LOOK AT IF IS ON AIR OR GROUNDED
                 if (player.isGrounded || grounded)
