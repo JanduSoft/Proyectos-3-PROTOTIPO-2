@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     const float maxSpeedWalking = 7;
     const float maxSpeedJogging = 9;
-    const float maxSpeedRunning = 10;
+    const float maxSpeedRunning = 14;
     [SerializeField] public bool ableToWhip = true;
 
     InputDevice inputDevice;
