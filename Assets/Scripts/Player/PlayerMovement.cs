@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using InControl;
-
 public class PlayerMovement : MonoBehaviour
 {
+    const float maxSpeedWalking = 4.85f;
+    const float maxSpeedJogging = 9f;
+    const float maxSpeedRunning = 14;
     [SerializeField] public bool ableToWhip = true;
 
     InputDevice inputDevice;
@@ -18,10 +20,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("MOVEMENT")]
     public bool canMove = true;
     [SerializeField] float horizontalMove;
+    [SerializeField] float magnitudeInput;
     [SerializeField] float coyoteTime = 0.2f;
     [SerializeField] float auxCoyote = 0;
     [SerializeField] float verticalMove;
-    private Vector3 playerInput;
+    [SerializeField] private Vector3 playerInput;
+    Vector3 lastPlayerInput;
     public bool grabbedToRock = false;
     public Vector3 movePlayer;  //made public for DragAndDropObject.cs to use
     private bool stopped = false;
@@ -32,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public CharacterController player;
     [SerializeField] float playerSpeed;
     float maxSpeed;
+    [SerializeField] float finalSpeed = 0;
+    [SerializeField] float stateSpeed = 0;
     [SerializeField] float acceleration;
     [SerializeField] Whip whip;
     float lookAtSpeed;
@@ -43,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     float minPitch = 0.9f;
     float maxPitch = 1.1f;
     [SerializeField] float percentRestriction;
-
+    Vector3 destineInput;
     [Header("GRAVITY")]
     [SerializeField] float gravity = 9.8f;
     [SerializeField] public float fallVelocity;
@@ -55,8 +61,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("CAMERA")]
     [SerializeField] Camera mainCamera;
-    private Vector3 camForward;
-    private Vector3 camRight;
+    [SerializeField] private Vector3 camForward;
+    [SerializeField] private Vector3 camRight;
 
     AudioSource playerSteps;
     Vector3 prevPos;
@@ -75,7 +81,6 @@ public class PlayerMovement : MonoBehaviour
     #region START
     void Start()
     {
-        maxSpeed = playerSpeed;
         auxCoyote = coyoteTime;
         player = GetComponent<CharacterController>();
         fallVelocity = -10;
@@ -94,7 +99,6 @@ public class PlayerMovement : MonoBehaviour
             if (player.isGrounded)
             {
                 grounded = true;
-
             }
             if (isInWhipJump)
                 grounded = false;
@@ -108,42 +112,56 @@ public class PlayerMovement : MonoBehaviour
             //ACCELERATION
             if (playerInput == Vector3.zero)
             {
-                playerSpeed = 0;
+                playerSpeed = Mathf.Lerp(playerSpeed, 0, acceleration);
                 lookAtSpeed = changingDirectionLookAtSpeed;
             }
             else
             {
                 lookAtSpeed = normalLookAtSpeed;
-                playerSpeed += acceleration * Time.deltaTime;
-
-                if (playerSpeed >= maxSpeed)
-                {
-                    playerSpeed = maxSpeed;
-                }
+                playerSpeed = Mathf.Lerp(playerSpeed,maxSpeed, acceleration);
             }
 
             //GETTING CAMERA DIRECTION
             CamDirection();
 
-            // CALCULATING CHARACTER MOVEMENT
-            movePlayer = playerInput.x * camRight + playerInput.z * camForward;
-            movePlayer *= playerSpeed;
+            magnitudeInput = playerInput.magnitude;
 
-
-
-            if (movePlayer == Vector3.zero)
+            if (playerInput.magnitude > 0.7 || playerInput.magnitude < -0.7)
+            {
+                maxSpeed = maxSpeedRunning;
+            }
+            else if (playerInput.magnitude > 0.5 && playerInput.magnitude < 0.7 || playerInput.magnitude < -0.5 && playerInput.magnitude > -0.7)
+            {
+                maxSpeed = maxSpeedJogging;
+            }
+            else if (playerInput.magnitude > 0 && playerInput.magnitude < 0.5 || playerInput.magnitude < -0 && playerInput.magnitude > -0.5)
+            {
+                maxSpeed = maxSpeedWalking;
+            }
+            if (playerInput != Vector3.zero)
+            {
+                movePlayer = playerInput.x * camRight + playerInput.z * camForward;
+                movePlayer *= playerSpeed;
+                lastPlayerInput = playerInput;
+            }
+            else
+            {
+                movePlayer = lastPlayerInput.x * camRight + lastPlayerInput.z * camForward;
+                movePlayer *= playerSpeed;
+            }
+            if (playerInput == Vector3.zero)
             {
                 animatorController.SetBool("walking", false);
                 timeIdle += Time.deltaTime;
-                animatorController.SetFloat("idle", timeIdle);
+                //animatorController.SetFloat("idle", timeIdle);
 
                 if (timeIdle > 4)
                 {
-                    animatorController.SetInteger("randomIdle", Random.Range(0, 2));
+                    animatorController.SetFloat("randomIdle", Random.Range(0, 2));
                     timeIdle = 0;
                 }
             }
-            else if (!grabbedToRock && movePlayer != Vector3.zero && !stopped)
+            else if (!grabbedToRock && playerInput != Vector3.zero && !stopped)
             {
                 // LOOK AT IF IS ON AIR OR GROUNDED
                 if (player.isGrounded || grounded)
@@ -159,12 +177,9 @@ public class PlayerMovement : MonoBehaviour
                     model.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
                 }
                 animatorController.SetBool("walking", true);
-                timeIdle = 0;
-                animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
+                animatorController.SetFloat("velocity", finalSpeed);
             }
 
-            timeIdle = 0;
-            animatorController.SetFloat("velocity", Mathf.Abs(Vector3.Dot(movePlayer, Vector3.one)));
 
 
             // GRAVITY
@@ -188,10 +203,13 @@ public class PlayerMovement : MonoBehaviour
                 if (player.isGrounded || grounded)
                 {
                     animatorController.SetBool("Jumping", false);
-                    player.Move(movePlayer * Time.deltaTime);
+                    Vector3 go = player.transform.forward * playerSpeed;
+                    go.y = movePlayer.y;
+                    player.Move(go * Time.deltaTime);
                     auxCoyote = coyoteTime;
+                    animatorController.SetFloat("velocity", playerSpeed);
                 }
-                else if (!player.isGrounded && !grounded)
+                else if (!player.isGrounded)
                 {
                     player.Move((movePlayer * (percentRestriction / 100)) * Time.deltaTime);
                     animatorController.SetBool("Jumping", true);

@@ -86,7 +86,6 @@ public class NewWhipJump : MonoBehaviour
                 Vector3 toLookAt = new Vector3(toWhipObject.position.x, player.position.y, toWhipObject.position.z);
 
                 player.DOLookAt(toLookAt, timeImpulse + 0.2f);
-                player.DOMoveY(player.position.y + impulse, timeImpulse);
 
                 //mover el hookSpawner
                 startWhip = true;
@@ -94,9 +93,8 @@ public class NewWhipJump : MonoBehaviour
 
                 playerMovement.isInWhipJump = true;
                 animator.SetBool("Whip", true);
-                animator.SetBool("Jumping", true);
-                playerMovement.grounded = false;
-                Invoke("WhipJump", timeImpulse);
+                StartCoroutine(continueExecution());
+                
             }
 
         /////CHECKING IF IS IN WHIP JUP FOR DE LINE RENDERER
@@ -227,6 +225,16 @@ public class NewWhipJump : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         animator.SetBool("Whip", false);
+    }
 
+    IEnumerator continueExecution()
+    {
+        yield return new WaitForSeconds(0.5f);
+        player.DOMoveY(player.position.y + impulse, timeImpulse);
+        animator.SetBool("Jumping", true);
+        playerMovement.grounded = false;
+        Invoke("WhipJump", timeImpulse);
+        yield return new WaitForSeconds(0.5f);
+        animator.SetBool("Whip", false);
     }
 }
