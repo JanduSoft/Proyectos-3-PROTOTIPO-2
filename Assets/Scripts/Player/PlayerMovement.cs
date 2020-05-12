@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     float minPitch = 0.9f;
     float maxPitch = 1.1f;
     [SerializeField] float percentRestriction;
-
+    Vector3 destineInput;
     [Header("GRAVITY")]
     [SerializeField] float gravity = 9.8f;
     [SerializeField] public float fallVelocity;
@@ -124,33 +124,6 @@ public class PlayerMovement : MonoBehaviour
 
             //GETTING CAMERA DIRECTION
             CamDirection();
-
-            #region ASCAZO NO OBRIU
-            if (playerInput.x > 0 && playerInput.x < 0.33)
-                playerInput.x = 0.33f;
-            else if (playerInput.x > 0.33 && playerInput.x < 0.6)
-                playerInput.x = 0.6f;
-            else if(playerInput.x > 0.6)
-                playerInput.x = 0.8f;
-            if (playerInput.x < 0 && playerInput.x > -0.33)
-                playerInput.x = -0.33f;
-            else if (playerInput.x < -0.33 && playerInput.x > -0.6)
-                playerInput.x = -0.6f;
-            else if (playerInput.x < -0.6)
-                playerInput.x = -0.8f;
-            if (playerInput.z > 0 && playerInput.z < 0.33)
-                playerInput.z = 0.33f;
-            else if(playerInput.z > 0.33 && playerInput.z < 0.6)
-                playerInput.z = 0.6f;
-            else if(playerInput.z > 0.6)
-                playerInput.z = 0.8f;
-            if(playerInput.z < 0 && playerInput.z > -0.33)
-                playerInput.z = -0.33f;
-            else if(playerInput.z < -0.33 && playerInput.z > -0.6)
-                playerInput.z = -0.6f;
-            else if(playerInput.z < -0.6)
-                playerInput.z = -0.8f;
-            #endregion
 
             magnitudeInput = playerInput.magnitude;
 
@@ -231,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
                 if (player.isGrounded || grounded)
                 {
                     animatorController.SetBool("Jumping", false);
-                    player.Move(movePlayer * Time.deltaTime);
+                    player.Move(player.transform.forward * playerSpeed * Time.deltaTime);
                     auxCoyote = coyoteTime;
                     animatorController.SetFloat("velocity", playerSpeed);
                 }
