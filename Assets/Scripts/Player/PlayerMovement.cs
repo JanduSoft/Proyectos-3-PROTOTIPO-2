@@ -5,8 +5,8 @@ using DG.Tweening;
 using InControl;
 public class PlayerMovement : MonoBehaviour
 {
-    const float maxSpeedWalking = 7;
-    const float maxSpeedJogging = 9;
+    const float maxSpeedWalking = 4.85f;
+    const float maxSpeedJogging = 9f;
     const float maxSpeedRunning = 14;
     [SerializeField] public bool ableToWhip = true;
 
@@ -99,7 +99,6 @@ public class PlayerMovement : MonoBehaviour
             if (player.isGrounded)
             {
                 grounded = true;
-
             }
             if (isInWhipJump)
                 grounded = false;
@@ -204,11 +203,13 @@ public class PlayerMovement : MonoBehaviour
                 if (player.isGrounded || grounded)
                 {
                     animatorController.SetBool("Jumping", false);
-                    player.Move(player.transform.forward * playerSpeed * Time.deltaTime);
+                    Vector3 go = player.transform.forward * playerSpeed;
+                    go.y = movePlayer.y;
+                    player.Move(go * Time.deltaTime);
                     auxCoyote = coyoteTime;
                     animatorController.SetFloat("velocity", playerSpeed);
                 }
-                else if (!player.isGrounded && !grounded)
+                else if (!player.isGrounded)
                 {
                     player.Move((movePlayer * (percentRestriction / 100)) * Time.deltaTime);
                     animatorController.SetBool("Jumping", true);
