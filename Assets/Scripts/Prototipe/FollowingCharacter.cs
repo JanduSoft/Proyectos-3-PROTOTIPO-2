@@ -10,6 +10,7 @@ public class FollowingCharacter : MonoBehaviour
     /// /////////////////////////////------------------------------VARIABLES
     ////////////////////////////
 
+    bool isFollowing = false;
     [SerializeField] Transform player;
     [SerializeField] float cameraSpeed;
 
@@ -46,7 +47,7 @@ public class FollowingCharacter : MonoBehaviour
 
             if (distanceToCharacter >= maxDistance)
             {
-                transform.DOMove(player.position, cameraSpeed);
+                    transform.DOMove(player.position, cameraSpeed);
             }
         }
         else
@@ -96,5 +97,6 @@ public class FollowingCharacter : MonoBehaviour
 
     }
 
+    
 
 }
