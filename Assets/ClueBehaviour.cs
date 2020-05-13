@@ -10,10 +10,13 @@ public class ClueBehaviour : MonoBehaviour
     bool firstTime = true;
     bool canPlay = true;
     [SerializeField] PlayerMovement player;
+    [SerializeField] Transform cluePosition;
+    [SerializeField] Transform targetCamera;
 
     [Header("CAMERAS")]
     [SerializeField] Camera mainCamera;
     [SerializeField] Camera tutoCamera;
+    [SerializeField] float cameraReductionFOV = 20;
     float initialFovMain;
     float initialFovTuto;
 
@@ -51,9 +54,13 @@ public class ClueBehaviour : MonoBehaviour
                 initialFovTuto = tutoCamera.fieldOfView;
 
                 //Hacemos el zoom in
-                mainCamera.DOFieldOfView(mainCamera.fieldOfView - 15, timeFirstAnimation/2);
-                tutoCamera.DOFieldOfView(tutoCamera.fieldOfView - 15, timeFirstAnimation/2);
-                
+                mainCamera.DOFieldOfView(mainCamera.fieldOfView - cameraReductionFOV, timeFirstAnimation/2);
+                tutoCamera.DOFieldOfView(tutoCamera.fieldOfView - cameraReductionFOV, timeFirstAnimation/2);
+
+                //Hacemos el Look At
+                mainCamera.transform.DOLookAt(cluePosition.position, timeFirstAnimation / 2);
+                tutoCamera.transform.DOLookAt(cluePosition.position, timeFirstAnimation / 2);
+
                 //Preparamos el xoom out
                 Invoke("RestartFOV", timeFirstAnimation / 2);
 
@@ -77,6 +84,9 @@ public class ClueBehaviour : MonoBehaviour
     {
         mainCamera.DOFieldOfView(initialFovMain, timeFirstAnimation / 2);
         tutoCamera.DOFieldOfView(initialFovTuto, timeFirstAnimation / 2);
+
+        mainCamera.transform.DOLookAt(targetCamera.position, timeFirstAnimation / 2);
+        tutoCamera.transform.DOLookAt(targetCamera.position, timeFirstAnimation / 2);
     }
     #endregion
 
