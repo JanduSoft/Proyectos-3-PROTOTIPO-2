@@ -1381,6 +1381,25 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &5796821312737268796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669957099268278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ad01463608a7ef4f88e21995047d252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activatedIK: 1
+  cc: {fileID: 6120095539264640500}
+  anim: {fileID: 95810304588308272}
+  DistanceToGround: 0.17
+  layermask:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!1 &6120095539264640501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,11 +1495,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91f939d3e2ac5974290d4db9a5ad0fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ableToWhip: 1
   canMove: 1
   horizontalMove: 0
+  magnitudeInput: 0
   coyoteTime: 0.2
   auxCoyote: 0
   verticalMove: 0
+  playerInput: {x: 0, y: 0, z: 0}
   grabbedToRock: 0
   movePlayer: {x: 0, y: 0, z: 0}
   walkinParticles: {fileID: 1599718021928974, guid: 88010a27506fd2c40980a3c67022eca8,
@@ -1489,6 +1511,8 @@ MonoBehaviour:
   grounded: 1
   player: {fileID: 6120095539264640500}
   playerSpeed: 14
+  finalSpeed: 0
+  stateSpeed: 0
   acceleration: 30
   whip: {fileID: 1052674258}
   normalLookAtSpeed: 0.5
@@ -1502,6 +1526,8 @@ MonoBehaviour:
   gravityMultipliyerFalling: 2.5
   timeOnAir: 0.08
   mainCamera: {fileID: 0}
+  camForward: {x: 0, y: 0, z: 0}
+  camRight: {x: 0, y: 0, z: 0}
   isInWhipJump: 0
   animatorController: {fileID: 95810304588308272}
   model: {fileID: 1669957099268278}
