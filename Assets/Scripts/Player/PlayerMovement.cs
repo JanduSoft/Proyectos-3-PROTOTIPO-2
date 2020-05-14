@@ -316,16 +316,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Ground"))
         {
-            //Debug.Log("Entro !");
-            grounded = true;
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Ground"))
-        {
-            //Debug.Log("Estic !");
             grounded = true;
         }
     }
