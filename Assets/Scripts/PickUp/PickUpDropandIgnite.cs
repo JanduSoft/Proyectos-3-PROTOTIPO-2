@@ -88,11 +88,18 @@ public class PickUpDropandIgnite : PickUpandDrop
         {
             nearRope = true;
         }
-        if (other.CompareTag("Death"))
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Death"))
         {
+
             ResetPosition();
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

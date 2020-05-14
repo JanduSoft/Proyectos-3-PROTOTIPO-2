@@ -418,10 +418,7 @@ protected override void PickUpObject()
         {
             player = other.gameObject;
         }
-        if (other.CompareTag("Death"))
-        {
-            ResetPosition();
-        }
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -451,6 +448,9 @@ protected override void PickUpObject()
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log(collision.gameObject.name);
+        if (collision.transform.CompareTag("Death"))
+        {
+            ResetPosition();
+        }
     }
 }

@@ -181,12 +181,9 @@ public class PickUpDropandThrow : PickUpandDrop
             distanceChecker = player.transform.GetChild(1).gameObject;
             player = other.gameObject;
         }
-        if (other.CompareTag("Death"))
-        {
-            ResetPosition();
-        }
-
     }
+
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -227,6 +224,11 @@ public class PickUpDropandThrow : PickUpandDrop
         if (collision.transform.tag == "WhipEnemy" && (tag == "Destroyable" || transform.GetChild(0).tag == "Place"))
         {
             enemy.SendMessage("Die");
+        }
+
+        if (collision.transform.CompareTag("Death"))
+        {
+            ResetPosition();
         }
     }
     protected void ObjectDrop()
