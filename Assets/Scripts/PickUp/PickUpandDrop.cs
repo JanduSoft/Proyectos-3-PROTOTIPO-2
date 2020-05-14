@@ -66,12 +66,7 @@ public class PickUpandDrop : PickUp
             player = other.gameObject;
             playerAnimator = player.GetComponentInChildren<Animator>();
         }
-
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.CompareTag("Death"))
+        if (other.CompareTag("Death") && !transform.CompareTag("Stone"))
         {
             ResetPosition();
         }
