@@ -209,7 +209,7 @@ public class PlayerMovement : MonoBehaviour
                     auxCoyote = coyoteTime;
                     animatorController.SetFloat("velocity", playerSpeed);
                 }
-                else if (!player.isGrounded)
+                else if (!player.isGrounded && !grounded)
                 {
                     player.Move((movePlayer * (percentRestriction / 100)) * Time.deltaTime);
                     animatorController.SetBool("Jumping", true);
