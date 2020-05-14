@@ -45,16 +45,35 @@ public class NewMainMenu : MonoBehaviour
     [SerializeField] GameObject settingButton;
     [SerializeField] GameObject creditsButton;
     [SerializeField] GameObject quitButton;
-
-    [Header("SETTINGS BUTTONS")]
+    
+        [Header("RESOLUTION")]
+    [Header("LEFT RESOLUTION")]
     [SerializeField] GameObject leftResolution;
+    [SerializeField] GameObject leftChecker;
+    [SerializeField] Text leftText;
+    [SerializeField] Text leftSubText;
+    [Header("MIDLE RESOLUTION")]
     [SerializeField] GameObject midleResolution;
+    [SerializeField] GameObject midleChecker;
+    [SerializeField] Text midleText;
+    [SerializeField] Text midleSubText;
+    [Header("RIGHT RESOLUTION")]
     [SerializeField] GameObject rightResolution;
+    [SerializeField] GameObject rightChecker;
+    [SerializeField] Text rightText;
+    [SerializeField] Text rightSubText;
+
+    [Header("GRAPHICS")]
     [SerializeField] GameObject lowGraphics;
+    [SerializeField] GameObject lowChecker;
     [SerializeField] GameObject mediumGraphics;
+    [SerializeField] GameObject mediumChecker;
     [SerializeField] GameObject highGraphics;
+    [SerializeField] GameObject highChecker;
+    [Header("FULLSCREEN")]
     [SerializeField] Image fullscreenButton;
     [SerializeField] GameObject fullscreenchecK;
+        [Header("MUTE")]
     [SerializeField] Image muteButton;
     [SerializeField] GameObject muteCheck;
     [SerializeField] GameObject backButton;
@@ -85,6 +104,12 @@ public class NewMainMenu : MonoBehaviour
 
     bool isUpPressed = false;
     bool isDownPressed = false;
+
+    Resolution[] resolutions;
+
+    int indexLow = 0;
+    int indexMedium = 2;
+    int indexHigh = 5;
     #endregion
 
     #region START
@@ -110,6 +135,48 @@ public class NewMainMenu : MonoBehaviour
         //Seteamso el Inpud Device
         inputDevice = InputManager.ActiveDevice;
         continueButton.SetActive(true);
+
+
+        //Checkeamos las resoluciones
+        resolutions = Screen.resolutions;
+
+
+        leftText.text = resolutions[0].width + " x " + resolutions[0].height;
+        leftSubText.text = resolutions[0].width + " x " + resolutions[0].height;
+
+        midleText.text = resolutions[resolutions.Length / 2].width + " x " + resolutions[resolutions.Length / 2].height;
+        midleSubText.text = resolutions[resolutions.Length / 2].width + " x " + resolutions[resolutions.Length / 2].height;
+
+        rightText.text = resolutions[resolutions.Length - 1].width + " x " + resolutions[resolutions.Length - 1].height;
+        rightSubText.text = resolutions[resolutions.Length - 1].width + " x " + resolutions[resolutions.Length - 1].height;
+
+
+        //Checkeamos las opciones de calidad
+        ///////CHECK QUALITY SETTINGS
+        //LOW
+        if (QualitySettings.GetQualityLevel() == 0 || QualitySettings.GetQualityLevel() == 1)
+        {
+            lowChecker.SetActive(true);
+
+            mediumChecker.SetActive(false);
+            highChecker.SetActive(false);
+        }
+        //MEDIUM
+        else if (QualitySettings.GetQualityLevel() == 2 || QualitySettings.GetQualityLevel() == 3)
+        {
+            mediumChecker.SetActive(true);
+
+            lowChecker.SetActive(false);
+            highChecker.SetActive(false);
+        }
+        //HIGH
+        else if (QualitySettings.GetQualityLevel() >= 4 )
+        {
+            highChecker.SetActive(true);
+
+            lowChecker.SetActive(false);
+            mediumChecker.SetActive(false);
+        }
     }
     #endregion
 
@@ -297,6 +364,76 @@ public class NewMainMenu : MonoBehaviour
                         mainMenu.SetActive(true);
                         break;
                     }
+                case ButtonType.LEFT_RESOLUTION:
+                    {
+                        leftChecker.SetActive(true);
+
+                        midleChecker.SetActive(false);
+                        rightChecker.SetActive(false);
+
+                        Screen.SetResolution(resolutions[0].width, resolutions[0].height, Screen.fullScreen);
+                        soundAccept.Play();
+                        break;
+                    }
+                case ButtonType.MIDLE_RESOLUTION:
+                    {
+                        midleChecker.SetActive(true);
+
+                        leftChecker.SetActive(false);
+                        rightChecker.SetActive(false);
+
+                        Screen.SetResolution(resolutions[resolutions.Length / 2].width,
+                                                            resolutions[resolutions.Length / 2].height,
+                                                            Screen.fullScreen);
+                        soundAccept.Play();
+                        break;
+                    }
+                case ButtonType.RIGHT_RESOLUTION:
+                    {
+                        rightChecker.SetActive(true);
+
+                        leftChecker.SetActive(false);
+                        midleChecker.SetActive(false);
+
+                        Screen.SetResolution(resolutions[resolutions.Length - 1].width,
+                                                            resolutions[resolutions.Length - 1].height,
+                                                            Screen.fullScreen);
+                        soundAccept.Play();
+                        break;
+                    }
+                case ButtonType.LOW:
+                    {
+                        lowChecker.SetActive(true);
+
+                        mediumChecker.SetActive(false);
+                        highChecker.SetActive(false);
+
+                        QualitySettings.SetQualityLevel(indexLow);
+                        soundAccept.Play();
+                        break;
+                    }
+                case ButtonType.MEDIUM:
+                    {
+                        mediumChecker.SetActive(true);
+
+                        lowChecker.SetActive(false);
+                        highChecker.SetActive(false);
+
+                        QualitySettings.SetQualityLevel(indexMedium);
+                        soundAccept.Play();
+                        break;
+                    }
+                case ButtonType.HIGH:
+                    {
+                        highChecker.SetActive(true);
+
+                        lowChecker.SetActive(false);
+                        mediumChecker.SetActive(false);
+
+                        QualitySettings.SetQualityLevel(indexHigh);
+                        soundAccept.Play();
+                        break;
+                    }
                 default:
                     {
                         Screen.fullScreen = false;
@@ -381,7 +518,10 @@ public class NewMainMenu : MonoBehaviour
                 upPressed = true;
                 //Camiamos el objecto seleccionado
                 MoveUp();
-                soundNavigation.Play();
+                if (currentButton != ButtonType.BACK_CREDITS)
+                {
+                    soundNavigation.Play();
+                }
             }
         }
         else
@@ -397,7 +537,10 @@ public class NewMainMenu : MonoBehaviour
                 //Camiamos el objecto seleccionado
                 MoveDown();
 
-                soundNavigation.Play();
+                if (currentButton != ButtonType.BACK_CREDITS)
+                {
+                    soundNavigation.Play();
+                }
             }
         }
         else
@@ -766,6 +909,7 @@ public class NewMainMenu : MonoBehaviour
                     lowGraphics.SetActive(false);
                     currentButton = ButtonType.MEDIUM;
                     mediumGraphics.SetActive(true);
+                    soundNavigation.Play();
                     break;
                 }
             case ButtonType.MEDIUM:
@@ -773,6 +917,7 @@ public class NewMainMenu : MonoBehaviour
                     mediumGraphics.SetActive(false);
                     currentButton = ButtonType.HIGH;
                     highGraphics.SetActive(true);
+                    soundNavigation.Play();
                     break;
                 }
             case ButtonType.HIGH:
