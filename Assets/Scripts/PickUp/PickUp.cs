@@ -20,7 +20,6 @@ public class PickUp : MonoBehaviour
 
     public virtual void ResetPosition()
     {
-        Debug.Log("Position reset");
         if (!objectIsGrabbed)
         {
             try

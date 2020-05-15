@@ -209,7 +209,7 @@ public class PlayerMovement : MonoBehaviour
                     auxCoyote = coyoteTime;
                     animatorController.SetFloat("velocity", playerSpeed);
                 }
-                else if (!player.isGrounded)
+                else if (!player.isGrounded && !grounded)
                 {
                     player.Move((movePlayer * (percentRestriction / 100)) * Time.deltaTime);
                     animatorController.SetBool("Jumping", true);
@@ -316,16 +316,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Ground"))
         {
-            //Debug.Log("Entro !");
-            grounded = true;
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Ground"))
-        {
-            //Debug.Log("Estic !");
             grounded = true;
         }
     }

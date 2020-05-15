@@ -181,12 +181,14 @@ public class PickUpDropandThrow : PickUpandDrop
             distanceChecker = player.transform.GetChild(1).gameObject;
             player = other.gameObject;
         }
+
         if (other.CompareTag("Death"))
         {
             ResetPosition();
         }
-
     }
+
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -228,6 +230,8 @@ public class PickUpDropandThrow : PickUpandDrop
         {
             enemy.SendMessage("Die");
         }
+
+
     }
     protected void ObjectDrop()
     {

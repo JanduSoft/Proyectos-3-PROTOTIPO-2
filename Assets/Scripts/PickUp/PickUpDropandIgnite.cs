@@ -90,9 +90,13 @@ public class PickUpDropandIgnite : PickUpandDrop
         }
         if (other.CompareTag("Death"))
         {
+
             ResetPosition();
         }
+
     }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
