@@ -93,6 +93,7 @@ public class NewWhipJump : MonoBehaviour
 
                 playerMovement.isInWhipJump = true;
                 animator.SetBool("Whip", true);
+                playerMovement.StopMovement(true);
                 StartCoroutine(continueExecution());
                 
             }
@@ -232,6 +233,7 @@ public class NewWhipJump : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         player.DOMoveY(player.position.y + impulse, timeImpulse);
         animator.SetBool("Jumping", true);
+        playerMovement.StopMovement(false);
         playerMovement.grounded = false;
         Invoke("WhipJump", timeImpulse);
         yield return new WaitForSeconds(0.5f);
