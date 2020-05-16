@@ -172,9 +172,9 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (!player.isGrounded && !grounded)
                 {
-                    player.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
+                    player.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
                     model.transform.position = player.transform.position;
-                    model.transform.DOLookAt(player.transform.position + movePlayer, 1.5f);
+                    model.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
                 }
                 animatorController.SetBool("walking", true);
                 animatorController.SetFloat("velocity", finalSpeed);
@@ -344,6 +344,7 @@ public class PlayerMovement : MonoBehaviour
     public void StopMovement(bool _tof)
     {
         stopped = _tof;
+        animatorController.SetBool("walking", false);
     }
 
     public void Whip(Transform destination)
