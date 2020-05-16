@@ -112,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
             //ACCELERATION
             if (playerInput == Vector3.zero)
             {
-                playerSpeed = Mathf.Lerp(playerSpeed, 0, acceleration);
+                playerSpeed = Mathf.Lerp(playerSpeed, 0, 0.1f);
                 lookAtSpeed = changingDirectionLookAtSpeed;
             }
             else
