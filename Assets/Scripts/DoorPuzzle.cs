@@ -8,6 +8,7 @@ public class DoorPuzzle : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] CamerShake shakeCamera;
     [SerializeField] AudioSource audioShake;
+    [SerializeField] GameObject checkMark;
     bool isOpened = false;
     // Update is called once per frame
     void Update()
@@ -16,6 +17,7 @@ public class DoorPuzzle : MonoBehaviour
         {
             if (!isOpened)
             {
+                checkMark.SetActive(true);
                 isOpened = true;
                 animator.SetBool("Active", true);
                 shakeCamera.StartShake(shakeCamera.durationShake);
