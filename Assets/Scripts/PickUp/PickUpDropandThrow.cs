@@ -182,10 +182,7 @@ public class PickUpDropandThrow : PickUpandDrop
             player = other.gameObject;
         }
 
-        if (other.CompareTag("Death"))
-        {
-            ResetPosition();
-        }
+
     }
 
     
@@ -200,6 +197,13 @@ public class PickUpDropandThrow : PickUpandDrop
     }
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(transform.name + " colliding with " + collision.transform.name);
+        if (collision.transform.tag == "Death")
+        {
+            Debug.Log("joder");
+            ResetPosition();
+        }
+
         if (tag == "Destroyable")
         {
             if (hasObjectInside)
