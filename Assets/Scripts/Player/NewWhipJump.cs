@@ -89,7 +89,6 @@ public class NewWhipJump : MonoBehaviour
 
                 //mover el hookSpawner
                 startWhip = true;
-                hookSpawner.DOMove(toWhipObject.position, timeImpulse);
 
                 playerMovement.isInWhipJump = true;
                 animator.SetBool("Whip", true);
@@ -103,6 +102,7 @@ public class NewWhipJump : MonoBehaviour
         {
             //Vector3 aux = new Vector3(player.position.x, player.position.y + 3f, player.position.z);
             whip.SetPosition(0, whip.gameObject.transform.position);
+            //whip.material.SetTextureScale("_MainTex", new Vector2(Vector3.SqrMagnitude(whip.gameObject.transform.position - hookSpawner.position), 1));
         }
 
 
@@ -231,6 +231,7 @@ public class NewWhipJump : MonoBehaviour
     IEnumerator continueExecution()
     {
         yield return new WaitForSeconds(0.5f);
+        hookSpawner.DOMove(toWhipObject.position, timeImpulse);
         player.DOMoveY(player.position.y + impulse, timeImpulse);
         animator.SetBool("Jumping", true);
         playerMovement.StopMovement(false);

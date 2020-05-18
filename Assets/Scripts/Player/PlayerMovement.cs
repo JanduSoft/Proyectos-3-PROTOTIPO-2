@@ -345,6 +345,7 @@ public class PlayerMovement : MonoBehaviour
     {
         stopped = _tof;
         animatorController.SetBool("walking", false);
+        animatorController.SetFloat("velocity", 0);
     }
 
     public void Whip(Transform destination)
