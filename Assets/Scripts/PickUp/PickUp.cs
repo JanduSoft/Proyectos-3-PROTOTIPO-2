@@ -17,6 +17,7 @@ public class PickUp : MonoBehaviour
     protected Vector3 startingPosition;
     protected Quaternion startingRotation;
     [SerializeField] protected PlayerMovement playerMovement;
+    [SerializeField] protected bool respawn = true;
 
     public virtual void ResetPosition()
     {

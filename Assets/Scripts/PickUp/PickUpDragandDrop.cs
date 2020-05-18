@@ -450,8 +450,8 @@ protected override void PickUpObject()
     {
         if (collision.transform.CompareTag("Death"))
         {
-            Debug.Log("ha");
-            ResetPosition();
+            if (respawn)
+                ResetPosition();
         }
     }
 }
