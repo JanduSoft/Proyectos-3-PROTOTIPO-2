@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using InControl;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class SecretObject : MonoBehaviour
 {
@@ -30,14 +32,45 @@ public class SecretObject : MonoBehaviour
     [SerializeField] Transform spawnPosition;
     [SerializeField] GameObject background;
     [SerializeField] TutorialSprites tuto;
+
     GameObject objectInstantiate;
+    [Header("AUDIO")]
+    [SerializeField] AudioSource sound;
+    [SerializeField] float minTime = 3;
+    [SerializeField] AudioSource close;
+    bool startAnimation = false;
+    float timeToFinishAnimation = 0;
+
+    [Header("Text")]
+    [SerializeField] float sizeAnimationText;
+    [SerializeField] GameObject text;
+
     #endregion
 
     #region UPDATE
     void Update()
     {
+        if (startAnimation)
+        {
+            timeToFinishAnimation += Time.deltaTime;
+
+            if (timeToFinishAnimation >= minTime)
+            {
+                startAnimation = false;
+            }
+            else if (timeToFinishAnimation >= minTime -0.5f)
+            {
+                AnimationText();
+            }
+        }
+
         if ( isPlayerInside && InputManager.ActiveDevice.Action3.WasPressed && !isShowingObject)
         {
+            //Animation start
+            startAnimation = true;
+            //Sound
+            sound.Play();
+
             isShowingObject = true;
             //playerMove.canMove = false;
             playerMove.StopMovement(true);
@@ -54,8 +87,10 @@ public class SecretObject : MonoBehaviour
             StartAnimationObject();
             return;
         }
-        else if (isShowingObject && InputManager.ActiveDevice.Action3.WasPressed)
+        else if (isShowingObject && InputManager.ActiveDevice.AnyButton.WasPressed && !startAnimation)
         {
+            close.Play();
+
             isShowingObject = false;
 
             //playerMove.canMove = true;
@@ -140,6 +175,13 @@ public class SecretObject : MonoBehaviour
         {
             isPlayerInside = false;
         }
+    }
+    #endregion
+
+    #region ANIMATION TEXT
+    void AnimationText()
+    {
+        text.transform.DOScale(sizeAnimationText ,0.5f);
     }
     #endregion
 }
