@@ -115,6 +115,9 @@ public class NewMainMenu : MonoBehaviour
     #region START
     private void Start()
     {
+
+        Cursor.visible = false;
+
         PlayerPrefs.SetInt("Muted", 0);
 
         if (PlayerPrefs.GetInt("LevelSaved") == 0)
