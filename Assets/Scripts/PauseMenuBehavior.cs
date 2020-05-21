@@ -144,6 +144,8 @@ public class PauseMenuBehavior : MonoBehaviour
     #region START
     private void Start()
     {
+        Cursor.visible = false;
+
         resolutions = Screen.resolutions;
         
 

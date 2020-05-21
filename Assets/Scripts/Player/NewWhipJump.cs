@@ -83,6 +83,9 @@ public class NewWhipJump : MonoBehaviour
         if(playerMovement.ableToWhip)
             if (InputManager.ActiveDevice.Action4.WasPressed && canWhip && !playerMovement.isInWhipJump)
             {
+                //Stop player movement
+                playerMovement.canMove = false;
+
                 Vector3 toLookAt = new Vector3(toWhipObject.position.x, player.position.y, toWhipObject.position.z);
 
                 player.DOLookAt(toLookAt, timeImpulse + 0.2f);
@@ -165,6 +168,9 @@ public class NewWhipJump : MonoBehaviour
     #region STOP WHIP DRAWING
     void StopWhipDrawing()
     {
+        //Can Move Again
+        playerMovement.canMove = true;
+
         playerMovement.isInWhipJump = false;
         startWhip = false;
         //whip.SetPosition(1, player.position);
