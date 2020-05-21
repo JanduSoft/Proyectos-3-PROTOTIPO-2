@@ -30,12 +30,12 @@ public class AmbienceScript : MonoBehaviour
 
         aus[0].loop = true;
         aus[0].clip = AmbienceSound;
-        aus[0].volume = 1;
+        aus[0].volume = 0.65f;
         aus[0].Play();
 
         aus[1].loop = true;
         aus[1].clip = AmbienceSound2;
-        aus[1].volume = 0.6f;
+        aus[1].volume = 0.45f;
         aus[1].Play();
     }
 
