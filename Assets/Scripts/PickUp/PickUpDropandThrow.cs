@@ -22,10 +22,10 @@ public class PickUpDropandThrow : PickUpandDrop
     [Header("EXTERNAL OBJECTS")]
     [Header("ALWAYS NEEDED")]
     [SerializeField] Whip playerWhip;
-    [SerializeField] AudioSource hitSound;
+    AudioSource hitSound;
     [Header("IF IS SPECIAL OBJECT")]
     [SerializeField] bool isSpecialObject;
-    [SerializeField] AudioSource grabSoundeffect;
+    AudioSource grabSoundeffect;
     [Header("ONLY IF NOT IMPORTANT OBJECT")]
     [SerializeField] GameObject dustParticles;
     [SerializeField] GameObject brokenVase;
@@ -36,6 +36,8 @@ public class PickUpDropandThrow : PickUpandDrop
     bool thrown = false;
     Vector3 playerToEnemy;
     [SerializeField] TutorialSprites tutoSprites;
+
+    AudioSource[] sounds;
 
     // Start is called before the first frame update
 
@@ -75,6 +77,13 @@ public class PickUpDropandThrow : PickUpandDrop
             _thisSC.radius = 0.7f;
 
         grabPlace = GameObject.Find("GrabObjectPos");
+
+        sounds = GetComponents<AudioSource>();
+        hitSound = sounds[0];
+        if (sounds.Length>1)
+        {
+            grabSoundeffect = sounds[1];
+        }
     }
 
     // Update is called once per frame

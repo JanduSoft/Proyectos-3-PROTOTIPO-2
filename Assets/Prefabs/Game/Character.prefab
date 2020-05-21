@@ -424,7 +424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whip: {fileID: 415923831}
   playerTransform: {fileID: 6120095539264640499}
-  spriteIndicateObject: {fileID: 782846577}
+  spriteIndicateObject: {fileID: 0}
   mainCamera: {fileID: 0}
   lineDrawSpeed: 1
   enemyList: []
@@ -1572,44 +1572,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!320 &2061180947
-PlayableDirector:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1550456604973306}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 79c33a9203e8adf4d9df3056ffba9803, type: 2}
-  m_InitialState: 0
-  m_WrapMode: 1
-  m_DirectorUpdateMode: 1
-  m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: 114442968048989762, guid: 79c33a9203e8adf4d9df3056ffba9803, type: 2}
-    value: {fileID: 2061180946}
-  m_ExposedReferences:
-    m_References: []
---- !u!95 &2061180946
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1550456604973306}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0c837860e5d43c842ae59eceaae3733a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!120 &1222199422
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1834,7 +1796,6 @@ GameObject:
   - component: {fileID: 583964081}
   - component: {fileID: 415923831}
   - component: {fileID: 2935746029734998397}
-  - component: {fileID: 1526004908}
   m_Layer: 10
   m_Name: Character
   m_TagString: Player
@@ -1939,7 +1900,7 @@ MonoBehaviour:
   changingDirectionLookAtSpeed: 1.5
   jumpForce: 22
   jumpSound: {fileID: 583964081}
-  percentRestriction: 85
+  percentRestriction: 75
   gravity: 60
   fallVelocity: 0
   regularGravityMultipliyer: 1
@@ -2157,14 +2118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad903eea758e4d4f8a43ab1b8dad6fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!81 &1526004908
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6120095539264640501}
-  m_Enabled: 1
 --- !u!1001 &1945242426
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3075,21 +3028,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c84a68a6ecac2b40ace8c1e732ac78a, type: 3}
---- !u!1 &1550456604973306 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1550456297870272, guid: 8c84a68a6ecac2b40ace8c1e732ac78a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1945242426}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1612893223358572 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1612891288607574, guid: 8c84a68a6ecac2b40ace8c1e732ac78a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1945242426}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1567016779209510 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1567018642395164, guid: 8c84a68a6ecac2b40ace8c1e732ac78a,
     type: 3}
   m_PrefabInstance: {fileID: 1945242426}
   m_PrefabAsset: {fileID: 0}
@@ -3102,6 +3043,12 @@ Transform:
 --- !u!1 &1669957099268278 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1669957847032716, guid: 8c84a68a6ecac2b40ace8c1e732ac78a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1945242426}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1567016779209510 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1567018642395164, guid: 8c84a68a6ecac2b40ace8c1e732ac78a,
     type: 3}
   m_PrefabInstance: {fileID: 1945242426}
   m_PrefabAsset: {fileID: 0}
