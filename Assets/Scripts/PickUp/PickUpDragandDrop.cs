@@ -38,14 +38,14 @@ public class PickUpDragandDrop : PickUpandDrop
         rb = GetComponent<Rigidbody>();
         distToGround = transform.GetChild(0).GetComponent<Collider>().bounds.extents.y;
         startingPosition = transform.position;
-        try
-        {
-            dragSound = GameObject.Find("Drag sound").GetComponent<AudioSource>();
-        }
-        catch
-        {
-            Debug.LogWarning("Add global sounds");
-        }
+        //try
+        //{
+        //    dragSound = GameObject.Find("Drag sound").GetComponent<AudioSource>();
+        //}
+        //catch
+        //{
+        //    Debug.LogWarning("Add global sounds");
+        //}
     }
     private void OnDisable()
     {
