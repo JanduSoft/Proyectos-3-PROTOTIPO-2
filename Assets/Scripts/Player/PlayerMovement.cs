@@ -166,13 +166,13 @@ public class PlayerMovement : MonoBehaviour
                 // LOOK AT IF IS ON AIR OR GROUNDED
                 if (player.isGrounded || grounded)
                 {
-                    player.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
+                    player.transform.LookAt(player.transform.position + movePlayer);
                     model.transform.position = player.transform.position;
                     model.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
                 }
                 else if (!player.isGrounded && !grounded)
                 {
-                    player.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
+                    player.transform.LookAt(player.transform.position + movePlayer);
                     model.transform.position = player.transform.position;
                     model.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
                 }
