@@ -79,11 +79,9 @@ public class PickUpDropandThrow : PickUpandDrop
         grabPlace = GameObject.Find("GrabObjectPos");
 
         sounds = GetComponents<AudioSource>();
+
         hitSound = sounds[0];
-        if (sounds.Length>1)
-        {
-            grabSoundeffect = sounds[1];
-        }
+        grabSoundeffect= GameObject.Find("Special Object").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -235,7 +233,7 @@ public class PickUpDropandThrow : PickUpandDrop
         }
         if(tag == "Place" || tag == "Untagged")
         {
-            if(thrown)
+            if (thrown)
                 hitSound.Play();
             thrown = false;
         }
