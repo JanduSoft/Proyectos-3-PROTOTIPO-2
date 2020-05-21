@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     {
         inputDevice = InputManager.ActiveDevice;
     }
-
+    bool zero = false;
     #region VARIABLES
     [Header("MOVEMENT")]
     public bool canMove = true;
@@ -113,10 +113,13 @@ public class PlayerMovement : MonoBehaviour
             if (playerInput == Vector3.zero)
             {
                 playerSpeed = Mathf.Lerp(playerSpeed, 0, 0.1f);
+                if (playerSpeed < 0.2f)
+                    zero = true;
                 lookAtSpeed = changingDirectionLookAtSpeed;
             }
             else
             {
+                zero = false;
                 lookAtSpeed = normalLookAtSpeed;
                 playerSpeed = Mathf.Lerp(playerSpeed,maxSpeed, acceleration);
             }
@@ -138,6 +141,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 maxSpeed = maxSpeedWalking;
             }
+            else if (playerInput.magnitude == 0)
+            {
+                maxSpeed = 0;
+            }
+
             if (playerInput != Vector3.zero)
             {
                 movePlayer = playerInput.x * camRight + playerInput.z * camForward;
@@ -177,7 +185,6 @@ public class PlayerMovement : MonoBehaviour
                     model.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
                 }
                 animatorController.SetBool("walking", true);
-                animatorController.SetFloat("velocity", finalSpeed);
             }
 
 
@@ -194,8 +201,7 @@ public class PlayerMovement : MonoBehaviour
                 if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
                 {
                     prevPos = transform.position;
-                    playerSteps.Play();
-                    Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position, Quaternion.identity), 0.55f);
+                    //playerSteps.Play();
                 }
 
                 // MOVING CHARACTER
@@ -207,7 +213,10 @@ public class PlayerMovement : MonoBehaviour
                     go.y = movePlayer.y;
                     player.Move(go * Time.deltaTime);
                     auxCoyote = coyoteTime;
-                    animatorController.SetFloat("velocity", playerSpeed);
+                    if(zero)
+                        animatorController.SetFloat("velocity", 0);
+                    else
+                        animatorController.SetFloat("velocity", playerSpeed);
                 }
                 else if (!player.isGrounded && !grounded)
                 {
