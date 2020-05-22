@@ -24,7 +24,19 @@ public class AddSkull : MonoBehaviour
     //3 is dirt
     //4 is white smoke
     [Space(10)]
-    [SerializeField] AudioSource shakeSound;
+    AudioSource[] shakeSound;
+
+    private void Start()
+    {
+        try
+        {
+            shakeSound = GetComponents<AudioSource>();
+        }
+        catch
+        {
+            Debug.LogWarning("Couldn't find audiosources in gameobject " + gameObject.name);
+        }
+    }
 
 
     void LateUpdate()
@@ -64,7 +76,10 @@ public class AddSkull : MonoBehaviour
                     effects[2].GetComponent<ParticleSystem>().Stop(); 
                     effects[3].GetComponent<ParticleSystem>().Stop(); 
                 });
-            shakeSound.Play();
+            foreach (var item in shakeSound)
+            {
+                item.Play();
+            }
             try
             {
                 effects[0].gameObject.SetActive(true);
