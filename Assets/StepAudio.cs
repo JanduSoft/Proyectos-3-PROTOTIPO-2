@@ -8,9 +8,8 @@ public class StepAudio : MonoBehaviour
     [SerializeField]AudioSource audiosource;
     [Header("Steps")]
     [SerializeField] AudioClip[] grassSteps;
-    [SerializeField] AudioClip[] woodSteps;
-    [SerializeField] AudioClip[] dirtSteps;
     [SerializeField] AudioClip[] concreteSteps;
+    [SerializeField] AudioClip[] dirtSteps;
     [Header("Variables")]
     [SerializeField] float minVolume;
     [SerializeField] float maxVolume;
