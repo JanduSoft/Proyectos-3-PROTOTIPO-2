@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector3 camForward;
     [SerializeField] private Vector3 camRight;
 
-    AudioSource playerSteps;
+    //AudioSource playerSteps;
     Vector3 prevPos;
     
     [Header("WHIP JUMP")]
@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
         player = GetComponent<CharacterController>();
         fallVelocity = -10;
         DOTween.Clear(true);
-        playerSteps = GameObject.Find("Player walking").GetComponent<AudioSource>();
+        //playerSteps = GameObject.Find("Player walking").GetComponent<AudioSource>();
         prevPos = transform.position;
     }
     #endregion
@@ -198,11 +198,11 @@ public class PlayerMovement : MonoBehaviour
                 PlayerSkills();
 
                 //WALKING SOUND & PARTICLES
-                if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
-                {
-                    prevPos = transform.position;
-                    //playerSteps.Play();
-                }
+                //if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
+                //{
+                //    prevPos = transform.position;
+                //    //playerSteps.Play();
+                //}
 
                 // MOVING CHARACTER
 
@@ -321,6 +321,9 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isOnPressurePlate = false;
 
+    public enum GroundType { CONCRETE, DIRT, GRASS };
+    public static GroundType currentSurface = 0;  //concrete by default
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Ground"))
@@ -346,6 +349,19 @@ public class PlayerMovement : MonoBehaviour
                 iTween.FadeTo(hit.gameObject, 0.5f, 1f);
                 StartCoroutine(fadeBack(hit.gameObject));
             }
+        }
+
+        if (hit.collider.CompareTag("Dirt"))
+        {
+            currentSurface = GroundType.DIRT;
+        }
+        else if (hit.collider.CompareTag("Grass"))
+        {
+            currentSurface = GroundType.GRASS;
+        }
+        else
+        {
+            currentSurface = GroundType.CONCRETE;
         }
     }
 

@@ -222,150 +222,35 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves:
-      - name: ik_leftFootWeight
-        curve:
-          serializedVersion: 2
-          curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 0.2222491
-            value: -0.0004939437
-            inSlope: 0.24448423
-            outSlope: 0.24448423
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 1
-          - serializedVersion: 3
-            time: 0.23948194
-            value: 1.0212554
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.68045354
-            value: 1.0196515
-            inSlope: -0.007599725
-            outSlope: -0.007599725
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.3941341
-          - serializedVersion: 3
-            time: 0.7519835
-            value: 0.0025501251
-            inSlope: -0.10497653
-            outSlope: -0.10497653
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 1
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 1
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          preInfinity: 3
-          postInfinity: 3
-          rotationOrder: 4
-      - name: Curve
-        curve:
-          serializedVersion: 2
-          curve:
-          - serializedVersion: 3
-            time: 0.05727879
-            value: 1.0024976
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 0.26355654
-            value: 0.9931038
-            inSlope: -0.37000382
-            outSlope: -0.37000382
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.20677572
-          - serializedVersion: 3
-            time: 0.31260487
-            value: -0.0052265264
-            inSlope: -0.059999544
-            outSlope: -0.059999544
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.17412972
-          - serializedVersion: 3
-            time: 0.8468281
-            value: 0.00305888
-            inSlope: 0.030378826
-            outSlope: 0.030378826
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.8730298
-            value: 1.0092255
-            inSlope: 0.0077443277
-            outSlope: 0.0077443277
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.9139204
-          - serializedVersion: 3
-            time: 0.9896167
-            value: 1.009891
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          preInfinity: 3
-          postInfinity: 3
-          rotationOrder: 4
+      curves: []
       events:
       - time: 0.3651032
-        functionName: FootSteps
+        functionName: PlayFootStep
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 4
         messageOptions: 0
-      - time: 0.85207754
-        functionName: FootSteps
+      - time: 0.8427318
+        functionName: PlayFootStep
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 5
         messageOptions: 0
-      - time: 0.85207754
-        functionName: FootSteps
-        data: Runnign1
+      - time: 0.34844193
+        functionName: PlayDustLeft
+        data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 5
+        messageOptions: 0
+      - time: 0.8328612
+        functionName: PlayDustRight
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 5
         messageOptions: 0
       transformMask: []
       maskType: 3

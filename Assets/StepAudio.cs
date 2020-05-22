@@ -4,50 +4,71 @@ using UnityEngine;
 
 public class StepAudio : MonoBehaviour
 {
-    [SerializeField] AudioSource steps;
+    [Header("Audiosource")]
+    [SerializeField]AudioSource audiosource;
+    [Header("Steps")]
+    [SerializeField] AudioClip[] grassSteps;
+    [SerializeField] AudioClip[] woodSteps;
+    [SerializeField] AudioClip[] dirtSteps;
+    [SerializeField] AudioClip[] concreteSteps;
+    [Header("Variables")]
+    [SerializeField] float minVolume;
+    [SerializeField] float maxVolume;
+    [SerializeField] float minPitch;
+    [SerializeField] float maxPitch;
+
+    [Header("Particles")]
     [SerializeField] GameObject dustParticle;
-    [SerializeField] Transform leftFoot;
-    [SerializeField] Transform rightFoot;
-    // Start is called before the first frame update
+    [SerializeField] GameObject leftFoot;
+    [SerializeField] GameObject rightFoot;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void FootSteps(int i)
-    {
-        switch(i)
+        if (audiosource == null && GetComponent<AudioSource>() != null)
         {
-            case 0:
-                Debug.Log("Being called from walking left foot");
-                break;
-            case 1:
-                Debug.Log("Being called from walking right foot");
-                break;
-            case 2:
-                Debug.Log("Being called from Jogging left foot");
-                break;
-            case 3:
-                Debug.Log("Being called from Jogging right foot");
-                break;
-            case 4:
-                Debug.Log("Being called from Running left foot");
-                break;
-            case 5:
-                Debug.Log("Being called from Running right foot");
-                break;
-            
+            //if there's no audiosource attached and there is an audiosource as a component, get it
+            audiosource = GetComponent<AudioSource>();
         }
-        //if (i == 0)
-        //    Destroy(Instantiate(dustParticle, leftFoot.position, Quaternion.identity), 0.55f);
-        //else
-        //    Destroy(Instantiate(dustParticle, rightFoot.position, Quaternion.identity), 0.55f);
-        steps.Play();
+        else if (GetComponent<AudioSource>()==null)
+        {
+            Debug.LogError("Attach an AudioSource component to gameobject " + gameObject.name);
+        }
     }
+
+    void PlayFootStep()
+    {
+        Debug.Log("Current surface:" + PlayerMovement.currentSurface);
+        switch (PlayerMovement.currentSurface)
+        {
+            case PlayerMovement.GroundType.DIRT:
+                audiosource.clip = dirtSteps[Random.Range(0, dirtSteps.Length)];
+                break;
+
+            case PlayerMovement.GroundType.GRASS:
+                audiosource.clip = grassSteps[Random.Range(0, grassSteps.Length)];
+                break;
+
+            case PlayerMovement.GroundType.CONCRETE:
+                audiosource.clip = concreteSteps[Random.Range(0, concreteSteps.Length)];
+                break;
+        }
+        audiosource.volume = Random.Range(minVolume, maxVolume);
+        audiosource.pitch = Random.Range(minPitch, maxPitch);
+        audiosource.Play();
+    }
+
+    void PlayDustLeft()
+    {
+        GameObject aux = Instantiate(dustParticle, leftFoot.transform.position, Quaternion.identity);
+        aux.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        Destroy(aux, 1);
+    }
+
+    void PlayDustRight()
+    {
+        GameObject aux = Instantiate(dustParticle, rightFoot.transform.position, Quaternion.identity);
+        aux.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        Destroy(aux, 1);
+    }
+
 }
