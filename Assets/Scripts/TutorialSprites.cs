@@ -17,7 +17,8 @@ public class TutorialSprites : MonoBehaviour
         DD_OBJECT,
         PICK_UP_OBJECT,
         THROW,
-        MOVE_ROCK
+        MOVE_ROCK,
+        NEW_PLACE_OBJECT
         
     };
 
@@ -58,11 +59,19 @@ public class TutorialSprites : MonoBehaviour
 
     InControlManager inputController;
     InControlManager.ControllerType currentController;
+
+    PlayerMovement player;
     #endregion
 
     #region START
     private void Start()
     {
+        if (button == buttonType.NEW_PLACE_OBJECT || button == buttonType.THROW)
+        {
+            player = GameObject.Find("Character").GetComponent<PlayerMovement>();
+        }
+        
+
         inputController = GameObject.Find("ControlPrefab").GetComponent<InControlManager>();
         Invoke("CheckController", 1);
     }
@@ -101,29 +110,59 @@ public class TutorialSprites : MonoBehaviour
             {
                 if (needShowTrhowButton)
                 {
-                    switch (currentController)
+                    if (player.isOnPedestal)
                     {
-                        case InControlManager.ControllerType.KEYBOARD:
-                            {
-                                interact.SetActive(false);
-                                whip.SetActive(true);
+                        switch (currentController)
+                        {
+                            case InControlManager.ControllerType.KEYBOARD:
+                                {
+                                    interact.SetActive(true);
+                                    whip.SetActive(false);
+                                    break;
+                                }
+                            case InControlManager.ControllerType.PS4:
+                                {
+                                    interactPS4.SetActive(true);
+                                    whipPS4.SetActive(false);
+                                    break;
+                                }
+                            case InControlManager.ControllerType.XBOX:
+                                {
+                                    interactXBOX.SetActive(true);
+                                    whipXBOX.SetActive(false);
+                                    break;
+                                }
+                            default:
                                 break;
-                            }                            
-                        case InControlManager.ControllerType.PS4:
-                            {
-                                interactPS4.SetActive(false);
-                                whipPS4.SetActive(true);
-                                break;
-                            }
-                        case InControlManager.ControllerType.XBOX:
-                            {
-                                interactXBOX.SetActive(false);
-                                whipXBOX.SetActive(true);
-                                break;
-                            }
-                        default:
-                            break;
+                        }
                     }
+                    else
+                    {
+                        switch (currentController)
+                        {
+                            case InControlManager.ControllerType.KEYBOARD:
+                                {
+                                    interact.SetActive(false);
+                                    whip.SetActive(true);
+                                    break;
+                                }
+                            case InControlManager.ControllerType.PS4:
+                                {
+                                    interactPS4.SetActive(false);
+                                    whipPS4.SetActive(true);
+                                    break;
+                                }
+                            case InControlManager.ControllerType.XBOX:
+                                {
+                                    interactXBOX.SetActive(false);
+                                    whipXBOX.SetActive(true);
+                                    break;
+                                }
+                            default:
+                                break;
+                        }
+                    }
+                    
                     
                 }
 
@@ -177,9 +216,7 @@ public class TutorialSprites : MonoBehaviour
                 }
             }
         }
-
-
-
+        
     }
     #endregion
 
@@ -244,6 +281,11 @@ public class TutorialSprites : MonoBehaviour
                         ActivateSprite(buttonType.INTERACT);
                         break;
                     }
+                case buttonType.NEW_PLACE_OBJECT:
+                    {
+                        player.isOnPedestal = true;
+                        break;
+                    }
                 default:
                     break;
             }
@@ -302,6 +344,11 @@ public class TutorialSprites : MonoBehaviour
                 case buttonType.THROW:
                     {
                         DeactivateSprites();
+                        break;
+                    }
+                case buttonType.NEW_PLACE_OBJECT:
+                    {
+                        player.isOnPedestal = false;
                         break;
                     }
                 default:
