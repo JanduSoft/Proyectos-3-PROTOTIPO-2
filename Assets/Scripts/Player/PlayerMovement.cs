@@ -75,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject model;
     float timeIdle = 0;
     public bool inRespawn=false;
+
+    public bool isOnPedestal = false;
     #endregion
 
 
