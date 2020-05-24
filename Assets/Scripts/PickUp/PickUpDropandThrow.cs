@@ -6,6 +6,7 @@ using InControl;
 
 public class PickUpDropandThrow : PickUpandDrop
 {
+    bool insideSphere = false;
     [SerializeField] double timeKeyDown = 0f;
     [SerializeField] bool timeKeyDownX = false;
     [SerializeField] bool timeKeyDownY = false;
@@ -75,7 +76,6 @@ public class PickUpDropandThrow : PickUpandDrop
         playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         _thisRB.useGravity = false;
         useGravity = false;
-        startingPosition = transform.position;
         _thisRB.constraints = RigidbodyConstraints.FreezeAll;
         if(changeSC)
             _thisSC.radius = 0.7f;
@@ -118,7 +118,7 @@ public class PickUpDropandThrow : PickUpandDrop
         {
             if (!cancelledDrop)
             {
-                if (isFacingBox && !objectIsGrabbed && distanceSuficient)
+                if (!objectIsGrabbed && insideSphere)
                 {
                     Debug.Log("Cojiendo");
                     useGravity = false;
@@ -195,12 +195,19 @@ public class PickUpDropandThrow : PickUpandDrop
 
 
     }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            insideSphere = false;
+        }
+    }
 
-    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            insideSphere = true;
             player = other.gameObject;
             playerAnimator = player.GetComponentInChildren<Animator>();
             distanceChecker = player.transform.GetChild(1).gameObject;
