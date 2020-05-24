@@ -122,8 +122,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateObject: {fileID: 0}
   lever: {fileID: 4222265004018393218}
+  shakeSound: {fileID: 0}
   distanceToLever: 3
   canPullLeverAlways: 0
+  leverSound: {fileID: 0}
   myCamera: {fileID: 0}
   durationShake: 2.5
   strength: 1.5
@@ -139,10 +141,10 @@ AudioSource:
   m_GameObject: {fileID: 4222265005829395177}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 243430210898580274, guid: 829dfea7bf13d0a4796ae2472460ce0b,
+  OutputAudioMixerGroup: {fileID: 243141957060867862, guid: 829dfea7bf13d0a4796ae2472460ce0b,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: e6dfbe59b5827af4abd9dc1d08180b0a, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.107
   m_Pitch: 1
   Loop: 0

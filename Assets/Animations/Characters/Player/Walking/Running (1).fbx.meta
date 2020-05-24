@@ -222,130 +222,36 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves:
-      - name: ik_leftFootWeight
-        curve:
-          serializedVersion: 2
-          curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 0.29540777
-            value: -0.017835442
-            inSlope: 0.03651181
-            outSlope: 0.03651181
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 1
-          - serializedVersion: 3
-            time: 0.3109151
-            value: 1.0109346
-            inSlope: 0.0035734184
-            outSlope: 0.0035734184
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.7278029
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.6965778
-            value: 1.0117409
-            inSlope: 0.011579234
-            outSlope: 0.011579234
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.71400946
-            value: -0.0065339995
-            inSlope: 0.034907337
-            outSlope: 0.034907337
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.98931885
-            value: -0.009895325
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          preInfinity: 2
-          postInfinity: 2
-          rotationOrder: 4
-      - name: ik_rightFootWeight
-        curve:
-          serializedVersion: 2
-          curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 34
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 0.21813032
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 0.22946176
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 0.8186969
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 0.8725213
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 34
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          preInfinity: 2
-          postInfinity: 2
-          rotationOrder: 4
-      events: []
+      curves: []
+      events:
+      - time: 0.29419085
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.84488994
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 3
+        messageOptions: 0
+      - time: 0.28328612
+        functionName: PlayDustLeft
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 3
+        messageOptions: 0
+      - time: 0.8186969
+        functionName: PlayDustRight
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 3
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

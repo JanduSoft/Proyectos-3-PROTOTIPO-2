@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     {
         inputDevice = InputManager.ActiveDevice;
     }
-
+    bool zero = false;
     #region VARIABLES
     [Header("MOVEMENT")]
     public bool canMove = true;
@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector3 camForward;
     [SerializeField] private Vector3 camRight;
 
-    AudioSource playerSteps;
+    //AudioSource playerSteps;
     Vector3 prevPos;
     
     [Header("WHIP JUMP")]
@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         player = GetComponent<CharacterController>();
         fallVelocity = -10;
         DOTween.Clear(true);
-        playerSteps = GameObject.Find("Player walking").GetComponent<AudioSource>();
+        //playerSteps = GameObject.Find("Player walking").GetComponent<AudioSource>();
         prevPos = transform.position;
     }
     #endregion
@@ -115,10 +115,13 @@ public class PlayerMovement : MonoBehaviour
             if (playerInput == Vector3.zero)
             {
                 playerSpeed = Mathf.Lerp(playerSpeed, 0, 0.1f);
+                if (playerSpeed < 0.2f)
+                    zero = true;
                 lookAtSpeed = changingDirectionLookAtSpeed;
             }
             else
             {
+                zero = false;
                 lookAtSpeed = normalLookAtSpeed;
                 playerSpeed = Mathf.Lerp(playerSpeed,maxSpeed, acceleration);
             }
@@ -140,6 +143,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 maxSpeed = maxSpeedWalking;
             }
+            else if (playerInput.magnitude == 0)
+            {
+                maxSpeed = 0;
+            }
+
             if (playerInput != Vector3.zero)
             {
                 movePlayer = playerInput.x * camRight + playerInput.z * camForward;
@@ -179,7 +187,6 @@ public class PlayerMovement : MonoBehaviour
                     model.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
                 }
                 animatorController.SetBool("walking", true);
-                animatorController.SetFloat("velocity", finalSpeed);
             }
 
 
@@ -193,12 +200,11 @@ public class PlayerMovement : MonoBehaviour
                 PlayerSkills();
 
                 //WALKING SOUND & PARTICLES
-                if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
-                {
-                    prevPos = transform.position;
-                    playerSteps.Play();
-                    Destroy(Instantiate(walkinParticles, walkinParticlesSpawner.position, Quaternion.identity), 0.55f);
-                }
+                //if (player.isGrounded && !playerSteps.isPlaying && player.velocity != Vector3.zero)
+                //{
+                //    prevPos = transform.position;
+                //    //playerSteps.Play();
+                //}
 
                 // MOVING CHARACTER
 
@@ -209,7 +215,10 @@ public class PlayerMovement : MonoBehaviour
                     go.y = movePlayer.y;
                     player.Move(go * Time.deltaTime);
                     auxCoyote = coyoteTime;
-                    animatorController.SetFloat("velocity", playerSpeed);
+                    if(zero)
+                        animatorController.SetFloat("velocity", 0);
+                    else
+                        animatorController.SetFloat("velocity", playerSpeed);
                 }
                 else if (!player.isGrounded && !grounded)
                 {
@@ -314,6 +323,9 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isOnPressurePlate = false;
 
+    public enum GroundType { CONCRETE, DIRT, GRASS };
+    public static GroundType currentSurface = 0;  //concrete by default
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Ground"))
@@ -339,6 +351,19 @@ public class PlayerMovement : MonoBehaviour
                 iTween.FadeTo(hit.gameObject, 0.5f, 1f);
                 StartCoroutine(fadeBack(hit.gameObject));
             }
+        }
+
+        if (hit.collider.CompareTag("Dirt"))
+        {
+            currentSurface = GroundType.DIRT;
+        }
+        else if (hit.collider.CompareTag("Grass"))
+        {
+            currentSurface = GroundType.GRASS;
+        }
+        else
+        {
+            currentSurface = GroundType.CONCRETE;
         }
     }
 
