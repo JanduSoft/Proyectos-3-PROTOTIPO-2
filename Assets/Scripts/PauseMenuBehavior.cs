@@ -994,7 +994,7 @@ public class PauseMenuBehavior : MonoBehaviour
                         }
                         else if (newMovement == Movement.DOWN)
                         {
-                            SelectButton(ButtonType.RESOLUTION);
+                            SelectButton(ButtonType.LEFT_RESOLUTION);
                         }
 
                         break;
@@ -1065,6 +1065,7 @@ public class PauseMenuBehavior : MonoBehaviour
         {
             leftPressed = false;
         }
+
     }
     #endregion
 
