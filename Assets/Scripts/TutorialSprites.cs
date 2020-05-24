@@ -17,7 +17,8 @@ public class TutorialSprites : MonoBehaviour
         DD_OBJECT,
         PICK_UP_OBJECT,
         THROW,
-        MOVE_ROCK
+        MOVE_ROCK,
+        NEW_PLACE_OBJECT
         
     };
 
@@ -58,11 +59,19 @@ public class TutorialSprites : MonoBehaviour
 
     InControlManager inputController;
     InControlManager.ControllerType currentController;
+
+    PlayerMovement player;
     #endregion
 
     #region START
     private void Start()
     {
+        if (button == buttonType.NEW_PLACE_OBJECT)
+        {
+            player = GameObject.Find("Charcater").GetComponent<PlayerMovement>();
+        }
+        
+
         inputController = GameObject.Find("ControlPrefab").GetComponent<InControlManager>();
         Invoke("CheckController", 1);
     }
@@ -244,6 +253,15 @@ public class TutorialSprites : MonoBehaviour
                         ActivateSprite(buttonType.INTERACT);
                         break;
                     }
+                case buttonType.NEW_PLACE_OBJECT:
+                    {
+                        if (!player.ableToWhip)
+                        {
+                            DeactivateSprites();
+                            ActivateSprite(buttonType.INTERACT);
+                        }
+                        break;
+                    }
                 default:
                     break;
             }
@@ -302,6 +320,15 @@ public class TutorialSprites : MonoBehaviour
                 case buttonType.THROW:
                     {
                         DeactivateSprites();
+                        break;
+                    }
+                case buttonType.NEW_PLACE_OBJECT:
+                    {
+                        DeactivateSprites();
+                        if (!player.ableToWhip)
+                        {
+                            ActivateSprite(buttonType.WHIP);
+                        }
                         break;
                     }
                 default:
