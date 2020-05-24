@@ -18,6 +18,8 @@ public class PickUp : MonoBehaviour
     protected Quaternion startingRotation;
     [SerializeField] protected PlayerMovement playerMovement;
     [SerializeField] protected bool respawn = true;
+    [SerializeField] protected bool UseManualRespawn = false;
+    [SerializeField] protected Transform manualRespawnPoint;
 
     public virtual void ResetPosition()
     {

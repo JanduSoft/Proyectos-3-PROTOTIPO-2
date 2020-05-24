@@ -45,7 +45,11 @@ public class PickUpDropandThrow : PickUpandDrop
         {
             try
             {
+                if (UseManualRespawn)
+                    transform.position = manualRespawnPoint.position;
+                else
                 transform.position = startingPosition;
+                
                 transform.localRotation = startingRotation;
 
                 if (transform.CompareTag("Destroyable"))
