@@ -17,7 +17,6 @@ public class PickUpDragandDrop : PickUpandDrop
     Vector3 closestPoint;
     int minPoint = -1;
     [HideInInspector] public Rigidbody rb;
-    [SerializeField] bool lerping = false;
     [SerializeField] bool rockGrabbed = false;
     public bool thisRock = false;
     [SerializeField] public AudioSource dragSound;
@@ -26,6 +25,8 @@ public class PickUpDragandDrop : PickUpandDrop
     bool canPressAgain = true;
     float sensitivityAngle = 50;
     [SerializeField] bool isGrounded;
+    Vector3 closestPos;
+    bool closestPointAvailable = false;
 
 
     // Start is called before the first frame update
@@ -50,163 +51,88 @@ public class PickUpDragandDrop : PickUpandDrop
     void Update()
     {
         CheckVariables();
+
+        //Check if the rock is grounded
+        isGrounded = IsGrounded();
+
+        //If there's a player detected
         if (player != null)
         {
-            //If the dragging button is pressed we move the rock, if not, we let go
             bool isPressingButton = InputManager.ActiveDevice.Action3;
+
+            //If you can press the button again and you press it
             if (isPressingButton && canPressAgain) 
             {
-
-                Vector3 newPlayerPos = player.transform.position + new Vector3(0, 2.5f, 0);
-                //We check with a raycast if there's anything between the player and the rock we wanna push
-                Vector3 playerRockDirection = (transform.position - newPlayerPos).normalized;
-                RaycastHit hit;
-                if (Physics.Raycast(newPlayerPos, playerRockDirection, out hit, Mathf.Infinity))
+                //If current rock is not null, look at it
+                if (currentRock != null)
+                    player.transform.DOLookAt(new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z),0.25F);
+                
+                //If the rock is not grabbed and you're facing it, grab it
+                if (!rockGrabbed && isFacingBox && !animator.GetBool("Attached") && currentRock==null)
                 {
+                    closestPos = FindClosestPoint();
+                    if (!closestPointAvailable) return;
 
-                    Debug.DrawRay(newPlayerPos, playerRockDirection * hit.distance, Color.yellow);
-                    if (hit.transform.gameObject == gameObject)
+                    playerMovement.grabbedToRock = true;
+                    currentRock = gameObject;
+                    rb.isKinematic = false;
+                    playerMovement.StopMovement(true);
+                    player.transform.DOMove(closestPos, 0.5f, false).OnComplete
+                        (
+                        () => {
+                            player.transform.position = closestPos;
+                            rockGrabbed = true;
+                        }
+                        );
+                    animator.SetBool("Attached", true);
+                    Vector3 targetPostition = new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z);
+                    player.transform.DOLookAt(targetPostition, 0.25F);
+                }
+
+                //If the rock is grabbed and you're facing it
+                if (rockGrabbed && isFacingBox && currentRock == gameObject)
+                {
+                    //Look at it
+                    player.transform.DOLookAt(new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z), 0.25F);
+                    player.transform.position = closestPoint;
+
+                    thisRock = true;
+                    float horizontalMove = Input.GetAxis("Horizontal");
+                    float verticalMove = Input.GetAxis("Vertical");
+
+                    bool inputActive = horizontalMove != 0 || verticalMove != 0;
+
+                    Vector3 movingDirection = Vector3.zero;
+                    if (closestPoint==grabPoints[0])
+                        movingDirection = grabPoints[1] - player.transform.position;
+                    else if (closestPoint==grabPoints[1])
+                        movingDirection = grabPoints[0] - player.transform.position;
+                    else if (closestPoint==grabPoints[2])
+                        movingDirection = grabPoints[3] - player.transform.position;
+                    else if (closestPoint==grabPoints[3])
+                        movingDirection = grabPoints[2] - player.transform.position;
+
+                    if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= sensitivityAngle && inputActive)
                     {
-
-                        if (currentRock != null)
-                            player.transform.DOLookAt(new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z),0.25F);
-                        if (!rockGrabbed && isFacingBox && !animator.GetBool("Attached") && currentRock==null)
+                        PushRock(movingDirection);
+                    }
+                    else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < sensitivityAngle && inputActive)
+                    {
+                        RaycastHit hito;
+                        Vector3 newPlayerPos = player.transform.position + new Vector3(0, 2.5f, 0);
+                        if (Physics.Raycast(newPlayerPos, -movingDirection.normalized, out hito, 2.0f))
                         {
-                            playerMovement.grabbedToRock = true;
-                            currentRock = gameObject;
-                            rb.isKinematic = false;
-                            playerMovement.StopMovement(true);
-                            player.transform.DOMove(FindClosestPoint(), 0.5f, false).OnComplete
-                                (
-                                () => {
-                                    player.transform.position = FindClosestPoint();
-                                    rockGrabbed = true;
-                                }
-                                );
-                            animator.SetBool("Attached", true);
-                            Vector3 targetPostition = new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z);
-                            player.transform.DOLookAt(targetPostition, 0.25F);
+                            //something is behind the player and can't pull
+                            Debug.DrawRay(newPlayerPos, -movingDirection.normalized * hito.distance, Color.red);
                         }
-                        if (rockGrabbed && isFacingBox && currentRock == gameObject)
+                        else
                         {
-                            player.transform.DOLookAt(new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z), 0.25F);
-                            player.transform.position = closestPoint;
-
-                            thisRock = true;
-                            float horizontalMove = Input.GetAxis("Horizontal");
-                            float verticalMove = Input.GetAxis("Vertical");
-
-                            bool inputActive = horizontalMove != 0 || verticalMove != 0;
-                            if (closestPoint == grabPoints[0])
-                            {
-                                Vector3 movingDirection = grabPoints[1] - player.transform.position;
-                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= sensitivityAngle && inputActive)
-                                {
-                                    PushRock(movingDirection);
-                                }
-                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < sensitivityAngle && inputActive)
-                                {
-
-                                    RaycastHit hito;
-                                    if (Physics.Raycast(newPlayerPos, -movingDirection.normalized, out hito, 2.0f))
-                                    {
-                                        //something is behind the player and can't pull
-                                        Debug.DrawRay(newPlayerPos, -movingDirection.normalized * hit.distance, Color.red);
-                                    }
-                                    else
-                                    {
-                                        PullRock(movingDirection);
-                                    }
-                                }
-                                else
-                                {
-                                    other();
-                                }
-                            }
-                            else if (closestPoint == grabPoints[1])
-                            {
-                                Vector3 movingDirection = grabPoints[0] - player.transform.position;
-
-                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= sensitivityAngle && inputActive)
-                                {
-                                    PushRock(movingDirection);
-                                }
-                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < sensitivityAngle && inputActive)
-                                {
-
-                                    RaycastHit hito;
-                                    if (Physics.Raycast(newPlayerPos, -movingDirection.normalized, out hito, 2.0f))
-                                    {
-                                        //something is behind the player and can't pull
-                                        Debug.DrawRay(newPlayerPos, -movingDirection.normalized * hit.distance, Color.red);
-                                    }
-                                    else
-                                    {
-                                        PullRock(movingDirection);
-                                    }
-                                }
-                                else
-                                {
-                                    other();
-                                }
-                            }
-                            else if (closestPoint == grabPoints[2])
-                            {
-                                Vector3 movingDirection = grabPoints[3] - player.transform.position;
-
-                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= sensitivityAngle && inputActive)
-                                {
-                                    PushRock(movingDirection);
-                                }
-                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < sensitivityAngle && inputActive)
-                                {
-
-                                    RaycastHit hito;
-                                    if (Physics.Raycast(newPlayerPos, -movingDirection.normalized, out hito, 2.0f))
-                                    {
-                                        //something is behind the player and can't pull
-                                        Debug.DrawRay(newPlayerPos, -movingDirection.normalized * hit.distance, Color.red);
-                                    }
-                                    else
-                                    {
-                                        PullRock(movingDirection);
-                                    }
-                                }
-                                else
-                                {
-                                    other();
-                                }
-                            }
-                            else if (closestPoint == grabPoints[3])
-                            {
-                                Vector3 movingDirection = grabPoints[2] - player.transform.position;
-
-                                if (Vector3.Angle(movingDirection, playerMovement.movePlayer) <= sensitivityAngle && inputActive)
-                                {
-                                    PushRock(movingDirection);
-                                }
-                                else if (Vector3.Angle(-movingDirection, playerMovement.movePlayer) < sensitivityAngle && inputActive)
-                                {
-
-                                    RaycastHit hito;
-                                    if (Physics.Raycast(newPlayerPos, -movingDirection.normalized, out hito, 2.0f))
-                                    {
-                                        //something is behind the player and can't pull
-                                        Debug.DrawRay(newPlayerPos, -movingDirection.normalized * hit.distance, Color.red);
-                                    }
-                                    else
-                                    {
-                                        PullRock(movingDirection);
-                                    }
-                                }
-                                else
-                                {
-                                    other();
-                                }
-                            }
+                            PullRock(movingDirection);
                         }
-                        
-                        
+                    }
+                    else
+                    {
+                        other();
                     }
                 }
 
@@ -226,12 +152,16 @@ public class PickUpDragandDrop : PickUpandDrop
             }
 
         }
+
+        //If this rock isn't the currentRock grabbed
         if (currentRock!=gameObject)
         {
             if (isGrounded) rb.isKinematic = true;
             thisRock = false;
             rockGrabbed = false;
         }
+
+        //If there's no rock grabbed
         if (currentRock==null)
         {
             playerMovement.grabbedToRock = false;
@@ -239,12 +169,10 @@ public class PickUpDragandDrop : PickUpandDrop
             animator.SetBool("Push", false);
             animator.SetBool("Pulling", false);
             dragSound.Stop();
-
         }
 
-        isGrounded = IsGrounded();
-
         //SOUNDS AND ANIMATIONS
+        //If this rock is being pushed
         if (playSound && !dragSound.isPlaying && thisRock)
         {
             dragSound.Play();
@@ -254,14 +182,13 @@ public class PickUpDragandDrop : PickUpandDrop
             dragSound.Stop();
         }
 
+        //If the fall rock animation is playing
         if (GetComponent<Animation>().isPlaying)
         {
             Debug.Log("AnimationPlaying");
-            //player.GetComponent<PlayerMovement>().StopMovement(false);
             canPressAgain = false;
             playSound = false;
             dragSound.Stop();
-            lerping = false;
             rockGrabbed = false;
             thisRock = false;
             currentRock = null;
@@ -269,35 +196,32 @@ public class PickUpDragandDrop : PickUpandDrop
         else
         {
             canPressAgain = true;
-            //Debug.Log("not playing");
         }
     }
 
     bool IsGrounded()
     {
         RaycastHit hit;
-        Vector3 auxPosition = transform.position/* - new Vector3(0, distToGround, 0)*/;
+        Vector3 auxPosition = transform.position;
         if (Physics.Raycast(auxPosition, Vector3.down, out hit, Mathf.Infinity))
         {
             Debug.DrawRay(auxPosition, Vector3.down * hit.distance, Color.yellow);
         }
 
         float distance = Vector3.Distance(hit.point, auxPosition);
-        Debug.Log("Rock dist:" + transform.name + " - " + distance);
-        Debug.Log("Rock dist to ground:" + transform.name + " - " + distToGround);
 
-        return (distance <= (distToGround+0.3f));
+        return (distance < 0.1f);
     }
+
 
     protected override void PickUpObject()
     {
         if (!rockGrabbed)
         {
             //FIND CLOSEST POINT
-            closestPoint = FindClosestPoint();
+            closestPoint = closestPos;
             player.transform.DOMove(closestPoint, 0.5f, false);
             //LERP PLAYER TOWARDS POINT
-            lerping = true;
             playSound = false;
             dragSound.Stop();
         }
@@ -305,7 +229,6 @@ public class PickUpDragandDrop : PickUpandDrop
         {
             //Let go of rock
             playerMovement.StopMovement(false);
-            lerping = false;
             rockGrabbed = false;
             playSound = false;
             dragSound.Stop();
@@ -368,54 +291,47 @@ public class PickUpDragandDrop : PickUpandDrop
         player.transform.DORotateQuaternion(rotation, 0.5f);
         playSound = false;
         dragSound.Stop();
-        lerping = false;
         rockGrabbed = false;
         currentRock = null;
         thisRock = false;
     }
-    void DoLerp()
-    {
-        if (player != null)
-        {
-            playerMovement.StopMovement(true);
-            //lerp player towards closest point
-            //player.transform.position = Vector3.Lerp(player.transform.position, closestPoint, 0.1f);
-            //lerp rotation to face object
-            if (Vector3.Distance(player.transform.position, closestPoint) < 0.1f)
-            {
-                //stop lerping and look at object
-                lerping = false;
-                rockGrabbed = true;
-            }
-        }
-    }
-
     Vector3 FindClosestPoint()
     {
         //FINDS CLOSEST POINT
         float minDistance = -1;
+        Vector3 pointToPlayer = Vector3.zero;
+        closestPointAvailable = true;
+        float dist = 1;
+
         for (int i = 0; i < 4; i++)
         {
-            float dist = Vector3.Distance(player.transform.position, grabPoints[i]);
-
-            Vector3 newPlayerPos = player.transform.position + new Vector3(0, 2.5f, 0);
-            Vector3 pointToPlayerDir = (newPlayerPos - grabPoints[i]).normalized;
-            RaycastHit hit;
-            if(Physics.Raycast(grabPoints[i], pointToPlayerDir, out hit, Mathf.Infinity))
+            dist = Vector3.Distance(player.transform.position, grabPoints[i]);
+            if (minDistance == -1 || dist < minDistance)
             {
-                if (hit.transform.tag=="Player")
-                {
-                    if (minDistance == -1 || dist < minDistance)
-                    {
-                        minPoint = i;
-                        minDistance = dist;
-                    }
-                }
+                minPoint = i;
+                minDistance = dist;
             }
+
         }
 
-        return grabPoints[minPoint];
+        RaycastHit hit;
+        pointToPlayer = player.transform.position - grabPoints[minPoint];
 
+        if (Physics.Raycast(grabPoints[minPoint] + Vector3.up, pointToPlayer, out hit, Mathf.Infinity))
+        {
+            if (hit.transform.tag == "Player")
+            {
+                return grabPoints[minPoint];
+            }
+        }
+        else if (pointToPlayer.magnitude<0.1f)
+        {
+            return grabPoints[minPoint];
+        }
+
+
+        closestPointAvailable = false;
+        return new Vector3(-1,-1,-1);
     }
 
     private void OnTriggerStay(Collider other)
@@ -444,8 +360,11 @@ public class PickUpDragandDrop : PickUpandDrop
 
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere(grabPoints[0], 0.5f);
+        Gizmos.color = Color.red;
         Gizmos.DrawSphere(grabPoints[1], 0.5f);
+        Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(grabPoints[2], 0.5f);
+        Gizmos.color = Color.green;
         Gizmos.DrawSphere(grabPoints[3], 0.5f);
 
         Gizmos.color = Color.black;
@@ -462,18 +381,4 @@ public class PickUpDragandDrop : PickUpandDrop
 
     }
 
-    //private void OnCollisionStay(Collision collision)
-    //{
-    //    if (collision.transform.position.y < transform.position.y)
-    //    {
-    //        isGrounded = true;
-    //    }
-    //}
-    //private void OnCollisionExit(Collision collision)
-    //{
-    //    if (collision.transform.position.y < transform.position.y)
-    //    {
-    //        isGrounded = false;
-    //    }
-    //}
 }

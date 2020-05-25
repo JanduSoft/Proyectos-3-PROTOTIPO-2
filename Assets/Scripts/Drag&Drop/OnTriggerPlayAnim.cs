@@ -9,10 +9,11 @@ public class OnTriggerPlayAnim : MonoBehaviour
     Animation rockAnim;
     [SerializeField] bool deactivateRock = false;
     [SerializeField] float timeToSound = 1.8f;
+    [SerializeField] float startMoving = 1.5f;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Stone") && !other.isTrigger)
+        if ((other.CompareTag("Stone")|| other.CompareTag("Block")) && !other.isTrigger)
         {
             transform.parent.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
             GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
@@ -21,7 +22,7 @@ public class OnTriggerPlayAnim : MonoBehaviour
             rockAnim = transform.parent.GetChild(0).GetComponent<Animation>();
             rockAnim.Play(animationClipName);
             transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().dragSound.Stop();
-            StartCoroutine(startMovingAgain(rockAnim.GetClip(animationClipName).length));
+            StartCoroutine(startMovingAgain(startMoving));
         }
     }
 
@@ -37,14 +38,7 @@ public class OnTriggerPlayAnim : MonoBehaviour
 
     IEnumerator startMovingAgain(float _s)
     {
-        //if (deactivateRock)
-        //{
-        //    transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().enabled = false;
-        //}
-
         transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().enabled = false;
-
-
         transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().dragSound.Stop();
         transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().LetGoRock();
         Rigidbody rb = transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().rb;
