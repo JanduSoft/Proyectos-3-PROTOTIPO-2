@@ -25,6 +25,7 @@ public class PickUpDragandDrop : PickUpandDrop
     float distToGround;
     bool canPressAgain = true;
     float sensitivityAngle = 50;
+    [SerializeField] bool isGrounded;
 
 
     // Start is called before the first frame update
@@ -38,14 +39,7 @@ public class PickUpDragandDrop : PickUpandDrop
         rb = GetComponent<Rigidbody>();
         distToGround = transform.GetChild(0).GetComponent<Collider>().bounds.extents.y;
         startingPosition = transform.position;
-        //try
-        //{
-        //    dragSound = GameObject.Find("Drag sound").GetComponent<AudioSource>();
-        //}
-        //catch
-        //{
-        //    Debug.LogWarning("Add global sounds");
-        //}
+
     }
     private void OnDisable()
     {
@@ -55,7 +49,6 @@ public class PickUpDragandDrop : PickUpandDrop
     // Update is called once per frame
     void Update()
     {
-        
         CheckVariables();
         if (player != null)
         {
@@ -221,7 +214,8 @@ public class PickUpDragandDrop : PickUpandDrop
             else if (!isPressingButton && currentRock == gameObject)
             {
                 currentRock = null;
-                //rb.isKinematic = true;
+                if (isGrounded)
+                    rb.isKinematic = true;
                 thisRock = false;
                 rockGrabbed = false;
                 playerMovement.grabbedToRock = false;
@@ -234,7 +228,7 @@ public class PickUpDragandDrop : PickUpandDrop
         }
         if (currentRock!=gameObject)
         {
-            if (IsGrounded()) rb.isKinematic = true;
+            if (isGrounded) rb.isKinematic = true;
             thisRock = false;
             rockGrabbed = false;
         }
@@ -248,6 +242,7 @@ public class PickUpDragandDrop : PickUpandDrop
 
         }
 
+        isGrounded = IsGrounded();
 
         //SOUNDS AND ANIMATIONS
         if (playSound && !dragSound.isPlaying && thisRock)
@@ -280,10 +275,21 @@ public class PickUpDragandDrop : PickUpandDrop
 
     bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+        RaycastHit hit;
+        Vector3 auxPosition = transform.position/* - new Vector3(0, distToGround, 0)*/;
+        if (Physics.Raycast(auxPosition, Vector3.down, out hit, Mathf.Infinity))
+        {
+            Debug.DrawRay(auxPosition, Vector3.down * hit.distance, Color.yellow);
+        }
+
+        float distance = Vector3.Distance(hit.point, auxPosition);
+        Debug.Log("Rock dist:" + transform.name + " - " + distance);
+        Debug.Log("Rock dist to ground:" + transform.name + " - " + distToGround);
+
+        return (distance <= (distToGround+0.3f));
     }
 
-protected override void PickUpObject()
+    protected override void PickUpObject()
     {
         if (!rockGrabbed)
         {
@@ -453,5 +459,21 @@ protected override void PickUpObject()
             if (respawn)
                 ResetPosition();
         }
+
     }
+
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    if (collision.transform.position.y < transform.position.y)
+    //    {
+    //        isGrounded = true;
+    //    }
+    //}
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if (collision.transform.position.y < transform.position.y)
+    //    {
+    //        isGrounded = false;
+    //    }
+    //}
 }

@@ -36,7 +36,6 @@ public class StepAudio : MonoBehaviour
 
     void PlayFootStep()
     {
-        Debug.Log("Current surface:" + PlayerMovement.currentSurface);
         switch (PlayerMovement.currentSurface)
         {
             case PlayerMovement.GroundType.DIRT:
