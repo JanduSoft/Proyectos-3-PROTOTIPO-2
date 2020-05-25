@@ -20,7 +20,7 @@ public class OnTriggerPlayAnim : MonoBehaviour
             transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().LetGoRock();
             StartCoroutine(SoundTime());
             rockAnim = transform.parent.GetChild(0).GetComponent<Animation>();
-            rockAnim.Play(animationClipName);
+            //rockAnim.Play(animationClipName);
             transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().dragSound.Stop();
             StartCoroutine(startMovingAgain(startMoving));
         }
@@ -46,8 +46,6 @@ public class OnTriggerPlayAnim : MonoBehaviour
         yield return new WaitForSeconds(_s);
         if (!deactivateRock)
             transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().enabled = true;
-
-        transform.parent.GetChild(0).GetComponent<Rigidbody>().isKinematic = true;
 
         GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(false);
     }
