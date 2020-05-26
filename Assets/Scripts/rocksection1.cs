@@ -25,20 +25,18 @@ public class rocksection1 : MonoBehaviour
         {
             //rock child of part 1
             rock.transform.SetParent(part1.transform);
-            Debug.Log("part 1 child");
             
         }
         else if(rock.transform.position.z>centerPoint.z && part2.activeSelf)
         {
             //rock child of part 2
             rock.transform.SetParent(part2.transform);
-            Debug.Log("part 2 child");
+
         }
         else if (rock.transform.position.z > centerPoint.z && part1.activeSelf)
         {
             //rock child of part 1
             rock.transform.SetParent(part1.transform);
-            Debug.Log("part 2 child");
         }
     }
 

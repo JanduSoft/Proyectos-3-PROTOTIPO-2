@@ -39,7 +39,6 @@ public class PickUpDropandThrow : PickUpandDrop
     [SerializeField] TutorialSprites tutoSprites;
 
     AudioSource[] sounds;
-
     // Start is called before the first frame update
 
     override public void ResetPosition()

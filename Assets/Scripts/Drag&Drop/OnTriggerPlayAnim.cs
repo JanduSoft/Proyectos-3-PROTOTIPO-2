@@ -6,56 +6,39 @@ using DG.Tweening;
 public class OnTriggerPlayAnim : MonoBehaviour
 {
     public string animationClipName;
-    Animation rockAnim;
     [SerializeField] bool deactivateRock = false;
-    [SerializeField] float timeToSound = 1.8f;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Stone") && !other.isTrigger)
+        if ((other.CompareTag("Stone")|| other.CompareTag("Block")) && !other.isTrigger)
         {
+            StartCoroutine(StopCharacterMovement());
+            transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().touchedTrigger = gameObject;
             transform.parent.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
-            GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
-            transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().LetGoRock();
-            StartCoroutine(SoundTime());
-            rockAnim = transform.parent.GetChild(0).GetComponent<Animation>();
-            rockAnim.Play(animationClipName);
+            transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().enabled = false;
             transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().dragSound.Stop();
-            StartCoroutine(startMovingAgain(rockAnim.GetClip(animationClipName).length));
+            transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().LetGoRock();
+            Rigidbody rb = transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().rb;
+            rb.AddForce(Physics.gravity * (rb.mass * rb.mass));
         }
     }
 
-
-
-
-    IEnumerator SoundTime()
+    IEnumerator StopCharacterMovement()
     {
-        yield return new WaitForSeconds(timeToSound);
-        Camera.main.DOShakePosition(0.5f, 1, 1, 90, true);
-        GetComponent<AudioSource>().Play();
+        GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(true);
+        yield return new WaitForSeconds(0.5f);
+        GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(false);
+
     }
 
-    IEnumerator startMovingAgain(float _s)
+
+
+    public void playSound()
     {
-        //if (deactivateRock)
-        //{
-        //    transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().enabled = false;
-        //}
-
-        transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().enabled = false;
-
-
-        transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().dragSound.Stop();
-        transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().LetGoRock();
-        Rigidbody rb = transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().rb;
-        rb.AddForce(Physics.gravity * (rb.mass * rb.mass));
-        yield return new WaitForSeconds(_s);
+        Camera.main.DOShakePosition(0.5f, 1, 1, 90, true);
+        GetComponent<AudioSource>().Play();
         if (!deactivateRock)
             transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().enabled = true;
-
-        transform.parent.GetChild(0).GetComponent<Rigidbody>().isKinematic = true;
-
-        GameObject.Find("Character").GetComponent<PlayerMovement>().StopMovement(false);
     }
 
 }
