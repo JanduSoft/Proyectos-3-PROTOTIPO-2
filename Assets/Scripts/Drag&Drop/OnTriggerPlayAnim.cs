@@ -12,6 +12,7 @@ public class OnTriggerPlayAnim : MonoBehaviour
     {
         if ((other.CompareTag("Stone")|| other.CompareTag("Block")) && !other.isTrigger)
         {
+            StartCoroutine(StopCharacterMovement());
             transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().touchedTrigger = gameObject;
             transform.parent.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
             transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().enabled = false;
@@ -19,7 +20,6 @@ public class OnTriggerPlayAnim : MonoBehaviour
             transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().LetGoRock();
             Rigidbody rb = transform.parent.GetChild(0).GetComponentInParent<PickUpDragandDrop>().rb;
             rb.AddForce(Physics.gravity * (rb.mass * rb.mass));
-            StartCoroutine(StopCharacterMovement());
         }
     }
 
