@@ -273,7 +273,11 @@ public class TutorialSprites : MonoBehaviour
                     }
                 case buttonType.THROW:
                     {
-                        ActivateSprite(buttonType.INTERACT);
+                        if (player.ableToWhip)
+                        {
+                            ActivateSprite(buttonType.INTERACT);
+                        }
+                        //ActivateSprite(buttonType.INTERACT);
                         break;
                     }
                 case buttonType.MOVE_ROCK:
