@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     const float maxSpeedJogging = 9f;
     const float maxSpeedRunning = 14;
     [SerializeField] public bool ableToWhip = true;
+    public bool isOnPedestal = false;
 
     InputDevice inputDevice;
     private void Awake()
@@ -76,7 +77,6 @@ public class PlayerMovement : MonoBehaviour
     float timeIdle = 0;
     public bool inRespawn=false;
 
-    public bool isOnPedestal = false;
     #endregion
 
 

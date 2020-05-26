@@ -14,6 +14,8 @@ public class PushElement : MonoBehaviour
     public bool canPush = true;
     public bool isInside = false;
     bool isMoving = false;
+
+    bool isBlocked = false;
     // Update is called once per frame
     void Update()
     {
@@ -24,6 +26,16 @@ public class PushElement : MonoBehaviour
             movingSound.Play();
             StartCoroutine(sound());
             Invoke("RestartMoving", speed);
+        }
+
+        if (isBlocked)
+        {
+
+            destinationElement.canPush = false;
+        }
+        else
+        {
+            destinationElement.canPush = true;
         }
     }
 
@@ -43,11 +55,20 @@ public class PushElement : MonoBehaviour
     {
         if (other.CompareTag("Block"))
         {
+            Debug.Log("Se Deberia Poder Mover");
             destinationElement.canPush = true;
         }
         if (other.CompareTag("Player"))
         {
             isInside = false;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Block"))
+        {
+            isBlocked = true;
         }
     }
 
