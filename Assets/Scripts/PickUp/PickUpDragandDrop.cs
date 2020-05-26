@@ -27,7 +27,7 @@ public class PickUpDragandDrop : PickUpandDrop
     [SerializeField] bool isGrounded;
     Vector3 closestPos;
     bool closestPointAvailable = false;
-
+    [HideInInspector] public GameObject touchedTrigger = null;
 
     // Start is called before the first frame update
     void Start()
@@ -182,21 +182,22 @@ public class PickUpDragandDrop : PickUpandDrop
             dragSound.Stop();
         }
 
-        //If the fall rock animation is playing
-        if (GetComponent<Animation>().isPlaying)
-        {
-            Debug.Log("AnimationPlaying");
-            canPressAgain = false;
-            playSound = false;
-            dragSound.Stop();
-            rockGrabbed = false;
-            thisRock = false;
-            currentRock = null;
-        }
-        else
-        {
-            canPressAgain = true;
-        }
+        ////If the fall rock animation is playing
+        //if (GetComponent<Animation>().isPlaying)
+        //{
+        //    Debug.Log("AnimationPlaying");
+        //    canPressAgain = false;
+        //    playSound = false;
+        //    dragSound.Stop();
+        //    rockGrabbed = false;
+        //    thisRock = false;
+        //    currentRock = null;
+        //}
+        //else
+        //{
+        //    canPressAgain = true;
+        //}
+
     }
 
     bool IsGrounded()
@@ -377,6 +378,12 @@ public class PickUpDragandDrop : PickUpandDrop
         {
             if (respawn)
                 ResetPosition();
+        }
+
+        if (touchedTrigger!=null && !collision.transform.CompareTag("Player"))
+        {
+            touchedTrigger.GetComponent<OnTriggerPlayAnim>().playSound();
+            touchedTrigger = null;
         }
 
     }
