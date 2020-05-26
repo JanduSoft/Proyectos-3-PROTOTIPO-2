@@ -4708,6 +4708,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4765786546748092}
   - component: {fileID: 198167508463184456}
+  - component: {fileID: 3402325560435463825}
   - component: {fileID: 199616843188106880}
   - component: {fileID: 3594061950134440741}
   m_Layer: 0
@@ -9302,6 +9303,24 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &3402325560435463825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876375917517166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e46551ac36539a4fb668ef8ace59db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireAudios:
+  - {fileID: 8300000, guid: 26884e8625f933e41a1a40c31291fd79, type: 3}
+  - {fileID: 8300000, guid: ba1731e743c0a12499b6e77678465352, type: 3}
+  - {fileID: 8300000, guid: b7060ffb26f93d3438204a003e09f9b5, type: 3}
+  minVolume: 0.3
+  maxVolume: 0.9
 --- !u!199 &199616843188106880
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -9376,7 +9395,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 243141957060867862, guid: 829dfea7bf13d0a4796ae2472460ce0b,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: b7060ffb26f93d3438204a003e09f9b5, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
