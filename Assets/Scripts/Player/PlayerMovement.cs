@@ -171,7 +171,7 @@ public class PlayerMovement : MonoBehaviour
                     timeIdle = 0;
                 }
             }
-            else if (!grabbedToRock && playerInput != Vector3.zero && !stopped)
+            else if (!grabbedToRock && playerInput.magnitude > 0.1f  && !stopped)
             {
                 // LOOK AT IF IS ON AIR OR GROUNDED
                 if (player.isGrounded || grounded)
@@ -187,6 +187,11 @@ public class PlayerMovement : MonoBehaviour
                     model.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
                 }
                 animatorController.SetBool("walking", true);
+            }
+            else if(!grabbedToRock && playerInput.magnitude < 0.1f && !stopped)
+            {
+                player.transform.LookAt(player.transform.position + player.transform.forward * 2);
+                model.transform.DOLookAt(player.transform.position + player.transform.forward * 2, lookAtSpeed);
             }
 
 

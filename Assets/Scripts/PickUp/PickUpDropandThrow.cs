@@ -77,7 +77,7 @@ public class PickUpDropandThrow : PickUpandDrop
         useGravity = false;
         _thisRB.constraints = RigidbodyConstraints.FreezeAll;
         if(changeSC)
-            _thisSC.radius = 0.7f;
+            _thisSC.radius = 1;
 
         grabPlace = GameObject.Find("GrabObjectPos");
 
@@ -119,7 +119,6 @@ public class PickUpDropandThrow : PickUpandDrop
             {
                 if (!objectIsGrabbed && insideSphere)
                 {
-                    Debug.Log("Cojiendo");
                     useGravity = false;
                     playerAnimator.SetBool("PickUp", true);
                     player.SendMessage("StopMovement", true);
@@ -133,7 +132,6 @@ public class PickUpDropandThrow : PickUpandDrop
                 }
                 else if (timeKeyDown > 0f && objectIsGrabbed)
                 {
-                    Debug.Log("Linea 99");
                     playerAnimator.SetBool("DropObject", true);
                     _thisRB.constraints = RigidbodyConstraints.FreezeRotation;
                     useGravity = true;
@@ -199,6 +197,7 @@ public class PickUpDropandThrow : PickUpandDrop
         if (other.CompareTag("Player"))
         {
             insideSphere = false;
+            player = null;
         }
     }
 
@@ -306,7 +305,6 @@ public class PickUpDropandThrow : PickUpandDrop
             transform.tag = "Destroyable";
         else
             transform.GetChild(0).tag = "Place";
-        _thisSC.enabled = false;
         thrown = true;
         Vector3 temp = player.transform.forward * (15000 * 0.3f);
         _thisRB.AddForce(temp);
@@ -326,7 +324,6 @@ public class PickUpDropandThrow : PickUpandDrop
             transform.tag = "Destroyable";
         else
             transform.GetChild(0).tag = "Place";
-        _thisSC.enabled = false;
         thrown = true;
         Vector3 temp = new Vector3();
         Vector3 thisToEnemy = new Vector3(enemy.transform.position.x - transform.position.x, enemy.transform.position.y + 1.5f - transform.position.y, enemy.transform.position.z - transform.position.z);
