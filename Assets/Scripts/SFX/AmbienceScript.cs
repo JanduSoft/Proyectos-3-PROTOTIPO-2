@@ -5,15 +5,19 @@ using UnityEngine;
 public class AmbienceScript : MonoBehaviour
 {
     // Start is called before the first frame update
+    [Header("RANDOM SOUNDS")]
     [SerializeField] AudioClip[] randomSounds;
-    [SerializeField] AudioClip AmbienceSound;
-    [SerializeField] AudioClip AmbienceSound2;
     [SerializeField] float minTime=1;
     [SerializeField] float maxTime=5;
     [SerializeField] float minPitch=0.8f;
     [SerializeField] float maxPitch=1.2f;
     [SerializeField] float maxVolume=1f;
     [SerializeField] float minVolume = 0.5f;
+    [Header("AMBIENCE")]
+    [SerializeField] AudioClip AmbienceSound;
+    [SerializeField]float AmbienceSoundVolume = 0.3f;
+    [SerializeField] AudioClip AmbienceSound2;
+    [SerializeField]float AmbienceSound2Volume = 0.2f;
 
     AudioSource[] aus;
 
@@ -30,12 +34,12 @@ public class AmbienceScript : MonoBehaviour
 
         aus[0].loop = true;
         aus[0].clip = AmbienceSound;
-        aus[0].volume = 0.3f;
+        aus[0].volume = AmbienceSoundVolume;
         aus[0].Play();
 
         aus[1].loop = true;
         aus[1].clip = AmbienceSound2;
-        aus[1].volume = 0.2f;
+        aus[1].volume = AmbienceSound2Volume;
         aus[1].Play();
     }
 
