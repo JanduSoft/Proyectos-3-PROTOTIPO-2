@@ -59,7 +59,7 @@ public class PedestalsPuzzle : MonoBehaviour
             //deactivate grabbing the objects again 
             objectsToPut[0].GetComponent<PickUpDropandThrow>().enabled = false;
             objectsToPut[1].GetComponent<PickUpDropandThrow>().enabled = false;
-            leftLight.GetComponent<Light>().DOIntensity(6, 3f);
+            leftLight.GetComponent<Light>().DOIntensity(4, 3f);
             Debug.Log("hello2");
 
             StartCoroutine(DoCinematic());

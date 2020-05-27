@@ -23,7 +23,7 @@ public class PickUpDragandDrop : PickUpandDrop
     static GameObject currentRock;
     float distToGround;
     bool canPressAgain = true;
-    float sensitivityAngle = 50;
+    float sensitivityAngle = 120;
     [SerializeField] bool isGrounded;
     Vector3 closestPos;
     bool closestPointAvailable = false;
@@ -46,7 +46,8 @@ public class PickUpDragandDrop : PickUpandDrop
     }
     private void OnDisable()
     {
-        currentRock = null;
+        if (currentRock==gameObject)
+            currentRock = null;
     }
 
     // Update is called once per frame

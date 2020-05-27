@@ -12,7 +12,7 @@ public class AddSkull : MonoBehaviour
     bool canPlace = false;
     [SerializeField] Animator playeranimator;
 
-    GameObject skull = null;
+    [SerializeField] GameObject skull = null;
 
     public bool isActivated = false;
     [SerializeField] bool faceOppositeDirection = false;

@@ -22,13 +22,11 @@ public class FollowPlayer : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
         if (other.CompareTag("Player"))
             StartCoroutine(DestroyAllGO());
         else if (!other.CompareTag("Path"))
         {
             StartCoroutine(DestroyGO());
-            Debug.Log(other.name);
         }
     }
     IEnumerator DestroyGO()
