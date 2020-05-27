@@ -55,10 +55,10 @@ public class TutorialSprites : MonoBehaviour
     [Header("TRANSITION")]
     [SerializeField] float speed;
     [SerializeField] float inititalSize;
-    [SerializeField] float finalSize;
+    private float finalSize = 0.4f;
 
     InControlManager inputController;
-    InControlManager.ControllerType currentController;
+    public InControlManager.ControllerType currentController;
 
     PlayerMovement player;
     #endregion
