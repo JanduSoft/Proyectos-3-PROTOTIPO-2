@@ -44,6 +44,7 @@ public class SecretObject : MonoBehaviour
     [Header("Text")]
     [SerializeField] float sizeAnimationText;
     [SerializeField] GameObject text;
+    [SerializeField] Text openSecretsText;
 
     #endregion
 
@@ -52,6 +53,31 @@ public class SecretObject : MonoBehaviour
     {
         if (startAnimation)
         {
+            switch (tuto.currentController)
+            {
+                case InControlManager.ControllerType.NONE:
+                    {
+                        openSecretsText.text = "press i to open the list of secrets";
+                        break;
+                    }
+                case InControlManager.ControllerType.KEYBOARD:
+                    {
+                        openSecretsText.text = "press i to open the list of secrets";
+                        break;
+                    }
+                case InControlManager.ControllerType.PS4:
+                    {
+                        openSecretsText.text = "press R1 to open the list of secrets";
+                        break;
+                    }
+                case InControlManager.ControllerType.XBOX:
+                    {
+                        openSecretsText.text = "press RB to open the list of secrets";
+                        break;
+                    }
+                default:
+                    break;
+            }
             timeToFinishAnimation += Time.deltaTime;
 
             if (timeToFinishAnimation >= minTime)
