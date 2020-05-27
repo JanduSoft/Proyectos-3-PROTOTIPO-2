@@ -46,11 +46,13 @@ public class StaticEnemy : MonoBehaviour
     }
     public void DestroyMe(GameObject go)
     {
+        Debug.Log("Destroy One");
         listShots.Remove(go);
         Destroy(go);
     }
     public void DestroyAll()
     {
+        Debug.Log("Destroy All");
         gameObject.transform.rotation = startingRotation;
         for (int i = 0; i < listShots.Count; i++)
             Destroy(listShots[i]);
