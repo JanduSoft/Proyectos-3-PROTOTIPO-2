@@ -77,9 +77,14 @@ public class AddObject : MonoBehaviour
         if (faceOppositeDirection) _objectTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
         else if(quarterRotation) _objectTransform.Rotate(90, 90, 0);
         if(_object.name == targetObject.name)
+        {
             isActivated = true;
-        yield return new WaitForSeconds(0.3f);
+            _object.GetComponent<PickUpDropandThrow>().enabled = false;
+            _object.GetComponent<TutorialSprites>().enabled = false;
+        }
+        yield return new WaitForSeconds(.5f);
         playerAnimator.SetBool("PlaceObject", false);
+        playerAnimator.SetBool("PickUp", false);
     }
 
     private void OnTriggerExit(Collider other)
