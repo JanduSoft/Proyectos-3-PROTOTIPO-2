@@ -58,7 +58,7 @@ public class TutorialSprites : MonoBehaviour
     [SerializeField] float finalSize;
 
     InControlManager inputController;
-    InControlManager.ControllerType currentController;
+    public InControlManager.ControllerType currentController;
 
     PlayerMovement player;
     #endregion
