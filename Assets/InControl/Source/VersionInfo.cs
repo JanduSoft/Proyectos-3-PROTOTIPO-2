@@ -29,7 +29,7 @@ namespace InControl
 				Minor = 4,
 				Patch = 4,
 //<<<<<<< HEAD
-				Build = 7323
+				Build = 7326
 //>>>>>>> develop
 			};
 		}
