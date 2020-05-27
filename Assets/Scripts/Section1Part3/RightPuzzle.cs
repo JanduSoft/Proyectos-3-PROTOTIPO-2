@@ -25,7 +25,7 @@ public class RightPuzzle : MonoBehaviour
         {
 
             hasCompletedPuzzle = true;
-            rightLight.GetComponent<Light>().DOIntensity(6,3f);
+            rightLight.GetComponent<Light>().DOIntensity(4,3f);
             StartCoroutine(DoCinematic());
             goldenSkull.GetComponent<PickUpDropandThrow>().enabled = false;
             goldenPedestal.GetComponent<AddObject>().enabled = false;

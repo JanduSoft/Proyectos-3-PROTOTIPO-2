@@ -40,7 +40,20 @@ public class LeverScript : MonoBehaviour
     [SerializeField] float randomness;
     [SerializeField] bool needToShake;
     bool shakeActivated = false;
-    
+    [Header("LEVER ROTATIONS")]
+    [SerializeField] bool onlyTwoRotations = false;
+    [SerializeField] Vector3 rotation1;
+    [SerializeField] Vector3 rotation2;
+    bool inPos1 = false;
+
+    private void Start()
+    {
+        if (onlyTwoRotations)
+        {
+            inPos1 = true;
+            lever.transform.localRotation = Quaternion.Euler(rotation1);
+        }
+    }
 
     void Update()
     {
@@ -51,7 +64,21 @@ public class LeverScript : MonoBehaviour
             {
                 showCanvas = false;
                 leverPulled = true;
-                lever.transform.localEulerAngles = new Vector3 (lever.transform.localRotation.x, lever.transform.localRotation.y, lever.transform.localEulerAngles.z - 45) ;
+                if (onlyTwoRotations)
+                {
+                    if (inPos1)
+                    {
+                        lever.transform.localRotation = Quaternion.Euler(rotation2);
+                        inPos1 = false;
+                    }
+                    else
+                    {
+                        lever.transform.localRotation = Quaternion.Euler(rotation1);
+                        inPos1 = true;
+                    }
+                }
+                else
+                    lever.transform.localEulerAngles = new Vector3 (lever.transform.localRotation.x, lever.transform.localRotation.y, lever.transform.localEulerAngles.z - 45) ;
                 activateObject.SendMessage("ActivateObject", false, SendMessageOptions.DontRequireReceiver);
                 //////CAMERA SHAKE
                 if (!shakeActivated)
