@@ -43,7 +43,6 @@ public class PickUpDropandThrow : PickUpandDrop
 
     override public void ResetPosition()
     {
-        Debug.Log("AAAAAAAA");
         if (!objectIsGrabbed)
         {
             try
@@ -87,6 +86,7 @@ public class PickUpDropandThrow : PickUpandDrop
         hitSound = sounds[0];
         grabSoundeffect= GameObject.Find("Special Object").GetComponent<AudioSource>();
     }
+
     private void FixedUpdate()
     {
         CheckVariables();
@@ -292,7 +292,6 @@ public class PickUpDropandThrow : PickUpandDrop
     
     protected IEnumerator PickUpCoroutine(float time)
     {
-        DropObject();
         yield return new WaitForSeconds(time);
         PickUpObject();
     }

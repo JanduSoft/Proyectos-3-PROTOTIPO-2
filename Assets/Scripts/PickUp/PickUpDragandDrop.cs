@@ -175,6 +175,7 @@ public class PickUpDragandDrop : PickUpandDrop
         if (currentRock==null)
         {
             playerMovement.grabbedToRock = false;
+            Debug.Log("RockNull");
             animator.SetBool("Attached", false);
             animator.SetBool("Push", false);
             animator.SetBool("Pulling", false);
@@ -297,6 +298,7 @@ public class PickUpDragandDrop : PickUpandDrop
     }
     public void LetGoRock()
     {
+        Debug.Log("LetGoRock");
         animator.SetBool("Attached", false);
         animator.SetBool("Push", false);
         animator.SetBool("Pulling", false);
@@ -360,9 +362,13 @@ public class PickUpDragandDrop : PickUpandDrop
     {
         if (other.CompareTag("Player"))
         {
-            animator.SetBool("Attached", false);
-            player = null;
-            thisRock = false;
+            if(currentRock == null)
+            {
+                Debug.Log("TriggerExit");
+                animator.SetBool("Attached", false);
+                player = null;
+                thisRock = false;
+            }
         }
     }
 
