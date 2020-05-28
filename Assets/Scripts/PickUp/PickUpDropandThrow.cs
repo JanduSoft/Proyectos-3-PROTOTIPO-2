@@ -86,6 +86,7 @@ public class PickUpDropandThrow : PickUpandDrop
         hitSound = sounds[0];
         grabSoundeffect= GameObject.Find("Special Object").GetComponent<AudioSource>();
     }
+
     private void FixedUpdate()
     {
         CheckVariables();
@@ -227,6 +228,7 @@ public class PickUpDropandThrow : PickUpandDrop
                 objectInside.SetActive(true);
                 objectInside.transform.SetParent(null);
             }
+            insideHere = false;
             dustParticles.SetActive(true);
             dustParticles.transform.SetParent(null);
             brokenVase.transform.SetParent(null);
@@ -291,7 +293,6 @@ public class PickUpDropandThrow : PickUpandDrop
     
     protected IEnumerator PickUpCoroutine(float time)
     {
-        DropObject();
         yield return new WaitForSeconds(time);
         PickUpObject();
     }
