@@ -43,7 +43,6 @@ public class PickUpDropandThrow : PickUpandDrop
 
     override public void ResetPosition()
     {
-        Debug.Log("AAAAAAAA");
         if (!objectIsGrabbed)
         {
             try

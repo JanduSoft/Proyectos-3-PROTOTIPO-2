@@ -195,6 +195,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
+            
 
             // GRAVITY
             SetGravity();
@@ -236,7 +237,6 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-           
 
     }
     #endregion
