@@ -29,7 +29,7 @@ public class OpenFinalGate : MonoBehaviour
         {
             doorClosed = false;
             //play rumble sound and open the door a bit
-            rightDoor.transform.DOLocalRotate(new Vector3(0,-200,0), 1);
+            rightDoor.transform.DOLocalRotate(new Vector3(0,-200,0), 3);
             openDoorSfx.Play();
 
         }

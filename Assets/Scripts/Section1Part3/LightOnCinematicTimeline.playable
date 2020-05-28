@@ -375,6 +375,21 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events: []
+--- !u!114 &114153350541453238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1977359656, guid: 6a10b2909283487f913b00d94cd3faf5, type: 3}
+  m_Name: AudioPlayableAsset
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: 0952410c28725a6439a6098d16ed0636, type: 3}
+  m_Loop: 0
+  m_bufferingTime: 0.1
 --- !u!114 &114196861662499618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -556,14 +571,14 @@ MonoBehaviour:
   m_Parent: {fileID: 11400000}
   m_Children: []
   m_Clips:
-  - m_Start: 0.36666666666666664
+  - m_Start: 0.18333333333333332
     m_ClipIn: 0
-    m_Asset: {fileID: 114579745472822248}
-    m_Duration: 1.2794104308390022
+    m_Asset: {fileID: 114153350541453238}
+    m_Duration: 4.016666666666674
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114476630428037720}
     m_EaseInDuration: 0
-    m_EaseOutDuration: 0
+    m_EaseOutDuration: 0.2
     m_BlendInDuration: -1
     m_BlendOutDuration: -1
     m_MixInCurve:
@@ -623,21 +638,6 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: Player - Puzzle Jingle
+    m_DisplayName: Player - Puzzle Jingle 2_long
     m_Version: 1
   m_Version: 2
---- !u!114 &114579745472822248
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1977359656, guid: 6a10b2909283487f913b00d94cd3faf5, type: 3}
-  m_Name: AudioPlayableAsset
-  m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: 0952410c28725a6439a6098d16ed0636, type: 3}
-  m_Loop: 0
-  m_bufferingTime: 0.1

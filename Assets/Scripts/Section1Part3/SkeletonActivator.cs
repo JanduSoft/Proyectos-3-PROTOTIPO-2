@@ -19,6 +19,7 @@ public class SkeletonActivator : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         transform.parent.GetComponent<Animator>().enabled = false;
         skull.transform.SetParent(null);
+        skull.GetComponent<PickUpDropandThrow>().SetStartingPoint(skull.transform.position);
         skull.GetComponent<PickUpDropandThrow>().enabled = true;
 
     }

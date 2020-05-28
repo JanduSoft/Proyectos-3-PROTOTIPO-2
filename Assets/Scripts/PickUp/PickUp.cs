@@ -38,6 +38,10 @@ public class PickUp : MonoBehaviour
         }
     }
 
+    public virtual void SetStartingPoint(Vector3 position)
+    {
+        startingPosition = position;
+    }
     // Start is called before the first frame update
     protected virtual void CheckVariables()
     {

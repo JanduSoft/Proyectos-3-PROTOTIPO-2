@@ -11,7 +11,7 @@ public class playerDeath : MonoBehaviour
     [SerializeField] PlayerMovement playerMovementScript;
     [SerializeField] Whip whipAttackScript;
     [SerializeField] GameObject deathPanel;
-    bool isDead = false;
+    public bool isDead = false;
 
     public Vector3 lastSpawnPointTouched;
     public Vector3 lastCameraRotation;
