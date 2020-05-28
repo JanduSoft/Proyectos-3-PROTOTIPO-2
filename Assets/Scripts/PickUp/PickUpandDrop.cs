@@ -19,37 +19,6 @@ public class PickUpandDrop : PickUp
     } 
 
     // Update is called once per frame
-    void Update()
-    {
-        CheckVariables();
-        if (InputManager.ActiveDevice.Action3.WasPressed && !cancelledDrop )
-        {
-            if (!objectIsGrabbed && distanceSuficient && isFacingBox)
-            {
-                playerAnimator.SetBool("PickUp", true);
-                playerAnimator.SetFloat("Distance", Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)));
-                player.SendMessage("StopMovement", true);
-                if (Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)) < 0.6)
-                {
-                    StartCoroutine(PickUpCoroutine(0.35f));
-                    StartCoroutine(AnimationsCoroutine(0.5f));
-                }
-                else
-                {
-                    StartCoroutine(PickUpCoroutine(0.5f));
-                    StartCoroutine(AnimationsCoroutine(0.65f));
-                }
-            }
-            else if(objectIsGrabbed)
-            {
-                playerAnimator.SetBool("DropObject", true);
-                player.SendMessage("StopMovement", true);
-                StartCoroutine(DropObjectCoroutine(0.5f));
-                StartCoroutine(AnimationsCoroutine(0.65f));
-            }
-        }
-
-    }
 
     private void OnTriggerStay(Collider other)
     {
