@@ -291,6 +291,7 @@ public class PickUpDropandThrow : PickUpandDrop
     
     protected IEnumerator PickUpCoroutine(float time)
     {
+        DropObject();
         yield return new WaitForSeconds(time);
         PickUpObject();
     }
