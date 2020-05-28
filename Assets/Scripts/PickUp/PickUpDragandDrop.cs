@@ -175,7 +175,6 @@ public class PickUpDragandDrop : PickUpandDrop
         if (currentRock==null)
         {
             playerMovement.grabbedToRock = false;
-            Debug.Log("RockNull");
             animator.SetBool("Attached", false);
             animator.SetBool("Push", false);
             animator.SetBool("Pulling", false);
