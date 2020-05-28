@@ -228,6 +228,7 @@ public class PickUpDropandThrow : PickUpandDrop
                 objectInside.SetActive(true);
                 objectInside.transform.SetParent(null);
             }
+            insideHere = false;
             dustParticles.SetActive(true);
             dustParticles.transform.SetParent(null);
             brokenVase.transform.SetParent(null);
