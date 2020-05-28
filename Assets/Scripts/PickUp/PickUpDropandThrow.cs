@@ -6,7 +6,8 @@ using InControl;
 
 public class PickUpDropandThrow : PickUpandDrop
 {
-    bool insideSphere = false;
+    static bool insideHere = false;
+    [SerializeField] bool insideSphere = false;
     [SerializeField] double timeKeyDown = 0f;
     [SerializeField] bool timeKeyDownX = false;
     [SerializeField] bool timeKeyDownY = false;
@@ -19,7 +20,6 @@ public class PickUpDropandThrow : PickUpandDrop
     [Header("OBJECT COMPONENTS")]
     [SerializeField] Rigidbody _thisRB;
     [SerializeField] SphereCollider _thisSC;
-
     [Header("EXTERNAL OBJECTS")]
     [Header("ALWAYS NEEDED")]
     [SerializeField] Whip playerWhip;
@@ -86,13 +86,6 @@ public class PickUpDropandThrow : PickUpandDrop
         hitSound = sounds[0];
         grabSoundeffect= GameObject.Find("Special Object").GetComponent<AudioSource>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-
-    }
     private void FixedUpdate()
     {
         CheckVariables();
@@ -155,14 +148,12 @@ public class PickUpDropandThrow : PickUpandDrop
             timeKeyDown += Time.deltaTime;
             if (timeKeyDown > 0f && objectIsGrabbed && !nearEnemy)
             {
-                StartCoroutine(ResetMovement(0.7f));
                 ThrowObject();
                 playerMovement.ableToWhip = true;
                 useGravity = true;
             }
             else if (timeKeyDown > 0f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) < 70))
             {
-                StartCoroutine(ResetMovement(0.7f));
                 player.transform.LookAt(enemy);
                 ThrowObjectToEnemy();
                 playerMovement.ableToWhip = true;
@@ -170,7 +161,6 @@ public class PickUpDropandThrow : PickUpandDrop
             }
             else if (timeKeyDown > 0f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) > 70))
             {
-                StartCoroutine(ResetMovement(0.7f));
                 ThrowObject();
                 playerMovement.ableToWhip = true;
                 useGravity = true;
@@ -186,17 +176,25 @@ public class PickUpDropandThrow : PickUpandDrop
     {
         if (other.CompareTag("Player"))
         {
+            if (!insideHere)
+            {
+                insideSphere = true;
+                insideHere = true;
+            }
             distanceChecker = player.transform.GetChild(1).gameObject;
             player = other.gameObject;
         }
-
-
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            insideSphere = false;
+            if(insideSphere)
+            {
+                insideSphere = false;
+                insideHere = false;
+            }
             player = null;
         }
     }
@@ -205,7 +203,11 @@ public class PickUpDropandThrow : PickUpandDrop
     {
         if (other.CompareTag("Player"))
         {
-            insideSphere = true;
+            if(!insideHere)
+            {
+                insideSphere = true;
+                insideHere = true;
+            }
             player = other.gameObject;
             playerAnimator = player.GetComponentInChildren<Animator>();
             distanceChecker = player.transform.GetChild(1).gameObject;
@@ -286,11 +288,7 @@ public class PickUpDropandThrow : PickUpandDrop
         player.SendMessage("StopMovement", true);
         StartCoroutine(ThrowToEnemyCoroutine(0.4f));
     }
-    IEnumerator ResetMovement(float time)
-    {
-        yield return new WaitForSeconds(time);
-        player.SendMessage("StopMovement", false);
-    }
+    
     protected IEnumerator PickUpCoroutine(float time)
     {
         DropObject();
