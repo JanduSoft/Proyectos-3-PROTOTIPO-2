@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using InControl;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class NewMainMenu : MonoBehaviour
 {
@@ -73,10 +74,22 @@ public class NewMainMenu : MonoBehaviour
     [Header("FULLSCREEN")]
     [SerializeField] Image fullscreenButton;
     [SerializeField] GameObject fullscreenchecK;
-        [Header("MUTE")]
+        [Header("VOLUME")]
     [SerializeField] Image muteButton;
     [SerializeField] GameObject muteCheck;
     [SerializeField] GameObject backButton;
+    [SerializeField] Image soundLevel1;
+    [SerializeField] Image soundLevel2;
+    [SerializeField] Image soundLevel3;
+    [SerializeField] Image soundLevel4;
+    [SerializeField] Image soundLevel5;
+    [SerializeField] GameObject volumeCursor;
+
+    public AudioMixer audioMixer;
+
+    float[] volumeLevels = { -80.0f, -64.0f, -48.0f, -32.0f, -16.0f, 0.0f };
+    int soundLevel = 3;
+
     [Header("MENUS")]
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject creditsMenu;
@@ -85,6 +98,7 @@ public class NewMainMenu : MonoBehaviour
     [SerializeField] AudioSource soundNavigation;
     [SerializeField] AudioSource soundAccept;
     [SerializeField] AudioSource soundDenied;
+
 
     float horizontalMove;
     float verticalMove;
@@ -110,11 +124,15 @@ public class NewMainMenu : MonoBehaviour
     int indexLow = 0;
     int indexMedium = 2;
     int indexHigh = 5;
+
+
     #endregion
 
     #region START
     private void Start()
     {
+        soundLevel = PlayerPrefs.GetInt("Volume");
+        UpdateVolumelevel();
 
         Cursor.visible = false;
 
@@ -644,7 +662,7 @@ public class NewMainMenu : MonoBehaviour
                 }
             case ButtonType.MUTE:
                 {
-                    muteButton.color = Color.white;
+                    volumeCursor.SetActive(false);
                     currentButton = ButtonType.FULLSCREEN_CHECK;
                     fullscreenButton.color = Color.yellow;
                     break;
@@ -653,7 +671,7 @@ public class NewMainMenu : MonoBehaviour
                 {
                     backButton.SetActive(false);
                     currentButton = ButtonType.MUTE;
-                    muteButton.color = Color.yellow;
+                    volumeCursor.SetActive(true);
                     break;
                 }
             case ButtonType.LEFT_RESOLUTION:
@@ -750,12 +768,12 @@ public class NewMainMenu : MonoBehaviour
                 {
                     fullscreenButton.color = Color.white;
                     currentButton = ButtonType.MUTE;
-                    muteButton.color = Color.yellow;
+                    volumeCursor.SetActive(true);
                     break;
                 }
             case ButtonType.MUTE:
                 {
-                    muteButton.color = Color.white;
+                    volumeCursor.SetActive(false);
                     currentButton = ButtonType.BACK;
                     backButton.SetActive(true);
                     break;
@@ -870,6 +888,21 @@ public class NewMainMenu : MonoBehaviour
                     soundNavigation.Play();
                     break;
                 }
+            case ButtonType.MUTE:
+                {
+                    if (soundLevel > 0)
+                    {
+                        soundNavigation.Play();
+                        soundLevel--;
+                        UpdateVolumelevel();
+                        PlayerPrefs.SetInt("Volume", soundLevel);
+                    }
+                    else
+                    {
+                        Debug.Log("EL VOLUMEN ESTA AL MINIMO");
+                    }
+                    break;
+                }
             default:
                 {
                     break;
@@ -931,11 +964,93 @@ public class NewMainMenu : MonoBehaviour
                     soundNavigation.Play();
                     break;
                 }
+            case ButtonType.MUTE:
+                {
+                    if (soundLevel < 5)
+                    {
+                        soundNavigation.Play();
+                        soundLevel++;
+                        UpdateVolumelevel();
+                        PlayerPrefs.SetInt("Volume", soundLevel);
+                    }
+                    else
+                    {
+                        Debug.Log("EL VOLUMEN ESTA AL MAXIMO");
+                    }
+                    break;
+                }
             default:
                 {
                     break;
                 }
         }
+    }
+    #endregion
+
+    #region UPDATE VOLUME
+    void UpdateVolumelevel()
+    {
+        switch (soundLevel)
+        {
+            case 0:
+                {
+                    soundLevel1.color = Color.white;
+                    soundLevel2.color = Color.white;
+                    soundLevel3.color = Color.white;
+                    soundLevel4.color = Color.white;
+                    soundLevel5.color = Color.white;
+                    break;
+                }
+            case 1:
+                {
+                    soundLevel1.color = Color.yellow;
+                    soundLevel2.color = Color.white;
+                    soundLevel3.color = Color.white;
+                    soundLevel4.color = Color.white;
+                    soundLevel5.color = Color.white;
+                    break;
+                }
+            case 2:
+                {
+                    soundLevel1.color = Color.yellow;
+                    soundLevel2.color = Color.yellow;
+                    soundLevel3.color = Color.white;
+                    soundLevel4.color = Color.white;
+                    soundLevel5.color = Color.white;
+                    break;
+                }
+            case 3:
+                {
+                    soundLevel1.color = Color.yellow;
+                    soundLevel2.color = Color.yellow;
+                    soundLevel3.color = Color.yellow;
+                    soundLevel4.color = Color.white;
+                    soundLevel5.color = Color.white;
+                    break;
+                }
+            case 4:
+                {
+                    soundLevel1.color = Color.yellow;
+                    soundLevel2.color = Color.yellow;
+                    soundLevel3.color = Color.yellow;
+                    soundLevel4.color = Color.yellow;
+                    soundLevel5.color = Color.white;
+                    break;
+                }
+            case 5:
+                {
+                    soundLevel1.color = Color.yellow;
+                    soundLevel2.color = Color.yellow;
+                    soundLevel3.color = Color.yellow;
+                    soundLevel4.color = Color.yellow;
+                    soundLevel5.color = Color.yellow;
+                    break;
+                }
+            default:
+                break;
+        }
+
+        audioMixer.SetFloat("Volume", volumeLevels[soundLevel]);
     }
     #endregion
 }

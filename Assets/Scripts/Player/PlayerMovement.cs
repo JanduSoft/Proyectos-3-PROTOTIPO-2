@@ -173,6 +173,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (!grabbedToRock && playerInput.magnitude > 0.2f  && !stopped)
             {
+                Debug.Log("Mayor que 2" + playerInput.magnitude);
                 // LOOK AT IF IS ON AIR OR GROUNDED
                 if (player.isGrounded || grounded)
                 {
