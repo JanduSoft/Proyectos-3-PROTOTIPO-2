@@ -57,16 +57,22 @@ public class StepAudio : MonoBehaviour
 
     void PlayDustLeft()
     {
-        GameObject aux = Instantiate(dustParticle, leftFoot.transform.position, Quaternion.identity);
-        aux.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        Destroy(aux, 1);
+        if (dustParticle!=null)
+        {
+            GameObject aux = Instantiate(dustParticle, leftFoot.transform.position, Quaternion.identity);
+            aux.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            Destroy(aux, 1);
+        }
     }
 
     void PlayDustRight()
     {
-        GameObject aux = Instantiate(dustParticle, rightFoot.transform.position, Quaternion.identity);
-        aux.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        Destroy(aux, 1);
+        if (dustParticle != null)
+        {
+            GameObject aux = Instantiate(dustParticle, rightFoot.transform.position, Quaternion.identity);
+            aux.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            Destroy(aux, 1);
+        }
     }
 
 }

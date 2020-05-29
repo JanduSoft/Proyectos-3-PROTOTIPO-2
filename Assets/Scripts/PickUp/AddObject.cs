@@ -17,6 +17,7 @@ public class AddObject : MonoBehaviour
     [SerializeField] bool faceOppositeDirection = false;
     [SerializeField] bool quarterRotation = false;
 
+    bool theresObject = false;
     private void Start()
     {
     }
@@ -26,15 +27,17 @@ public class AddObject : MonoBehaviour
     {
         if (_object != null )
         {
-            if (canPlace && (objectIsGrabbed) && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
+            if (canPlace && !theresObject &&(objectIsGrabbed) && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
             {
+                theresObject = true;
                 playerAnimator.SetBool("PlaceObject", true);
                 _object.GetComponent<PickUpDropandThrow>().DropObject();
                 StartCoroutine(PlaceObject());
                 
             }
-            else if (canPlace && !objectIsGrabbed && InputManager.ActiveDevice.Action3.WasPressed)
+            else if (canPlace && GameObject.Find("Character").GetComponent<PlayerMovement>().ableToWhip &&!objectIsGrabbed && InputManager.ActiveDevice.Action3.WasPressed)
             {
+                theresObject = false;
                 _object.GetComponent<PickUpDropandThrow>().ForceGrabObject();
                 if (isActivated)isActivated = false;
             }

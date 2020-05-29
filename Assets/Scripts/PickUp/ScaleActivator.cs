@@ -13,7 +13,8 @@ public class ScaleActivator : MonoBehaviour
 
     IEnumerator EnableScript()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
+        transform.parent.GetComponent<AudioSource>().Play();
         transform.parent.GetComponent<PickUpDropandThrow>().enabled = true;
     }
 }

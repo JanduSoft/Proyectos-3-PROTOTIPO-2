@@ -10,7 +10,7 @@ public class FollowPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemy = GameObject.Find("Enemy");
+        enemy = GameObject.Find("TurretEnemie");
         player = GameObject.Find("Character").transform;
     }
 

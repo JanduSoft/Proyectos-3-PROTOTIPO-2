@@ -171,30 +171,32 @@ public class PlayerMovement : MonoBehaviour
                     timeIdle = 0;
                 }
             }
-            else if (!grabbedToRock && playerInput.magnitude > 0.05f  && !stopped)
+            else if (!grabbedToRock && playerInput.magnitude > 0.2f  && !stopped)
             {
+                Debug.Log("Mayor que 2" + playerInput.magnitude);
                 // LOOK AT IF IS ON AIR OR GROUNDED
                 if (player.isGrounded || grounded)
                 {
-                    player.transform.LookAt(player.transform.position + movePlayer);
+                    player.transform.LookAt(player.transform.position + (movePlayer * 10));
                     model.transform.position = player.transform.position;
-                    model.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
+                    model.transform.DOLookAt(player.transform.position + (movePlayer * 10), lookAtSpeed);
                 }
                 else if (!player.isGrounded && !grounded)
                 {
-                    player.transform.LookAt(player.transform.position + movePlayer);
+                    player.transform.LookAt(player.transform.position + (movePlayer * 10));
                     model.transform.position = player.transform.position;
-                    model.transform.DOLookAt(player.transform.position + movePlayer, lookAtSpeed);
+                    model.transform.DOLookAt(player.transform.position + (movePlayer * 10), lookAtSpeed);
                 }
                 animatorController.SetBool("walking", true);
             }
-            else if(!grabbedToRock && playerInput.magnitude < 0.05f && !stopped)
+            else if(!grabbedToRock && playerInput.magnitude < 0.2f && !stopped)
             {
                 player.transform.LookAt(player.transform.position + player.transform.forward * 2);
                 model.transform.DOLookAt(player.transform.position + player.transform.forward * 2, lookAtSpeed);
             }
 
 
+            
 
             // GRAVITY
             SetGravity();
@@ -236,7 +238,6 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-           
 
     }
     #endregion
