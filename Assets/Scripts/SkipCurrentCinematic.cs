@@ -7,11 +7,6 @@ using InControl;
 
 public class SkipCurrentCinematic : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -28,5 +23,9 @@ public class SkipCurrentCinematic : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        GameObject.Find("Character").GetComponent<PlayerMovement>().canMove = true;
+    }
 
 }

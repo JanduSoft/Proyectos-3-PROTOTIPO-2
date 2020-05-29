@@ -39,7 +39,22 @@ public class PickUpDropandThrow : PickUpandDrop
     [SerializeField] TutorialSprites tutoSprites;
 
     AudioSource[] sounds;
+
+    public bool isBroken = false;
     // Start is called before the first frame update
+
+    public void ResetObject()
+    {
+        ResetPosition();
+        objectInside.transform.SetParent(transform);
+        objectInside.SetActive(false);
+        dustParticles.transform.SetParent(transform);
+        dustParticles.SetActive(false);
+        brokenVase.transform.SetParent(transform);
+        brokenVase.SetActive(false);
+
+        isBroken = false;
+    }
 
     override public void ResetPosition()
     {
@@ -229,6 +244,7 @@ public class PickUpDropandThrow : PickUpandDrop
                 objectInside.transform.SetParent(null);
             }
             insideHere = false;
+            isBroken = true;
             dustParticles.SetActive(true);
             dustParticles.transform.SetParent(null);
             brokenVase.transform.SetParent(null);
