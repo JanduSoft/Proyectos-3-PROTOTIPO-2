@@ -71,8 +71,13 @@ public class PauseMenuBehavior : MonoBehaviour
     [SerializeField] GameObject musicCheck;
     [SerializeField] Image soundsBtn;
     [SerializeField] Image backBtn;
+    [SerializeField] Image soundLevel1;
+    [SerializeField] Image soundLevel2;
+    [SerializeField] Image soundLevel3;
+    [SerializeField] Image soundLevel4;
+    [SerializeField] Image soundLevel5;
 
-        [Header("RESOLUTION")]
+    [Header("RESOLUTION")]
         [SerializeField] Text leftResolutionText;
         [SerializeField] Text midleResolutionText;
         [SerializeField] Text rightResolutionText;
@@ -139,11 +144,15 @@ public class PauseMenuBehavior : MonoBehaviour
     InControlManager inputController;
 
     Resolution[] resolutions;
+
+    int soundLevel = 3;
     #endregion
 
     #region START
     private void Start()
     {
+        UpdateVolumelevel();
+
         Cursor.visible = false;
 
         resolutions = Screen.resolutions;
@@ -403,11 +412,11 @@ public class PauseMenuBehavior : MonoBehaviour
                                 {
                                     if (isMuted)
                                     {
-                                        UnMute();
+                                       //UnMute();
                                     }
                                     else
                                     {
-                                        Mute();
+                                        //Mute();
                                     }
                                     break;
                                 }
@@ -695,7 +704,10 @@ public class PauseMenuBehavior : MonoBehaviour
                 }
             case ButtonType.FULLSCREEN:
                 {
-                    currentButton.color = Color.white;
+                    if (currentButtonSelected != ButtonType.MUSIC)
+                    {
+                        currentButton.color = Color.white;
+                    }                    
                     currentButtonSelected = ButtonType.FULLSCREEN;
                     currentButton = fullScreenBtn;
                     currentButton.color = Color.yellow;
@@ -706,7 +718,7 @@ public class PauseMenuBehavior : MonoBehaviour
                     currentButton.color = Color.white;
                     currentButtonSelected = ButtonType.MUSIC;
                     currentButton = musicBtn;
-                    currentButton.color = Color.yellow;
+                    //currentButton.color = Color.yellow;
                     break;
                 }
             case ButtonType.SOUNDS:
@@ -719,7 +731,10 @@ public class PauseMenuBehavior : MonoBehaviour
                 }
             case ButtonType.BACK:
                 {
-                    currentButton.color = Color.white;
+                    if (currentButtonSelected != ButtonType.MUSIC)
+                    {
+                        currentButton.color = Color.white;
+                    }
                     currentButtonSelected = ButtonType.BACK;
                     currentButton = backBtn;
                     currentButton.color = Color.yellow;
@@ -962,6 +977,8 @@ public class PauseMenuBehavior : MonoBehaviour
                     }
                 case ButtonType.MUSIC:
                     {
+                        Debug.Log("VOLUMEN ACTUAL:  " + soundLevel);
+
                         if (newMovement == Movement.UP)
                         {
                             SelectButton(ButtonType.FULLSCREEN);
@@ -970,6 +987,31 @@ public class PauseMenuBehavior : MonoBehaviour
                         {
                             SelectButton(ButtonType.BACK);
                         }
+                        else if (newMovement == Movement.LEFT)
+                        {
+                            if (soundLevel > 0)
+                            {
+                                soundLevel--;
+                                UpdateVolumelevel();
+                            }
+                            else
+                            {
+                                Debug.Log("EL VOLUMEN ESTA AL MINIMO");
+                            }
+                        }
+                        else if (newMovement == Movement.RIGHT)
+                        {
+                            if (soundLevel < 5)
+                            {
+                                soundLevel++;
+                                UpdateVolumelevel();
+                            }
+                            else
+                            {
+                                Debug.Log("EL VOLUMEN ESTA AL MAXIMO");
+                            }
+                        }
+
 
                         break;
                     }
@@ -1153,6 +1195,71 @@ public class PauseMenuBehavior : MonoBehaviour
         else if (currentScene == "Section1Part3")
         {
             PlayerPrefs.SetInt("LevelSaved", 7);
+        }
+    }
+    #endregion
+
+    #region UPDATE VOLUME
+    void UpdateVolumelevel()
+    {
+        switch (soundLevel)
+        {
+            case 0:
+                {
+                    soundLevel1.color = Color.white;
+                    soundLevel2.color = Color.white;
+                    soundLevel3.color = Color.white;
+                    soundLevel4.color = Color.white;
+                    soundLevel5.color = Color.white;
+                    break;
+                }
+            case 1:
+                {
+                    soundLevel1.color = Color.yellow;
+                    soundLevel2.color = Color.white;
+                    soundLevel3.color = Color.white;
+                    soundLevel4.color = Color.white;
+                    soundLevel5.color = Color.white;
+                    break;
+                }
+            case 2:
+                {
+                    soundLevel1.color = Color.yellow;
+                    soundLevel2.color = Color.yellow;
+                    soundLevel3.color = Color.white;
+                    soundLevel4.color = Color.white;
+                    soundLevel5.color = Color.white;
+                    break;
+                }
+            case 3:
+                {
+                    soundLevel1.color = Color.yellow;
+                    soundLevel2.color = Color.yellow;
+                    soundLevel3.color = Color.yellow;
+                    soundLevel4.color = Color.white;
+                    soundLevel5.color = Color.white;
+                    break;
+                }
+            case 4:
+                {
+                    soundLevel1.color = Color.yellow;
+                    soundLevel2.color = Color.yellow;
+                    soundLevel3.color = Color.yellow;
+                    soundLevel4.color = Color.yellow;
+                    soundLevel5.color = Color.white;
+                    break;
+                }
+            case 5:
+                {
+                    soundLevel1.color = Color.yellow;
+                    soundLevel2.color = Color.yellow;
+                    soundLevel3.color = Color.yellow;
+                    soundLevel4.color = Color.yellow;
+                    soundLevel5.color = Color.yellow;
+                    break;
+                }
+            default:
+                break;
         }
     }
     #endregion
