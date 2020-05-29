@@ -38,7 +38,7 @@ public class RockMiddleVariables : MonoBehaviour
 
     public void movePlayerGraphicsBack()
     {
-        playerGraphics.DOMove(player.transform.position - playerGraphics.forward.normalized, 1f);
+        playerGraphics.DOMove(player.transform.position - playerGraphics.forward.normalized*0.5f, 1f);
     }
 
     public void movePlayerGraphicsForward()
@@ -46,8 +46,4 @@ public class RockMiddleVariables : MonoBehaviour
         playerGraphics.DOMove(player.transform.position + playerGraphics.forward.normalized, 1f);
     }
 
-    public void keepGraphicsInPosition()
-    {
-        playerGraphics.position = player.transform.position - playerGraphics.forward.normalized;
-    }
 }

@@ -24,6 +24,8 @@ public class PickUpDragandDrop : PickUpandDrop
     Vector3 positionGrabbed;
     Transform playerGraphics;
 
+    bool DoingSlide = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,7 +79,7 @@ public class PickUpDragandDrop : PickUpandDrop
                 }
 
                 //If the rock is not grabbed and you're facing it, grab it
-                if (isFacingBox && !animator.GetBool("Attached") && currentRock == null)
+                if (isFacingBox && !animator.GetBool("Attached") && currentRock == null && !DoingSlide)
                 {
                     closestPos = FindClosestPoint();
                     if (!closestPointAvailable) return;
@@ -87,10 +89,15 @@ public class PickUpDragandDrop : PickUpandDrop
                     currentRock = gameObject;
                     rb.isKinematic = false;
 
-                    //player.transform.DOMove(closestPos, 0.5f);
+                    DoingSlide = true;
 
-                    player.transform.position = closestPos;
-                    animator.SetBool("Attached", true);
+                    player.transform.DOMove(closestPos, 0.5f).OnComplete(() => {
+
+                        player.transform.position = closestPos;
+                        animator.SetBool("Attached", true);
+
+                    });
+
                 }
 
                 //If the rock is grabbed and you're facing it
@@ -134,7 +141,7 @@ public class PickUpDragandDrop : PickUpandDrop
                         }
                         else
                         {
-                            other();
+                            StartCoroutine(other());
                         }
                     }
                 }
@@ -208,15 +215,33 @@ public class PickUpDragandDrop : PickUpandDrop
         rb.position = new Vector3(transform.position.x, positionGrabbed.y + 0.1f, transform.position.z);
         playSound = true;
     }
-    void other()
+    IEnumerator other()
     {
-        animator.SetBool("Push", false);
-        animator.SetBool("Pulling", false);
-        playSound = false;
+        if (animator.GetBool("Push") || animator.GetBool("Pulling"))
+        {
+            if (animator.GetBool("Pulling"))
+            {
+                playerGraphics.DOMove(player.transform.position - playerGraphics.forward.normalized, 0.6f);
+            }
+            else if (animator.GetBool("Push"))
+            {
+                playerGraphics.DOMove(player.transform.position + playerGraphics.forward.normalized * 0.5f, 0.6f);
+            }
+            animator.SetBool("Push", false);
+            animator.SetBool("Pulling", false);
+            playSound = false;
+
+        }
+        else
+            playerGraphics.position = player.transform.position - playerGraphics.forward.normalized * 0.5f;
+
+
+        yield return null;
     }
     void PullRock(Vector3 movingDirection)
     {
         playerGraphics.position = player.transform.position;
+
         animator.SetBool("Push", false);
         animator.SetBool("Pulling", true);
         rb.velocity = -movingDirection.normalized * stoneSpeed;
@@ -261,6 +286,7 @@ public class PickUpDragandDrop : PickUpandDrop
         playerMovement.grabbedToRock = false;
         dragSound.Stop();
         currentRock = null;
+        DoingSlide = false;
     }
     Vector3 FindClosestPoint()
     {
