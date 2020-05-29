@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using InControl;
+using UnityEngine.Audio;
 
 
 public class PauseMenuBehavior : MonoBehaviour
@@ -146,11 +147,17 @@ public class PauseMenuBehavior : MonoBehaviour
     Resolution[] resolutions;
 
     int soundLevel = 3;
+
+    public AudioMixer audioMixer;
+
+    float[] volumeLevels = { -80.0f, -64.0f, -48.0f, -32.0f, -16.0f, 0.0f };
     #endregion
 
     #region START
     private void Start()
     {
+
+        soundLevel = PlayerPrefs.GetInt("Volume");
         UpdateVolumelevel();
 
         Cursor.visible = false;
@@ -993,6 +1000,7 @@ public class PauseMenuBehavior : MonoBehaviour
                             {
                                 soundLevel--;
                                 UpdateVolumelevel();
+                                PlayerPrefs.SetInt("Volume", soundLevel);
                             }
                             else
                             {
@@ -1005,6 +1013,7 @@ public class PauseMenuBehavior : MonoBehaviour
                             {
                                 soundLevel++;
                                 UpdateVolumelevel();
+                                PlayerPrefs.SetInt("Volume", soundLevel);
                             }
                             else
                             {
@@ -1261,6 +1270,8 @@ public class PauseMenuBehavior : MonoBehaviour
             default:
                 break;
         }
+
+        audioMixer.SetFloat("Volume", volumeLevels[soundLevel]);
     }
     #endregion
 
