@@ -16,6 +16,7 @@ public class PickUpDropandIgnite : PickUpandDrop
     GameObject nearFireObject;
     [SerializeField] public GameObject currentFireObject;
     // Start is called before the first frame update
+
     void Start()
     {
         startingPosition = transform.position;
@@ -90,10 +91,37 @@ public class PickUpDropandIgnite : PickUpandDrop
         }
         if (other.CompareTag("Death"))
         {
-
             ResetPosition();
         }
 
+    }
+
+    override public void ResetPosition()
+    {
+        if (!objectIsGrabbed)
+        {
+            try
+            {
+                Debug.Log("Object respawned ignite");
+                if (UseManualRespawn)
+                    transform.position = manualRespawnPoint.position;
+                else
+                    transform.position = startingPosition;
+
+                transform.localRotation = startingRotation;
+
+                if (transform.CompareTag("Destroyable"))
+                {
+                    transform.tag = "Place";
+                }
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+            }
+            catch
+            {
+                Debug.Log("Can't respawn object");
+            }
+        }
     }
 
 

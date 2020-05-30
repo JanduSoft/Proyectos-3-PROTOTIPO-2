@@ -62,6 +62,7 @@ public class PickUpDropandThrow : PickUpandDrop
         {
             try
             {
+                Debug.Log("Object respawned");
                 if (UseManualRespawn)
                     transform.position = manualRespawnPoint.position;
                 else

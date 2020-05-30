@@ -27,6 +27,7 @@ public class PickUp : MonoBehaviour
         {
             try
             {
+                Debug.Log("Hello here");
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 transform.position = startingPosition;
                 transform.localRotation = startingRotation;
