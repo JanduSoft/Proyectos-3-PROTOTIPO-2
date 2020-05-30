@@ -106,7 +106,7 @@ MonoBehaviour:
   pickThrowXBOX: {fileID: 0}
   speed: 0.2
   inititalSize: 0
-  finalSize: 0.5
+  currentController: 0
 --- !u!114 &1675604119477729891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,11 +119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ee1a673d9762741824da15f9587eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFacingBox: 0
-  playerMovement: {fileID: 0}
   respawn: 1
   UseManualRespawn: 0
   manualRespawnPoint: {fileID: 0}
+  insideSphere: 0
   timeKeyDown: 0
   timeKeyDownX: 0
   timeKeyDownY: 0
@@ -139,7 +138,8 @@ MonoBehaviour:
   brokenSound: {fileID: 510637833665712818}
   objectInside: {fileID: 1675604119858808824}
   useGravity: 1
-  tutoSprites: {fileID: 0}
+  tutoSprites: {fileID: 581443989}
+  isBroken: 0
 --- !u!1 &1675604119858808824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,11 +1146,6 @@ PrefabInstance:
     - target: {fileID: 1177365256870617067, guid: f61db0f6090c21848869d1d37b076d50,
         type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1177365256870617067, guid: f61db0f6090c21848869d1d37b076d50,
-        type: 3}
-      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

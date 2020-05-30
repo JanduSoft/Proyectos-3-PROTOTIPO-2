@@ -53,7 +53,7 @@ public class PickUpDragandDrop : PickUpandDrop
     void lookAtRock()
     {
         player.transform.DOLookAt(new Vector3(currentRock.transform.position.x, player.transform.position.y, currentRock.transform.position.z), 0.25f);
-        Vector3 rockPos = transform.position;
+        Vector3 rockPos = currentRock.transform.position;
         rockPos.y = player.transform.position.y;
         playerGraphics.LookAt(rockPos);
     }
@@ -150,6 +150,7 @@ public class PickUpDragandDrop : PickUpandDrop
             else if (!isPressingButton && currentRock == gameObject)
             {
                 LetGoRock();
+
 
                 if (isGrounded)
                     rb.isKinematic = true;
@@ -287,6 +288,7 @@ public class PickUpDragandDrop : PickUpandDrop
         dragSound.Stop();
         currentRock = null;
         DoingSlide = false;
+        minPoint = -1;
     }
     Vector3 FindClosestPoint()
     {
@@ -312,15 +314,21 @@ public class PickUpDragandDrop : PickUpandDrop
 
         if (Physics.Raycast(grabPoints[minPoint] + Vector3.up, pointToPlayer, out hit, Mathf.Infinity))
         {
-            if (hit.transform.tag == "Player")
+            Debug.DrawRay(grabPoints[minPoint] + Vector3.up, pointToPlayer, Color.cyan,5f);
+            Debug.Log("RAYCAST OBJECT HIT:" + hit.transform.name);
+            
+            if (hit.transform.tag != "Player")
+                return new Vector3(-1, -1, -1);
+            
+            else if (hit.transform.tag == "Player")
             {
                 return grabPoints[minPoint];
             }
         }
-        else if (pointToPlayer.magnitude < 0.1f)
-        {
-            return grabPoints[minPoint];
-        }
+        //else if (pointToPlayer.magnitude < 0.1f)
+        //{
+        //    return grabPoints[minPoint];
+        //}
 
 
         closestPointAvailable = false;
