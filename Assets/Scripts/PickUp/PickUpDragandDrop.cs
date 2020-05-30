@@ -43,6 +43,10 @@ public class PickUpDragandDrop : PickUpandDrop
     }
     private void OnDisable()
     {
+        DoingSlide = false;
+        minPoint = -1;
+        closestPos = -Vector3.one;
+
         if (currentRock == gameObject)
             currentRock = null;
     }
@@ -64,7 +68,7 @@ public class PickUpDragandDrop : PickUpandDrop
         isGrounded = IsGrounded();
 
         //If there's a player detected
-        if (player != null)
+        if (player != null && !touchedTrigger)
         {
             bool isPressingButton = InputManager.ActiveDevice.Action3;
 
@@ -78,7 +82,7 @@ public class PickUpDragandDrop : PickUpandDrop
                 }
 
                 //If the rock is not grabbed and you're facing it, grab it
-                if (isFacingBox && !animator.GetBool("Attached") && currentRock == null && !DoingSlide)
+                if (isFacingBox && !animator.GetBool("Attached") && currentRock == null && !DoingSlide && isGrounded)
                 {
                     Vector3 auxPos= FindClosestPoint();
                     if (auxPos == -Vector3.one) return;
@@ -175,6 +179,7 @@ public class PickUpDragandDrop : PickUpandDrop
         {
             playerMovement.grabbedToRock = false;
 
+            playerGraphics.DOKill();
             animator.SetBool("Attached", false);
             animator.SetBool("Push", false);
             animator.SetBool("Pulling", false);
@@ -311,21 +316,20 @@ public class PickUpDragandDrop : PickUpandDrop
 
         }
 
-        Debug.Log("Min point " + minPoint);
-
         RaycastHit hit;
         pointToPlayer = player.transform.position - grabPoints[minPoint];
 
         if (Physics.Raycast(grabPoints[minPoint] + Vector3.up, pointToPlayer, out hit, Mathf.Infinity))
         {
             Debug.DrawRay(grabPoints[minPoint] + Vector3.up, pointToPlayer, Color.cyan,5f);
-            
+
             if (hit.transform.tag != "Player")
-                return new Vector3(-1, -1, -1);
-            
+                return -Vector3.one;
+
             else if (hit.transform.tag == "Player")
             {
-                return grabPoints[minPoint];
+                if (Mathf.Abs(player.transform.position.y - grabPoints[minPoint].y)<1.0f)
+                    return grabPoints[minPoint];
             }
         }
         else if (grabPoints[minPoint]==closestPos)
