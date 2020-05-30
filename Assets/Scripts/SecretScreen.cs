@@ -398,6 +398,7 @@ public class SecretScreen : MonoBehaviour
     {
         if (isOpened)
         {
+
             horizontalMove = inputDevice.LeftStickX;
             verticalMove = inputDevice.LeftStickY;
 
