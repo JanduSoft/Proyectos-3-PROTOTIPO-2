@@ -102,7 +102,6 @@ public class PickUpDropandIgnite : PickUpandDrop
         {
             try
             {
-                Debug.Log("Object respawned ignite");
                 if (UseManualRespawn)
                     transform.position = manualRespawnPoint.position;
                 else
