@@ -398,6 +398,7 @@ public class SecretScreen : MonoBehaviour
     {
         if (isOpened)
         {
+
             horizontalMove = inputDevice.LeftStickX;
             verticalMove = inputDevice.LeftStickY;
 
@@ -421,6 +422,12 @@ public class SecretScreen : MonoBehaviour
                 }
                 else
                 {
+                    if (secrets[0].isDiscovered)
+                    {
+
+                        nameText.text = secrets[0].name;
+                        descriptionText.text = secrets[0].description;
+                    }
                     isOpened = true;
                     menu.SetActive(true);
                     Time.timeScale = 0;
