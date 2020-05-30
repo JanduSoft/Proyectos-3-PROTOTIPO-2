@@ -40,6 +40,7 @@ public class SecretObject : MonoBehaviour
     [SerializeField] AudioSource close;
     bool startAnimation = false;
     float timeToFinishAnimation = 0;
+    bool isOpen = false;
 
     [Header("Text")]
     [SerializeField] float sizeAnimationText;
@@ -94,6 +95,7 @@ public class SecretObject : MonoBehaviour
         {
             //Animation start
             startAnimation = true;
+            isOpen = true;
             //Sound
             sound.Play();
 
@@ -115,19 +117,31 @@ public class SecretObject : MonoBehaviour
         }
         else if (isShowingObject && InputManager.ActiveDevice.AnyButton.WasPressed && !startAnimation)
         {
-            close.Play();
-
-            isShowingObject = false;
-
-            //playerMove.canMove = true;
-            playerMove.StopMovement(false);
-
-            background.SetActive(false);
-
-            Destroy(objectInstantiate);
-
-            Destroy(this.gameObject);
+            CloseScreen();
         }
+        else if (isOpen && (Input.GetKeyDown(KeyCode.I) || InputManager.ActiveDevice.RightBumper.WasReleased))
+        {
+            CloseScreen();
+        }
+    }
+    #endregion
+
+    #region CLOSE
+    void CloseScreen()
+    {
+        isOpen = false;
+        close.Play();
+
+        isShowingObject = false;
+
+        //playerMove.canMove = true;
+        playerMove.StopMovement(false);
+
+        background.SetActive(false);
+
+        Destroy(objectInstantiate);
+
+        Destroy(this.gameObject);
     }
     #endregion
 
