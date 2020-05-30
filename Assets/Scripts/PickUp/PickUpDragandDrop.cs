@@ -19,7 +19,6 @@ public class PickUpDragandDrop : PickUpandDrop
     float sensitivityAngle = 90;
     [SerializeField] bool isGrounded;
     Vector3 closestPos;
-    bool closestPointAvailable = false;
     [HideInInspector] public GameObject touchedTrigger = null;
     Vector3 positionGrabbed;
     Transform playerGraphics;
@@ -81,8 +80,11 @@ public class PickUpDragandDrop : PickUpandDrop
                 //If the rock is not grabbed and you're facing it, grab it
                 if (isFacingBox && !animator.GetBool("Attached") && currentRock == null && !DoingSlide)
                 {
-                    closestPos = FindClosestPoint();
-                    if (!closestPointAvailable) return;
+                    Vector3 auxPos= FindClosestPoint();
+                    if (auxPos == -Vector3.one) return;
+
+                    closestPos = auxPos;
+
 
                     playerMovement.grabbedToRock = true;
                     positionGrabbed = transform.position;
@@ -289,13 +291,13 @@ public class PickUpDragandDrop : PickUpandDrop
         currentRock = null;
         DoingSlide = false;
         minPoint = -1;
+
     }
     Vector3 FindClosestPoint()
     {
         //FINDS CLOSEST POINT
         float minDistance = -1;
         Vector3 pointToPlayer = Vector3.zero;
-        closestPointAvailable = true;
         float dist = 1;
 
         for (int i = 0; i < 4; i++)
@@ -309,13 +311,14 @@ public class PickUpDragandDrop : PickUpandDrop
 
         }
 
+        Debug.Log("Min point " + minPoint);
+
         RaycastHit hit;
         pointToPlayer = player.transform.position - grabPoints[minPoint];
 
         if (Physics.Raycast(grabPoints[minPoint] + Vector3.up, pointToPlayer, out hit, Mathf.Infinity))
         {
             Debug.DrawRay(grabPoints[minPoint] + Vector3.up, pointToPlayer, Color.cyan,5f);
-            Debug.Log("RAYCAST OBJECT HIT:" + hit.transform.name);
             
             if (hit.transform.tag != "Player")
                 return new Vector3(-1, -1, -1);
@@ -325,14 +328,12 @@ public class PickUpDragandDrop : PickUpandDrop
                 return grabPoints[minPoint];
             }
         }
-        //else if (pointToPlayer.magnitude < 0.1f)
-        //{
-        //    return grabPoints[minPoint];
-        //}
+        else if (grabPoints[minPoint]==closestPos)
+        {
+            return grabPoints[minPoint];
+        }
 
-
-        closestPointAvailable = false;
-        return new Vector3(-1, -1, -1);
+        return -Vector3.one;
     }
 
     private void OnTriggerStay(Collider other)
