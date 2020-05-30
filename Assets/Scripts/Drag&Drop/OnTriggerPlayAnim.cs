@@ -12,7 +12,7 @@ public class OnTriggerPlayAnim : MonoBehaviour
     {
         if ((other.CompareTag("Stone")|| other.CompareTag("Block")) && !other.isTrigger)
         {
-            StartCoroutine(StopCharacterMovement());
+            //StartCoroutine(StopCharacterMovement());
             transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().touchedTrigger = gameObject;
             transform.parent.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
             transform.parent.GetChild(0).GetComponent<PickUpDragandDrop>().enabled = false;
