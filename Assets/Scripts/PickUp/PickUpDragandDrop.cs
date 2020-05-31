@@ -68,7 +68,7 @@ public class PickUpDragandDrop : PickUpandDrop
         isGrounded = IsGrounded();
 
         //If there's a player detected
-        if (player != null && !touchedTrigger)
+        if (player != null && touchedTrigger==null)
         {
             bool isPressingButton = InputManager.ActiveDevice.Action3;
 
@@ -82,7 +82,7 @@ public class PickUpDragandDrop : PickUpandDrop
                 }
 
                 //If the rock is not grabbed and you're facing it, grab it
-                if (isFacingBox && !animator.GetBool("Attached") && currentRock == null && !DoingSlide && isGrounded)
+                if (isFacingBox && !animator.GetBool("Attached") && currentRock == null && !DoingSlide)
                 {
                     Vector3 auxPos= FindClosestPoint();
                     if (auxPos == -Vector3.one) return;
@@ -156,7 +156,6 @@ public class PickUpDragandDrop : PickUpandDrop
             else if (!isPressingButton && currentRock == gameObject)
             {
                 LetGoRock();
-
 
                 if (isGrounded)
                     rb.isKinematic = true;
@@ -328,8 +327,7 @@ public class PickUpDragandDrop : PickUpandDrop
 
             else if (hit.transform.tag == "Player")
             {
-                if (Mathf.Abs(player.transform.position.y - grabPoints[minPoint].y)<1.0f)
-                    return grabPoints[minPoint];
+                return grabPoints[minPoint];
             }
         }
         else if (grabPoints[minPoint]==closestPos)
