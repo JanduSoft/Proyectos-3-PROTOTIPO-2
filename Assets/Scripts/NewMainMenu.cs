@@ -131,6 +131,10 @@ public class NewMainMenu : MonoBehaviour
     #region START
     private void Start()
     {
+        if(!PlayerPrefs.HasKey("Volume"))
+        {
+            PlayerPrefs.SetInt("Volume", 5);
+        }
         soundLevel = PlayerPrefs.GetInt("Volume");
         UpdateVolumelevel();
 
