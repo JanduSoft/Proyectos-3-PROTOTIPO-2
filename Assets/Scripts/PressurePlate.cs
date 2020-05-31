@@ -17,6 +17,8 @@ public class PressurePlate : MonoBehaviour
     [SerializeField] int vibrato;
     [SerializeField] float randomness;
     [SerializeField] AudioSource shakeSound;
+    [SerializeField] GameObject leftEye;
+    [SerializeField] GameObject rightEye;
 
     private void Start()
     {
@@ -29,6 +31,11 @@ public class PressurePlate : MonoBehaviour
         {
             Debug.Log("Detecto el Bloque");
             shakeSound.Play();
+            if (leftEye!=null && rightEye!=null)
+            {
+                leftEye.SetActive(true);
+                rightEye.SetActive(true);
+            }
             preassurePlate.transform.DOShakePosition(speed,strength,vibrato,randomness);
             preassurePlate.transform.DOMoveY(initialPosition.y - toMove, speed);
             isDown = true;
@@ -40,8 +47,16 @@ public class PressurePlate : MonoBehaviour
         if (other.CompareTag("Block"))
         {
             shakeSound.Play();
+
+            if (leftEye != null && rightEye != null)
+            {
+                leftEye.SetActive(false);
+                rightEye.SetActive(false);
+            }
+
             preassurePlate.transform.DOShakePosition(speed, strength, vibrato, randomness);
             preassurePlate.transform.DOMoveY(initialPosition.y, speed);
+
         }
     }
 }
