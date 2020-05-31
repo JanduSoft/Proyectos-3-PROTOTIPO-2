@@ -122,7 +122,7 @@ public class PickUpDropandThrow : PickUpandDrop
             timeKeyDownY = true;
         }
 
-        else if ((InputManager.ActiveDevice.Action3.WasReleased || InputManager.ActiveDevice.Action4.WasReleased) && player != null)
+        else if ((InputManager.ActiveDevice.Action3.WasReleased) && player != null)
         {
             if (!cancelledDrop)
             {

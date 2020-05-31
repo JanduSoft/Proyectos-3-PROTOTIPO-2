@@ -54,6 +54,7 @@ public class AddSkull : MonoBehaviour
             if (!isImportantCup && canPlace && !skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && isActivated && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 //skull.GetComponent<DragAndDrop>().CancelledDrop(false);
+                playeranimator.SetBool("PickUp", true);
                 skull.GetComponent<PickUpDropandThrow>().GrabObject();
                 isActivated = false;
             }
@@ -69,6 +70,7 @@ public class AddSkull : MonoBehaviour
 
         if (isActivated && isImportantCup && !goneDown)
         {
+            skull.GetComponent<PickUpDropandThrow>().enabled = false;
             goneDown = true;
             Camera.main.DOShakePosition(1, 3, 10, 90, true);
             transform.DOMoveY(transform.position.y - 1f, 5f)

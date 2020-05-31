@@ -37,9 +37,12 @@ public class AddObject : MonoBehaviour
             }
             else if (canPlace && GameObject.Find("Character").GetComponent<PlayerMovement>().ableToWhip &&!objectIsGrabbed && InputManager.ActiveDevice.Action3.WasPressed)
             {
-                theresObject = false;
-                _object.GetComponent<PickUpDropandThrow>().ForceGrabObject();
-                if (isActivated)isActivated = false;
+                if(!isActivated)
+                {
+                    playerAnimator.SetBool("PickUp", true);
+                    theresObject = false;
+                    _object.GetComponent<PickUpDropandThrow>().ForceGrabObject();
+                }
             }
         }
     }
