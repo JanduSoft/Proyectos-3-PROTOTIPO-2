@@ -28,15 +28,15 @@ public class PushElement : MonoBehaviour
             Invoke("RestartMoving", speed);
         }
 
-        if (isBlocked)
-        {
+        //if (isBlocked)
+        //{
 
-            destinationElement.canPush = false;
-        }
-        else
-        {
-            destinationElement.canPush = true;
-        }
+        //    destinationElement.canPush = false;
+        //}
+        //else
+        //{
+        //    destinationElement.canPush = true;
+        //}
     }
 
     private void OnTriggerEnter(Collider other)
@@ -55,7 +55,6 @@ public class PushElement : MonoBehaviour
     {
         if (other.CompareTag("Block"))
         {
-            Debug.Log("Se Deberia Poder Mover");
             destinationElement.canPush = true;
         }
         if (other.CompareTag("Player"))
