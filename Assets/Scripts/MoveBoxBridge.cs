@@ -29,17 +29,6 @@ public class MoveBoxBridge : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.ActiveDevice.Action3.WasPressed && canActivate)
-        {
-            if (!isMoving)
-            {
-                isMoving = true;
-                isMovingTo2 = true;
-                wagonAnimator.SetBool("Active", true);
-                Invoke("isMovingToFalse", 11);
-            }
-        }
-
         //if (isMoving)
         //{
         //    if (isMovingTo1)
@@ -68,7 +57,7 @@ public class MoveBoxBridge : MonoBehaviour
         //        }
         //    }
         //}
-        
+
     }
 
     //void MoveToPosition1()
@@ -98,8 +87,16 @@ public class MoveBoxBridge : MonoBehaviour
     //}
     void isMovingToFalse()
     {
-        isMoving = false;
         wagonAnimator.SetBool("Active", false);
+    }
+
+    public void ActivateObject()
+    {
+        if (!wagonAnimator.GetBool("Active"))
+        {
+            wagonAnimator.SetBool("Active", true);
+            Invoke("isMovingToFalse", 11);
+        }
     }
 
 

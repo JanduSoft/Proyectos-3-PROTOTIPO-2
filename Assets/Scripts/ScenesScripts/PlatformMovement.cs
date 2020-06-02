@@ -15,6 +15,8 @@ public class PlatformMovement : MonoBehaviour
     bool toPos2 = true;
     GameObject player;
     playerDeath playerDeathScript;
+    [Header("Smart respawn")]
+    [SerializeField] bool smartRespawn = true;
 
     void Start()
     {
@@ -26,7 +28,7 @@ public class PlatformMovement : MonoBehaviour
     void ResetToLastPosition()
     {
 
-        if (!NeverStop || !isActive)
+        if (!NeverStop || !isActive || smartRespawn)
         {
             player.transform.SetParent(null);
             transform.DOKill();
@@ -34,6 +36,10 @@ public class PlatformMovement : MonoBehaviour
 
             transform.position = Vector3.Distance(position1, lastCheckpoint) < Vector3.Distance(position2, lastCheckpoint) ? position1 : position2;
                 
+        }
+        else if (!smartRespawn)
+        {
+            transform.position = position2;
         }
     }
 

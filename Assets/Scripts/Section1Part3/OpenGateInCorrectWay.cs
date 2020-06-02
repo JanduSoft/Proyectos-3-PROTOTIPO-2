@@ -27,7 +27,7 @@ public class OpenGateInCorrectWay : MonoBehaviour
     [SerializeField] AudioClip pedestalMovingAudio;
 
     public enum LeverColors { BLUE, RED, PURPLE};
-    public List<LeverColors> actualColors = new List<LeverColors>();
+    [SerializeField] public List<LeverColors> actualColors = new List<LeverColors>();
     private List<LeverColors> winningCombo = new List<LeverColors>();
 
     void Start()
@@ -45,7 +45,7 @@ public class OpenGateInCorrectWay : MonoBehaviour
         if (actualColors.Count>=3)
         {
             //if it's correct, puzzle is solved
-            
+
             if (checkCombination(actualColors,winningCombo))
             {
                 foreach(GameObject aux in levers)
