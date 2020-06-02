@@ -10,6 +10,7 @@ public class activateOncePlaced : MonoBehaviour
     Transform skullTransform = null;
     private bool canPlace = false;
     private bool isObject  =false;
+    [SerializeField] bool isActivated = true;
     // Update is called once per frame
     void Update()
     {
@@ -17,6 +18,8 @@ public class activateOncePlaced : MonoBehaviour
         {
             StartCoroutine(Activate());
         }
+        if(isActivated)
+            StartCoroutine(Activate());
     }
 
     private void OnTriggerEnter(Collider other)
