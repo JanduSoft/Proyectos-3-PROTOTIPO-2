@@ -102,12 +102,17 @@ public class PickUpDropandIgnite : PickUpandDrop
         {
             try
             {
+                AudioSource auxRespawn = GameObject.Find("ObjectRespawn").GetComponent<AudioSource>();
+                if (!auxRespawn.isPlaying)
+                    auxRespawn.Play();
+
                 if (UseManualRespawn)
                     transform.position = manualRespawnPoint.position;
                 else
                     transform.position = startingPosition;
 
                 transform.localRotation = startingRotation;
+
 
                 if (transform.CompareTag("Destroyable"))
                 {

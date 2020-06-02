@@ -27,6 +27,10 @@ public class PickUp : MonoBehaviour
         {
             try
             {
+                AudioSource auxRespawn = GameObject.Find("ObjectRespawn").GetComponent<AudioSource>();
+                if (!auxRespawn.isPlaying)
+                    auxRespawn.Play();
+
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 transform.position = startingPosition;
                 transform.localRotation = startingRotation;
