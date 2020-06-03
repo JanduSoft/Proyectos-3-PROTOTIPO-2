@@ -41,6 +41,10 @@ public class openDoorTutorialpt2 : MonoBehaviour
                     Debug.LogWarning("You need to attach 'Purple Light' or 'Red Light' to openDoorTutorialpt2.cs");
                 }
             }
+            if(isActivated)
+            {
+                dor.SendMessage("Solved", index);
+            }
         }
 
 
