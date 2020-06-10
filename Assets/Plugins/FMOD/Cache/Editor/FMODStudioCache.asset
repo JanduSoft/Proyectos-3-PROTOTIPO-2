@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114581337816886382}
-  - {fileID: 114849804422344510}
-  - {fileID: 114721767337560868}
-  - {fileID: 114674676782661414}
-  - {fileID: 114792013142063958}
-  - {fileID: 114121402685830704}
-  - {fileID: 114621472531893934}
+  - {fileID: 114773565336206976}
+  - {fileID: 114718160931577620}
+  - {fileID: 114230533060767368}
+  - {fileID: 114409215578669496}
+  - {fileID: 114412516365930040}
+  - {fileID: 114416494629066980}
   EditorEvents:
   - {fileID: 114088734625549676}
   - {fileID: 114396458279630288}
@@ -30,10 +30,10 @@ MonoBehaviour:
   - {fileID: 114077751829274930}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 114792013142063958}
+  - {fileID: 114409215578669496}
   StringsBanks:
   - {fileID: 114581337816886382}
-  stringsBankWriteTime: 637274213918699815
+  stringsBankWriteTime: 637274219254403953
   cacheVersion: 3
 --- !u!114 &114003131395847100
 MonoBehaviour:
@@ -203,6 +203,43 @@ MonoBehaviour:
   lastModified: 637274047606541832
   LoadResult: 0
   FileSizes: []
+  Exists: 0
+--- !u!114 &114027291427439130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../../../Music and sound/FMOD_Project/FMOD_KauilsTreasure/Build/Desktop/Music.bank
+  SubDir: 
+  lastModified: 637274218074548419
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 8902496
+  Exists: 0
+--- !u!114 &114029076173075820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/mus_lvl/lvl1_crossed_tree
+  m_EditorClassIdentifier: 
+  Name: lvl1_crossed_tree
+  Min: 0
+  Max: 2
+  Default: 0
   Exists: 0
 --- !u!114 &114031614625782500
 MonoBehaviour:
@@ -393,6 +430,23 @@ MonoBehaviour:
   - Name: Desktop
     Value: 2891392
   Exists: 0
+--- !u!114 &114056902630826858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/mus_lvl/lvl1_crossed_tree
+  m_EditorClassIdentifier: 
+  Name: lvl1_crossed_tree
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &114057314331574250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,7 +641,7 @@ MonoBehaviour:
   Path: event:/sfx/torch
   guid: 8a7ebeb786775342aca4c14773a678c5
   Banks:
-  - {fileID: 114721767337560868}
+  - {fileID: 114718160931577620}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -611,6 +665,26 @@ MonoBehaviour:
   Min: 0
   Max: 2
   Default: 0
+  Exists: 0
+--- !u!114 &114081359588899968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../../../Music and sound/FMOD_Project/FMOD_KauilsTreasure/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637274218071289725
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 4328
   Exists: 0
 --- !u!114 &114081773792882956
 MonoBehaviour:
@@ -715,7 +789,7 @@ MonoBehaviour:
   Path: event:/amb/amb_lvl1
   guid: 7a03e95074607d4d8d6d94a9a4ad9d12
   Banks:
-  - {fileID: 114849804422344510}
+  - {fileID: 114773565336206976}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -854,6 +928,26 @@ MonoBehaviour:
   Max: 4
   Default: 0
   Exists: 0
+--- !u!114 &114118009852200174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Gameplay.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../../../Music and sound/FMOD_Project/FMOD_KauilsTreasure/Build/Desktop/Gameplay.bank
+  SubDir: 
+  lastModified: 637274218072104676
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 561056
+  Exists: 0
 --- !u!114 &114118371953321564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -913,7 +1007,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 8902496
-  Exists: 1
+  Exists: 0
 --- !u!114 &114125865873434528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1122,6 +1216,26 @@ MonoBehaviour:
   Min: 0
   Max: 3
   Default: 0
+  Exists: 0
+--- !u!114 &114155675092277842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Jingles.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../../../Music and sound/FMOD_Project/FMOD_KauilsTreasure/Build/Desktop/Jingles.bank
+  SubDir: 
+  lastModified: 637274218074668081
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 470
   Exists: 0
 --- !u!114 &114161312115329212
 MonoBehaviour:
@@ -1545,6 +1659,26 @@ MonoBehaviour:
   - Name: Desktop
     Value: 44448
   Exists: 0
+--- !u!114 &114230533060767368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Jingles.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../../../Music and sound/FMOD_Project/FMOD_KauilsTreasure/Build/Desktop/Jingles.bank
+  SubDir: 
+  lastModified: 637274219258272693
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 470
+  Exists: 1
 --- !u!114 &114233762488045940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1787,7 +1921,7 @@ MonoBehaviour:
   Path: event:/sfx/waterfall
   guid: 36e529ff54b7d7488deff38f1a0983d5
   Banks:
-  - {fileID: 114849804422344510}
+  - {fileID: 114773565336206976}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -1896,7 +2030,7 @@ MonoBehaviour:
   Min: 0
   Max: 2
   Default: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &114287842061767740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1910,6 +2044,23 @@ MonoBehaviour:
   m_Name: parameter:/mus_lvl/CloseToSecretObject
   m_EditorClassIdentifier: 
   Name: CloseToSecretObject
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 0
+--- !u!114 &114291446070588690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/mus_lvl/player_death
+  m_EditorClassIdentifier: 
+  Name: player_death
   Min: 0
   Max: 2
   Default: 0
@@ -2361,6 +2512,26 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 0
+--- !u!114 &114344933268426332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Ambience.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../../../Music and sound/FMOD_Project/FMOD_KauilsTreasure/Build/Desktop/Ambience.bank
+  SubDir: 
+  lastModified: 637274218073232234
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 3727456
+  Exists: 0
 --- !u!114 &114348489838702730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2693,12 +2864,12 @@ MonoBehaviour:
   Path: event:/char/footsteps
   guid: df745810f5f7e447a41a5c7488ee443a
   Banks:
-  - {fileID: 114721767337560868}
+  - {fileID: 114718160931577620}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 114886021373697002}
+  - {fileID: 114637738380231030}
   MinDistance: 0
   MaxDistance: 0
   Length: 504
@@ -2773,6 +2944,26 @@ MonoBehaviour:
   - Name: Desktop
     Value: 44448
   Exists: 0
+--- !u!114 &114409215578669496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../../../Music and sound/FMOD_Project/FMOD_KauilsTreasure/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637274219254354078
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 4328
+  Exists: 1
 --- !u!114 &114412428703665306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2793,6 +2984,26 @@ MonoBehaviour:
   - Name: Desktop
     Value: 470
   Exists: 0
+--- !u!114 &114412516365930040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../../../Music and sound/FMOD_Project/FMOD_KauilsTreasure/Build/Desktop/Music.bank
+  SubDir: 
+  lastModified: 637274219258082405
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 8902496
+  Exists: 1
 --- !u!114 &114414314833033896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2810,6 +3021,26 @@ MonoBehaviour:
   Max: 2
   Default: 0
   Exists: 0
+--- !u!114 &114416494629066980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/UI.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../../../Music and sound/FMOD_Project/FMOD_KauilsTreasure/Build/Desktop/UI.bank
+  SubDir: 
+  lastModified: 637274219258352536
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 470
+  Exists: 1
 --- !u!114 &114417447012341186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2940,7 +3171,7 @@ MonoBehaviour:
   Min: 0
   Max: 2
   Default: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &114441695073849306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2963,6 +3194,23 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 13013
+--- !u!114 &114444255068871586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/mus_lvl/CloseToSecretObject
+  m_EditorClassIdentifier: 
+  Name: CloseToSecretObject
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 0
 --- !u!114 &114446754939278166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3849,7 +4097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: ../../../../../Music and sound/FMOD_Project/FMOD_KauilsTreasure/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637274213918699815
+  lastModified: 637274219254403953
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -4089,7 +4337,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 470
-  Exists: 1
+  Exists: 0
 --- !u!114 &114622901879726786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4141,6 +4389,40 @@ MonoBehaviour:
   Max: 3
   Default: 0
   Exists: 0
+--- !u!114 &114637738380231030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/footsteps/step_surface
+  m_EditorClassIdentifier: 
+  Name: step_surface
+  Min: 0
+  Max: 3
+  Default: 0
+  Exists: 1
+--- !u!114 &114637789409189742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/footsteps/step_surface
+  m_EditorClassIdentifier: 
+  Name: step_surface
+  Min: 0
+  Max: 3
+  Default: 0
+  Exists: 0
 --- !u!114 &114644651156852806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4173,7 +4455,7 @@ MonoBehaviour:
   Path: event:/sfx/obj_stinger
   guid: 96afdef98100814b93b3686681ac8c5e
   Banks:
-  - {fileID: 114721767337560868}
+  - {fileID: 114718160931577620}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -4258,6 +4540,23 @@ MonoBehaviour:
   - Name: Desktop
     Value: 470
   Exists: 0
+--- !u!114 &114669721019937472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/mus_lvl/CloseToSecretObject
+  m_EditorClassIdentifier: 
+  Name: CloseToSecretObject
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &114670384553791790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4334,7 +4633,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 470
-  Exists: 1
+  Exists: 0
 --- !u!114 &114674830878355556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4481,15 +4780,15 @@ MonoBehaviour:
   Path: event:/mus/mus_lvl
   guid: 291a29b5a6899f4ea1385297d74809c5
   Banks:
-  - {fileID: 114121402685830704}
+  - {fileID: 114412516365930040}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114285027382536508}
-  - {fileID: 114929947449322088}
-  - {fileID: 114440324132505746}
-  - {fileID: 114857388436194354}
+  - {fileID: 114912961341152796}
+  - {fileID: 114669721019937472}
+  - {fileID: 114948525775722042}
+  - {fileID: 114056902630826858}
   MinDistance: 0
   MaxDistance: 0
   Length: 756000
@@ -4590,6 +4889,26 @@ MonoBehaviour:
   - Name: Desktop
     Value: 470
   Exists: 0
+--- !u!114 &114718160931577620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Gameplay.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../../../Music and sound/FMOD_Project/FMOD_KauilsTreasure/Build/Desktop/Gameplay.bank
+  SubDir: 
+  lastModified: 637274219254952516
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 561056
+  Exists: 1
 --- !u!114 &114719380869146588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4646,7 +4965,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 561056
-  Exists: 1
+  Exists: 0
 --- !u!114 &114724262203804306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4703,6 +5022,23 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 7016160
+  Exists: 0
+--- !u!114 &114736015077522004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/mus_lvl/lvl1_crossed_rock
+  m_EditorClassIdentifier: 
+  Name: lvl1_crossed_rock
+  Min: 0
+  Max: 2
+  Default: 0
   Exists: 0
 --- !u!114 &114737811640364946
 MonoBehaviour:
@@ -4895,6 +5231,26 @@ MonoBehaviour:
   Max: 2
   Default: 0
   Exists: 0
+--- !u!114 &114773565336206976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Ambience.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../../../Music and sound/FMOD_Project/FMOD_KauilsTreasure/Build/Desktop/Ambience.bank
+  SubDir: 
+  lastModified: 637274219256303975
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 3727456
+  Exists: 1
 --- !u!114 &114776796572257884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5094,7 +5450,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 4328
-  Exists: 1
+  Exists: 0
 --- !u!114 &114797106781445114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5185,6 +5541,26 @@ MonoBehaviour:
   Min: 0
   Max: 2
   Default: 0
+  Exists: 0
+--- !u!114 &114813462350481254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/UI.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../../../Music and sound/FMOD_Project/FMOD_KauilsTreasure/Build/Desktop/UI.bank
+  SubDir: 
+  lastModified: 637274218074718030
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 470
   Exists: 0
 --- !u!114 &114818743919908842
 MonoBehaviour:
@@ -5356,7 +5732,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 3727456
-  Exists: 1
+  Exists: 0
 --- !u!114 &114853150659007288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5413,7 +5789,7 @@ MonoBehaviour:
   Min: 0
   Max: 2
   Default: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &114857825333801934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5660,7 +6036,7 @@ MonoBehaviour:
   Min: 0
   Max: 3
   Default: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &114886102542034126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5861,6 +6237,23 @@ MonoBehaviour:
   - Name: Desktop
     Value: 470
   Exists: 0
+--- !u!114 &114912961341152796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/mus_lvl/lvl1_crossed_rock
+  m_EditorClassIdentifier: 
+  Name: lvl1_crossed_rock
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &114913011381421334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5991,7 +6384,7 @@ MonoBehaviour:
   Min: 0
   Max: 2
   Default: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &114932396633746038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6138,7 +6531,7 @@ MonoBehaviour:
   Path: snapshot:/lvl1_openZone_snapshot
   guid: b1b9a6dc309b4e4dbd11a2c48a1e9c5b
   Banks:
-  - {fileID: 114792013142063958}
+  - {fileID: 114409215578669496}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -6305,6 +6698,23 @@ MonoBehaviour:
   Max: 2
   Default: 0
   Exists: 0
+--- !u!114 &114948525775722042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/mus_lvl/player_death
+  m_EditorClassIdentifier: 
+  Name: player_death
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &114954765510580626
 MonoBehaviour:
   m_ObjectHideFlags: 0
