@@ -19,6 +19,8 @@ public class playerDeath : MonoBehaviour
     public float lastFov;
 
     [HideInInspector] public GameObject objectGrabbed;
+    public FMODUnity.StudioEventEmitter MusicManager;
+
     void Start()
     {
         lastSpawnPointTouched = transform.position;
@@ -58,6 +60,8 @@ public class playerDeath : MonoBehaviour
     IEnumerator killPlayerInSeconds(float _s)
     {
         isDead = true;
+        MusicManager.EventInstance.setParameterByName("player_death", 1);
+
         yield return new WaitForSeconds(0.05f);
         playerMovementScript.StopMovement(true);
         for (float f = 0f; f <= 1.5f; f += 0.05f)
@@ -81,6 +85,8 @@ public class playerDeath : MonoBehaviour
         playerMovementScript.fallVelocity = 0;
         playerMovementScript.animatorController.SetBool("Jumping", false);
         isDead = false;
+        MusicManager.EventInstance.setParameterByName("player_death", 0);
+
 
         for (float f = 1.5f; f >= 0.0f; f -= 0.05f)
         {
