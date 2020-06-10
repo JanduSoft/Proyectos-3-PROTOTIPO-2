@@ -41,6 +41,10 @@ public class PickUpDropandThrow : PickUpandDrop
     AudioSource[] sounds;
 
     public bool isBroken = false;
+
+    public FMODUnity.StudioEventEmitter MusicManager;
+    FMOD.Studio.EventInstance specialStinger;
+
     // Start is called before the first frame update
 
     public void ResetObject()
@@ -105,6 +109,8 @@ public class PickUpDropandThrow : PickUpandDrop
 
         hitSound = sounds[0];
         grabSoundeffect= GameObject.Find("Special Object").GetComponent<AudioSource>();
+        specialStinger = FMODUnity.RuntimeManager.CreateInstance("event:/sfx/obj_stinger");
+
     }
 
     private void FixedUpdate()
@@ -139,7 +145,9 @@ public class PickUpDropandThrow : PickUpandDrop
                     _thisRB.constraints = RigidbodyConstraints.FreezeAll;
 
                     if (isSpecialObject)
-                        grabSoundeffect.Play();
+                        specialStinger.start();
+
+                    //grabSoundeffect.Play();
                     StartCoroutine(PickUpCoroutine(0f));
                     playerMovement.ableToWhip = false;
                     StartCoroutine(AnimationsCoroutine(0.05f));
@@ -215,7 +223,12 @@ public class PickUpDropandThrow : PickUpandDrop
             {
                 insideSphere = false;
                 insideHere = false;
+
+
             }
+            
+            if (MusicManager != null)
+                MusicManager.EventInstance.setParameterByName("CloseToSecretObject", 0);
             player = null;
         }
     }
@@ -229,7 +242,13 @@ public class PickUpDropandThrow : PickUpandDrop
                 insideSphere = true;
                 insideHere = true;
             }
-            player = other.gameObject;
+
+            if (MusicManager != null)
+            {
+                MusicManager.EventInstance.setParameterByName("CloseToSecretObject", 1);
+            }
+            else
+                player = other.gameObject;  
             playerAnimator = player.GetComponentInChildren<Animator>();
             distanceChecker = player.transform.GetChild(1).gameObject;
         }
