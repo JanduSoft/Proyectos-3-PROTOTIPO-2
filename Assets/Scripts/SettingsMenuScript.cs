@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class SettingsMenuScript : MonoBehaviour
-{
+{/*
     // Start is called before the first frame update
 
     public AudioMixer AM;
@@ -62,5 +62,5 @@ public class SettingsMenuScript : MonoBehaviour
     public void setFullscreen(bool TOF)
     {
         Screen.fullScreen = TOF;
-    }
+    }*/
 }
