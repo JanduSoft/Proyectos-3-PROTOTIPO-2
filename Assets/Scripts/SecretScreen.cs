@@ -406,8 +406,22 @@ public class SecretScreen : MonoBehaviour
             MenuNavigationKeyboard();
         }
 
+        ///Cerrar el menu con B/X y Sart
+        if (isOpened)
+        {
+            if (inputDevice.Action2.WasPressed || inputDevice.MenuWasPressed)
+            {
+                isOpened = false;
+                menu.SetActive(false);
+                Time.timeScale = 1;
+
+                //UI Sound
+                closeSound.Play();
+            }
+        }
+
         ///DETECTAR SI ABRES EL MENU, EL BOTON ES TEMPORAL
-        if (Input.GetKeyDown(KeyCode.I) || InputManager.ActiveDevice.RightBumper.WasReleased)
+        if (Input.GetKeyDown(KeyCode.I) || InputManager.ActiveDevice.RightBumper.WasReleased )
         {
             if (!pauseMenu.isPaused)
             {
