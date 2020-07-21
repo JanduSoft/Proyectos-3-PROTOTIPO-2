@@ -275,9 +275,10 @@ public class PlayerMovement : MonoBehaviour
     void SetGravity()
     {
 
-        if (player.isGrounded || inRespawn)
+        if (player.isGrounded || inRespawn || isInWhipJump)
         {
-            fallVelocity = -gravity * Time.deltaTime;
+            fallVelocity = 0;
+            //fallVelocity = -gravity * Time.deltaTime;
             movePlayer.y = fallVelocity;
             isOnAir = true;
         }
