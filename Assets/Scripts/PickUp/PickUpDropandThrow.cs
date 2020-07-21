@@ -29,7 +29,6 @@ public class PickUpDropandThrow : PickUpandDrop
     AudioSource grabSoundeffect;
     [Header("ONLY IF NOT IMPORTANT OBJECT")]
     [SerializeField] GameObject dustParticles;
-    [SerializeField] GameObject brokenVase;
     [SerializeField] AudioSource brokenSound;
     [Header("ONLY IF HAS OBJECT INSIDE")]
     [SerializeField] GameObject objectInside;
@@ -50,8 +49,6 @@ public class PickUpDropandThrow : PickUpandDrop
         objectInside.SetActive(false);
         dustParticles.transform.SetParent(transform);
         dustParticles.SetActive(false);
-        brokenVase.transform.SetParent(transform);
-        brokenVase.SetActive(false);
 
         isBroken = false;
     }
@@ -252,14 +249,11 @@ public class PickUpDropandThrow : PickUpandDrop
             isBroken = true;
             dustParticles.SetActive(true);
             dustParticles.transform.SetParent(null);
-            brokenVase.transform.SetParent(null);
             RaycastHit ray;
             if(Physics.Raycast(transform.position, -transform.up, out ray, 2))
             {
-                brokenVase.transform.position = ray.point;
                 objectInside.transform.position = ray.point;
             }
-            brokenVase.SetActive(true);
             brokenSound.Play();
             gameObject.SetActive(false);
         }
