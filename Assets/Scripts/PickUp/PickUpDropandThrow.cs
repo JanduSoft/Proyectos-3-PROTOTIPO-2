@@ -67,7 +67,7 @@ public class PickUpDropandThrow : PickUpandDrop
                     transform.position = manualRespawnPoint.position;
                 else
                 transform.position = startingPosition;
-                
+                insideHere = false;
                 transform.localRotation = startingRotation;
 
 
@@ -88,7 +88,7 @@ public class PickUpDropandThrow : PickUpandDrop
     {
         startingPosition = transform.position;
         startingRotation = transform.localRotation;
-
+        insideHere = false;
         playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         _thisRB.useGravity = false;
         useGravity = false;
@@ -213,6 +213,7 @@ public class PickUpDropandThrow : PickUpandDrop
                 insideSphere = false;
                 insideHere = false;
             }
+            insideHere = false;
             player = null;
         }
     }
