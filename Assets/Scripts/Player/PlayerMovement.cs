@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
         inputDevice = InputManager.ActiveDevice;
     }
     bool zero = false;
+    [SerializeField] List<PickUpDropandThrow> objectsToPickUp = new List<PickUpDropandThrow>();
     #region VARIABLES
     [Header("MOVEMENT")]
     public bool canMove = true;
@@ -392,5 +393,18 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(2f);
         iTween.FadeTo(gameObject, 0f, 1f);
 
+    }
+
+    public void addObjectToList(PickUpDropandThrow obj)
+    {
+        objectsToPickUp.Add(obj);
+    }
+    public void removeObjectToList(PickUpDropandThrow obj)
+    {
+        objectsToPickUp.Remove(obj);
+    }
+    public int getObjectIndex(PickUpDropandThrow obj)
+    {
+        return objectsToPickUp.IndexOf(obj);
     }
 }

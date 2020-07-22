@@ -49,7 +49,6 @@ public class PickUpDropandThrow : PickUpandDrop
         objectInside.SetActive(false);
         dustParticles.transform.SetParent(transform);
         dustParticles.SetActive(false);
-
         isBroken = false;
     }
 
@@ -104,6 +103,17 @@ public class PickUpDropandThrow : PickUpandDrop
         grabSoundeffect= GameObject.Find("Special Object").GetComponent<AudioSource>();
     }
 
+    protected override void PickUpObject()
+    {
+        if(playerMovement.getObjectIndex(this) == 0)
+        {
+            playerAnimator.SetBool("PickUp", true);
+            player.SendMessage("StopMovement", true);
+            base.PickUpObject();
+            playerMovement.removeObjectToList(this);
+        }
+    }
+
     private void FixedUpdate()
     {
         CheckVariables();
@@ -131,10 +141,7 @@ public class PickUpDropandThrow : PickUpandDrop
                 if (!objectIsGrabbed && insideSphere)
                 {
                     useGravity = false;
-                    playerAnimator.SetBool("PickUp", true);
-                    player.SendMessage("StopMovement", true);
                     _thisRB.constraints = RigidbodyConstraints.FreezeAll;
-
                     if (isSpecialObject)
                         grabSoundeffect.Play();
                     StartCoroutine(PickUpCoroutine(0f));
@@ -197,6 +204,7 @@ public class PickUpDropandThrow : PickUpandDrop
             if (!insideHere)
             {
                 insideSphere = true;
+                playerMovement.addObjectToList(this);
                 insideHere = true;
             }
             distanceChecker = player.transform.GetChild(1).gameObject;
@@ -212,6 +220,7 @@ public class PickUpDropandThrow : PickUpandDrop
             {
                 insideSphere = false;
                 insideHere = false;
+                playerMovement.removeObjectToList(this);
             }
             insideHere = false;
             player = null;
@@ -225,6 +234,7 @@ public class PickUpDropandThrow : PickUpandDrop
             if(!insideHere)
             {
                 insideSphere = true;
+                playerMovement.addObjectToList(this);
                 insideHere = true;
             }
             player = other.gameObject;
@@ -241,6 +251,7 @@ public class PickUpDropandThrow : PickUpandDrop
 
         if (tag == "Destroyable")
         {
+            playerMovement.removeObjectToList(this);
             if (hasObjectInside)
             {
                 objectInside.SetActive(true);
@@ -273,6 +284,7 @@ public class PickUpDropandThrow : PickUpandDrop
     }
     protected void ObjectDrop()
     {
+        playerMovement.addObjectToList(this);
         playerMovement.ableToWhip = true;
         thrown = true;
         Vector3 temp = player.transform.forward * (2500 * (0.5f));
@@ -289,7 +301,7 @@ public class PickUpDropandThrow : PickUpandDrop
             tutoSprites.isPlayerInside = false;
             tutoSprites.DeactivateSprites();
         }
-
+        playerMovement.removeObjectToList(this);
         playerAnimator.SetBool("Throw", true);
         player.SendMessage("StopMovement", true);
         StartCoroutine(ThrowCoroutine(0.4f));
@@ -376,6 +388,7 @@ public class PickUpDropandThrow : PickUpandDrop
             transform.SetParent(grabPlace.transform);
             transform.localPosition = Vector3.zero;
             objectIsGrabbed = true;
+            playerMovement.removeObjectToList(this);
             player.GetComponent<playerDeath>().objectGrabbed = gameObject;
         }
     }

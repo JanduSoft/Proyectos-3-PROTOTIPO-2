@@ -66,7 +66,6 @@ public class PickUp : MonoBehaviour
     protected virtual void PickUpObject()
     {
         GetComponent<Rigidbody>().isKinematic = false;
-
         transform.SetParent(grabPlace.transform);
         transform.localPosition = new Vector3(0,0,0);
         transform.localRotation = new Quaternion(0, 0, 0, 1);
