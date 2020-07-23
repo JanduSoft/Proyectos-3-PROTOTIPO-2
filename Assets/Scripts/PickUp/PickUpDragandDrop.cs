@@ -62,6 +62,7 @@ public class PickUpDragandDrop : PickUpandDrop
     }
     void LateUpdate()
     {
+
         CheckVariables();
 
         //Check if the rock is grounded

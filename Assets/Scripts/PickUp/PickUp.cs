@@ -8,7 +8,7 @@ public class PickUp : MonoBehaviour
     protected GameObject grabPlace = null;
     protected GameObject distanceChecker = null;
     protected float minDistanceToGrabObject = 2.5f;
-    protected bool objectIsGrabbed;
+    protected static bool objectIsGrabbed = false;
     protected bool distanceSuficient = false;
     protected bool isFacingBox = false;
     protected bool cancelledDrop = false;
@@ -16,7 +16,7 @@ public class PickUp : MonoBehaviour
     protected float minDot = 0.5f;
     protected Vector3 startingPosition;
     protected Quaternion startingRotation;
-    protected PlayerMovement playerMovement;
+    [SerializeField] protected static PlayerMovement playerMovement;
     [SerializeField] protected bool respawn = true;
     [SerializeField] protected bool UseManualRespawn = false;
     [SerializeField] protected Transform manualRespawnPoint;
@@ -101,5 +101,13 @@ public class PickUp : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, minDistanceToGrabObject);
+    }
+    virtual public bool GetObjectIsGrabbed()
+    {
+        return objectIsGrabbed;
+    }
+    protected virtual void Update()
+    {
+
     }
 }
