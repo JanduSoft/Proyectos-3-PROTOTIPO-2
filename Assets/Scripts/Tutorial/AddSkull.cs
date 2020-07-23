@@ -115,7 +115,6 @@ public class AddSkull : MonoBehaviour
     {
         if (other.CompareTag("Skull") || other.CompareTag("Place"))
         {
-            Debug.Log("detects skull with name "+ other.name);
             skull = other.transform.parent.gameObject;
             skullTransform = other.transform.parent.gameObject.transform;
         }

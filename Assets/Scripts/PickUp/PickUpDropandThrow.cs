@@ -284,7 +284,7 @@ public class PickUpDropandThrow : PickUpandDrop
     }
     protected void ObjectDrop()
     {
-        playerMovement.addObjectToList(this);
+        playerMovement.removeObjectToList(this);
         playerMovement.ableToWhip = true;
         thrown = true;
         Vector3 temp = player.transform.forward * (2500 * (0.5f));
