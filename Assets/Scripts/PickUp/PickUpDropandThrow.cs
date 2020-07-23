@@ -171,20 +171,20 @@ public class PickUpDropandThrow : PickUpandDrop
         if (timeKeyDownY)
         {
             timeKeyDown += Time.deltaTime;
-            if (timeKeyDown > 0f && objectIsGrabbed && !nearEnemy)
+            if (timeKeyDown > 0f && insideSphere && !nearEnemy)
             {
                 ThrowObject();
                 playerMovement.ableToWhip = true;
                 useGravity = true;
             }
-            else if (timeKeyDown > 0f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) < 70))
+            else if (timeKeyDown > 0f && insideSphere && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) < 70))
             {
                 player.transform.LookAt(enemy);
                 ThrowObjectToEnemy();
                 playerMovement.ableToWhip = true;
                 useGravity = true;
             }
-            else if (timeKeyDown > 0f && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) > 70))
+            else if (timeKeyDown > 0f && insideSphere && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) > 70))
             {
                 ThrowObject();
                 playerMovement.ableToWhip = true;
