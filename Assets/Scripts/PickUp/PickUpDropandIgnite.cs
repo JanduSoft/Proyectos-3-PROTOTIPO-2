@@ -28,8 +28,13 @@ public class PickUpDropandIgnite : PickUpandDrop
     }
 
     // Update is called once per frame
-    void Update()
+    override protected void Update()
     {
+        if(transform.parent == null)
+            Debug.Log("Current parent is null");
+        else
+            Debug.Log("Current parent is" + transform.parent.name);
+
         CheckVariables();
         if(objectIsGrabbed)
         {
@@ -53,7 +58,7 @@ public class PickUpDropandIgnite : PickUpandDrop
             {
                 playerAnimator.SetBool("DropObject", true);
                 player.SendMessage("StopMovement", true);
-                StartCoroutine(DropObjectCoroutine(0.5f));
+                StartCoroutine(DropObjectCoroutine(0f));
                 StartCoroutine(AnimationsCoroutine(0.65f));
             }
             else if (nearFire)
@@ -96,6 +101,11 @@ public class PickUpDropandIgnite : PickUpandDrop
 
     }
 
+    override public bool GetObjectIsGrabbed()
+    {
+        return objectIsGrabbed;
+    }
+
     override public void ResetPosition()
     {
         if (!objectIsGrabbed)
@@ -127,7 +137,6 @@ public class PickUpDropandIgnite : PickUpandDrop
             }
         }
     }
-
 
     private void OnTriggerEnter(Collider other)
     {

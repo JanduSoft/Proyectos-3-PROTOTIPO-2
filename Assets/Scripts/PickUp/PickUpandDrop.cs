@@ -14,7 +14,6 @@ public class PickUpandDrop : PickUp
 
 
         playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
-        objectIsGrabbed = false;
         grabPlace = GameObject.Find("Hand_R_PickUp");
     } 
 
@@ -44,18 +43,16 @@ public class PickUpandDrop : PickUp
     {
         playerMovement.ableToWhip = true;
         transform.SetParent(null);
+        Debug.Log("Set parent to null");
+
         objectIsGrabbed = false;
     }
     public void DropObject()
     {
         playerMovement.ableToWhip = true;
         player.SendMessage("StopMovement", true);
-        StartCoroutine(DropObjectCoroutine(0.5f));
+        StartCoroutine(DropObjectCoroutine(0f));
         StartCoroutine(AnimationsCoroutine(0.5f));
-    }
-    public bool GetObjectIsGrabbed()
-    {
-        return objectIsGrabbed;
     }
 
     protected IEnumerator AnimationsCoroutine(float time)
