@@ -32,16 +32,26 @@ public class AddObject : MonoBehaviour
                 theresObject = true;
                 playerAnimator.SetBool("PlaceObject", true);
                 _object.GetComponent<PickUpandDrop>().DropObject();
+                _object.GetComponent<PickUp>().SetCancelledDrop(false);
                 StartCoroutine(PlaceObject());
                 
             }
             else if (canPlace && GameObject.Find("Character").GetComponent<PlayerMovement>().ableToWhip &&!objectIsGrabbed && InputManager.ActiveDevice.Action3.WasPressed)
             {
-                if(!isActivated)
+                Debug.Log("Trying to Force PickUp");
+                if (!isActivated)
                 {
+                    Debug.Log("ForcePickUp");
                     playerAnimator.SetBool("PickUp", true);
                     theresObject = false;
-                    _object.GetComponent<PickUp>().ForceGrabObject();
+                    try
+                    {
+                        _object.GetComponent<PickUpDropandThrow>().ForceGrabObject();
+                    }
+                    catch
+                    {
+                       _object.GetComponent<PickUp>().ForceGrabObject();
+                    }
                 }
             }
         }
@@ -81,7 +91,7 @@ public class AddObject : MonoBehaviour
         _objectTransform.position = placePosition.transform.position;
         _objectTransform.rotation = transform.rotation;
         _object.transform.SetParent(transform);
-        Debug.Log("Set parent to" + _object.transform.parent.name);
+        
         if (faceOppositeDirection) _objectTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
         else if(quarterRotation) _objectTransform.Rotate(90, 90, 0);
         if(_object.name == targetObject.name)
@@ -90,7 +100,7 @@ public class AddObject : MonoBehaviour
             _object.GetComponent<PickUp>().enabled = false;
             _object.GetComponent<TutorialSprites>().enabled = false;
         }
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.1f);
         playerAnimator.SetBool("PlaceObject", false);
         playerAnimator.SetBool("PickUp", false);
     }
@@ -100,6 +110,7 @@ public class AddObject : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canPlace = false;
+            _object.GetComponent<PickUp>().SetCancelledDrop(false);
         }
         else if (other.CompareTag("Place"))
         {

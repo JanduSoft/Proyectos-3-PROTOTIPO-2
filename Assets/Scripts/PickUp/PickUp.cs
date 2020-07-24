@@ -11,7 +11,7 @@ public class PickUp : MonoBehaviour
     protected static bool objectIsGrabbed = false;
     protected bool distanceSuficient = false;
     protected bool isFacingBox = false;
-    protected bool cancelledDrop = false;
+    [SerializeField] protected static bool cancelledDrop = false;
     protected float distancePlayerObject;
     protected float minDot = 0.5f;
     protected Vector3 startingPosition;
@@ -84,7 +84,6 @@ public class PickUp : MonoBehaviour
     }
     public void GrabObject()
     {
-        Debug.Log("GrabObject");
         playerMovement.ableToWhip = false;
         PickUpObject();
     }

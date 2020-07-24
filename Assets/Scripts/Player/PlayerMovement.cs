@@ -397,11 +397,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void addObjectToList(PickUpDropandThrow obj)
     {
-        objectsToPickUp.Add(obj);
+        bool notOnList = true;
+        for(int i = 0; i< objectsToPickUp.Count;i++)
+            if (objectsToPickUp[i] == obj)
+                notOnList = false;
+        if(notOnList)
+                objectsToPickUp.Add(obj);
     }
     public void removeObjectToList(PickUpDropandThrow obj)
     {
-        objectsToPickUp.Remove(obj);
+        foreach(PickUpDropandThrow a in objectsToPickUp)
+                objectsToPickUp.Remove(obj);
     }
     public int getObjectIndex(PickUpDropandThrow obj)
     {

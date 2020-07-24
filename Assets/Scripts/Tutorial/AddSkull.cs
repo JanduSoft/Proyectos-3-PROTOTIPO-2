@@ -48,15 +48,16 @@ public class AddSkull : MonoBehaviour
                 playeranimator.SetBool("PlaceObject", true);
                 skull.GetComponent<PickUpDropandThrow>().DropObject();
                 playeranimator.SetBool("DropObject", false);
-                StartCoroutine(AnimationsCoroutine(0.5f));
+                StartCoroutine(AnimationsCoroutine(0.1f));
             }
 
             if (!isImportantCup && canPlace && !skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && isActivated && InputManager.ActiveDevice.Action3.WasPressed)
             {
                 //skull.GetComponent<DragAndDrop>().CancelledDrop(false);
                 playeranimator.SetBool("PickUp", true);
-                skull.GetComponent<PickUpDropandThrow>().GrabObject();
+                skull.GetComponent<PickUpDropandThrow>().ForceGrabObject();
                 isActivated = false;
+                StartCoroutine(AnimationsCoroutine(0.1f));
             }
             if(!skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed())
             {
@@ -126,6 +127,7 @@ public class AddSkull : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canPlace = false;
+            skull.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
         }
         else if (other.CompareTag("Skull"))
         {

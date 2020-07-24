@@ -88,6 +88,8 @@ public class PickUpDropandThrow : PickUpandDrop
         startingPosition = transform.position;
         startingRotation = transform.localRotation;
         insideHere = false;
+        objectIsGrabbed = false;
+        cancelledDrop = false;
         playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         _thisRB.useGravity = false;
         useGravity = false;
@@ -108,7 +110,6 @@ public class PickUpDropandThrow : PickUpandDrop
         if(playerMovement.getObjectIndex(this) == 0)
         {
             playerAnimator.SetBool("PickUp", true);
-            player.SendMessage("StopMovement", true);
             base.PickUpObject();
             playerMovement.removeObjectToList(this);
         }
@@ -146,7 +147,7 @@ public class PickUpDropandThrow : PickUpandDrop
                         grabSoundeffect.Play();
                     StartCoroutine(PickUpCoroutine(0f));
                     playerMovement.ableToWhip = false;
-                    StartCoroutine(AnimationsCoroutine(0.05f));
+                    StartCoroutine(AnimationsCoroutine(0.2f));
                 }
                 else if (timeKeyDown > 0f && objectIsGrabbed)
                 {
@@ -155,9 +156,18 @@ public class PickUpDropandThrow : PickUpandDrop
                     useGravity = true;
                     StartCoroutine(DropObjectCoroutine(0f));
                     playerMovement.ableToWhip = true;
-                    StartCoroutine(AnimationsCoroutine(0.1f));
+                    StartCoroutine(AnimationsCoroutine(0.2f));
 
                 }
+                else
+                {
+                    Debug.LogError("GrabbedObject " +objectIsGrabbed);
+                    Debug.LogError("insideSphere " + insideSphere);
+                }
+            }
+            else
+            {
+                Debug.LogError("Cancelled Drop true");
             }
             timeKeyDown = 0;
             timeKeyDownX = false;
@@ -233,8 +243,8 @@ public class PickUpDropandThrow : PickUpandDrop
         {
             if(!insideHere)
             {
-                insideSphere = true;
                 playerMovement.addObjectToList(this);
+                insideSphere = true;
                 insideHere = true;
             }
             player = other.gameObject;
@@ -315,10 +325,27 @@ public class PickUpDropandThrow : PickUpandDrop
         }
 
         playerAnimator.SetBool("Throw", true);
+        playerMovement.removeObjectToList(this);
         player.SendMessage("StopMovement", true);
         StartCoroutine(ThrowToEnemyCoroutine(0.4f));
     }
-    
+    override protected void ForcePickUpObject()
+    {
+            Debug.Log("beign called trying to force pick up");
+        if (!objectIsGrabbed)
+        {
+            Debug.Log("beign called forcce pick up");
+            _thisRB.constraints = RigidbodyConstraints.FreezeAll;
+            useGravity = false;
+            playerAnimator.SetBool("PickUp", true);
+            transform.SetParent(grabPlace.transform);
+            transform.localPosition = Vector3.zero;
+            objectIsGrabbed = true;
+            playerMovement.removeObjectToList(this);
+            player.SendMessage("StopMovement", false);
+            player.GetComponent<playerDeath>().objectGrabbed = gameObject;
+        }
+    }
     protected IEnumerator PickUpCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
@@ -377,19 +404,5 @@ public class PickUpDropandThrow : PickUpandDrop
     {
         //Debug.Log(transform.name + " " + objectIsGrabbed);
         return objectIsGrabbed;
-    }
-    override protected void ForcePickUpObject()
-    {
-        if (!objectIsGrabbed)
-        {
-            _thisRB.constraints = RigidbodyConstraints.FreezeAll;
-            useGravity = false;
-            playerAnimator.SetBool("PickUp", true);
-            transform.SetParent(grabPlace.transform);
-            transform.localPosition = Vector3.zero;
-            objectIsGrabbed = true;
-            playerMovement.removeObjectToList(this);
-            player.GetComponent<playerDeath>().objectGrabbed = gameObject;
-        }
     }
 }

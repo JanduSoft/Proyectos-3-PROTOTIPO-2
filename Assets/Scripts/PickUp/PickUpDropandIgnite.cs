@@ -21,10 +21,12 @@ public class PickUpDropandIgnite : PickUpandDrop
     {
         startingPosition = transform.position;
         startingRotation = transform.localRotation;
-
+        objectIsGrabbed = false;
+        cancelledDrop = false;
         playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         startingPosition = transform.position;
-        grabPlace = GameObject.Find("Hand_R_PickUp");
+        grabPlace = GameObject.Find("Hand_R_PickUp"); objectIsGrabbed = false;
+        cancelledDrop = false;
     }
 
     // Update is called once per frame
@@ -42,7 +44,7 @@ public class PickUpDropandIgnite : PickUpandDrop
         }
         if (InputManager.ActiveDevice.Action3.WasPressed && !cancelledDrop && player != null)
         {
-            if (!objectIsGrabbed && distanceSuficient )
+            if (!objectIsGrabbed)
             {
                 playerAnimator.SetFloat("Distance", Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)));
                 if (Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)) < 0.6)
