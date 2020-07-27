@@ -16,6 +16,7 @@ public class CrashWithObstacle : MonoBehaviour
     [SerializeField] GameObject particlesDestroy;
 
     [SerializeField] ObstacleType[] obstacle;
+    [SerializeField] AudioSource destroySound;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -31,6 +32,7 @@ public class CrashWithObstacle : MonoBehaviour
                     {
                         if (other.CompareTag("Block"))
                         {
+                            destroySound.Play();
                             Destroy(this.gameObject);
                             Destroy(Instantiate(particlesDestroy, this.transform.position, Quaternion.identity), 1f);
                         }
@@ -40,6 +42,7 @@ public class CrashWithObstacle : MonoBehaviour
                     {
                         if (other.CompareTag("Wall"))
                         {
+                            destroySound.Play();
                             Destroy(this.gameObject);
                             Destroy(Instantiate(particlesDestroy, this.transform.position, Quaternion.identity), 1f);
                         }
@@ -49,6 +52,7 @@ public class CrashWithObstacle : MonoBehaviour
                     {
                         if (other.CompareTag("Floor"))
                         {
+                            destroySound.Play();
                             Destroy(this.gameObject);
                             Destroy(Instantiate(particlesDestroy, this.transform.position, Quaternion.identity), 1f);
                         }
@@ -58,6 +62,7 @@ public class CrashWithObstacle : MonoBehaviour
                     {
                         if (other.CompareTag("Stone") || other.CompareTag("Wall") || other.CompareTag("Floor"))
                         {
+                            destroySound.Play();
                             Destroy(this.gameObject);
                             Destroy(Instantiate(particlesDestroy, this.transform.position, Quaternion.identity), 1f);
                         }
