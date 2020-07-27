@@ -157,6 +157,9 @@ public class PauseMenuBehavior : MonoBehaviour
     private void Start()
     {
 
+        pauseMenu.SetActive(false);
+        settingMenu.SetActive(false);
+
         soundLevel = PlayerPrefs.GetInt("Volume");
         UpdateVolumelevel();
 
@@ -472,6 +475,10 @@ public class PauseMenuBehavior : MonoBehaviour
     #region PAUSE MENU
     void PauseMenu()
     {
+
+        pauseMenu.SetActive(true);
+        settingMenu.SetActive(true);
+
         openSound.Play();
         canPressButtons = false;
         //player.canMove = false;
@@ -509,7 +516,8 @@ public class PauseMenuBehavior : MonoBehaviour
     #region RESUME GAME
     void ResumeGame()
     {
-
+        pauseMenu.SetActive(false);
+        settingMenu.SetActive(false);
         closeSound.Play();
         //player.canMove = true;
         ///Reestablecemos el tiempo
