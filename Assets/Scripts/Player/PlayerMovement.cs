@@ -394,7 +394,13 @@ public class PlayerMovement : MonoBehaviour
         iTween.FadeTo(gameObject, 0f, 1f);
 
     }
-
+    public bool isObjectOnList(PickUpDropandThrow obj)
+    {
+        for (int i = 0; i < objectsToPickUp.Count; i++)
+            if (objectsToPickUp[i] == obj)
+                return true;
+        return false;
+    }
     public void addObjectToList(PickUpDropandThrow obj)
     {
         bool notOnList = true;

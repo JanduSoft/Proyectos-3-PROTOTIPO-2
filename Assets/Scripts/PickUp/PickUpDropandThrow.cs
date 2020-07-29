@@ -134,8 +134,7 @@ public class PickUpDropandThrow : PickUpandDrop
         {
             timeKeyDownY = true;
         }
-
-        else if ((InputManager.ActiveDevice.Action3.WasReleased) && player != null)
+        if ((InputManager.ActiveDevice.Action3.WasReleased) && player != null)
         {
             if (!cancelledDrop)
             {
@@ -174,6 +173,7 @@ public class PickUpDropandThrow : PickUpandDrop
         }
 
 
+
         if (timeKeyDownX)
             timeKeyDown += Time.deltaTime;
 
@@ -181,20 +181,20 @@ public class PickUpDropandThrow : PickUpandDrop
         if (timeKeyDownY)
         {
             timeKeyDown += Time.deltaTime;
-            if (timeKeyDown > 0f && insideSphere && !nearEnemy)
+            if (timeKeyDown > 0f && insideSphere && objectIsGrabbed && !nearEnemy)
             {
                 ThrowObject();
                 playerMovement.ableToWhip = true;
                 useGravity = true;
             }
-            else if (timeKeyDown > 0f && insideSphere && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) < 70))
+            else if (timeKeyDown > 0f && insideSphere && objectIsGrabbed && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) < 70))
             {
                 player.transform.LookAt(enemy);
                 ThrowObjectToEnemy();
                 playerMovement.ableToWhip = true;
                 useGravity = true;
             }
-            else if (timeKeyDown > 0f && insideSphere && nearEnemy && (Vector3.Angle(player.transform.forward, playerToEnemy) > 70))
+            else if (timeKeyDown > 0f && insideSphere && nearEnemy && objectIsGrabbed && (Vector3.Angle(player.transform.forward, playerToEnemy) > 70))
             {
                 ThrowObject();
                 playerMovement.ableToWhip = true;
@@ -209,14 +209,15 @@ public class PickUpDropandThrow : PickUpandDrop
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !objectIsGrabbed)
         {
             if (!insideHere)
             {
                 insideSphere = true;
-                playerMovement.addObjectToList(this);
                 insideHere = true;
             }
+            if(!playerMovement.isObjectOnList(this))
+                playerMovement.addObjectToList(this);
             distanceChecker = player.transform.GetChild(1).gameObject;
             player = other.gameObject;
         }
@@ -224,9 +225,9 @@ public class PickUpDropandThrow : PickUpandDrop
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !objectIsGrabbed)
         {
-            if(insideSphere)
+            if(insideSphere )
             {
                 insideSphere = false;
                 insideHere = false;
@@ -234,12 +235,13 @@ public class PickUpDropandThrow : PickUpandDrop
             }
             insideHere = false;
             player = null;
+            Debug.Log("EXIT");
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !objectIsGrabbed)
         {
             if(!insideHere)
             {
