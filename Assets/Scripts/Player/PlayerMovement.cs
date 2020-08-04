@@ -11,11 +11,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public bool ableToWhip = true;
     public bool isOnPedestal = false;
 
-    InputDevice inputDevice;
-    private void Awake()
-    {
-        inputDevice = InputManager.ActiveDevice;
-    }
     bool zero = false;
     [SerializeField] List<PickUpDropandThrow> objectsToPickUp = new List<PickUpDropandThrow>();
     #region VARIABLES
@@ -106,8 +101,8 @@ public class PlayerMovement : MonoBehaviour
             if (isInWhipJump)
                 grounded = false;
             //GET AXIS
-            horizontalMove = inputDevice.LeftStickX;
-            verticalMove = inputDevice.LeftStickY;
+            horizontalMove = GeneralInputScript.Input_GetAxis("MoveHorizontal"); //inputDevice.LeftStickX;
+            verticalMove = GeneralInputScript.Input_GetAxis("MoveVertical");//inputDevice.LeftStickY;
 
             playerInput = new Vector3(horizontalMove, 0, verticalMove);
             playerInput = Vector3.ClampMagnitude(playerInput, 1);
@@ -260,7 +255,7 @@ public class PlayerMovement : MonoBehaviour
     #region  PLAYER SKILLS
     void PlayerSkills()
     {
-        if ((player.isGrounded || auxCoyote > 0) && inputDevice.Action1.WasPressed && !jumpSound.isPlaying)
+        if ((player.isGrounded || auxCoyote > 0) && GeneralInputScript.Input_GetKeyDown("Jump") && !jumpSound.isPlaying)
         {
             grounded = false;
             animatorController.SetBool("Jumping", true);
@@ -287,7 +282,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (fallVelocity >= 0)
             {
-                if (!inputDevice.Action1.IsPressed)
+                if (!GeneralInputScript.Input_isKeyPressed("Jump"))
                 {
                     fallVelocity -= gravity * gravityMultipliyerFalling * Time.deltaTime;
                     movePlayer.y = fallVelocity;

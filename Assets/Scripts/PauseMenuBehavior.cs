@@ -259,7 +259,8 @@ public class PauseMenuBehavior : MonoBehaviour
         if (!secretMenu.isOpened)
         {
             //Comprovamos si se abre el menu o se cierra con el boton options
-            if (Input.GetKeyDown(KeyCode.Escape) || inputDevice.MenuWasPressed)
+            //if (Input.GetKeyDown(KeyCode.Escape) || inputDevice.MenuWasPressed)
+            if (GeneralInputScript.Input_GetKeyDown("Pause"))
             {
                 if (isPaused)
                 {

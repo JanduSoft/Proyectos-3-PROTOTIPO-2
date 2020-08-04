@@ -126,15 +126,18 @@ public class PickUpDropandThrow : PickUpandDrop
             Debug.DrawRay(transform.position, enemy.position, Color.red);
             playerToEnemy = new Vector3(enemy.transform.position.x - player.transform.position.x, enemy.transform.position.y - player.transform.position.y, enemy.transform.position.z - player.transform.position.z);
         }
-        if (InputManager.ActiveDevice.Action3.WasPressed && player != null)
+        //if (InputManager.ActiveDevice.Action3.WasPressed && player != null)
+        if (GeneralInputScript.Input_GetKeyDown("Interact") && player != null)
         {
             timeKeyDownX = true;
         }
-        if (InputManager.ActiveDevice.Action4.WasPressed&& player != null)
+        //if (InputManager.ActiveDevice.Action4.WasPressed&& player != null)
+        if (GeneralInputScript.Input_GetKeyDown("Whip") && player != null)
         {
             timeKeyDownY = true;
         }
-        if ((InputManager.ActiveDevice.Action3.WasReleased) && player != null)
+        //if ((InputManager.ActiveDevice.Action3.WasReleased) && player != null)
+        if ((GeneralInputScript.Input_GetKeyDown("Interact")) && player != null)
         {
             if (!cancelledDrop)
             {

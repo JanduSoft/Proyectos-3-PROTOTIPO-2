@@ -54,24 +54,29 @@ public class SecretObject : MonoBehaviour
     {
         if (startAnimation)
         {
-            switch (tuto.currentController)
+            switch (GeneralInputScript.currentController.ControllerName)
             {
-                case InControlManager.ControllerType.NONE:
+                case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
                     {
                         openSecretsText.text = "press i to open the list of secrets";
                         break;
                     }
-                case InControlManager.ControllerType.KEYBOARD:
-                    {
-                        openSecretsText.text = "press i to open the list of secrets";
-                        break;
-                    }
-                case InControlManager.ControllerType.PS4:
+                case GeneralInputScript.ControllerNames.PS3:
                     {
                         openSecretsText.text = "press R1 to open the list of secrets";
                         break;
                     }
-                case InControlManager.ControllerType.XBOX:
+                case GeneralInputScript.ControllerNames.PS4:
+                    {
+                        openSecretsText.text = "press R1 to open the list of secrets";
+                        break;
+                    }
+                case GeneralInputScript.ControllerNames.XBOX360:
+                    {
+                        openSecretsText.text = "press RB to open the list of secrets";
+                        break;
+                    }
+                case GeneralInputScript.ControllerNames.XBOXONE:
                     {
                         openSecretsText.text = "press RB to open the list of secrets";
                         break;
@@ -91,7 +96,7 @@ public class SecretObject : MonoBehaviour
             }
         }
 
-        if ( isPlayerInside && InputManager.ActiveDevice.Action3.WasPressed && !isShowingObject)
+        if ( isPlayerInside && GeneralInputScript.Input_GetKeyDown("Interact") && !isShowingObject)
         {
             //Animation start
             startAnimation = true;
@@ -115,11 +120,11 @@ public class SecretObject : MonoBehaviour
             StartAnimationObject();
             return;
         }
-        else if (isShowingObject && InputManager.ActiveDevice.AnyButton.WasPressed && !startAnimation)
+        else if (isShowingObject && GeneralInputScript.Input_anyKeyDown() && !startAnimation)
         {
             CloseScreen();
         }
-        else if (isOpen && (Input.GetKeyDown(KeyCode.I) || InputManager.ActiveDevice.RightBumper.WasReleased))
+        else if (isOpen && GeneralInputScript.Input_GetKeyDown("Secrets"))
         {
             CloseScreen();
         }
