@@ -130,7 +130,7 @@ public class PauseMenuBehavior : MonoBehaviour
     Vector3 initaialSettingsPosition;
 
     ///Inpud device
-    InputDevice inputDevice;
+    //InputDevice inputDevice;
 
     //para guardar el nombre de la escena
     string currentScene;
@@ -142,7 +142,7 @@ public class PauseMenuBehavior : MonoBehaviour
     //Secret Menu
     SecretScreen secretMenu;
 
-    InControlManager inputController;
+    //InControlManager inputController;
 
     Resolution[] resolutions;
 
@@ -215,9 +215,10 @@ public class PauseMenuBehavior : MonoBehaviour
         }
         #endregion
 
-        inputController = GameObject.Find("ControlPrefab").GetComponent<InControlManager>();
+//        inputController = GameObject.Find("ControlPrefab").GetComponent<InControlManager>();
 
         secretMenu = GameObject.Find("CanvasSecretScreen").GetComponent<SecretScreen>();
+        secretMenu.isOpened = false;
 
         ///comprobar si está en full screen
         if (Screen.fullScreen)
@@ -246,7 +247,7 @@ public class PauseMenuBehavior : MonoBehaviour
         initaialSettingsPosition = settingMenu.transform.position;
 
         //Seteamso el Inpud Device
-        inputDevice = InputManager.ActiveDevice;
+        //inputDevice = InputManager.ActiveDevice;
 
         //SABE GAME
         SaveGame();
@@ -278,27 +279,31 @@ public class PauseMenuBehavior : MonoBehaviour
             //Comprovamos los eventos si esta el menu abierto
             if (isPaused)
             {
+                horizontalMove = GeneralInputScript.Input_GetAxis("MoveHorizontal");
+                verticalMove = GeneralInputScript.Input_GetAxis("MoveVertical");
+                
                 ///Guardamos el axis solo si hay un mando
-                switch (inputController.controller)
-                {                    
-                    case InControlManager.ControllerType.PS4:
-                        horizontalMove = inputDevice.LeftStickX;
-                        verticalMove = inputDevice.LeftStickY;
-                        break;
-                    case InControlManager.ControllerType.XBOX:
-                        horizontalMove = inputDevice.LeftStickX;
-                        verticalMove = inputDevice.LeftStickY;
-                        break;
-                    default:
-                        break;
-                }
+                //switch (inputController.controller)
+                //{                    
+                //    case InControlManager.ControllerType.PS4:
+                //        horizontalMove = inputDevice.LeftStickX;
+                //        verticalMove = inputDevice.LeftStickY;
+                //        break;
+                //    case InControlManager.ControllerType.XBOX:
+                //        horizontalMove = inputDevice.LeftStickX;
+                //        verticalMove = inputDevice.LeftStickY;
+                //        break;
+                //    default:
+                //        break;
+                //}
                 
 
 
                 if (canPressButtons)
                 {
                     //comprobamos si en el mando se ha dado la redonda o a la B
-                    if (inputDevice.Action2.WasPressed)
+                    //if (inputDevice.Action2.WasPressed)
+                    if (GeneralInputScript.Input_GetKeyDown("Throw"))
                     {
                         if (currentMenu == MenuType.PAUSE)
                         {
@@ -310,7 +315,8 @@ public class PauseMenuBehavior : MonoBehaviour
                         }
                     }
                     //Comprobamos la seleccion de los botones
-                    if (inputDevice.Action1.WasPressed || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+                    //if (inputDevice.Action1.WasPressed || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+                    if (GeneralInputScript.Input_GetKeyDown("Jump"))
                     {
                         switch (currentButtonSelected)
                         {

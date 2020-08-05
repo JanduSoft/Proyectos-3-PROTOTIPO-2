@@ -98,6 +98,7 @@ public class SecretObject : MonoBehaviour
 
         if ( isPlayerInside && GeneralInputScript.Input_GetKeyDown("Interact") && !isShowingObject)
         {
+            Debug.Log("NOW HERE!");
             //Animation start
             startAnimation = true;
             isOpen = true;

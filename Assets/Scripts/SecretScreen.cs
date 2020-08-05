@@ -396,6 +396,7 @@ public class SecretScreen : MonoBehaviour
     #region UPDATE
     void Update()
     {
+        bool secretInputReceived = GeneralInputScript.Input_GetKeyDown("Secrets");
         if (isOpened)
         {
 
@@ -409,8 +410,9 @@ public class SecretScreen : MonoBehaviour
         ///Cerrar el menu con B/X y Sart
         if (isOpened)
         {
-            if (GeneralInputScript.Input_GetKeyDown("Secrets") || GeneralInputScript.Input_GetKeyDown("Throw"))
+            if (secretInputReceived || GeneralInputScript.Input_GetKeyDown("Throw"))
             {
+                secretInputReceived = false;
                 isOpened = false;
                 menu.SetActive(false);
                 Time.timeScale = 1;
@@ -421,7 +423,7 @@ public class SecretScreen : MonoBehaviour
         }
 
         ///DETECTAR SI ABRES EL MENU, EL BOTON ES TEMPORAL
-        if (GeneralInputScript.Input_GetKeyDown("Secrets"))
+        if (secretInputReceived)
         {
             if (!pauseMenu.isPaused)
             {
