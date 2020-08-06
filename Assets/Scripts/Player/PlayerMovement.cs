@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     const float maxSpeedWalking = 4.85f;
     const float maxSpeedJogging = 9f;
+    static bool removing = false;
     const float maxSpeedRunning = 14;
     [SerializeField] public bool ableToWhip = true;
     public bool isOnPedestal = false;
@@ -398,20 +399,26 @@ public class PlayerMovement : MonoBehaviour
     }
     public void addObjectToList(PickUpDropandThrow obj)
     {
-        bool notOnList = true;
-        for(int i = 0; i< objectsToPickUp.Count;i++)
-            if (objectsToPickUp[i] == obj)
-                notOnList = false;
-        if(notOnList)
+        if (!removing)
+        {
+            bool notOnList = true;
+            for (int i = 0; i < objectsToPickUp.Count; i++)
+                if (objectsToPickUp[i] == obj)
+                    notOnList = false;
+            if (notOnList)
                 objectsToPickUp.Add(obj);
+        }
     }
     public void removeObjectToList(PickUpDropandThrow obj)
     {
-        foreach(PickUpDropandThrow a in objectsToPickUp)
-                objectsToPickUp.Remove(obj);
+        removing = true;
+        objectsToPickUp.RemoveRange(0, objectsToPickUp.Count);
+        removing = false;
     }
     public int getObjectIndex(PickUpDropandThrow obj)
     {
-        return objectsToPickUp.IndexOf(obj);
+        if(objectsToPickUp.Count > 0)
+            return objectsToPickUp.IndexOf(obj);
+        return -1;    
     }
 }

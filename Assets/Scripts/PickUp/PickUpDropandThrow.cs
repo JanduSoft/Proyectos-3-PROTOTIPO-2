@@ -107,12 +107,13 @@ public class PickUpDropandThrow : PickUpandDrop
 
     protected override void PickUpObject()
     {
-        if(playerMovement.getObjectIndex(this) == 0)
-        {
-            playerAnimator.SetBool("PickUp", true);
-            base.PickUpObject();
-            playerMovement.removeObjectToList(this);
-        }
+        if(playerMovement.isObjectOnList(this))
+            if(playerMovement.getObjectIndex(this) == 0)
+            {
+                playerAnimator.SetBool("PickUp", true);
+                base.PickUpObject();
+                playerMovement.removeObjectToList(this);
+            }
     }
 
     private void FixedUpdate()
@@ -165,6 +166,7 @@ public class PickUpDropandThrow : PickUpandDrop
                 {
                     Debug.LogError("GrabbedObject " +objectIsGrabbed);
                     Debug.LogError("insideSphere " + insideSphere);
+                    Debug.LogError("insideHere " + insideHere);
                 }
             }
             else
@@ -221,8 +223,8 @@ public class PickUpDropandThrow : PickUpandDrop
             }
             if(!playerMovement.isObjectOnList(this))
                 playerMovement.addObjectToList(this);
-            distanceChecker = player.transform.GetChild(1).gameObject;
             player = other.gameObject;
+            distanceChecker = player.transform.GetChild(1).gameObject;
         }
     }
 
