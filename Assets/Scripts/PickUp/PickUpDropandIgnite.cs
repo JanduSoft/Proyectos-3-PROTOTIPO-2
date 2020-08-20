@@ -12,8 +12,10 @@ public class PickUpDropandIgnite : PickUpandDrop
     [SerializeField] bool nearFire = false;
     [SerializeField] bool nearRope = false;
     [SerializeField] public bool torchIgnited = false;
+    [SerializeField] Rigidbody _thisRB;
     [SerializeField] CamerShake shaking;
     GameObject nearFireObject;
+    bool useGravity = true;
     [SerializeField] public GameObject currentFireObject;
     // Start is called before the first frame update
 
@@ -48,32 +50,33 @@ public class PickUpDropandIgnite : PickUpandDrop
             if (!objectIsGrabbed)
             {
                 playerAnimator.SetFloat("Distance", Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)));
-                if (Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)) < 0.6)
-                {
-                    StartCoroutine(PickUpCoroutine(0f));
-                }
-                else
-                {
-                    StartCoroutine(PickUpCoroutine(0f));
-                }
+                //if (Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)) < 0.6)
+                //{
+                //    StartCoroutine(PickUpCoroutine(0f));
+                //}
+                //else
+                //{
+                //    StartCoroutine(PickUpCoroutine(0f));
+                //}
+                useGravity = false;
+                StartCoroutine(PickUpCoroutine(0f));
             }
             else if (!nearFire && !nearRope)
             {
                 playerAnimator.SetBool("DropObject", true);
                 player.SendMessage("StopMovement", true);
+                useGravity = true;
                 StartCoroutine(DropObjectCoroutine(0f));
-                StartCoroutine(AnimationsCoroutine(0.65f));
+                StartCoroutine(AnimationsCoroutine(0.1f));
             }
             else if (nearFire)
             {
-                Debug.Log("Torch Ignited");
                 fireParticles.SetActive(true);
                 torchIgnited = true;
                 currentFireObject = nearFireObject;
             }
             else if (torchIgnited && nearRope)
             {
-                Debug.Log("Rope Burnt");
                 ObjectToBeBurnt.SetActive(false);
                 consequence.SetActive(true);
                 nearRope = false;
@@ -81,6 +84,12 @@ public class PickUpDropandIgnite : PickUpandDrop
             }
         }
     }
+
+    private void FixedUpdate()
+    {
+        if (useGravity) _thisRB.AddForce(Physics.gravity * (_thisRB.mass * _thisRB.mass));
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -150,12 +159,10 @@ public class PickUpDropandIgnite : PickUpandDrop
         }
         else if (other.tag == "Fire")
         {
-            Debug.Log("Near Fire");
             nearFire = true;
         }
         else if (other.tag == "Rope")
         {
-            Debug.Log("Near Rope");
             nearRope = true;
         }
     }
@@ -167,12 +174,10 @@ public class PickUpDropandIgnite : PickUpandDrop
         }
         else if (other.tag == "Fire")
         {
-            Debug.Log("Near Fire");
             nearFire = false;
         }
         else if (other.tag == "Rope")
         {
-            Debug.Log("Near Rope");
             nearRope = false;
         }
     }
