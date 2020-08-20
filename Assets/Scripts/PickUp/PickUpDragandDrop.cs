@@ -71,7 +71,8 @@ public class PickUpDragandDrop : PickUpandDrop
         //If there's a player detected
         if (player != null && touchedTrigger==null)
         {
-            bool isPressingButton = InputManager.ActiveDevice.Action3;
+            //bool isPressingButton = InputManager.ActiveDevice.Action3;
+            bool isPressingButton = GeneralInputScript.Input_isKeyPressed("Interact");
 
             //If you can press the button again and you press it
             if (isPressingButton)
@@ -119,8 +120,11 @@ public class PickUpDragandDrop : PickUpandDrop
                     player.transform.rotation = Quaternion.LookRotation(lookDir);
                     player.transform.position = closestPos;
 
-                    float horizontalMove = Input.GetAxisRaw("Horizontal");
-                    float verticalMove = Input.GetAxisRaw("Vertical");
+                    //float horizontalMove = Input.GetAxisRaw("Horizontal");
+                    //float verticalMove = Input.GetAxisRaw("Vertical");
+
+                    float horizontalMove = GeneralInputScript.Input_GetAxis("MoveHorizontal");
+                    float verticalMove = GeneralInputScript.Input_GetAxis("MoveVertical");
 
                     bool inputActive = horizontalMove != 0 || verticalMove != 0;
 

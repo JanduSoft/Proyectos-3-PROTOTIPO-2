@@ -58,9 +58,10 @@ public class FollowingCharacter : MonoBehaviour
         /////GIRAR LA CAMARA UN POCO CON EL STICK IZQUIERDO
 
         //MOVIMIENTO EN LA X
-        float rightStickAxis = InputManager.ActiveDevice.RightStickX;
-        if (InputManager.ActiveDevice.RightStickX > 0.9f) rightStickAxis = 0.9f;
-        else if (InputManager.ActiveDevice.RightStickX < -0.9f) rightStickAxis = -0.9f;
+        //float rightStickAxis = InputManager.ActiveDevice.RightStickX;
+        float rightStickAxis = GeneralInputScript.Input_GetAxis("CameraHorizontal");
+        if (rightStickAxis > 0.9f) rightStickAxis = 0.9f;
+        else if (rightStickAxis < -0.9f) rightStickAxis = -0.9f;
 
 
         if (rightStickAxis == 0.9f)
@@ -74,7 +75,7 @@ public class FollowingCharacter : MonoBehaviour
         else if (rightStickAxis == -0.9f)
         {
             transform.DORotate(new Vector3(naturalPosition.x,
-                                            naturalPosition.y + angleBound,
+                                            naturalPosition.y + angleBound, 
                                             naturalPosition.z),
                                             speedBound);
             return;

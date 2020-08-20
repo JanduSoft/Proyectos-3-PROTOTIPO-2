@@ -42,7 +42,8 @@ public class PickUpDropandIgnite : PickUpandDrop
         {
             transform.localEulerAngles = new Vector3(180f, 0f, 0f);
         }
-        if (InputManager.ActiveDevice.Action3.WasPressed && !cancelledDrop && player != null)
+        //if (InputManager.ActiveDevice.Action3.WasPressed && !cancelledDrop && player != null)
+        if (GeneralInputScript.Input_GetKeyDown("Interact") && !cancelledDrop && player != null)
         {
             if (!objectIsGrabbed)
             {

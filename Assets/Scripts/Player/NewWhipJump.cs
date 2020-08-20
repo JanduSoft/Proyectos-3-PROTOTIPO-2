@@ -81,7 +81,8 @@ public class NewWhipJump : MonoBehaviour
 
         ////CHECK INPUT
         if(playerMovement.ableToWhip)
-            if (InputManager.ActiveDevice.Action4.WasPressed && canWhip && !playerMovement.isInWhipJump)
+            //if (InputManager.ActiveDevice.Action4.WasPressed && canWhip && !playerMovement.isInWhipJump)
+            if (GeneralInputScript.Input_GetKeyDown("Whip") && canWhip && !playerMovement.isInWhipJump)
             {
                 //Stop player movement
                 playerMovement.canMove = false;

@@ -27,10 +27,10 @@ public class SecretScreen : MonoBehaviour
     [SerializeField] AudioSource moveSound;
 
     ///FOR CONTROLLER
-    InputDevice inputDevice;
+    //InputDevice inputDevice;
     private void Awake()
     {
-        inputDevice = InputManager.ActiveDevice;
+        //inputDevice = InputManager.ActiveDevice;
     }
     float horizontalMove;
     float verticalMove;
@@ -396,11 +396,12 @@ public class SecretScreen : MonoBehaviour
     #region UPDATE
     void Update()
     {
+        bool secretInputReceived = GeneralInputScript.Input_GetKeyDown("Secrets");
         if (isOpened)
         {
 
-            horizontalMove = inputDevice.LeftStickX;
-            verticalMove = inputDevice.LeftStickY;
+            horizontalMove = GeneralInputScript.Input_GetAxis("MoveHorizontal");
+            verticalMove = GeneralInputScript.Input_GetAxis("MoveVertical");
 
             MenuNavigationController();
             MenuNavigationKeyboard();
@@ -409,8 +410,9 @@ public class SecretScreen : MonoBehaviour
         ///Cerrar el menu con B/X y Sart
         if (isOpened)
         {
-            if (inputDevice.Action2.WasPressed || inputDevice.MenuWasPressed)
+            if (secretInputReceived || GeneralInputScript.Input_GetKeyDown("Throw"))
             {
+                secretInputReceived = false;
                 isOpened = false;
                 menu.SetActive(false);
                 Time.timeScale = 1;
@@ -421,7 +423,7 @@ public class SecretScreen : MonoBehaviour
         }
 
         ///DETECTAR SI ABRES EL MENU, EL BOTON ES TEMPORAL
-        if (Input.GetKeyDown(KeyCode.I) || InputManager.ActiveDevice.RightBumper.WasReleased )
+        if (secretInputReceived)
         {
             if (!pauseMenu.isPaused)
             {

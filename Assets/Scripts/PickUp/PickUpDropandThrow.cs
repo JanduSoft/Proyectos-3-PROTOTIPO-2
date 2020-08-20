@@ -107,12 +107,13 @@ public class PickUpDropandThrow : PickUpandDrop
 
     protected override void PickUpObject()
     {
-        if(playerMovement.getObjectIndex(this) == 0)
-        {
-            playerAnimator.SetBool("PickUp", true);
-            base.PickUpObject();
-            playerMovement.removeObjectToList(this);
-        }
+        if(playerMovement.isObjectOnList(this))
+            if(playerMovement.getObjectIndex(this) == 0)
+            {
+                playerAnimator.SetBool("PickUp", true);
+                base.PickUpObject();
+                playerMovement.removeObjectToList(this);
+            }
     }
 
     private void FixedUpdate()
@@ -126,15 +127,18 @@ public class PickUpDropandThrow : PickUpandDrop
             Debug.DrawRay(transform.position, enemy.position, Color.red);
             playerToEnemy = new Vector3(enemy.transform.position.x - player.transform.position.x, enemy.transform.position.y - player.transform.position.y, enemy.transform.position.z - player.transform.position.z);
         }
-        if (InputManager.ActiveDevice.Action3.WasPressed && player != null)
+        //if (InputManager.ActiveDevice.Action3.WasPressed && player != null)
+        if (GeneralInputScript.Input_GetKeyDown("Interact") && player != null)
         {
             timeKeyDownX = true;
         }
-        if (InputManager.ActiveDevice.Action4.WasPressed&& player != null)
+        //if (InputManager.ActiveDevice.Action4.WasPressed&& player != null)
+        if (GeneralInputScript.Input_GetKeyDown("Whip") && player != null)
         {
             timeKeyDownY = true;
         }
-        if ((InputManager.ActiveDevice.Action3.WasReleased) && player != null)
+        //if ((InputManager.ActiveDevice.Action3.WasReleased) && player != null)
+        if ((GeneralInputScript.Input_GetKeyDown("Interact")) && player != null)
         {
             if (!cancelledDrop)
             {
@@ -162,6 +166,7 @@ public class PickUpDropandThrow : PickUpandDrop
                 {
                     Debug.LogError("GrabbedObject " +objectIsGrabbed);
                     Debug.LogError("insideSphere " + insideSphere);
+                    Debug.LogError("insideHere " + insideHere);
                 }
             }
             else
@@ -218,8 +223,8 @@ public class PickUpDropandThrow : PickUpandDrop
             }
             if(!playerMovement.isObjectOnList(this))
                 playerMovement.addObjectToList(this);
-            distanceChecker = player.transform.GetChild(1).gameObject;
             player = other.gameObject;
+            distanceChecker = player.transform.GetChild(1).gameObject;
         }
     }
 

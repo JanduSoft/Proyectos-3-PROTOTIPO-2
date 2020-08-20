@@ -57,8 +57,8 @@ public class TutorialSprites : MonoBehaviour
     [SerializeField] float inititalSize;
     private float finalSize = 0.4f;
 
-    InControlManager inputController;
-    public InControlManager.ControllerType currentController;
+    //InControlManager inputController;
+    //public InControlManager.ControllerType currentController;
 
     PlayerMovement player;
     #endregion
@@ -72,15 +72,15 @@ public class TutorialSprites : MonoBehaviour
         }
         
 
-        inputController = GameObject.Find("ControlPrefab").GetComponent<InControlManager>();
-        Invoke("CheckController", 1);
+        //inputController = GameObject.Find("ControlPrefab").GetComponent<InControlManager>();
+        //Invoke("CheckController", 1);
     }
     #endregion
 
     #region UPDATE
     private void Update()
     {
-        CheckController();
+        //CheckController();
 
         if (button == buttonType.PLACE_OBJECT)
         {
@@ -112,21 +112,33 @@ public class TutorialSprites : MonoBehaviour
                 {
                     if (player.isOnPedestal)
                     {
-                        switch (currentController)
+                        switch (GeneralInputScript.currentController.ControllerName)
                         {
-                            case InControlManager.ControllerType.KEYBOARD:
+                            case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
                                 {
                                     interact.SetActive(true);
                                     whip.SetActive(false);
                                     break;
                                 }
-                            case InControlManager.ControllerType.PS4:
+                            case GeneralInputScript.ControllerNames.PS3:
                                 {
                                     interactPS4.SetActive(true);
                                     whipPS4.SetActive(false);
                                     break;
                                 }
-                            case InControlManager.ControllerType.XBOX:
+                            case GeneralInputScript.ControllerNames.PS4:
+                                {
+                                    interactPS4.SetActive(true);
+                                    whipPS4.SetActive(false);
+                                    break;
+                                }
+                            case GeneralInputScript.ControllerNames.XBOX360:
+                                {
+                                    interactXBOX.SetActive(true);
+                                    whipXBOX.SetActive(false);
+                                    break;
+                                }
+                            case GeneralInputScript.ControllerNames.XBOXONE:
                                 {
                                     interactXBOX.SetActive(true);
                                     whipXBOX.SetActive(false);
@@ -138,24 +150,36 @@ public class TutorialSprites : MonoBehaviour
                     }
                     else
                     {
-                        switch (currentController)
+                        switch (GeneralInputScript.currentController.ControllerName)
                         {
-                            case InControlManager.ControllerType.KEYBOARD:
+                            case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
                                 {
                                     interact.SetActive(false);
                                     whip.SetActive(true);
                                     break;
                                 }
-                            case InControlManager.ControllerType.PS4:
+                            case GeneralInputScript.ControllerNames.PS3:
                                 {
                                     interactPS4.SetActive(false);
                                     whipPS4.SetActive(true);
                                     break;
                                 }
-                            case InControlManager.ControllerType.XBOX:
+                            case GeneralInputScript.ControllerNames.PS4:
+                                {
+                                    interactPS4.SetActive(false);
+                                    whipPS4.SetActive(true);
+                                    break;
+                                }
+                            case GeneralInputScript.ControllerNames.XBOX360:
                                 {
                                     interactXBOX.SetActive(false);
                                     whipXBOX.SetActive(true);
+                                    break;
+                                }
+                            case GeneralInputScript.ControllerNames.XBOXONE:
+                                {
+                                    interactXBOX.SetActive(true);
+                                    whipXBOX.SetActive(false);
                                     break;
                                 }
                             default:
@@ -170,21 +194,33 @@ public class TutorialSprites : MonoBehaviour
             }
             else if (isPlayerInside && !pickUpThrow.GetObjectIsGrabbed())
             {
-                switch (currentController)
+                switch (GeneralInputScript.currentController.ControllerName)
                 {
-                    case InControlManager.ControllerType.KEYBOARD:
+                    case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
                         {
                             whip.SetActive(false);
                             interact.SetActive(true);
                             break;
                         }
-                    case InControlManager.ControllerType.PS4:
+                    case GeneralInputScript.ControllerNames.PS3:
                         {
                             whipPS4.SetActive(false);
                             interactPS4.SetActive(true);
                             break;
                         }
-                    case InControlManager.ControllerType.XBOX:
+                    case GeneralInputScript.ControllerNames.PS4:
+                        {
+                            whipPS4.SetActive(false);
+                            interactPS4.SetActive(true);
+                            break;
+                        }
+                    case GeneralInputScript.ControllerNames.XBOX360:
+                        {
+                            whipXBOX.SetActive(false);
+                            interactXBOX.SetActive(true);
+                            break;
+                        }
+                    case GeneralInputScript.ControllerNames.XBOXONE:
                         {
                             whipXBOX.SetActive(false);
                             interactXBOX.SetActive(true);
@@ -375,23 +411,37 @@ public class TutorialSprites : MonoBehaviour
                 break;
             case buttonType.JUMP:
                 {
-                    switch (currentController)
+                    switch (GeneralInputScript.currentController.ControllerName)
                     {
-                        case InControlManager.ControllerType.KEYBOARD:
+                        case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
                             {
                                 jump.SetActive(true);
                                 jump.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 jump.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.PS4:
+                        case GeneralInputScript.ControllerNames.PS3:
                             {
                                 jumpPS4.SetActive(true);
                                 jumpPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 jumpPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.XBOX:
+                        case GeneralInputScript.ControllerNames.PS4:
+                            {
+                                jumpPS4.SetActive(true);
+                                jumpPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                jumpPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOX360:
+                            {
+                                jumpXBOX.SetActive(true);
+                                jumpXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                jumpXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOXONE:
                             {
                                 jumpXBOX.SetActive(true);
                                 jumpXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
@@ -405,10 +455,10 @@ public class TutorialSprites : MonoBehaviour
                 }
             case buttonType.INTERACT:
                 {
-                    switch (currentController)
+                    switch (GeneralInputScript.currentController.ControllerName)
                     {
 
-                        case InControlManager.ControllerType.KEYBOARD:
+                        case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
                             {
                                 Debug.Log("NO DEBERIA ENTRAR AQUI");
                                 //Desctivamos las otras
@@ -420,7 +470,7 @@ public class TutorialSprites : MonoBehaviour
                                 interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.PS4:
+                        case GeneralInputScript.ControllerNames.PS3:
                             {
                                 //Desctivamos las otras
                                 interact.SetActive(false);
@@ -431,7 +481,25 @@ public class TutorialSprites : MonoBehaviour
                                 interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.XBOX:
+                        case GeneralInputScript.ControllerNames.PS4:
+                            {
+                                //Desctivamos las otras
+                                interact.SetActive(false);
+                                interactXBOX.SetActive(false);
+
+                                interactPS4.SetActive(true);
+                                interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOX360:
+                            {
+                                interactXBOX.SetActive(true);
+                                interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOXONE:
                             {
                                 interactXBOX.SetActive(true);
                                 interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
@@ -446,23 +514,37 @@ public class TutorialSprites : MonoBehaviour
                 }
             case buttonType.WHIP:
                 {
-                    switch (currentController)
+                    switch (GeneralInputScript.currentController.ControllerName)
                     {
-                        case InControlManager.ControllerType.KEYBOARD:
+                        case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
                             {
                                 whip.SetActive(true);
                                 whip.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 whip.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.PS4:
+                        case GeneralInputScript.ControllerNames.PS3:
                             {
                                 whipPS4.SetActive(true);
                                 whipPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 whipPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.XBOX:
+                        case GeneralInputScript.ControllerNames.PS4:
+                            {
+                                whipPS4.SetActive(true);
+                                whipPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                whipPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOX360:
+                            {
+                                whipXBOX.SetActive(true);
+                                whipXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                whipXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOXONE:
                             {
                                 whipXBOX.SetActive(true);
                                 whipXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
@@ -476,23 +558,37 @@ public class TutorialSprites : MonoBehaviour
                 }
             case buttonType.PLACE_OBJECT:
                 {
-                    switch (currentController)
+                    switch (GeneralInputScript.currentController.ControllerName)
                     {
-                        case InControlManager.ControllerType.KEYBOARD:
+                        case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
                             {
                                 interact.SetActive(true);
                                 interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.PS4:
+                        case GeneralInputScript.ControllerNames.PS3:
                             {
                                 interactPS4.SetActive(true);
                                 interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.XBOX:
+                        case GeneralInputScript.ControllerNames.PS4:
+                            {
+                                interactPS4.SetActive(true);
+                                interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOX360:
+                            {
+                                interactXBOX.SetActive(true);
+                                interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOXONE:
                             {
                                 interactXBOX.SetActive(true);
                                 interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
@@ -506,23 +602,37 @@ public class TutorialSprites : MonoBehaviour
                 }
             case buttonType.DD_OBJECT:
                 {
-                    switch (currentController)
+                    switch (GeneralInputScript.currentController.ControllerName)
                     {
-                        case InControlManager.ControllerType.KEYBOARD:
+                        case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
                             {
                                 interact.SetActive(true);
                                 interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.PS4:
+                        case GeneralInputScript.ControllerNames.PS3:
                             {
                                 interactPS4.SetActive(true);
                                 interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.XBOX:
+                        case GeneralInputScript.ControllerNames.PS4:
+                            {
+                                interactPS4.SetActive(true);
+                                interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOX360:
+                            {
+                                interactXBOX.SetActive(true);
+                                interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOXONE:
                             {
                                 interactXBOX.SetActive(true);
                                 interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
@@ -536,23 +646,37 @@ public class TutorialSprites : MonoBehaviour
                 };
             case buttonType.PICK_UP_OBJECT:
                 {
-                    switch (currentController)
+                    switch (GeneralInputScript.currentController.ControllerName)
                     {
-                        case InControlManager.ControllerType.KEYBOARD:
+                        case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
                             {
                                 interact.SetActive(true);
                                 interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.PS4:
+                        case GeneralInputScript.ControllerNames.PS3:
                             {
                                 interactPS4.SetActive(true);
                                 interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.XBOX:
+                        case GeneralInputScript.ControllerNames.PS4:
+                            {
+                                interactPS4.SetActive(true);
+                                interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOX360:
+                            {
+                                interactXBOX.SetActive(true);
+                                interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOXONE:
                             {
                                 interactXBOX.SetActive(true);
                                 interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
@@ -566,23 +690,37 @@ public class TutorialSprites : MonoBehaviour
                 }
             case buttonType.THROW:
                 {
-                    switch (currentController)
+                    switch (GeneralInputScript.currentController.ControllerName)
                     {
-                        case InControlManager.ControllerType.KEYBOARD:
+                        case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
                             {
                                 whip.SetActive(true);
                                 whip.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 whip.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.PS4:
+                        case GeneralInputScript.ControllerNames.PS3:
                             {
                                 whipPS4.SetActive(true);
                                 whipPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 whipPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.XBOX:
+                        case GeneralInputScript.ControllerNames.PS4:
+                            {
+                                whipPS4.SetActive(true);
+                                whipPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                whipPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOX360:
+                            {
+                                whipXBOX.SetActive(true);
+                                whipXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                whipXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOXONE:
                             {
                                 whipXBOX.SetActive(true);
                                 whipXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
@@ -596,23 +734,37 @@ public class TutorialSprites : MonoBehaviour
                 }
             case buttonType.MOVE_ROCK:
                 {
-                    switch (currentController)
+                    switch (GeneralInputScript.currentController.ControllerName)
                     {
-                        case InControlManager.ControllerType.KEYBOARD:
+                        case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
                             {
                                 interact.SetActive(true);
                                 interact.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 interact.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.PS4:
+                        case GeneralInputScript.ControllerNames.PS3:
                             {
                                 interactPS4.SetActive(true);
                                 interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
                                 interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
                                 break;
                             }
-                        case InControlManager.ControllerType.XBOX:
+                        case GeneralInputScript.ControllerNames.PS4:
+                            {
+                                interactPS4.SetActive(true);
+                                interactPS4.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactPS4.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOX360:
+                            {
+                                interactXBOX.SetActive(true);
+                                interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
+                                interactXBOX.transform.DOScale(new Vector3(finalSize, finalSize, finalSize), speed);
+                                break;
+                            }
+                        case GeneralInputScript.ControllerNames.XBOXONE:
                             {
                                 interactXBOX.SetActive(true);
                                 interactXBOX.transform.localScale = new Vector3(inititalSize, inititalSize, inititalSize);
@@ -856,26 +1008,26 @@ public class TutorialSprites : MonoBehaviour
 }
     #endregion
 
-    #region CHECK CONTROLLER
-    void CheckController()
-    {
-        switch (inputController.controller)
-        {
-            case InControlManager.ControllerType.NONE:
-                break;
-            case InControlManager.ControllerType.KEYBOARD:
+    //#region CHECK CONTROLLER
+    //void CheckController()
+    //{
+    //    switch (inputController.controller)
+    //    {
+    //        case InControlManager.ControllerType.NONE:
+    //            break;
+    //        case InControlManager.ControllerType.KEYBOARD:
 
-                currentController = InControlManager.ControllerType.KEYBOARD;
-                break;
-            case InControlManager.ControllerType.PS4:
-                currentController = InControlManager.ControllerType.PS4;
-                break;
-            case InControlManager.ControllerType.XBOX:
-                currentController = InControlManager.ControllerType.XBOX;
-                break;
-            default:
-                break;
-        }
-    }
-    #endregion
+    //            currentController = InControlManager.ControllerType.KEYBOARD;
+    //            break;
+    //        case InControlManager.ControllerType.PS4:
+    //            currentController = InControlManager.ControllerType.PS4;
+    //            break;
+    //        case InControlManager.ControllerType.XBOX:
+    //            currentController = InControlManager.ControllerType.XBOX;
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
+    //#endregion
 }
