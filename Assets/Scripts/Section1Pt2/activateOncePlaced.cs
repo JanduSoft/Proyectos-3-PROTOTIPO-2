@@ -13,7 +13,7 @@ public class activateOncePlaced : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canPlace && InputManager.ActiveDevice.Action3.WasPressed && isObject)
+        if (canPlace && GeneralInputScript.Input_GetKeyDown("Interact") && isObject)
         {
             StartCoroutine(Activate());
         }
@@ -49,6 +49,6 @@ public class activateOncePlaced : MonoBehaviour
     IEnumerator Activate()
     {
         yield return new WaitForSeconds(0.55f);
-            fire.SetActive(true);
+        fire.SetActive(true);
     }
 }

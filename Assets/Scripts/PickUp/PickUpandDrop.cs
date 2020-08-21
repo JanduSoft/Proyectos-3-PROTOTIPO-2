@@ -58,7 +58,10 @@ public class PickUpandDrop : PickUp
     protected IEnumerator AnimationsCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
-        player.SendMessage("StopMovement", false);
+        if (player != null)
+            player.SendMessage("StopMovement", false);
+        else
+            Debug.LogError("Couldn't stop player movement because player is null");
         playerAnimator.SetBool("PickUp", false);
         playerAnimator.SetBool("DropObject", false);
         playerAnimator.SetBool("PlaceObject", false);

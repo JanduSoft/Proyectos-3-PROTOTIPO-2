@@ -15,7 +15,7 @@ public class SkipCurrentCinematic : MonoBehaviour
         {
             GameObject.Find("Character").GetComponent<PlayerMovement>().canMove = false;
         }
-        if (InputManager.ActiveDevice.Action1.WasPressed && GetComponent<PlayableDirector>().state==PlayState.Playing)
+        if (GeneralInputScript.Input_GetKeyDown("Jump") && GetComponent<PlayableDirector>().state==PlayState.Playing)
         {
             GetComponent<PlayableDirector>().enabled = false;
             GameObject.Find("Character").GetComponent<PlayerMovement>().canMove = true;

@@ -112,9 +112,9 @@ public class NewMainMenu : MonoBehaviour
     ButtonType currentButton = ButtonType.CONTINUE;
     MenuType currentMenu = MenuType.MAIN_MENU;
     ///Inpud device
-    InputDevice inputDevice;
+    //InputDevice inputDevice;
 
-    InControlManager inputController;
+    //InControlManager inputController;
 
     bool isUpPressed = false;
     bool isDownPressed = false;
@@ -154,11 +154,11 @@ public class NewMainMenu : MonoBehaviour
         }
 
         
-        inputController = GameObject.Find("ControlPrefab").GetComponent<InControlManager>();
+        //inputController = GameObject.Find("ControlPrefab").GetComponent<InControlManager>();
 
         isFullscreen = Screen.fullScreen;
         //Seteamso el Inpud Device
-        inputDevice = InputManager.ActiveDevice;
+        //inputDevice = InputManager.ActiveDevice;
         continueButton.SetActive(true);
 
 
@@ -209,26 +209,31 @@ public class NewMainMenu : MonoBehaviour
     void Update()
     {
         //getting input Gamepad
-        switch (inputController.controller)
-        {
-            case InControlManager.ControllerType.PS4:
-                verticalMove = inputDevice.LeftStickY;
-                horizontalMove = inputDevice.LeftStickX;
-                break;
-            case InControlManager.ControllerType.XBOX:
-                verticalMove = inputDevice.LeftStickY;
-                horizontalMove = inputDevice.LeftStickX;
-                break;
-            default:
-                break;
-        }
+        verticalMove = GeneralInputScript.Input_GetAxis("MoveVertical");
+        horizontalMove= GeneralInputScript.Input_GetAxis("MoveHorizontal");
+
+
+        //switch (inputController.controller)
+        //{
+        //    case InControlManager.ControllerType.PS4:
+        //        verticalMove = inputDevice.LeftStickY;
+        //        horizontalMove = inputDevice.LeftStickX;
+        //        break;
+        //    case InControlManager.ControllerType.XBOX:
+        //        verticalMove = inputDevice.LeftStickY;
+        //        horizontalMove = inputDevice.LeftStickX;
+        //        break;
+        //    default:
+        //        break;
+        //}
 
         //Checking navigation
         KeyboardNavigation();
         GamepadNavigation();
 
         //Checking Input
-        if (inputDevice.Action1.WasPressed || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        //if (inputDevice.Action1.WasPressed || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        if (GeneralInputScript.Input_GetKeyDown("Jump") || Input.GetKeyDown(KeyCode.Return))
         {
             switch (currentButton)
             {

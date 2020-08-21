@@ -15,7 +15,7 @@ public class SkipCinematic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (InputManager.ActiveDevice.Action1.WasPressed)
+        if (GeneralInputScript.Input_GetKeyDown("Jump"))
         {
             STL1Object.SetActive(true);
         }

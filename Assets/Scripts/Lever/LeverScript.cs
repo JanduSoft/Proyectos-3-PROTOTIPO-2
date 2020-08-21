@@ -60,7 +60,7 @@ public class LeverScript : MonoBehaviour
         if (player!=null)
         {
             var currentDistanceToLever = Vector3.Distance(transform.position, player.transform.position);
-            if (showCanvas && (currentDistanceToLever<distanceToLever) && (!leverPulled || canPullLeverAlways) && InputManager.ActiveDevice.Action3.WasPressed)
+            if (showCanvas && (currentDistanceToLever<distanceToLever) && (!leverPulled || canPullLeverAlways) && GeneralInputScript.Input_GetKeyDown("Interact"))
             {
                 showCanvas = false;
                 leverPulled = true;

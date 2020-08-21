@@ -27,7 +27,8 @@ public class AddObject : MonoBehaviour
     {
         if (_object != null )
         {
-            if (canPlace && !theresObject &&(objectIsGrabbed) && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
+            //if (canPlace && !theresObject &&(objectIsGrabbed) && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
+            if (canPlace && !theresObject &&(objectIsGrabbed) && !isActivated && GeneralInputScript.Input_GetKeyDown("Interact"))
             {
                 theresObject = true;
                 playerAnimator.SetBool("PlaceObject", true);
@@ -36,7 +37,8 @@ public class AddObject : MonoBehaviour
                 StartCoroutine(PlaceObject());
                 
             }
-            else if (canPlace && GameObject.Find("Character").GetComponent<PlayerMovement>().ableToWhip &&!objectIsGrabbed && InputManager.ActiveDevice.Action3.WasPressed)
+            //else if (canPlace && GameObject.Find("Character").GetComponent<PlayerMovement>().ableToWhip &&!objectIsGrabbed && InputManager.ActiveDevice.Action3.WasPressed)
+            else if (canPlace && GameObject.Find("Character").GetComponent<PlayerMovement>().ableToWhip &&!objectIsGrabbed && GeneralInputScript.Input_GetKeyDown("Interact"))
             {
                 Debug.Log("Trying to Force PickUp");
                 if (!isActivated)

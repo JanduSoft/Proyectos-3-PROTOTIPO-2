@@ -43,7 +43,8 @@ public class AddSkull : MonoBehaviour
     {
         if (skull != null)
         {
-            if (InputManager.ActiveDevice.Action3.WasPressed && skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed())
+            //if (InputManager.ActiveDevice.Action3.WasPressed && skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed())
+            if (GeneralInputScript.Input_GetKeyDown("Interact") && skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed())
             {
                 playeranimator.SetBool("PlaceObject", true);
                 skull.GetComponent<PickUpDropandThrow>().DropObject();
@@ -51,7 +52,8 @@ public class AddSkull : MonoBehaviour
                 StartCoroutine(AnimationsCoroutine(0.1f));
             }
 
-            if (!isImportantCup && canPlace && !skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && isActivated && InputManager.ActiveDevice.Action3.WasPressed)
+            //if (!isImportantCup && canPlace && !skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && isActivated && InputManager.ActiveDevice.Action3.WasPressed)
+            if (!isImportantCup && canPlace && !skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && isActivated && GeneralInputScript.Input_GetKeyDown("Interact"))
             {
                 //skull.GetComponent<DragAndDrop>().CancelledDrop(false);
                 playeranimator.SetBool("PickUp", true);
