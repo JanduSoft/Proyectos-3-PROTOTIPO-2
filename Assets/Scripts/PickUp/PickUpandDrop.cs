@@ -5,17 +5,8 @@ using InControl;
 
 public class PickUpandDrop : PickUp
 {
-    protected Animator playerAnimator;
+    [SerializeField] protected Animator playerAnimator;
     // Start is called before the first frame update
-    void Start()
-    {
-        startingPosition = transform.position;
-        startingRotation = transform.localRotation;
-
-
-        playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
-        grabPlace = GameObject.Find("Hand_R_PickUp");
-    } 
 
     // Update is called once per frame
 
@@ -62,6 +53,7 @@ public class PickUpandDrop : PickUp
             player.SendMessage("StopMovement", false);
         else
             Debug.LogError("Couldn't stop player movement because player is null");
+        Debug.Log("Animations now false");
         playerAnimator.SetBool("PickUp", false);
         playerAnimator.SetBool("DropObject", false);
         playerAnimator.SetBool("PlaceObject", false);

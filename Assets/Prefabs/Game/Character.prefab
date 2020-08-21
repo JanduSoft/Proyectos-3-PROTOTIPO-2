@@ -1288,7 +1288,7 @@ SpriteRenderer:
   m_Size: {x: 6, y: 6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &1616399774
@@ -2053,6 +2053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ableToWhip: 1
   isOnPedestal: 0
+  objectsToPickUp: []
   canMove: 1
   horizontalMove: 0
   magnitudeInput: 0
@@ -2103,7 +2104,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: ddb9bf7bd2b7ed6418ab3b8cc2122c86, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 0.9608538
   Loop: 0
   Mute: 0

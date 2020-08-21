@@ -106,7 +106,6 @@ MonoBehaviour:
   pickThrowXBOX: {fileID: 0}
   speed: 0.2
   inititalSize: 0
-  currentController: 0
 --- !u!114 &1675604119477729891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,6 +801,21 @@ PrefabInstance:
     - target: {fileID: 460208, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.2703379
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100796750769573955, guid: 3581d774ff1b8de4db94e27c5f6abc7d,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100796750769573955, guid: 3581d774ff1b8de4db94e27c5f6abc7d,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b2f702ae5bbdb384e8c41c12d8f5af24, type: 3}
+    - target: {fileID: 2100796750769573955, guid: 3581d774ff1b8de4db94e27c5f6abc7d,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3581d774ff1b8de4db94e27c5f6abc7d, type: 3}

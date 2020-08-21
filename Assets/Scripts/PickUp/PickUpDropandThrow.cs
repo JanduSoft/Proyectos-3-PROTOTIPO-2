@@ -90,6 +90,7 @@ public class PickUpDropandThrow : PickUpandDrop
         insideHere = false;
         objectIsGrabbed = false;
         cancelledDrop = false;
+        playerAnimator = GameObject.Find("Character").GetComponentInChildren<Animator>();
         playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         _thisRB.useGravity = false;
         useGravity = false;
@@ -212,6 +213,22 @@ public class PickUpDropandThrow : PickUpandDrop
         if (useGravity) _thisRB.AddForce(Physics.gravity * (_thisRB.mass * _thisRB.mass));
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !objectIsGrabbed)
+        {
+            if (!insideHere)
+            {
+                playerMovement.addObjectToList(this);
+                insideSphere = true;
+                insideHere = true;
+            }
+            player = other.gameObject;
+            playerAnimator = player.GetComponentInChildren<Animator>();
+            distanceChecker = player.transform.GetChild(1).gameObject;
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player") && !objectIsGrabbed)
@@ -240,25 +257,11 @@ public class PickUpDropandThrow : PickUpandDrop
             }
             insideHere = false;
             player = null;
-            Debug.Log("EXIT");
+            Debug.Log("EXIT objectIsGrabbed is"+ objectIsGrabbed);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") && !objectIsGrabbed)
-        {
-            if(!insideHere)
-            {
-                playerMovement.addObjectToList(this);
-                insideSphere = true;
-                insideHere = true;
-            }
-            player = other.gameObject;
-            playerAnimator = player.GetComponentInChildren<Animator>();
-            distanceChecker = player.transform.GetChild(1).gameObject;
-        }
-    }
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Death")
