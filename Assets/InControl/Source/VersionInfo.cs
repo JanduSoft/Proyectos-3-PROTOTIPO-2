@@ -28,11 +28,7 @@ namespace InControl
 				Major = 1,
 				Minor = 4,
 				Patch = 4,
-<<<<<<< Updated upstream
-				Build = 8243
-=======
-				Build = 8225
->>>>>>> Stashed changes
+				Build = 8246
 			};
 		}
 
