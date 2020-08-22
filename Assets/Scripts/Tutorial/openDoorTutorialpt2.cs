@@ -26,7 +26,7 @@ public class openDoorTutorialpt2 : MonoBehaviour
     {
         if (skull != null)
         {
-            if (canPlace && skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
+            if (canPlace && skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && !isActivated && GeneralInputScript.Input_GetKeyDown("Interact"))
             {
                 dor.SendMessage("Solved", index);
                 isActivated = true;

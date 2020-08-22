@@ -30,7 +30,8 @@ public class UpandDownSecondPuzzle : MonoBehaviour
     {
         if (canInteract)
         {
-            if(InputManager.ActiveDevice.Action3.WasPressed)
+            //if(InputManager.ActiveDevice.Action3.WasPressed)
+            if(GeneralInputScript.Input_GetKeyDown("Interact"))
             {
                 leverSound.Play();
                 canInteract = false;

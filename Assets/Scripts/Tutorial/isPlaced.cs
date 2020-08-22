@@ -13,7 +13,8 @@ public class isPlaced : MonoBehaviour
     bool placed = false;
     void Update()
     {
-        if (canPlace && InputManager.ActiveDevice.Action3.WasPressed)
+        //if (canPlace && InputManager.ActiveDevice.Action3.WasPressed)
+        if (canPlace && GeneralInputScript.Input_GetKeyDown("Interact"))
         {
             lever.enabled = true;
         }

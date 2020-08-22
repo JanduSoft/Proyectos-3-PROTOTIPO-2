@@ -22,15 +22,17 @@ public class PlaceDragAndDrop : MonoBehaviour
     {
         if (skull != null)
         {
-            if (InputManager.ActiveDevice.Action3.WasPressed && canPlace)
+            //if (InputManager.ActiveDevice.Action3.WasPressed && canPlace)
+            if (GeneralInputScript.Input_GetKeyDown("Interact") && canPlace)
             {
                 playeranimator.SetBool("DropObject", false);
                 playeranimator.SetBool("PlaceObject", true);
                 StartCoroutine(AnimationsCoroutine(0.5f));
             }
-            if (canPlace && skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && !isActivated && InputManager.ActiveDevice.Action3.WasPressed)
+            if (canPlace && skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed() && !isActivated && GeneralInputScript.Input_GetKeyDown("Interact"))
             {
                 skull.GetComponent<PickUpDropandThrow>().DropObject();
+                skull.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
                 skull.GetComponent<PickUpDropandThrow>().enabled = false;
                 skullTransform.position = placePosition.transform.position;
                 skullTransform.rotation = transform.rotation;
