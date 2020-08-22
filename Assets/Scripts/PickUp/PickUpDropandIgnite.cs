@@ -15,7 +15,7 @@ public class PickUpDropandIgnite : PickUpandDrop
     [SerializeField] Rigidbody _thisRB;
     [SerializeField] CamerShake shaking;
     GameObject nearFireObject;
-    bool useGravity = true;
+    bool useGravity = false;
     [SerializeField] public GameObject currentFireObject;
     // Start is called before the first frame update
 
@@ -50,14 +50,6 @@ public class PickUpDropandIgnite : PickUpandDrop
             if (!objectIsGrabbed)
             {
                 playerAnimator.SetFloat("Distance", Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)));
-                //if (Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)) < 0.6)
-                //{
-                //    StartCoroutine(PickUpCoroutine(0f));
-                //}
-                //else
-                //{
-                //    StartCoroutine(PickUpCoroutine(0f));
-                //}
                 useGravity = false;
                 StartCoroutine(PickUpCoroutine(0f));
             }
