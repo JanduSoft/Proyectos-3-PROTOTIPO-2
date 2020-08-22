@@ -19,7 +19,7 @@ public class PushElement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (InputManager.ActiveDevice.Action3.WasPressed && isInside && canPush && !isMoving)
+        if (GeneralInputScript.Input_GetKeyDown("Interact") && isInside && canPush && !isMoving)
         {
             box.DOMove(destination.position, speed);
             isMoving = true;

@@ -25,7 +25,7 @@ public class ActivatePusher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (InputManager.ActiveDevice.Action3.WasPressed && playerIsInside && !isMoving)
+        if (GeneralInputScript.Input_GetKeyDown("Interact") && playerIsInside && !isMoving)
         {
             isMoving = true;
             //FirstRoation();
