@@ -41,7 +41,6 @@ public class PickUpandDrop : PickUp
     public void DropObject()
     {
         playerMovement.ableToWhip = true;
-        player.SendMessage("StopMovement", true);
         StartCoroutine(DropObjectCoroutine(0f));
         StartCoroutine(AnimationsCoroutine(0.5f));
     }

@@ -96,9 +96,7 @@ public class PlayerMovement : MonoBehaviour
         if (canMove)
         {
             if (player.isGrounded)
-            {
                 grounded = true;
-            }
             if (isInWhipJump)
                 grounded = false;
             //GET AXIS
@@ -229,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
                     player.Move((movePlayer * (percentRestriction / 100)) * Time.deltaTime);
                     animatorController.SetBool("Jumping", true);
                 }
-                if ((!player.isGrounded || !grounded) && auxCoyote > 0)
+                if ((!grounded) && auxCoyote > 0)
                 {
                     auxCoyote -= Time.deltaTime;
                 }
