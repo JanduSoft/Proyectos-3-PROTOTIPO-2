@@ -7,8 +7,8 @@ using InControl;
 public class PickUpDropandIgnite : PickUpandDrop
 {
     [SerializeField] GameObject fireParticles;
-    [SerializeField] GameObject ObjectToBeBurnt;
-    [SerializeField] GameObject consequence;
+    [SerializeField] public GameObject ObjectToBeBurnt;
+    [SerializeField] public GameObject consequence;
     [SerializeField] bool nearFire = false;
     [SerializeField] bool nearRope = false;
     [SerializeField] public bool torchIgnited = false;
@@ -77,7 +77,8 @@ public class PickUpDropandIgnite : PickUpandDrop
             }
             else if (torchIgnited && nearRope)
             {
-                ObjectToBeBurnt.SetActive(false);
+                if (ObjectToBeBurnt!=null)
+                    ObjectToBeBurnt.SetActive(false);
                 consequence.SetActive(true);
                 nearRope = false;
                 shaking.StartShake(0.75f);
@@ -85,6 +86,11 @@ public class PickUpDropandIgnite : PickUpandDrop
         }
     }
 
+    public void turnOffTorch()
+    {
+        torchIgnited = false;
+        fireParticles.SetActive(false);
+    }
     private void FixedUpdate()
     {
         if (useGravity) _thisRB.AddForce(Physics.gravity * (_thisRB.mass * _thisRB.mass));

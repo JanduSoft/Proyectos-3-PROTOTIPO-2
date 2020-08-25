@@ -57,6 +57,9 @@ public class playerDeath : MonoBehaviour
 
     IEnumerator killPlayerInSeconds(float _s)
     {
+        Logros.numberOfDeaths++;
+        PlayerPrefs.SetInt("NumberOfDeaths", Logros.numberOfDeaths);
+
         isDead = true;
         yield return new WaitForSeconds(0.05f);
         playerMovementScript.StopMovement(true);

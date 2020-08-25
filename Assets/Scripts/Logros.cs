@@ -4,20 +4,104 @@ using UnityEngine;
 
 public class Logros : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static bool CompleteLevel1,
+        CompleteLevel2,
+        CompleteLevel3,
+        CompleteLevel4,
+        CompleteLevel5,
+        CompleteTheGame,
 
-    // Update is called once per frame
-    void Update()
+        PushedFiveRocks,
+        LightFirstTorch,
+        UseWhipFirst,
+        GrabFirstSkull,
+        GrabFirstGem,
+        KillFiveEnemies,
+        BreakFiveVases,
+        DropTheBridge,
+
+        GetFirstSecret,
+        GetAllSecrets,
+        ZeroDeaths;
+
+    public static int numberOfDeaths = 0;
+    public static int numberOfRocksPushed = 0;
+    public static int numberOfEnemiesKilled = 0;
+    public static int numberOfVasesBroken = 0;
+    public static int numberOfSecretObjects = 0;
+
+    private void Awake()
     {
-        
+        numberOfDeaths = PlayerPrefs.GetInt("NumberOfDeaths", 0);   //done
+        numberOfRocksPushed = PlayerPrefs.GetInt("NumberOfRocksPushed", 0);
+        numberOfEnemiesKilled = PlayerPrefs.GetInt("NumberOfEnemiesKilled", 0);
+        numberOfVasesBroken = PlayerPrefs.GetInt("NumberOfVasesBroken", 0);
+        numberOfSecretObjects = PlayerPrefs.GetInt("NumberOfSecretObjects", 0); //done
     }
 
     public static void CallAchievement(int index)
     {
-        Debug.Log("Achievement " + index + " has been called!");
+        string achievementName;
+
+        switch(index)
+        {
+            case 1:
+                achievementName = "The unknown";
+                break;
+            case 2:
+                achievementName = "The gardens";
+                break;
+            case 3:
+                achievementName = "The catacombs";
+                break;
+            case 4:
+                achievementName = "The bridge";
+                break;
+            case 5:
+                achievementName = "The cave";
+                break;
+            case 6:
+                achievementName = "The biggest treasure";
+                break;
+            case 7:
+                achievementName = "So strong!";
+                break;
+            case 8:
+                achievementName = "This is lit!";
+                break;
+            case 9:
+                achievementName = "I believe I can fly";
+                break;
+            case 10:
+                achievementName = "What a headache";
+                break;
+            case 11:
+                achievementName = "So shiny";
+                break;
+            case 12:
+                achievementName = "I hate those things";
+                break;
+            case 13:
+                achievementName = "Making a mess";
+                break;
+            case 14:
+                achievementName = "Bridge down!";
+                break;
+            case 15:
+                achievementName = "Our little secret";
+                break;
+            case 16:
+                achievementName = "Treasure hunter";
+                break;
+            case 17:
+                achievementName = "Zero deaths";
+                break;
+            default:
+                achievementName = "##ERROR##";
+                break;
+        }
+
+
+        Debug.Log("Achievement " + index + " unlocked: " + achievementName);
     }
 }

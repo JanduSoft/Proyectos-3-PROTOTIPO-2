@@ -10,9 +10,11 @@ public class PlatformSink : MonoBehaviour
     [SerializeField] Vector3 maxGoingDownPos;
     [SerializeField] float timeBeforeGoingUpAgain = 1f;
     GameObject player;
+    playerDeath playerDeathScript;
 
     bool startGoingDown = false;
     bool startGoingUp = false;
+    bool reset = false;
     Vector3 initialPosition;
     void Start()
     {
@@ -23,6 +25,13 @@ public class PlatformSink : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (playerDeathScript!=null && playerDeathScript.isDead && Mathf.Abs(initialPosition.y - transform.position.y) > 0.5)
+        {
+            startGoingDown = false;
+            startGoingUp = true;
+            reset = true;
+        }
+
         //if the platform has been touched, it starts going down
         if (startGoingDown)
         {
@@ -31,7 +40,11 @@ public class PlatformSink : MonoBehaviour
         //when the platform reaches its destination, it'll start going up again
         else if (startGoingUp)
         {
-            transform.Translate(Vector3.up * Time.deltaTime * goingDownSpeed);
+            if (reset)
+                transform.Translate(Vector3.up * Time.deltaTime * goingDownSpeed*2);
+
+            else
+                transform.Translate(Vector3.up * Time.deltaTime * goingDownSpeed);
         }
 
         //check if the platform has reached the position
@@ -43,6 +56,8 @@ public class PlatformSink : MonoBehaviour
         else if (transform.position.y == initialPosition.y || Mathf.Abs(initialPosition.y - transform.position.y) < 0.5)
         {
             startGoingUp = false;
+            if (reset) 
+                reset = false;
         }
 
         if (player!=null &&  Vector3.Distance(transform.position,player.transform.position) > 3.0f)
@@ -51,7 +66,7 @@ public class PlatformSink : MonoBehaviour
             player = null;
         }
     }
-    
+
     IEnumerator WaitAndGoUp()
     {
         yield return new WaitForSeconds(timeBeforeGoingUpAgain);
@@ -65,6 +80,7 @@ public class PlatformSink : MonoBehaviour
             //when you touch the platform, start going down
             other.gameObject.transform.SetParent(transform);
             player = other.gameObject;
+            playerDeathScript = other.gameObject.GetComponent<playerDeath>();
             startGoingDown = true;
         }
     }

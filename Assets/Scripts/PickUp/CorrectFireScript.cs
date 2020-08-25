@@ -10,6 +10,8 @@ public class CorrectFireScript : MonoBehaviour
     [SerializeField] GameObject correctFire;
 
     [SerializeField] List<GameObject> Fires;
+    [SerializeField] GameObject correctFireConsequence;
+    [SerializeField] GameObject incorrectFireConsequence;
     void Start()
     {
         
@@ -22,11 +24,16 @@ public class CorrectFireScript : MonoBehaviour
         {
             if (torch.GetComponent<PickUpDropandIgnite>().currentFireObject == correctFire)
             {
-                GetComponent<SphereCollider>().enabled = true;
+                //GetComponent<SphereCollider>().enabled = true;
+                torch.GetComponent<PickUpDropandIgnite>().ObjectToBeBurnt = gameObject;
+                torch.GetComponent<PickUpDropandIgnite>().consequence = correctFireConsequence;
             }
             else
             {
-                GetComponent<SphereCollider>().enabled = false;
+                //GetComponent<SphereCollider>().enabled = false;
+                torch.GetComponent<PickUpDropandIgnite>().ObjectToBeBurnt = null;
+                torch.GetComponent<PickUpDropandIgnite>().consequence = incorrectFireConsequence;
+
             }
 
             ParticleSystem current = torch.GetComponent<PickUpDropandIgnite>().currentFireObject.transform.GetChild(0).GetComponent<ParticleSystem>();

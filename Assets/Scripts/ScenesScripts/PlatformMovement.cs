@@ -17,6 +17,9 @@ public class PlatformMovement : MonoBehaviour
     playerDeath playerDeathScript;
     [Header("Smart respawn")]
     [SerializeField] bool smartRespawn = true;
+    [SerializeField] bool doAffect = true;
+    [Header("Optional - Lever")]
+    [SerializeField] GameObject lever;
 
     void Start()
     {
@@ -35,6 +38,11 @@ public class PlatformMovement : MonoBehaviour
             lastCheckpoint = playerDeathScript.lastSpawnPointTouched;
 
             transform.position = Vector3.Distance(position1, lastCheckpoint) < Vector3.Distance(position2, lastCheckpoint) ? position1 : position2;
+            if (lever!=null)
+            {
+                lever.GetComponent<LeverScript>().ResetLeverToPos1();
+                isActive = false;
+            }
                 
         }
         else if (!smartRespawn)
@@ -46,7 +54,7 @@ public class PlatformMovement : MonoBehaviour
     void Update()
     {
 
-        if (player.GetComponent<playerDeath>().isDead) 
+        if (player.GetComponent<playerDeath>().isDead && doAffect) 
             ResetToLastPosition();
         else
         {

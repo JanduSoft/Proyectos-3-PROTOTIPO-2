@@ -79,6 +79,7 @@ public class LeverScript : MonoBehaviour
                 }
                 else
                     lever.transform.localEulerAngles = new Vector3 (lever.transform.localRotation.x, lever.transform.localRotation.y, lever.transform.localEulerAngles.z - 45) ;
+                
                 activateObject.SendMessage("ActivateObject", false, SendMessageOptions.DontRequireReceiver);
                 //////CAMERA SHAKE
                 if (!shakeActivated)
@@ -95,6 +96,13 @@ public class LeverScript : MonoBehaviour
                 //object has a function activate. That way we could easily do MortalTrap.activate(); from here.
             }
         }
+    }
+
+    public void ResetLeverToPos1()
+    {
+        leverPulled = false;
+        inPos1 = true;
+        lever.transform.localRotation = Quaternion.Euler(rotation1);
     }
 
     private void OnTriggerStay(Collider other)

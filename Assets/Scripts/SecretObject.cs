@@ -18,7 +18,6 @@ public class SecretObject : MonoBehaviour
         OBJECT_5,
         OBJECT_6
 
-
     };
 
     [SerializeField] Object _object;
@@ -154,6 +153,21 @@ public class SecretObject : MonoBehaviour
     #region DISCOVER OBJECT
     void DiscoverObject()
     {
+        Logros.numberOfSecretObjects++;
+        PlayerPrefs.SetInt("NumberOfSecretObjects", Logros.numberOfSecretObjects);
+
+        if (Logros.numberOfSecretObjects == 1)
+        {
+            Logros.GetFirstSecret = true;
+            Logros.CallAchievement(15);
+        }
+        else if (Logros.numberOfSecretObjects == 6)
+        {
+            Logros.GetAllSecrets = true;
+            Logros.CallAchievement(16);
+        }
+
+
         switch (_object)
         {
             case Object.OBJECT_1:
