@@ -62,6 +62,7 @@ public class PickUpandDrop : PickUp
     protected IEnumerator PickUpCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
+        
         playerMovement.ableToWhip = false;
         PickUpObject();
     }

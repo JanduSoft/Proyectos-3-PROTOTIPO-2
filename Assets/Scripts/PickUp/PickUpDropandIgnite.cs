@@ -51,6 +51,7 @@ public class PickUpDropandIgnite : PickUpandDrop
             {
                 playerAnimator.SetFloat("Distance", Mathf.Abs((transform.position.y - distanceChecker.transform.position.y)));
                 useGravity = false;
+                _thisRB.constraints = RigidbodyConstraints.FreezeAll;
                 StartCoroutine(PickUpCoroutine(0f));
             }
             else if (!nearFire && !nearRope)
@@ -58,6 +59,7 @@ public class PickUpDropandIgnite : PickUpandDrop
                 playerAnimator.SetBool("DropObject", true);
                 player.SendMessage("StopMovement", true);
                 useGravity = true;
+                _thisRB.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
                 StartCoroutine(DropObjectCoroutine(0f));
                 StartCoroutine(AnimationsCoroutine(0.1f));
             }
