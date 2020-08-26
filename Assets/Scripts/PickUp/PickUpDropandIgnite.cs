@@ -40,7 +40,7 @@ public class PickUpDropandIgnite : PickUpandDrop
             Debug.Log("Current parent is" + transform.parent.name);
 
         CheckVariables();
-        if(objectIsGrabbed)
+        if(objectIsGrabbed && player!= null)
         {
             transform.localEulerAngles = new Vector3(180f, 0f, 0f);
         }
@@ -56,10 +56,10 @@ public class PickUpDropandIgnite : PickUpandDrop
             }
             else if (!nearFire && !nearRope)
             {
+                _thisRB.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
                 playerAnimator.SetBool("DropObject", true);
                 player.SendMessage("StopMovement", true);
                 useGravity = true;
-                _thisRB.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
                 StartCoroutine(DropObjectCoroutine(0f));
                 StartCoroutine(AnimationsCoroutine(0.1f));
             }
