@@ -301,7 +301,6 @@ public class PickUpDropandThrow : PickUpandDrop
         {
             if (thrown)
             {
-                Debug.Log("and i oop!");
                 hitSound.Play();
             }
             thrown = false;
