@@ -32,6 +32,11 @@ public class LoadScene : MonoBehaviour
 
     }
 
+    public void ShowLoad()
+    {
+        StartCoroutine(ShowLoadingScreen());
+    }
+
     IEnumerator ShowLoadingScreen()
     {
        
