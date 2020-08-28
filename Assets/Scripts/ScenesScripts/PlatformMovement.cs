@@ -99,13 +99,9 @@ public class PlatformMovement : MonoBehaviour
             float distanceToPlatform = Vector3.Distance(transform.position, player.transform.position);
             if (distanceToPlatform <2.8f)
             {
-                player.transform.SetParent(transform);
-                Debug.Log("parented!");
             }
             else if (distanceToPlatform >= 2.8f && distanceToPlatform < 3.5f)
             {
-                player.transform.SetParent(null);
-                Debug.Log("unparented!");
             }
         }
 
@@ -156,6 +152,32 @@ public class PlatformMovement : MonoBehaviour
         {
             //If it's not activated, leave the velocity at zero so the platform is stopped
             StopPlatform();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            player.transform.SetParent(transform);
+            Debug.Log("parented!");
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            player.transform.SetParent(transform);
+            Debug.Log("parented!");
+        }
+    }
+   
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            player.transform.SetParent(null);
+            Debug.Log("unparented!");
         }
     }
 }
