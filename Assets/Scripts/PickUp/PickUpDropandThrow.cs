@@ -33,7 +33,7 @@ public class PickUpDropandThrow : PickUpandDrop
     [Header("ONLY IF HAS OBJECT INSIDE")]
     [SerializeField] GameObject objectInside;
     [SerializeField] bool useGravity = true;
-    bool thrown = false;
+    [SerializeField]bool thrown = false;
     Vector3 playerToEnemy;
     [SerializeField] TutorialSprites tutoSprites;
 
@@ -41,6 +41,7 @@ public class PickUpDropandThrow : PickUpandDrop
 
     public bool isBroken = false;
     // Start is called before the first frame update
+
 
     public void ResetObject()
     {
@@ -99,6 +100,13 @@ public class PickUpDropandThrow : PickUpandDrop
             _thisSC.radius = 1;
 
         grabPlace = GameObject.Find("GrabObjectPos");
+
+
+
+        if (transform.name == "Breakable")
+        {
+            brokenSound = transform.parent.GetComponent<AudioSource>();
+        }
 
         sounds = GetComponents<AudioSource>();
 
@@ -165,9 +173,9 @@ public class PickUpDropandThrow : PickUpandDrop
                 }
                 else
                 {
-                    Debug.LogError("GrabbedObject " +objectIsGrabbed);
-                    Debug.LogError("insideSphere " + insideSphere);
-                    Debug.LogError("insideHere " + insideHere);
+                    //Debug.LogError("GrabbedObject " +objectIsGrabbed);
+                    //Debug.LogError("insideSphere " + insideSphere);
+                    //Debug.LogError("insideHere " + insideHere);
                 }
             }
             else
@@ -292,7 +300,9 @@ public class PickUpDropandThrow : PickUpandDrop
         if(tag == "Place" || tag == "Untagged")
         {
             if (thrown)
+            {
                 hitSound.Play();
+            }
             thrown = false;
         }
         if (collision.transform.tag == "WhipEnemy" && (tag == "Destroyable" || transform.GetChild(0).tag == "Place"))
