@@ -160,7 +160,6 @@ public class PlatformMovement : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             player.transform.SetParent(transform);
-            Debug.Log("parented!");
         }
     }
     private void OnTriggerStay(Collider other)
@@ -168,7 +167,6 @@ public class PlatformMovement : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             player.transform.SetParent(transform);
-            Debug.Log("parented!");
         }
     }
    
@@ -177,7 +175,6 @@ public class PlatformMovement : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             player.transform.SetParent(null);
-            Debug.Log("unparented!");
         }
     }
 }

@@ -34,8 +34,6 @@ public class PickUpandDrop : PickUp
     {
         playerMovement.ableToWhip = true;
         transform.SetParent(null);
-        Debug.Log("Set parent to null");
-
         objectIsGrabbed = false;
     }
     public void DropObject()

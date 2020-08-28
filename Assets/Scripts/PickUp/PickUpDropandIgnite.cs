@@ -16,6 +16,9 @@ public class PickUpDropandIgnite : PickUpandDrop
     [SerializeField] CamerShake shaking;
     GameObject nearFireObject;
     bool useGravity = false;
+    [SerializeField] bool canIgniteMoreThanOnce = true;
+    bool ignited = false;
+    bool objectBurnt = false;
     [SerializeField] public GameObject currentFireObject;
     // Start is called before the first frame update
 
@@ -34,17 +37,11 @@ public class PickUpDropandIgnite : PickUpandDrop
     // Update is called once per frame
     override protected void Update()
     {
-        if(transform.parent == null)
-            Debug.Log("Current parent is null");
-        else
-            Debug.Log("Current parent is" + transform.parent.name);
-
         CheckVariables();
         if(objectIsGrabbed && player!= null)
         {
             transform.localEulerAngles = new Vector3(180f, 0f, 0f);
         }
-        //if (InputManager.ActiveDevice.Action3.WasPressed && !cancelledDrop && player != null)
         if (GeneralInputScript.Input_GetKeyDown("Interact") && !cancelledDrop && player != null)
         {
             if (!objectIsGrabbed)
@@ -56,30 +53,46 @@ public class PickUpDropandIgnite : PickUpandDrop
             }
             else if (!nearFire && !nearRope)
             {
-                _thisRB.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
-                playerAnimator.SetBool("DropObject", true);
-                player.SendMessage("StopMovement", true);
-                useGravity = true;
-                StartCoroutine(DropObjectCoroutine(0f));
-                StartCoroutine(AnimationsCoroutine(0.1f));
+                DropTorch();
             }
             else if (nearFire)
             {
-                fireParticles.SetActive(true);
-                torchIgnited = true;
-                currentFireObject = nearFireObject;
+                if (!canIgniteMoreThanOnce) ignited = true;
+                if(!ignited)
+                {
+                    fireParticles.SetActive(true);
+                    torchIgnited = true;
+                    currentFireObject = nearFireObject;
+                }
+                else
+                    DropTorch();
             }
             else if (torchIgnited && nearRope)
             {
-                if (ObjectToBeBurnt!=null)
-                    ObjectToBeBurnt.SetActive(false);
-                consequence.SetActive(true);
-                nearRope = false;
-                shaking.StartShake(0.75f);
+                if (!objectBurnt)
+                {
+                    if (ObjectToBeBurnt != null)
+                        ObjectToBeBurnt.SetActive(false);
+                    consequence.SetActive(true);
+                    nearRope = false;
+                    objectBurnt = true;
+                    shaking.StartShake(0.75f);
+                }
+                else
+                    DropTorch();
             }
         }
     }
 
+    void DropTorch()
+    {
+        useGravity = true;
+        _thisRB.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        playerAnimator.SetBool("DropObject", true);
+        player.SendMessage("StopMovement", true);
+        StartCoroutine(DropObjectCoroutine(0f));
+        StartCoroutine(AnimationsCoroutine(0.1f));
+    }
     public void turnOffTorch()
     {
         torchIgnited = false;
@@ -87,7 +100,10 @@ public class PickUpDropandIgnite : PickUpandDrop
     }
     private void FixedUpdate()
     {
-        if (useGravity) _thisRB.AddForce(Physics.gravity * (_thisRB.mass * _thisRB.mass));
+        if (useGravity)
+        {
+            _thisRB.AddForce(Physics.gravity * (_thisRB.mass * _thisRB.mass));
+        }
     }
 
     private void OnTriggerStay(Collider other)
