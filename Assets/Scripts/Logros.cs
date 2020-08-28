@@ -4,36 +4,25 @@ using UnityEngine;
 
 public class Logros : MonoBehaviour
 {
-    public static bool CompleteLevel1,
-        CompleteLevel2,
-        CompleteLevel3,
-        CompleteLevel4,
-        CompleteLevel5,
-        CompleteTheGame,
-
-        PushedFiveRocks,
-        LightFirstTorch,
-        UseWhipFirst,
-        GrabFirstSkull,
-        GrabFirstGem,
-        KillFiveEnemies,
-        BreakFiveVases,
-        DropTheBridge,
-
-        GetFirstSecret,
-        GetAllSecrets,
-        ZeroDeaths;
-
-    public static int numberOfDeaths = 0;
     public static int numberOfRocksPushed = 0;
+    public static int numberOfDeaths = 0;
     public static int numberOfEnemiesKilled = 0;
     public static int numberOfVasesBroken = 0;
     public static int numberOfSecretObjects = 0;
+    public static int litYourFirstTorch = 0;
+    public static int didYourFirstWhip = 0;
+    public static int grabbedYourFirstSkull = 0;
+    public static int grabbedYourFirstGem = 0;
 
     private void Awake()
     {
         numberOfDeaths = PlayerPrefs.GetInt("NumberOfDeaths", 0);   //done
-        numberOfRocksPushed = PlayerPrefs.GetInt("NumberOfRocksPushed", 0);
+        numberOfRocksPushed = PlayerPrefs.GetInt("NumberOfRocksPushed", 0); //done
+        litYourFirstTorch = PlayerPrefs.GetInt("LitYourFirstTorch", 0); //done
+        didYourFirstWhip = PlayerPrefs.GetInt("DidYourFirstWhip", 0);   //done
+        grabbedYourFirstSkull = PlayerPrefs.GetInt("GrabbedYourFirstSkull", 0);
+        grabbedYourFirstGem = PlayerPrefs.GetInt("GrabbedYourFirstGem", 0);
+
         numberOfEnemiesKilled = PlayerPrefs.GetInt("NumberOfEnemiesKilled", 0);
         numberOfVasesBroken = PlayerPrefs.GetInt("NumberOfVasesBroken", 0);
         numberOfSecretObjects = PlayerPrefs.GetInt("NumberOfSecretObjects", 0); //done

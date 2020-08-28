@@ -7,6 +7,7 @@ public class LoadScene : MonoBehaviour
 {
     // Start is called before the first frame update
     public string sceneToLoad;
+    [SerializeField] int levelNumber;
     public Animation animationToPlay;
     public AnimationClip[] animationsToPlay = new AnimationClip[2];
 
@@ -26,6 +27,7 @@ public class LoadScene : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Logros.CallAchievement(levelNumber);
             other.GetComponent<PlayerMovement>().StopMovement(true);
             StartCoroutine(ShowLoadingScreen());
         }
