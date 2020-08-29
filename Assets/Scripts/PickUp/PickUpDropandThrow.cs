@@ -6,6 +6,8 @@ using InControl;
 
 public class PickUpDropandThrow : PickUpandDrop
 {
+    bool brokenBefore = false;
+
     static bool insideHere = false;
     [SerializeField] bool insideSphere = false;
     [SerializeField] double timeKeyDown = 0f;
@@ -122,6 +124,22 @@ public class PickUpDropandThrow : PickUpandDrop
                 playerAnimator.SetBool("PickUp", true);
                 base.PickUpObject();
                 playerMovement.removeObjectToList(this);
+
+                //FOR ACHIEVEMENTS
+                //first gem
+                if (PlayerPrefs.GetInt("GrabbedYourFirstGem", 0) == 0 && gameObject.name== "Joya")
+                {
+                    Logros.grabbedYourFirstGem = 1;
+                    PlayerPrefs.SetInt("GrabbedYourFirstGem", Logros.grabbedYourFirstGem);
+                    Logros.CallAchievement(11);
+                }
+                //first skull
+                else if (PlayerPrefs.GetInt("GrabbedYourFirstSkull", 0) == 0 && gameObject.name == "Skull")
+                {
+                    Logros.grabbedYourFirstSkull = 1;
+                    PlayerPrefs.SetInt("GrabbedYourFirstSkull", Logros.grabbedYourFirstSkull);
+                    Logros.CallAchievement(10);
+                }
             }
     }
 
@@ -287,6 +305,18 @@ public class PickUpDropandThrow : PickUpandDrop
             }
             insideHere = false;
             isBroken = true;
+
+            if (!brokenBefore)
+            {
+                brokenBefore = true;
+                Logros.numberOfVasesBroken++;
+                PlayerPrefs.SetInt("NumberOfVasesBroken", Logros.numberOfVasesBroken);
+                if (Logros.numberOfVasesBroken == 5)
+                {
+                    Logros.CallAchievement(13);
+                }
+            }
+
             dustParticles.SetActive(true);
             dustParticles.transform.SetParent(null);
             RaycastHit ray;

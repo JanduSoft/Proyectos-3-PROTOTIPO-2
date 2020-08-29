@@ -15,6 +15,14 @@ public class ActivateBridgeCinematic : MonoBehaviour
             bridgeCinematic.GetComponent<PlayableDirector>().Play();
             Destroy(rope, 0.5f);
             Destroy(bridgeCinematic, 4.56f);
+
+
+            if (PlayerPrefs.GetInt("DroppedTheBridge") == 0) 
+            {
+                Logros.droppedTheBridge = 1;
+                PlayerPrefs.SetInt("DroppedTheBridge",Logros.droppedTheBridge);
+                Logros.CallAchievement(14); //drop the bridge achievement
+            }
         }
     }
 }

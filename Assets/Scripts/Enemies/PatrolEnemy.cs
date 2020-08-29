@@ -77,6 +77,13 @@ public class PatrolEnemy : MonoBehaviour
 
     public void Die()
     {
+        Logros.numberOfEnemiesKilled++;
+        PlayerPrefs.SetInt("NumberOfEnemiesKilled", Logros.numberOfEnemiesKilled);
+        if (Logros.numberOfEnemiesKilled==3)
+        {
+            Logros.CallAchievement(12);
+        }
+
         trueDeath = true;
         animController.SetBool("dead", true);
         agent.SetDestination(agent.transform.position);

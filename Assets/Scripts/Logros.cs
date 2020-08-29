@@ -4,39 +4,44 @@ using UnityEngine;
 
 public class Logros : MonoBehaviour
 {
-    public static bool CompleteLevel1,
-        CompleteLevel2,
-        CompleteLevel3,
-        CompleteLevel4,
-        CompleteLevel5,
-        CompleteTheGame,
-
-        PushedFiveRocks,
-        LightFirstTorch,
-        UseWhipFirst,
-        GrabFirstSkull,
-        GrabFirstGem,
-        KillFiveEnemies,
-        BreakFiveVases,
-        DropTheBridge,
-
-        GetFirstSecret,
-        GetAllSecrets,
-        ZeroDeaths;
-
-    public static int numberOfDeaths = 0;
     public static int numberOfRocksPushed = 0;
+    public static int numberOfDeaths = 0;
     public static int numberOfEnemiesKilled = 0;
     public static int numberOfVasesBroken = 0;
     public static int numberOfSecretObjects = 0;
+    public static int litYourFirstTorch = 0;
+    public static int didYourFirstWhip = 0;
+    public static int grabbedYourFirstSkull = 0;
+    public static int grabbedYourFirstGem = 0;
+    public static int droppedTheBridge = 0;
 
     private void Awake()
     {
-        numberOfDeaths = PlayerPrefs.GetInt("NumberOfDeaths", 0);   //done
-        numberOfRocksPushed = PlayerPrefs.GetInt("NumberOfRocksPushed", 0);
+        numberOfDeaths = PlayerPrefs.GetInt("NumberOfDeaths", 0);               //done
+        numberOfRocksPushed = PlayerPrefs.GetInt("NumberOfRocksPushed", 0);     //done
+        litYourFirstTorch = PlayerPrefs.GetInt("LitYourFirstTorch", 0);         //done
+        didYourFirstWhip = PlayerPrefs.GetInt("DidYourFirstWhip", 0);           //done
+        grabbedYourFirstSkull = PlayerPrefs.GetInt("GrabbedYourFirstSkull", 0); //done
+        grabbedYourFirstGem = PlayerPrefs.GetInt("GrabbedYourFirstGem", 0);     //done
+        droppedTheBridge = PlayerPrefs.GetInt("DroppedTheBridge", 0);           //done
+
         numberOfEnemiesKilled = PlayerPrefs.GetInt("NumberOfEnemiesKilled", 0);
         numberOfVasesBroken = PlayerPrefs.GetInt("NumberOfVasesBroken", 0);
         numberOfSecretObjects = PlayerPrefs.GetInt("NumberOfSecretObjects", 0); //done
+    }
+
+    public static void resetAllAchievements()
+    {
+        PlayerPrefs.SetInt("NumberOfDeaths", 0);
+        PlayerPrefs.SetInt("NumberOfRocksPushed", 0);
+        PlayerPrefs.SetInt("LitYourFirstTorch", 0);
+        PlayerPrefs.SetInt("DidYourFirstWhip", 0);
+        PlayerPrefs.SetInt("GrabbedYourFirstSkull", 0);
+        PlayerPrefs.SetInt("GrabbedYourFirstGem", 0);
+        PlayerPrefs.SetInt("DroppedTheBridge", 0);
+        PlayerPrefs.SetInt("NumberOfEnemiesKilled", 0);
+        PlayerPrefs.SetInt("NumberOfVasesBroken", 0);
+        PlayerPrefs.SetInt("NumberOfSecretObjects", 0);
     }
 
     public static void CallAchievement(int index)
