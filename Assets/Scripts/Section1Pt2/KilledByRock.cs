@@ -24,6 +24,13 @@ public class KilledByRock : MonoBehaviour
     {
         if(other.tag == pedra.tag)
         {
+            Logros.numberOfEnemiesKilled++;
+            PlayerPrefs.SetInt("NumberOfEnemiesKilled", Logros.numberOfEnemiesKilled);
+            if (Logros.numberOfEnemiesKilled == 3)
+            {
+                Logros.CallAchievement(12);
+            }
+
             Destroy(gameObject);
             staff.transform.rotation = crushedStaff.transform.rotation;
             staff.transform.position = crushedStaff.transform.position;

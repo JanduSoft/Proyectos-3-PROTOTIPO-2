@@ -6,7 +6,7 @@ using InControl;
 
 public class PickUpDragandDrop : PickUpandDrop
 {
-    static bool rockAlreadyPushed = false;
+    bool rockAlreadyPushed = false;
 
     [SerializeField] float grabPointHeight = 0.5f;
     [SerializeField] float stoneSpeed = 5;
