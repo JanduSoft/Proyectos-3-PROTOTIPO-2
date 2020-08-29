@@ -122,6 +122,22 @@ public class PickUpDropandThrow : PickUpandDrop
                 playerAnimator.SetBool("PickUp", true);
                 base.PickUpObject();
                 playerMovement.removeObjectToList(this);
+
+                //FOR ACHIEVEMENTS
+                //first gem
+                if (PlayerPrefs.GetInt("GrabbedYourFirstGem", 0) == 0 && gameObject.name== "Joya")
+                {
+                    Logros.grabbedYourFirstGem = 1;
+                    PlayerPrefs.SetInt("GrabbedYourFirstGem", Logros.grabbedYourFirstGem);
+                    Logros.CallAchievement(11);
+                }
+                //first skull
+                else if (PlayerPrefs.GetInt("GrabbedYourFirstSkull", 0) == 0 && gameObject.name == "Skull")
+                {
+                    Logros.grabbedYourFirstSkull = 1;
+                    PlayerPrefs.SetInt("GrabbedYourFirstSkull", Logros.grabbedYourFirstSkull);
+                    Logros.CallAchievement(10);
+                }
             }
     }
 

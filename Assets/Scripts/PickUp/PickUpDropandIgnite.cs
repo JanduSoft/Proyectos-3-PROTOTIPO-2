@@ -66,6 +66,13 @@ public class PickUpDropandIgnite : PickUpandDrop
                 }
                 else
                     DropTorch();
+
+                if (PlayerPrefs.GetInt("LitYourFirstTorch", 0) == 0) 
+                {
+                    Logros.litYourFirstTorch = 1;
+                    PlayerPrefs.SetInt("LitYourFirstTorch", Logros.litYourFirstTorch);
+                    Logros.CallAchievement(8);
+                }
             }
             else if (torchIgnited && nearRope)
             {
