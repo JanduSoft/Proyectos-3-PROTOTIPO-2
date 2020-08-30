@@ -129,7 +129,8 @@ public class AddSkull : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canPlace = false;
-            skull.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
+            if(skull != null)
+                skull.GetComponent<PickUpDropandThrow>().SetCancelledDrop(false);
         }
         else if (other.CompareTag("Skull"))
         {
