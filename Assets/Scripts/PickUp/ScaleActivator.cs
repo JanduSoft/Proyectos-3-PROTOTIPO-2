@@ -5,8 +5,10 @@ using UnityEngine;
 public class ScaleActivator : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] GameObject Torch;
     void Start()
     {
+        GameObject.Destroy(Torch);
         transform.parent.GetComponent<Rigidbody>().useGravity = true;
         StartCoroutine(EnableScript());
     }
