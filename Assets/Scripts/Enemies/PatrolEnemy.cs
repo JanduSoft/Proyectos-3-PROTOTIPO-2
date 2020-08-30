@@ -105,7 +105,7 @@ public class PatrolEnemy : MonoBehaviour
         {
             Skull.SetActive(true);
             Skull.transform.position = headPosition.transform.position;
-            headPosition.transform.position = headPosition.transform.position - (headPosition.transform.up * 100);
+            headPosition.transform.position = new Vector3(headPosition.transform.position.x, headPosition.transform.position.y - 20, headPosition.transform.position.z);
         }
 
     }

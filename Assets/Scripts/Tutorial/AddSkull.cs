@@ -46,8 +46,9 @@ public class AddSkull : MonoBehaviour
             //if (InputManager.ActiveDevice.Action3.WasPressed && skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed())
             if (GeneralInputScript.Input_GetKeyDown("Interact") && skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed())
             {
-                playeranimator.SetBool("DropObject", true);
+                playeranimator.SetBool("PlaceObject", true);
                 skull.GetComponent<PickUpDropandThrow>().DropObject();
+                playeranimator.SetBool("DropObject", false);
                 StartCoroutine(AnimationsCoroutine(0.1f));
             }
 
