@@ -292,6 +292,8 @@ public class NewMainMenu : MonoBehaviour
                 case ButtonType.NEW_GAME:
                     {
                         PlayerPrefs.SetInt("LevelSaved", 1);
+                        Logros.resetAllAchievements();
+                        
                         SceneManager.LoadScene("InitialCinematic");
 
                         RestartSecrets();

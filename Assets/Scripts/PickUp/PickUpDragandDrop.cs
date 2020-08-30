@@ -6,6 +6,8 @@ using InControl;
 
 public class PickUpDragandDrop : PickUpandDrop
 {
+    bool rockAlreadyPushed = false;
+
     [SerializeField] float grabPointHeight = 0.5f;
     [SerializeField] float stoneSpeed = 5;
     [SerializeField] Animator animator;
@@ -220,7 +222,18 @@ public class PickUpDragandDrop : PickUpandDrop
 
     void PushRock(Vector3 movingDirection)
     {
-        playerGraphics.position = player.transform.position;
+        if (!rockAlreadyPushed)
+        {
+            rockAlreadyPushed = true;
+            Logros.numberOfRocksPushed++;
+            PlayerPrefs.SetInt("NumberOfRocksPushed", Logros.numberOfRocksPushed);
+            if (Logros.numberOfRocksPushed==5)
+            {
+                Logros.CallAchievement(7);
+            }
+        }
+
+            playerGraphics.position = player.transform.position;
         animator.SetBool("Pulling", false);
         animator.SetBool("Push", true);
         rb.velocity = movingDirection.normalized * stoneSpeed;
@@ -252,6 +265,18 @@ public class PickUpDragandDrop : PickUpandDrop
     }
     void PullRock(Vector3 movingDirection)
     {
+        if (!rockAlreadyPushed)
+        {
+            rockAlreadyPushed = true;
+            Logros.numberOfRocksPushed++;
+            PlayerPrefs.SetInt("NumberOfRocksPushed", Logros.numberOfRocksPushed);
+            if (Logros.numberOfRocksPushed == 5)
+            {
+                Logros.CallAchievement(7);
+            }
+        }
+
+
         playerGraphics.position = player.transform.position;
 
         animator.SetBool("Push", false);

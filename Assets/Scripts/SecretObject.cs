@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class SecretObject : MonoBehaviour
 {
+    static bool alreadyDiscoveredObject = false;
     #region VARIABLES
     public enum Object
     {
@@ -153,55 +154,69 @@ public class SecretObject : MonoBehaviour
     #region DISCOVER OBJECT
     void DiscoverObject()
     {
-        Logros.numberOfSecretObjects++;
-        PlayerPrefs.SetInt("NumberOfSecretObjects", Logros.numberOfSecretObjects);
-
-        if (Logros.numberOfSecretObjects == 1)
-        {
-            Logros.GetFirstSecret = true;
-            Logros.CallAchievement(15);
-        }
-        else if (Logros.numberOfSecretObjects == 6)
-        {
-            Logros.GetAllSecrets = true;
-            Logros.CallAchievement(16);
-        }
-
-
+        int auxSecretBool = 0;
         switch (_object)
         {
             case Object.OBJECT_1:
                 {
+                    auxSecretBool = PlayerPrefs.GetInt("Secret1", 0);   //this is to know if the secret had already been discovered
+
                     PlayerPrefs.SetInt("Secret1", 1);
                     break;
                 }
             case Object.OBJECT_2:
                 {
+                    auxSecretBool = PlayerPrefs.GetInt("Secret2", 0);
+
                     PlayerPrefs.SetInt("Secret2", 1);
                     break;
                 }
             case Object.OBJECT_3:
                 {
+                    auxSecretBool = PlayerPrefs.GetInt("Secret3", 0);
+
                     PlayerPrefs.SetInt("Secret3", 1);
                     break;
                 }
             case Object.OBJECT_4:
                 {
+                    auxSecretBool = PlayerPrefs.GetInt("Secret4", 0);
+
                     PlayerPrefs.SetInt("Secret4", 1);
                     break;
                 }
             case Object.OBJECT_5:
                 {
+                    auxSecretBool = PlayerPrefs.GetInt("Secret5", 0);
+
                     PlayerPrefs.SetInt("Secret5", 1);
                     break;
                 }
             case Object.OBJECT_6:
                 {
+                    auxSecretBool = PlayerPrefs.GetInt("Secret6", 0);
+
                     PlayerPrefs.SetInt("Secret6", 1);
                     break;
                 }
             default:
                 break;
+        }
+
+        if (!alreadyDiscoveredObject && auxSecretBool==0)
+        {
+            alreadyDiscoveredObject = true;
+            Logros.numberOfSecretObjects++;
+            PlayerPrefs.SetInt("NumberOfSecretObjects", Logros.numberOfSecretObjects);
+
+            if (Logros.numberOfSecretObjects == 1)
+            {
+                Logros.CallAchievement(15);
+            }
+            else if (Logros.numberOfSecretObjects == 6)
+            {
+                Logros.CallAchievement(16);
+            }
         }
     }
     #endregion

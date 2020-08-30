@@ -35,8 +35,21 @@ public class OpenFinalGate : MonoBehaviour
         }
     }
 
+    void detectGameEnding()
+    {
+        if (PlayerPrefs.GetInt("NumberOfDeaths")==0)
+        {
+            Logros.CallAchievement(17); //completed the game without deaths
+        }
+
+
+        Logros.CallAchievement(6);  //ended the game
+    }
+
     void openGate()
     {
+
+        detectGameEnding();
 
         //play animation
         playableObject.GetComponent<PlayableDirector>().Play();

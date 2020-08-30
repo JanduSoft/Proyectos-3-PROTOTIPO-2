@@ -151,6 +151,13 @@ public class NewWhipJump : MonoBehaviour
     #region WHIP JUMP
     void WhipJump()
     {
+        if (PlayerPrefs.GetInt("DidYourFirstWhip", 0) == 0)
+        {
+            Logros.didYourFirstWhip = 1;
+            PlayerPrefs.SetInt("DidYourFirstWhip", Logros.didYourFirstWhip);
+            Logros.CallAchievement(9);
+        }
+
         whip.SetPosition(1, toWhipObject.position);
         player.DOJump(destination.position, -3 , 1, speed);
         //player.DOMove(destination.position, speed);
