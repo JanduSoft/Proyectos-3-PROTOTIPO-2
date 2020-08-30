@@ -14,18 +14,19 @@ public class PickUpDragandDrop : PickUpandDrop
     [HideInInspector] public bool playSound = false;
     Vector3[] grabPoints = new Vector3[4];
     [SerializeField] float grabPointsDistance = 4.2f;
-    int minPoint = -1;
+    [SerializeField] int minPoint = -1;
     [HideInInspector] public Rigidbody rb;
     [SerializeField] public AudioSource dragSound;
     static GameObject currentRock;
     float sensitivityAngle = 90;
     [SerializeField] bool isGrounded;
     Vector3 closestPos;
-    [HideInInspector] public GameObject touchedTrigger = null;
+    [SerializeField] bool isPressingButton;
+    [SerializeField] public GameObject touchedTrigger = null;
     Vector3 positionGrabbed;
     Transform playerGraphics;
 
-    bool DoingSlide = false;
+    [SerializeField] bool DoingSlide = false;
 
     // Start is called before the first frame update
     void Start()
@@ -74,7 +75,7 @@ public class PickUpDragandDrop : PickUpandDrop
         if (player != null && touchedTrigger==null)
         {
             //bool isPressingButton = InputManager.ActiveDevice.Action3;
-            bool isPressingButton = GeneralInputScript.Input_isKeyPressed("Interact");
+            isPressingButton = GeneralInputScript.Input_isKeyPressed("Interact");
 
             //If you can press the button again and you press it
             if (isPressingButton)
@@ -84,7 +85,6 @@ public class PickUpDragandDrop : PickUpandDrop
                 {
                     lookAtRock();
                 }
-
                 //If the rock is not grabbed and you're facing it, grab it
                 if (isFacingBox && !animator.GetBool("Attached") && currentRock == null && !DoingSlide)
                 {
@@ -108,11 +108,13 @@ public class PickUpDragandDrop : PickUpandDrop
 
                     });
 
+
                 }
 
                 //If the rock is grabbed and you're facing it
                 if (RockMiddleVariables.CanDrag && currentRock == gameObject)
                 {
+
                     //Look at it
                     Debug.DrawRay(player.transform.position, player.transform.forward);
 
@@ -344,10 +346,11 @@ public class PickUpDragandDrop : PickUpandDrop
             }
 
         }
+        Debug.Log("Min Point Is " + minPoint);
 
         RaycastHit hit;
         pointToPlayer = player.transform.position - grabPoints[minPoint];
-
+        Debug.DrawRay(grabPoints[minPoint] + Vector3.up, pointToPlayer, Color.red);
         if (Physics.Raycast(grabPoints[minPoint] + Vector3.up, pointToPlayer, out hit, Mathf.Infinity))
         {
             Debug.DrawRay(grabPoints[minPoint] + Vector3.up, pointToPlayer, Color.cyan,5f);

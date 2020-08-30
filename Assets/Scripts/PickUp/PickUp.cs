@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
-    protected GameObject player = null;
+    [SerializeField] protected GameObject player = null;
     protected GameObject grabPlace = null;
     protected GameObject distanceChecker = null;
     protected float minDistanceToGrabObject = 2.5f;
     protected static bool objectIsGrabbed = false;
     protected bool distanceSuficient = false;
-    protected bool isFacingBox = false;
+    [SerializeField] protected bool isFacingBox = false;
     [SerializeField] protected static bool cancelledDrop = false;
     protected float distancePlayerObject;
     protected float minDot = 0.5f;
