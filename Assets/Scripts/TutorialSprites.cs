@@ -57,6 +57,8 @@ public class TutorialSprites : MonoBehaviour
     [SerializeField] float inititalSize;
     private float finalSize = 0.4f;
 
+    bool canChangeSprite = true;
+
     //InControlManager inputController;
     //public InControlManager.ControllerType currentController;
 
@@ -112,41 +114,45 @@ public class TutorialSprites : MonoBehaviour
                 {
                     if (player.isOnPedestal)
                     {
-                        switch (GeneralInputScript.currentController.ControllerName)
+                        if (canChangeSprite)
                         {
-                            case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
-                                {
-                                    interact.SetActive(true);
-                                    whip.SetActive(false);
+                            switch (GeneralInputScript.currentController.ControllerName)
+                            {
+                                case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
+                                    {
+                                        interact.SetActive(true);
+                                        whip.SetActive(false);
+                                        break;
+                                    }
+                                case GeneralInputScript.ControllerNames.PS3:
+                                    {
+                                        interactPS4.SetActive(true);
+                                        whipPS4.SetActive(false);
+                                        break;
+                                    }
+                                case GeneralInputScript.ControllerNames.PS4:
+                                    {
+                                        interactPS4.SetActive(true);
+                                        whipPS4.SetActive(false);
+                                        break;
+                                    }
+                                case GeneralInputScript.ControllerNames.XBOX360:
+                                    {
+                                        interactXBOX.SetActive(true);
+                                        whipXBOX.SetActive(false);
+                                        break;
+                                    }
+                                case GeneralInputScript.ControllerNames.XBOXONE:
+                                    {
+                                        interactXBOX.SetActive(true);
+                                        whipXBOX.SetActive(false);
+                                        break;
+                                    }
+                                default:
                                     break;
-                                }
-                            case GeneralInputScript.ControllerNames.PS3:
-                                {
-                                    interactPS4.SetActive(true);
-                                    whipPS4.SetActive(false);
-                                    break;
-                                }
-                            case GeneralInputScript.ControllerNames.PS4:
-                                {
-                                    interactPS4.SetActive(true);
-                                    whipPS4.SetActive(false);
-                                    break;
-                                }
-                            case GeneralInputScript.ControllerNames.XBOX360:
-                                {
-                                    interactXBOX.SetActive(true);
-                                    whipXBOX.SetActive(false);
-                                    break;
-                                }
-                            case GeneralInputScript.ControllerNames.XBOXONE:
-                                {
-                                    interactXBOX.SetActive(true);
-                                    whipXBOX.SetActive(false);
-                                    break;
-                                }
-                            default:
-                                break;
+                            }
                         }
+                        
                     }
                     else
                     {
@@ -335,6 +341,11 @@ public class TutorialSprites : MonoBehaviour
             isObjectInside = true;
             pickUpThrow = other.GetComponent<PickUpDropandThrow>();
         }
+        if (other.CompareTag("NoPlace"))
+        {
+            canChangeSprite = false;
+            Debug.Log("Entra el Jarron" + "    canChangeSprite:" + canChangeSprite);
+        }
     }
     #endregion
 
@@ -398,6 +409,11 @@ public class TutorialSprites : MonoBehaviour
         if ( ( other.CompareTag("Place") || other.CompareTag("Skull") ) && button == buttonType.PLACE_OBJECT)
         {
             isObjectInside = false;
+        }
+        if (other.CompareTag("NoPlace"))
+        {
+            canChangeSprite = true;
+            Debug.Log("Sale el Jarron" + "    canChangeSprite:" + canChangeSprite );
         }
     }
     #endregion
