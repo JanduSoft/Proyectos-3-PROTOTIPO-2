@@ -344,7 +344,10 @@ public class TutorialSprites : MonoBehaviour
         if (other.CompareTag("NoPlace"))
         {
             canChangeSprite = false;
-            Debug.Log("Entra el Jarron" + "    canChangeSprite:" + canChangeSprite);
+        }
+        if (other.CompareTag("Place"))
+        {
+            canChangeSprite = true;
         }
     }
     #endregion
@@ -412,8 +415,8 @@ public class TutorialSprites : MonoBehaviour
         }
         if (other.CompareTag("NoPlace"))
         {
+            Debug.Log("Object NoPlace Exiting Trigger");
             canChangeSprite = true;
-            Debug.Log("Sale el Jarron" + "    canChangeSprite:" + canChangeSprite );
         }
     }
     #endregion

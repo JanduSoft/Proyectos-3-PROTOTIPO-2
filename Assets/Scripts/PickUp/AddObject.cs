@@ -112,6 +112,7 @@ public class AddObject : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canPlace = false;
+            if(_object != null)
             _object.GetComponent<PickUp>().SetCancelledDrop(false);
         }
         else if (other.CompareTag("Place"))

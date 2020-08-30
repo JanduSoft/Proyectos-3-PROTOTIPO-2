@@ -91,12 +91,10 @@ public class GeneralInputScript : MonoBehaviour
                 //If the controller is not recognized, switch to PC keyboard and mouse
                 currentController = new controllerIds(controllers[controllers.Length-1].ControllerName, controllers[controllers.Length-1].controllerFullId);
             }
-            Debug.Log("Using controller named:" + currentController.ControllerName);
         }
         else
         {
             currentController = null;
-            Debug.Log("No input used yet");
         }
     }
 

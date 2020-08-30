@@ -96,7 +96,6 @@ public class PickUpDropandThrow : PickUpandDrop
         playerAnimator = GameObject.Find("Character").GetComponentInChildren<Animator>();
         playerMovement = GameObject.Find("Character").GetComponent<PlayerMovement>();
         _thisRB.useGravity = false;
-        useGravity = false;
         _thisRB.constraints = RigidbodyConstraints.FreezeAll;
         if(changeSC)
             _thisSC.radius = 1;
