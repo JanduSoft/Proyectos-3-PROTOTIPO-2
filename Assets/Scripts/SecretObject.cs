@@ -49,6 +49,39 @@ public class SecretObject : MonoBehaviour
 
     #endregion
 
+    private void Start()
+    {
+        switch (GeneralInputScript.currentController.ControllerName)
+        {
+            case GeneralInputScript.ControllerNames.KEYBOARD_AND_MOUSE:
+                {
+                    openSecretsText.text = "press I to open the list of secrets";
+                    break;
+                }
+            case GeneralInputScript.ControllerNames.PS3:
+                {
+                    openSecretsText.text = "press SELECT to open the list of secrets";
+                    break;
+                }
+            case GeneralInputScript.ControllerNames.PS4:
+                {
+                    openSecretsText.text = "press SHARE to open the list of secrets";
+                    break;
+                }
+            case GeneralInputScript.ControllerNames.XBOX360:
+                {
+                    openSecretsText.text = "press BACK to open the list of secrets";
+                    break;
+                }
+            case GeneralInputScript.ControllerNames.XBOXONE:
+                {
+                    openSecretsText.text = "press BACK to open the list of secrets";
+                    break;
+                }
+            default:
+                break;
+        }
+    }
     #region UPDATE
     void Update()
     {
