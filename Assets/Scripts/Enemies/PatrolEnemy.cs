@@ -31,7 +31,8 @@ public class PatrolEnemy : MonoBehaviour
     void Start()
     {
         startPosition = transform.position;
-        Skull.SetActive(false);
+        if(spawnSkull)
+            Skull.SetActive(false);
     }
 
     // Update is called once per frame

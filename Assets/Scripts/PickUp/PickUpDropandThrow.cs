@@ -14,6 +14,7 @@ public class PickUpDropandThrow : PickUpandDrop
     [SerializeField] bool timeKeyDownX = false;
     [SerializeField] bool timeKeyDownY = false;
     [SerializeField] bool changeSC = true;
+    [SerializeField] bool tumbao = false;
     int force = 10;
     bool nearEnemy = false;
     [SerializeField] bool isImportantObject = false;
@@ -122,6 +123,8 @@ public class PickUpDropandThrow : PickUpandDrop
             {
                 playerAnimator.SetBool("PickUp", true);
                 base.PickUpObject();
+                if(tumbao)
+                    transform.Rotate(90, 90, 0);
                 playerMovement.removeObjectToList(this);
 
                 //FOR ACHIEVEMENTS
