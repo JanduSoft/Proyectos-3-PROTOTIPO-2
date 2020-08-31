@@ -124,7 +124,7 @@ public class PickUpDropandThrow : PickUpandDrop
                 playerAnimator.SetBool("PickUp", true);
                 base.PickUpObject();
                 if(tumbao)
-                    transform.Rotate(90, 90, 0);
+                    transform.Rotate(90, 0, 0);
                 playerMovement.removeObjectToList(this);
 
                 //FOR ACHIEVEMENTS
