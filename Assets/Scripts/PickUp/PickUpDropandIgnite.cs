@@ -65,7 +65,9 @@ public class PickUpDropandIgnite : PickUpandDrop
                     currentFireObject = nearFireObject;
                 }
                 else
+                {
                     DropTorch();
+                }
 
                 if (PlayerPrefs.GetInt("LitYourFirstTorch", 0) == 0) 
                 {
@@ -80,13 +82,17 @@ public class PickUpDropandIgnite : PickUpandDrop
                 {
                     if (ObjectToBeBurnt != null)
                         ObjectToBeBurnt.SetActive(false);
-                    consequence.SetActive(true);
                     nearRope = false;
                     objectBurnt = true;
                     shaking.StartShake(0.75f);
+                    consequence.SetActive(true);
                 }
                 else
+                {
+                    Debug.Log("hlasdoa");
+
                     DropTorch();
+                }
             }
         }
     }
@@ -103,6 +109,9 @@ public class PickUpDropandIgnite : PickUpandDrop
     public void turnOffTorch()
     {
         torchIgnited = false;
+        objectBurnt = false;
+        ignited = false;
+        currentFireObject = null;
         fireParticles.SetActive(false);
     }
     private void FixedUpdate()

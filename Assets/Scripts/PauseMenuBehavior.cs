@@ -11,6 +11,10 @@ using UnityEngine.Audio;
 public class PauseMenuBehavior : MonoBehaviour
 {
     #region VARIABLES
+
+    public Animation animationToPlay;
+    public AnimationClip[] animationsToPlay = new AnimationClip[2];
+
     public enum Movement
     {
         NONE,
@@ -253,6 +257,41 @@ public class PauseMenuBehavior : MonoBehaviour
         SaveGame();
     }
     #endregion
+
+
+    public void ShowLoad(string sceneToLoad)
+    {
+        StartCoroutine(ShowLoadingScreen(sceneToLoad));
+    }
+
+    IEnumerator ShowLoadingScreen(string sceneToLoad)
+    {
+
+        animationToPlay.clip = animationsToPlay[0];
+        animationToPlay.Play();
+        yield return new WaitForSeconds(0.5f);
+        GetComponent<Canvas>().enabled = false;
+        animationToPlay.clip = animationsToPlay[1];
+        animationToPlay.Play();
+        yield return new WaitForSeconds(2f);    //to show loading screen
+        StartCoroutine(LoadDaScene(sceneToLoad));
+    }
+
+    IEnumerator LoadDaScene(string sceneToLoad)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneToLoad);
+        operation.allowSceneActivation = false;
+
+        while (operation.progress <= 0.8f)
+        {
+            //mantains the game stuck in the loop until the level is done loading
+            yield return null;
+        }
+
+        operation.allowSceneActivation = true;
+
+        yield return null;
+    }
 
     #region UPDATE
     void Update()
@@ -551,7 +590,8 @@ public class PauseMenuBehavior : MonoBehaviour
     void RestartGame()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(currentScene);
+        ShowLoad(currentScene);
+        //SceneManager.LoadScene(currentScene);
     }
     #endregion
 
@@ -559,7 +599,8 @@ public class PauseMenuBehavior : MonoBehaviour
     void QuitGame()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("MainMenu");
+        ShowLoad("MainMenu");
+        //SceneManager.LoadScene("MainMenu");
     }
     #endregion
 
