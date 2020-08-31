@@ -9,6 +9,10 @@ using UnityEngine.Audio;
 public class NewMainMenu : MonoBehaviour
 {
     #region VARIABLES    
+
+    public Animation animationToPlay;
+    public AnimationClip[] animationsToPlay = new AnimationClip[2];
+
     public enum ButtonType
     {
         NONE,
@@ -246,37 +250,37 @@ public class NewMainMenu : MonoBehaviour
                             {
                                 case 1:
                                     {
-                                        SceneManager.LoadScene("InitialCinematic");
+                                        ShowLoad("InitialCinematic");
                                         break;
                                     }
                                 case 2:
                                     {
-                                        SceneManager.LoadScene("TestTutorialPart1");
+                                        ShowLoad("TestTutorialPart1");
                                         break;
                                     }
                                 case 3:
                                     {
-                                        SceneManager.LoadScene("TestTutorialPart2");
+                                        ShowLoad("TestTutorialPart2");
                                         break;
                                     }
                                 case 4:
                                     {
-                                        SceneManager.LoadScene("NewSection1Part1");
+                                        ShowLoad("NewSection1Part1");
                                         break;
                                     }
                                 case 5:
                                     {
-                                        SceneManager.LoadScene("Section2Part1");
+                                        ShowLoad("Section2Part1");
                                         break;
                                     }
                                 case 6:
                                     {
-                                        SceneManager.LoadScene("Section1Part2");
+                                        ShowLoad("Section1Part2");
                                         break;
                                     }
                                 case 7:
                                     {
-                                        SceneManager.LoadScene("Section1Part3");
+                                        ShowLoad("Section1Part3");
                                         break;
                                     }
                                 default:
@@ -293,8 +297,9 @@ public class NewMainMenu : MonoBehaviour
                     {
                         PlayerPrefs.SetInt("LevelSaved", 1);
                         Logros.resetAllAchievements();
-                        
-                        SceneManager.LoadScene("InitialCinematic");
+
+                        ShowLoad("InitialCinematic");
+                        //SceneManager.LoadScene("InitialCinematic");
 
                         RestartSecrets();
                         break;
@@ -611,6 +616,40 @@ public class NewMainMenu : MonoBehaviour
 
     }
     #endregion
+
+    public void ShowLoad(string sceneToLoad)
+    {
+        StartCoroutine(ShowLoadingScreen(sceneToLoad));
+    }
+
+    IEnumerator ShowLoadingScreen(string sceneToLoad)
+    {
+
+        animationToPlay.clip = animationsToPlay[0];
+        animationToPlay.Play();
+        yield return new WaitForSeconds(0.5f);
+        mainMenu.SetActive(false);
+        animationToPlay.clip = animationsToPlay[1];
+        animationToPlay.Play();
+        yield return new WaitForSeconds(2f);    //to show loading screen
+        StartCoroutine(LoadDaScene(sceneToLoad));
+    }
+
+    IEnumerator LoadDaScene(string sceneToLoad)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneToLoad);
+        operation.allowSceneActivation = false;
+
+        while (operation.progress <= 0.8f)
+        {
+            //mantains the game stuck in the loop until the level is done loading
+            yield return null;
+        }
+
+        operation.allowSceneActivation = true;
+
+        yield return null;
+    }
 
     #region RESTART SECRETS
     void RestartSecrets()
