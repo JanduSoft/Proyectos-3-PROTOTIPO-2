@@ -383,10 +383,10 @@ public class PickUpDropandThrow : PickUpandDrop
     }
     override protected void ForcePickUpObject()
     {
-            Debug.Log("beign called trying to force pick up");
         if (!objectIsGrabbed)
         {
-            Debug.Log("beign called forcce pick up");
+            if (tumbao)
+                transform.Rotate(90, 0, 0);
             _thisRB.constraints = RigidbodyConstraints.FreezeAll;
             useGravity = false;
             playerAnimator.SetBool("PickUp", true);

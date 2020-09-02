@@ -64,6 +64,7 @@ public class AddSkull : MonoBehaviour
             if(!skull.GetComponent<PickUpDropandThrow>().GetObjectIsGrabbed())
             {
                 skullTransform.position = placePosition.transform.position;
+                skullTransform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 skullTransform.rotation = transform.rotation;
                 skullTransform.SetParent(placePosition.transform);
                 if (faceOppositeDirection) skullTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
