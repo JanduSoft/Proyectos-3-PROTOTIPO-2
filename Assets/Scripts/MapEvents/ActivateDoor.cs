@@ -43,20 +43,9 @@ public class ActivateDoor : MonoBehaviour
     {
         if (other.CompareTag("Place"))
         {
-            if (InputManager.ActiveDevice.Action3.WasPressed)
-            {
-                animator.SetBool("DropObject", false);
-                animator.SetBool("PlaceObject", true);
-                StartCoroutine(AnimationsCoroutine(0.5f));
-            }
             if (!other.transform.parent.GetComponent<PickUpandDrop>().GetObjectIsGrabbed())
             {
-                playerMovement.ableToWhip = true;
                 objectoToMove.DOMoveY(finalPosition.position.y, speed);
-                other.tag = "Untagged";
-                other.transform.parent.gameObject.transform.position = skullPlace.position;
-                other.transform.parent.gameObject.transform.rotation = skullPlace.rotation;
-                other.transform.parent.gameObject.GetComponent<PickUpandDrop>().enabled = false;
                 myPart.isActive = true;
                 if (!isOpened)
                 {
@@ -65,8 +54,6 @@ public class ActivateDoor : MonoBehaviour
                     shakeSound.Play();
                     myCamera.DOShakePosition(durationShake, strength, vibrato, randomness, true);
                     StartCoroutine(doCinematic());
-
-                    
                 }
             }
         }

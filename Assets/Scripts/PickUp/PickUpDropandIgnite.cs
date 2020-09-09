@@ -14,6 +14,7 @@ public class PickUpDropandIgnite : PickUpandDrop
     [SerializeField] public bool torchIgnited = false;
     [SerializeField] Rigidbody _thisRB;
     [SerializeField] CamerShake shaking;
+    [SerializeField] bool destroyObject = false;
     GameObject nearFireObject;
     bool useGravity = false;
     [SerializeField] bool canIgniteMoreThanOnce = true;
@@ -86,11 +87,10 @@ public class PickUpDropandIgnite : PickUpandDrop
                     objectBurnt = true;
                     shaking.StartShake(0.75f);
                     consequence.SetActive(true);
+                    Destroy(this.gameObject);
                 }
                 else
                 {
-                    Debug.Log("hlasdoa");
-
                     DropTorch();
                 }
             }

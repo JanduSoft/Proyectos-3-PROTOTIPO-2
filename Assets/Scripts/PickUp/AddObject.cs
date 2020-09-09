@@ -93,7 +93,7 @@ public class AddObject : MonoBehaviour
         _objectTransform.position = placePosition.transform.position;
         _objectTransform.rotation = transform.rotation;
         _object.transform.SetParent(transform);
-        
+        _object.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         if (faceOppositeDirection) _objectTransform.Rotate(0, 180, 0);   //this is in case you want to make the skull face the oposite direction
         else if(quarterRotation) _objectTransform.Rotate(90, 90, 0);
         if(_object.name == targetObject.name)
